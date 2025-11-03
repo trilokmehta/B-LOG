@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERPLi Attendance Dashboard (Supabase)</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        /* ... (styles are the same as before) ... */
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background: #9ca3af; border-radius: 4px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        /* Modal */
+        .modal-backdrop { display: none; position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.5); opacity: 0; transition: opacity 0.3s ease-in-out; z-index: 40; }
+        .modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0; transition: all 0.3s ease-in-out; z-index: 50; }
+        .modal-backdrop.active, .modal.active { display: block; opacity: 1; }
+        /* Loader */
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #3b82f6; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="h-full font-sans antialiased">
+    <!-- Main Application Root -->
+    <div id="app-root" class="flex items-center justify-center min-h-full p-4">
+        <!-- This content will be replaced by the JS application -->
+        <div class="text-center">
+            <div class="loader"></div>
+            <p class="mt-4 text-lg font-medium text-gray-700">Loading ERPLi Dashboard...</p>
+        </div>
+    </div>
+
+    <!-- Modal Container -->
+    <div id="modal-backdrop" class="modal-backdrop"></div>
+    <div id="modal-container" class="modal w-full max-w-lg">
+        <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+            <div id="modal-content" class_="p-6">
+                <!-- Modal content will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase and Application Logic -->
+    <script type="module">
+        // --- GLOBAL STATE & CONFIG ---
+
+        // Supabase config (REPLACE WITH YOURS)
+        const SUPABASE_URL = 'https://uhlekmcejymcvwexrvrd.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVobGVrbWNlanltY3Z3ZXhydnJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIxNjM5NTgsImV4cCI6MjA3NzczOTk1OH0.2OZ1oxIMfy1aNWTGTznTH388oJUfkZBENXIYIXPyv00';
+
+        if (SUPABASE_URL === 'YOUR_SUPABASE_URL_HERE' || SUPABASE_ANON_KEY === 'YOUR_SUPABASE_ANON_KEY_HERE') {
+            document.getElementById('app-root').innerHTML = `
+                <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
+                    <h1 class="text-2xl font-bold text-red-600">Configuration Needed</h1>
+                    <p class="mt-4 text-gray-700">Please open this HTML file and replace <strong>YOUR_SUPABASE_URL_HERE</strong> and <strong>YOUR_SUPABASE_ANON_KEY_HERE</strong> with your Supabase project credentials.</p>
+                </div>
+            `;
+            throw new Error("Supabase config not set.");
+        }
+
+        // Supabase client
+        const { createClient } = window.supabase; // <-- FIX: Access from the global 'supabase' object
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // App state
+        const appState = {
+            userId: null,
+            userRole: null, // 'admin', 'teacher', or null
+            userName: 'Guest',
+            currentView: 'loading', // 'loading', 'login', 'signup', 'pending_activation', 'admin', 'teacher'
+            adminTab: 'attendance', // 'attendance', 'students', 'classes', 'teachers'
+            teacherTab: 'take_attendance', // 'take_attendance', 'history'
+            data: { // Data cache
+                users: [],
+                students: [],
+                classes: [],
+                attendance: []
+            }
+        };
+        
+        // Get root element
+        const appRoot = document.getElementById('app-root');
+
+        // --- INITIALIZATION ---
+
+        function initSupabase() {
+            // Listen for authentication state changes
+            supabase.auth.onAuthStateChange(async (event, session) => {
+                if (event === 'SIGNED_IN' && session?.user) {
+                    await checkUserRole(session.user.id);
+                } else if (event === 'SIGNED_OUT') {
+                    appState.currentView = 'login';
+                    appState.userId = null;
+                    appState.userRole = null;
+                    appState.userName = 'Guest';
+                    renderApp();
+                }
+            });
+
+            // Check for existing session
+            checkSession();
+        }
+
+        async function checkSession() {
+            const { data: { session }, error } = await supabase.auth.getSession();
+            if (session) {
+                await checkUserRole(session.user.id);
+            } else {
+                appState.currentView = 'login';
+                renderApp();
+            }
+        }
+
+        async function checkUserRole(userId) {
+            appState.userId = userId;
+            const { data, error } = await supabase
+                .from('users')
+                .select('role, name')
+                .eq('id', userId)
+                .single();
+
+            if (data) {
+                appState.userRole = data.role;
+                appState.userName = data.name || 'User';
+                appState.currentView = data.role; // 'admin' or 'teacher'
+            } else {
+                // User is authenticated but has no role in our system
+                appState.currentView = 'pending_activation';
+            }
+            renderApp();
+        }
+
+        // --- AUTH FUNCTIONS ---
+
+        async function handleLogin(email, password) {
+            const { error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) {
+                showModal("Login Failed", error.message);
+            }
+            // onAuthStateChange will handle success
+        }
+
+        async function handleSignUp(email, password) {
+            const { data, error } = await supabase.auth.signUp({ email, password });
+            if (error) {
+                showModal("Sign Up Failed", error.message);
+            } else {
+                showModal("Sign Up Successful", "Please check your email to verify your account and log in.");
+            }
+        }
+
+        async function handleLogout() {
+            await supabase.auth.signOut();
+        }
+
+        // --- MAIN RENDER FUNCTION ---
+
+        function renderApp() {
+            switch (appState.currentView) {
+                case 'loading':
+                    appRoot.innerHTML = `<div class="text-center"><div class="loader"></div><p class="mt-4">Loading...</p></div>`;
+                    break;
+                case 'login':
+                    renderLogin();
+                    break;
+                case 'signup':
+                    renderSignUp();
+                    break;
+                case 'pending_activation':
+                    appRoot.innerHTML = `
+                        <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
+                            <h1 class="text-2xl font-bold text-blue-600">ERPLi Attendance</h1>
+                            <p class="mt-4 text-gray-700">Welcome! Your account is not yet activated.</p>
+                            <p class="mt-2 text-sm text-gray-500">Please provide your User ID to an administrator to get access.</p>
+                            <div class="mt-6 bg-gray-100 p-4 rounded-md border border-gray-300">
+                                <span class="font-medium text-gray-800">Your User ID:</span>
+                                <span class="font-mono text-blue-700 break-all">${appState.userId}</span>
+                            </div>
+                            <button id="logout-btn" class="mt-6 w-full bg-red-500 text-white py-2 px-4 rounded-md font-medium hover:bg-red-600">Logout</button>
+                        </div>`;
+                    break;
+                case 'admin':
+                    renderAdminDashboard();
+                    break;
+                case 'teacher':
+                    renderTeacherDashboard();
+                    break;
+                default:
+                    appRoot.innerHTML = `<div class="text-red-500">An unknown error occurred.</div>`;
+            }
+        }
+
+        // --- AUTH UI ---
+
+        function renderLogin() {
+            appRoot.innerHTML = `
+                <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
+                    <h2 class="text-2xl font-bold text-center text-blue-600">ERPLi Dashboard Login</h2>
+                    <form id="login-form" class="mt-6 space-y-4">
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" id="login-email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                            <input type="password" id="login-password" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md font-medium hover:bg-blue-700">Login</button>
+                    </form>
+                    <p class="mt-4 text-center text-sm">
+                        No account? <button id="show-signup" class="text-blue-600 hover:underline">Sign up</button>
+                    </p>
+                </div>
+            `;
+        }
+
+        function renderSignUp() {
+            appRoot.innerHTML = `
+                <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
+                    <h2 class="text-2xl font-bold text-center text-blue-600">Create Account</h2>
+                    <form id="signup-form" class="mt-6 space-y-4">
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" id="signup-email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                            <input type="password" id="signup-password" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md font-medium hover:bg-blue-700">Sign Up</button>
+                    </form>
+                    <p class="mt-4 text-center text-sm">
+                        Already have an account? <button id="show-login" class="text-blue-600 hover:underline">Login</button>
+                    </p>
+                </div>
+            `;
+        }
+
+        // --- ADMIN DASHBOARD ---
+
+        function renderAdminDashboard() {
+            appRoot.innerHTML = `
+                <div class="w-full max-w-7xl mx-auto bg-white rounded-lg shadow-2xl overflow-hidden" style="height: 90vh;">
+                    <header class="flex items-center justify-between p-4 border-b bg-gray-50">
+                        <div>
+                            <h1 class="text-2xl font-bold text-blue-600">Admin Dashboard</h1>
+                            <p class="text-sm text-gray-600">Logged in as: ${appState.userName} (${appState.userId})</p>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <nav id="admin-nav" class="flex space-x-2">
+                                <button data-tab="attendance" class="admin-tab-btn ${appState.adminTab === 'attendance' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'} px-4 py-2 rounded-md font-medium transition-all">Attendance</button>
+                                <button data-tab="students" class="admin-tab-btn ${appState.adminTab === 'students' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'} px-4 py-2 rounded-md font-medium transition-all">Students</button>
+                                <button data-tab="classes" class="admin-tab-btn ${appState.adminTab === 'classes' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'} px-4 py-2 rounded-md font-medium transition-all">Classes</button>
+                                <button data-tab="teachers" class="admin-tab-btn ${appState.adminTab === 'teachers' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'} px-4 py-2 rounded-md font-medium transition-all">Users</button>
+                            </nav>
+                            <button id="logout-btn" class="bg-red-500 text-white px-3 py-2 rounded-md font-medium text-sm hover:bg-red-600">Logout</button>
+                        </div>
+                    </header>
+                    <main id="admin-content" class="p-6 h-[calc(90vh-97px)] overflow-y-auto bg-gray-100">
+                        <!-- Content will be injected here -->
+                    </main>
+                </div>
+            `;
+            renderAdminTabContent();
+        }
+
+        function renderAdminTabContent() {
+            const contentEl = document.getElementById('admin-content');
+            if (!contentEl) return;
+            
+            contentEl.innerHTML = `<div class="flex justify-center items-center h-full"><div class="loader"></div></div>`;
+
+            switch (appState.adminTab) {
+                case 'attendance':
+                    renderAdminAttendance(contentEl);
+                    break;
+                case 'students':
+                    renderAdminStudents(contentEl);
+                    break;
+                case 'classes':
+                    renderAdminClasses(contentEl);
+                    break;
+                case 'teachers':
+                    renderAdminUsers(contentEl);
+                    break;
+            }
+        }
+        
+        // --- Admin Tab: All Attendance ---
+        async function renderAdminAttendance(container) {
+            const [attRes, classRes, usersRes] = await Promise.all([
+                supabase.from('attendance').select('*'),
+                supabase.from('classes').select('id, name'),
+                supabase.from('users').select('id, name')
+            ]);
+            
+            if (attRes.error || classRes.error || usersRes.error) {
+                container.innerHTML = `<div class="text-red-500">Error loading data.</div>`;
+                console.error(attRes.error || classRes.error || usersRes.error);
+                return;
+            }
+
+            appState.data.attendance = attRes.data;
+            appState.data.classes = classRes.data;
+            appState.data.users = usersRes.data;
+            
+            container.innerHTML = `
+                <h2 class="text-xl font-semibold mb-4">All Attendance Records</h2>
+                <div class="overflow-x-auto bg-white rounded-lg shadow">
+                    <table class="w-full min-w-max">
+                        <thead class="bg-gray-200">
+                            <tr>
+                                <th class="p-3 text-left text-sm font-semibold text-gray-700">Date</th>
+                                <th class="p-3 text-left text-sm font-semibold text-gray-700">Class</th>
+                                <th class="p-3 text-left text-sm font-semibold text-gray-700">Teacher</th>
+                                <th class="p-3 text-left text-sm font-semibold text-gray-700">Present</th>
+                                <th class="p-3 text-left text-sm font-semibold text-gray-700">Absent</th>
+                                <th class="p-3 text-left text-sm font-semibold text-gray-700">View</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendance-list">
+                            ${appState.data.attendance.length === 0 ? `<tr><td colspan="6" class="p-4 text-center text-gray-500">No attendance records found.</td></tr>` : 
+                            appState.data.attendance.map(record => {
+                                const className = appState.data.classes.find(c => c.id === record.classId)?.name || 'Unknown Class';
+                                const teacherName = appState.data.users.find(u => u.id === record.teacherId)?.name || 'Unknown Teacher';
+                                const presentCount = record.records.filter(r => r.status === 'present').length;
+                                const absentCount = record.records.filter(r => r.status === 'absent').length;
+                                return `
+                                    <tr class="border-b hover:bg-gray-50">
+                                        <td class="p-3 text-sm text-gray-800">${record.date}</td>
+                                        <td class="p-3 text-sm text-gray-800">${className}</td>
+                                        <td class="p-3 text-sm text-gray-800">${teacherName}</td>
+                                        <td class="p-3 text-sm text-green-600 font-medium">${presentCount}</td>
+                                        <td class="p-3 text-sm text-red-600 font-medium">${absentCount}</td>
+                                        <td class="p-3">
+                                            <button data-record-id="${record.id}" class="view-attendance-btn bg-blue-500 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-600">Details</button>
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+        
+        // --- Admin Tab: Students ---
+        async function renderAdminStudents(container) {
+            const [stuRes, classRes] = await Promise.all([
+                supabase.from('students').select('*'),
+                supabase.from('classes').select('id, name')
+            ]);
+
+            if (stuRes.error || classRes.error) {
+                container.innerHTML = `<div class="text-red-500">Error loading data.</div>`;
+                return;
+            }
+
+            appState.data.students = stuRes.data;
+            appState.data.classes = classRes.data;
+
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Student List -->
+                    <div class="md:col-span-2 bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-semibold mb-4">Manage Students</h2>
+                        <div class="max-h-96 overflow-y-auto">
+                            <table class="w-full min-w-max">
+                                <thead class="bg-gray-200">
+                                    <tr>
+                                        <th class="p-3 text-left text-sm font-semibold text-gray-700">Name</th>
+                                        <th class="p-3 text-left text-sm font-semibold text-gray-700">Student ID</th>
+                                        <th class="p-3 text-left text-sm font-semibold text-gray-700">Class</th>
+                                        <th class="p-3 text-left text-sm font-semibold text-gray-700">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="student-list">
+                                    ${appState.data.students.length === 0 ? `<tr><td colspan="4" class="p-4 text-center text-gray-500">No students found.</td></tr>` :
+                                    appState.data.students.map(student => {
+                                        const className = appState.data.classes.find(c => c.id === student.classId)?.name || 'N/A';
+                                        return `
+                                            <tr class="border-b hover:bg-gray-50">
+                                                <td class="p-3 text-sm text-gray-800">${student.name}</td>
+                                                <td class="p-3 text-sm text-gray-800">${student.studentIdentifier}</td>
+                                                <td class="p-3 text-sm text-gray-800">${className}</td>
+                                                <td class="p-3">
+                                                    <button data-student-id="${student.id}" class="delete-student-btn text-red-500 hover:text-red-700 text-sm">Delete</button>
+                                                </td>
+                                            </tr>
+                                        `;
+                                    }).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Add Student Form -->
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-semibold mb-4">Add New Student</h2>
+                        <form id="add-student-form">
+                            <div class="mb-4">
+                                <label for="student-name" class="block text-sm font-medium text-gray-700">Student Name</label>
+                                <input type="text" id="student-name" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="student-identifier" class="block text-sm font-medium text-gray-700">Student ID / Roll No.</label>
+                                <input type="text" id="student-identifier" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="student-class" class="block text-sm font-medium text-gray-700">Assign to Class</label>
+                                <select id="student-class" required class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    ${appState.data.classes.length > 0 ? 
+                                        '<option value="">Select a class</option>' + appState.data.classes.map(c => `<option value="${c.id}">${c.name}</option>`).join('') :
+                                        '<option value="">No classes found. Add classes first.</option>'
+                                    }
+                                </select>
+                            </div>
+                            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md font-medium hover:bg-blue-700">Add Student</button>
+                        </form>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // --- Admin Tab: Classes ---
+        async function renderAdminClasses(container) {
+            const [classRes, usersRes] = await Promise.all([
+                supabase.from('classes').select('*'),
+                supabase.from('users').select('id, name, role')
+            ]);
+
+            if (classRes.error || usersRes.error) {
+                container.innerHTML = `<div class="text-red-500">Error loading data.</div>`;
+                return;
+            }
+            
+            appState.data.classes = classRes.data;
+            appState.data.users = usersRes.data;
+            const teachers = appState.data.users.filter(u => u.role === 'teacher');
+
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Class List -->
+                    <div class="md:col-span-2 bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-semibold mb-4">Manage Classes</h2>
+                        <div class="max-h-96 overflow-y-auto">
+                            <table class="w-full min-w-max">
+                                <thead class="bg-gray-200">
+                                    <tr>
+                                        <th class="p-3 text-left text-sm font-semibold text-gray-700">Class Name</th>
+                                        <th class="p-3 text-left text-sm font-semibold text-gray-700">Assigned Teacher</th>
+                                        <th class="p-3 text-left text-sm font-semibold text-gray-700">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="class-list">
+                                    ${appState.data.classes.length === 0 ? `<tr><td colspan="3" class="p-4 text-center text-gray-500">No classes found.</td></tr>` :
+                                    appState.data.classes.map(c => {
+                                        const teacherName = appState.data.users.find(u => u.id === c.teacherId)?.name || 'N/A';
+                                        return `
+                                            <tr class="border-b hover:bg-gray-50">
+                                                <td class="p-3 text-sm text-gray-800">${c.name}</td>
+                                                <td class="p-3 text-sm text-gray-800">${teacherName}</td>
+                                                <td class="p-3">
+                                                    <button data-class-id="${c.id}" class="delete-class-btn text-red-500 hover:text-red-700 text-sm">Delete</button>
+                                                </td>
+                                            </tr>
+                                        `;
+                                    }).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Add Class Form -->
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-semibold mb-4">Add New Class</h2>
+                        <form id="add-class-form">
+                            <div class="mb-4">
+                                <label for="class-name" class="block text-sm font-medium text-gray-700">Class Name</label>
+                                <input type="text" id="class-name" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., Grade 10 - Math">
+                            </div>
+                            <div class="mb-4">
+                                <label for="class-teacher" class="block text-sm font-medium text-gray-700">Assign to Teacher</label>
+                                <select id="class-teacher" required class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    ${teachers.length > 0 ?
+                                        '<option value="">Select a teacher</option>' + teachers.map(t => `<option value="${t.id}">${t.name} (${t.id})</option>`).join('') :
+                                        '<option value="">No teachers found. Add users first.</option>'
+                                    }
+                                </select>
+                            </div>
+                            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md font-medium hover:bg-blue-700">Add Class</button>
+                        </form>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // --- Admin Tab: Users (Teachers/Admins) ---
+        async function renderAdminUsers(container) {
+            const { data, error } = await supabase.from('users').select('*');
+            if (error) {
+                container.innerHTML = `<div class="text-red-500">Error loading users.</div>`;
+                return;
+            }
+            
+            appState.data.users = data;
+
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- User List -->
+                    <div class="md:col-span-2 bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-semibold mb-4">Manage Users</h2>
+                        <div class="max-h-96 overflow-y-auto">
+                            <table class="w-full min-w-max">
+                                <thead class="bg-gray-200">
+                                    <tr>
+                                        <th class="p-3 text-left text-sm font-semibold text-gray-700">Name</th>
+                                        <th class="p-3 text-left text-sm font-semibold text-gray-700">User ID</th>
+                                        <th class="p-3 text-left text-sm font-semibold text-gray-700">Role</th>
+                                        <th class="p-3 text-left text-sm font-semibold text-gray-700">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="user-list">
+                                    ${appState.data.users.length === 0 ? `<tr><td colspan="4" class="p-4 text-center text-gray-500">No users found.</td></tr>` :
+                                    appState.data.users.map(user => {
+                                        const isCurrentUser = user.id === appState.userId;
+                                        return `
+                                            <tr class="border-b hover:bg-gray-50 ${isCurrentUser ? 'bg-blue-50' : ''}">
+                                                <td class="p-3 text-sm text-gray-800">${user.name} ${isCurrentUser ? '(You)' : ''}</td>
+                                                <td class="p-3 text-sm text-gray-800 font-mono text-xs">${user.id}</td>
+                                                <td class="p-3 text-sm text-gray-800 capitalize">${user.role}</td>
+                                                <td class="p-3">
+                                                    ${!isCurrentUser ? `<button data-user-id="${user.id}" class="delete-user-btn text-red-500 hover:text-red-700 text-sm">Delete</button>` : '<span class="text-xs text-gray-400">Cannot delete self</span>'}
+                                                </td>
+                                            </tr>
+                                        `;
+                                    }).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Add User Form -->
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-semibold mb-4">Add/Update User Role</h2>
+                        <p class="text-sm text-gray-600 mb-3">User must sign up first. Then, paste their User ID here to assign a role.</p>
+                        <form id="add-user-form">
+                            <div class="mb-4">
+                                <label for="user-id" class="block text-sm font-medium text-gray-700">User ID</label>
+                                <input type="text" id="user-id" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Paste User ID here">
+                            </div>
+                            <div class="mb-4">
+                                <label for="user-name" class="block text-sm font-medium text-gray-700">User Name</label>
+                                <input type="text" id="user-name" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., Jane Doe">
+                            </div>
+                            <div class="mb-4">
+                                <label for="user-role" class="block text-sm font-medium text-gray-700">Role</label>
+                                <select id="user-role" required class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="teacher">Teacher</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md font-medium hover:bg-blue-700">Add / Update User</button>
+                        </form>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- TEACHER DASHBOARD ---
+
+        function renderTeacherDashboard() {
+            appRoot.innerHTML = `
+                <div class="w-full max-w-5xl mx-auto bg-white rounded-lg shadow-2xl overflow-hidden" style="height: 90vh;">
+                    <header class="flex items-center justify-between p-4 border-b bg-gray-50">
+                        <div>
+                            <h1 class="text-2xl font-bold text-green-600">Teacher Dashboard</h1>
+                            <p class="text-sm text-gray-600">Logged in as: ${appState.userName} (${appState.userId})</p>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <nav id="teacher-nav" class="flex space-x-2">
+                                <button data-tab="take_attendance" class="teacher-tab-btn ${appState.teacherTab === 'take_attendance' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700'} px-4 py-2 rounded-md font-medium transition-all">Take Attendance</button>
+                                <button data-tab="history" class="teacher-tab-btn ${appState.teacherTab === 'history' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700'} px-4 py-2 rounded-md font-medium transition-all">My History</button>
+                            </nav>
+                            <button id="logout-btn" class="bg-red-500 text-white px-3 py-2 rounded-md font-medium text-sm hover:bg-red-600">Logout</button>
+                        </div>
+                    </header>
+                    <main id="teacher-content" class="p-6 h-[calc(90vh-97px)] overflow-y-auto bg-gray-100">
+                        <!-- Content will be injected here -->
+                    </main>
+                </div>
+            `;
+            renderTeacherTabContent();
+        }
+
+        function renderTeacherTabContent() {
+            const contentEl = document.getElementById('teacher-content');
+            if (!contentEl) return;
+            
+            contentEl.innerHTML = `<div class="flex justify-center items-center h-full"><div class="loader"></div></div>`;
+
+            switch (appState.teacherTab) {
+                case 'take_attendance':
+                    renderTeacherTakeAttendance(contentEl);
+                    break;
+                case 'history':
+                    renderTeacherHistory(contentEl);
+                    break;
+            }
+        }
+        
+        // --- Teacher Tab: Take Attendance ---
+        async function renderTeacherTakeAttendance(container) {
+            const { data, error } = await supabase
+                .from('classes')
+                .select('id, name')
+                .eq('teacherId', appState.userId);
+
+            if (error) {
+                container.innerHTML = `<div class="text-red-500">Error loading classes.</div>`;
+                return;
+            }
+            
+            appState.data.classes = data;
+
+            container.innerHTML = `
+                <h2 class="text-xl font-semibold mb-4">Take Attendance</h2>
+                <div class="bg-white p-6 rounded-lg shadow max-w-2xl mx-auto">
+                    <div class="mb-4">
+                        <label for="teacher-class-select" class="block text-sm font-medium text-gray-700">Select Class</label>
+                        <select id="teacher-class-select" class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                            ${appState.data.classes.length > 0 ?
+                                '<option value="">Select a class</option>' + appState.data.classes.map(c => `<option value="${c.id}">${c.name}</option>`).join('') :
+                                '<option value="">You are not assigned to any classes.</option>'
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="attendance-date" class="block text-sm font-medium text-gray-700">Date</label>
+                        <input type="date" id="attendance-date" value="${new Date().toISOString().split('T')[0]}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                    </div>
+                    <button id="load-students-btn" class="w-full bg-green-600 text-white py-2 px-4 rounded-md font-medium hover:bg-green-700">Load Students</button>
+                </div>
+                
+                <div id="student-attendance-list" class="mt-6">
+                    <!-- Student list will appear here -->
+                </div>
+            `;
+        }
+        
+        async function loadStudentsForAttendance() {
+            const classId = document.getElementById('teacher-class-select').value;
+            const date = document.getElementById('attendance-date').value;
+            const listEl = document.getElementById('student-attendance-list');
+            
+            if (!classId || !date) {
+                showModal("Error", "Please select a class and a date.");
+                return;
+            }
+            
+            listEl.innerHTML = `<div class="flex justify-center items-center h-full"><div class="loader"></div></div>`;
+            
+            // Check if attendance for this class/date already exists
+            const { data: existingAtt } = await supabase
+                .from('attendance')
+                .select('records')
+                .eq('classId', classId)
+                .eq('date', date)
+                .single();
+            
+            let existingRecords = {};
+            if (existingAtt) {
+                existingAtt.records.forEach(rec => {
+                    existingRecords[rec.studentId] = rec.status;
+                });
+                showToast("Attendance for this date already exists. Loading records.");
+            }
+            
+            // Get students for the class
+            const { data: students, error: stuError } = await supabase
+                .from('students')
+                .select('*')
+                .eq('classId', classId);
+            
+            if (stuError) {
+                listEl.innerHTML = `<p class="text-center text-red-500 mt-4">Error loading students.</p>`;
+                return;
+            }
+
+            appState.data.students = students;
+            
+            if (appState.data.students.length === 0) {
+                listEl.innerHTML = `<p class="text-center text-gray-600 mt-4">No students found for this class.</p>`;
+                return;
+            }
+            
+            listEl.innerHTML = `
+                <div class="bg-white p-6 rounded-lg shadow max-w-2xl mx-auto">
+                    <form id="submit-attendance-form">
+                        <h3 class="text-lg font-medium mb-4">Mark Attendance</h3>
+                        <div class="mb-4 flex items-center space-x-4">
+                            <button type="button" id="mark-all-present" class="text-sm bg-green-100 text-green-700 px-3 py-1 rounded-md hover:bg-green-200">Mark All Present</button>
+                            <button type="button" id="mark-all-absent" class="text-sm bg-red-100 text-red-700 px-3 py-1 rounded-md hover:bg-red-200">Mark All Absent</button>
+                        </div>
+                        <div class="space-y-3">
+                            ${appState.data.students.map(student => {
+                                const status = existingRecords[student.id] || 'present'; // Default to present
+                                return `
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-md">
+                                    <div>
+                                        <span class="font-medium text-gray-800">${student.name}</span>
+                                        <span class="text-sm text-gray-500 ml-2">(${student.studentIdentifier})</span>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <label class="flex items-center space-x-1 cursor-pointer">
+                                            <input type="radio" name="student-${student.id}" value="present" class="attendance-radio" data-student-id="${student.id}" ${status === 'present' ? 'checked' : ''}>
+                                            <span class="text-sm text-green-600">Present</span>
+                                        </label>
+                                        <label class="flex items-center space-x-1 cursor-pointer">
+                                            <input type="radio" name="student-${student.id}" value="absent" class="attendance-radio" data-student-id="${student.id}" ${status === 'absent' ? 'checked' : ''}>
+                                            <span class="text-sm text-red-600">Absent</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            `}).join('')}
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md font-medium hover:bg-blue-700 mt-6">Submit Attendance</button>
+                    </form>
+                </div>
+            `;
+        }
+
+        // --- Teacher Tab: History ---
+        async function renderTeacherHistory(container) {
+            const [attRes, classRes] = await Promise.all([
+                supabase.from('attendance').select('*').eq('teacherId', appState.userId),
+                supabase.from('classes').select('id, name').eq('teacherId', appState.userId)
+            ]);
+
+            if (attRes.error || classRes.error) {
+                container.innerHTML = `<div class="text-red-500">Error loading data.</div>`;
+                return;
+            }
+
+            appState.data.attendance = attRes.data;
+            appState.data.classes = classRes.data;
+
+            container.innerHTML = `
+                <h2 class="text-xl font-semibold mb-4">My Attendance History</h2>
+                <div class="overflow-x-auto bg-white rounded-lg shadow">
+                    <table class="w-full min-w-max">
+                        <thead class="bg-gray-200">
+                            <tr>
+                                <th class="p-3 text-left text-sm font-semibold text-gray-700">Date</th>
+                                <th class="p-3 text-left text-sm font-semibold text-gray-700">Class</th>
+                                <th class="p-3 text-left text-sm font-semibold text-gray-700">Present</th>
+                                <th class="p-3 text-left text-sm font-semibold text-gray-700">Absent</th>
+                                <th class="p-3 text-left text-sm font-semibold text-gray-700">View</th>
+                            </tr>
+                        </thead>
+                        <tbody id="teacher-attendance-list">
+                            ${appState.data.attendance.length === 0 ? `<tr><td colspan="5" class="p-4 text-center text-gray-500">No attendance records found.</td></tr>` :
+                            appState.data.attendance.map(record => {
+                                const className = appState.data.classes.find(c => c.id === record.classId)?.name || 'Unknown Class';
+                                const presentCount = record.records.filter(r => r.status === 'present').length;
+                                const absentCount = record.records.filter(r => r.status === 'absent').length;
+                                return `
+                                    <tr class="border-b hover:bg-gray-50">
+                                        <td class="p-3 text-sm text-gray-800">${record.date}</td>
+                                        <td class="p-3 text-sm text-gray-800">${className}</td>
+                                        <td class="p-3 text-sm text-green-600 font-medium">${presentCount}</td>
+                                        <td class="p-3 text-sm text-red-600 font-medium">${absentCount}</td>
+                                        <td class="p-3">
+                                            <button data-record-id="${record.id}" class="view-attendance-btn bg-blue-500 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-600">Details</button>
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        // --- MODAL & TOAST HELPERS ---
+        
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalContainer = document.getElementById('modal-container');
+        const modalContent = document.getElementById('modal-content');
+        
+        function showModal(title, content) {
+            modalContent.innerHTML = `
+                <div class="p-6">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">${title}</h3>
+                    <div class="mt-2 text-sm text-gray-600">
+                        <p>${content}</p>
+                    </div>
+                    <div class="mt-5 sm:mt-6">
+                        <button id="modal-close-btn" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            `;
+            modalBackdrop.classList.add('active');
+            modalContainer.classList.add('active');
+        }
+
+        function closeModal() {
+            modalBackdrop.classList.remove('active');
+            modalContainer.classList.remove('active');
+            modalContent.innerHTML = '';
+        }
+        
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
+            toast.className = `fixed bottom-5 right-5 ${bgColor} text-white px-4 py-2 rounded-md shadow-lg transition-opacity duration-300`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+        
+        // --- EVENT HANDLERS ---
+        
+        document.addEventListener('click', async (e) => {
+            // Auth navigation
+            if (e.target.matches('#show-signup')) appState.currentView = 'signup';
+            if (e.target.matches('#show-login')) appState.currentView = 'login';
+            if (e.target.matches('#logout-btn')) {
+                await handleLogout();
+                return; // Prevent other handlers
+            }
+
+            // Admin tab navigation
+            if (e.target.matches('.admin-tab-btn')) {
+                appState.adminTab = e.target.dataset.tab;
+                renderAdminDashboard(); // Re-render whole dash
+                return; // Prevent other handlers
+            }
+            
+            // Teacher tab navigation
+            if (e.target.matches('.teacher-tab-btn')) {
+                appState.teacherTab = e.target.dataset.tab;
+                renderTeacherDashboard();
+                return; // Prevent other handlers
+            }
+            
+            // Admin: Delete Student
+            if (e.target.matches('.delete-student-btn')) {
+                const id = e.target.dataset.studentId;
+                if (confirm('Are you sure you want to delete this student?')) {
+                    const { error } = await supabase.from('students').delete().eq('id', id);
+                    if (error) {
+                        showModal("Error", "Could not delete student.");
+                    } else {
+                        showToast("Student deleted.");
+                        renderAdminTabContent(); // Refresh
+                    }
+                }
+            }
+            
+            // Admin: Delete Class
+            if (e.target.matches('.delete-class-btn')) {
+                const id = e.target.dataset.classId;
+                if (confirm('Are you sure you want to delete this class?')) {
+                    const { error } = await supabase.from('classes').delete().eq('id', id);
+                    if (error) {
+                        showModal("Error", "Could not delete class.");
+                    } else {
+                        showToast("Class deleted.");
+                        renderAdminTabContent(); // Refresh
+                    }
+                }
+            }
+            
+            // Admin: Delete User
+            if (e.target.matches('.delete-user-btn')) {
+                const id = e.target.dataset.userId;
+                if (confirm('Are you sure you want to delete this user? This is permanent.')) {
+                    // Note: This only deletes from our public.users table.
+                    // Deleting from auth.users requires Admin API, not done from client.
+                    const { error } = await supabase.from('users').delete().eq('id', id);
+                    if (error) {
+                        showModal("Error", "Could not delete user.");
+                    } else {
+                        showToast("User deleted.");
+                        renderAdminTabContent(); // Refresh
+                    }
+                }
+            }
+            
+            // Teacher: Load Students
+            if (e.target.matches('#load-students-btn')) {
+                await loadStudentsForAttendance();
+            }
+            
+            // Teacher: Mark all present/absent
+            if (e.target.matches('#mark-all-present')) {
+                document.querySelectorAll('.attendance-radio[value="present"]').forEach(radio => radio.checked = true);
+            }
+            if (e.target.matches('#mark-all-absent')) {
+                document.querySelectorAll('.attendance-radio[value="absent"]').forEach(radio => radio.checked = true);
+            }
+            
+            // View Attendance Details
+            if (e.target.matches('.view-attendance-btn')) {
+                const recordId = e.target.dataset.recordId;
+                const { data: record, error } = await supabase.from('attendance').select().eq('id', recordId).single();
+                if (error || !record) return;
+
+                // Fetch students for this class
+                const { data: students } = await supabase.from('students').select('id, name, studentIdentifier').eq('classId', record.classId);
+                const { data: classInfo } = await supabase.from('classes').select('name').eq('id', record.classId).single();
+                const { data: teacherInfo } = await supabase.from('users').select('name').eq('id', record.teacherId).single();
+
+                const studentListHtml = record.records.map(rec => {
+                    const student = students.find(s => s.id === rec.studentId);
+                    const studentName = student ? `${student.name} (${student.studentIdentifier})` : 'Unknown Student';
+                    const statusColor = rec.status === 'present' ? 'text-green-600' : 'text-red-600';
+                    return `
+                        <li class="flex justify-between items-center py-2 border-b">
+                            <span class="text-gray-700">${studentName}</span>
+                            <span class="font-medium ${statusColor} capitalize">${rec.status}</span>
+                        </li>
+                    `;
+                }).join('');
+
+                showModal('Attendance Details', `
+                    <div class="space-y-3">
+                        <div><strong class="text-gray-800">Date:</strong> ${record.date}</div>
+                        <div><strong class="text-gray-800">Class:</strong> ${classInfo?.name || '...'}</div>
+                        <div><strong class="text-gray-800">Teacher:</strong> ${teacherInfo?.name || '...'}</div>
+                    </div>
+                    <h4 class="font-medium text-gray-900 mt-4 mb-2">Student Records</h4>
+                    <ul class="max-h-60 overflow-y-auto bg-gray-50 p-3 rounded-md">
+                        ${studentListHtml}
+                    </ul>
+                `);
+            }
+            
+            // Modal close
+            if (e.target.matches('#modal-close-btn')) {
+                closeModal();
+            }
+            
+            // Re-render app if needed
+            if (['show-signup', 'show-login'].includes(e.target.id)) {
+                renderApp();
+            }
+        });
+        
+        document.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Auth Forms
+            if (e.target.matches('#login-form')) {
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                await handleLogin(email, password);
+            }
+            
+            if (e.target.matches('#signup-form')) {
+                const email = document.getElementById('signup-email').value;
+                const password = document.getElementById('signup-password').value;
+                await handleSignUp(email, password);
+            }
+
+            // Admin: Add Student
+            if (e.target.matches('#add-student-form')) {
+                const name = document.getElementById('student-name').value;
+                const studentIdentifier = document.getElementById('student-identifier').value;
+                const classId = document.getElementById('student-class').value;
+                
+                const { error } = await supabase.from('students').insert({ name, studentIdentifier, classId });
+                if (error) {
+                    showModal("Error", "Could not add student.");
+                } else {
+                    showToast("Student added successfully!");
+                    e.target.reset();
+                    renderAdminTabContent(); // Refresh
+                }
+            }
+            
+            // Admin: Add Class
+            if (e.target.matches('#add-class-form')) {
+                const name = document.getElementById('class-name').value;
+                const teacherId = document.getElementById('class-teacher').value;
+                
+                const { error } = await supabase.from('classes').insert({ name, teacherId });
+                if (error) {
+                    showModal("Error", "Could not add class.");
+                } else {
+                    showToast("Class added successfully!");
+                    e.target.reset();
+                    renderAdminTabContent(); // Refresh
+                }
+            }
+            
+            // Admin: Add/Update User
+            if (e.target.matches('#add-user-form')) {
+                const userId = document.getElementById('user-id').value;
+                const name = document.getElementById('user-name').value;
+                const role = document.getElementById('user-role').value;
+
+                // Use upsert to add or update user in public.users table
+                const { error } = await supabase.from('users').upsert({ id: userId, name, role }, { onConflict: 'id' });
+                if (error) {
+                    showModal("Error", "Could not add/update user.");
+                    console.error(error);
+                } else {
+                    showToast("User added/updated successfully!");
+                    e.target.reset();
+                    renderAdminTabContent(); // Refresh
+                }
+            }
+            
+            // Teacher: Submit Attendance
+            if (e.target.matches('#submit-attendance-form')) {
+                const classId = document.getElementById('teacher-class-select').value;
+                const date = document.getElementById('attendance-date').value;
+                
+                const records = Array.from(document.querySelectorAll('.attendance-radio:checked')).map(radio => ({
+                    studentId: radio.dataset.studentId,
+                    status: radio.value
+                }));
+                
+                if (records.length === 0) {
+                    showModal("Error", "No students to mark.");
+                    return;
+                }
+                
+                const attendanceRecord = {
+                    date,
+                    classId,
+                    teacherId: appState.userId,
+                    records,
+                };
+
+                // Upsert on (date, classId) conflict
+                const { error } = await supabase.from('attendance').upsert(attendanceRecord, { onConflict: 'date,classId' });
+                
+                if (error) {
+                    console.error("Error submitting attendance:", error);
+                    showModal("Error", "Could not submit attendance.");
+                } else {
+                    showToast("Attendance submitted successfully!");
+                    document.getElementById('student-attendance-list').innerHTML = ''; // Clear list
+                }
+            }
+        });
+
+        // --- START APP ---
+        initSupabase();
+
+    </script>
+</body>
+</html>
+
