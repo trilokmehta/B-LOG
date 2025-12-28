@@ -86,7 +86,7 @@
             border-radius: 10px; font-size: 1.1rem; outline: none; box-sizing: border-box;
         }
 
-        /* --- SETTINGS BOX --- */
+        /* --- SETTINGS BOX (MATCHING SCREENSHOT) --- */
         .settings-box {
             background: #f8f9fa; padding: 20px; border-radius: 15px;
             margin-bottom: 25px; text-align: left; border: 1px solid #edf2f4;
@@ -106,14 +106,13 @@
         }
         .btn-start { background: var(--primary); box-shadow: 0 5px 15px rgba(245, 130, 32, 0.3); }
         .btn-stop { background: #636e72; margin-top: 10px; }
-        .btn:active { transform: scale(0.98); }
 
         /* --- DISPLAY --- */
         #flash-display { 
             font-size: clamp(3rem, 10vw, 5rem); 
             font-weight: 800; 
             margin: 30px 0; 
-            min-height: 120px; 
+            min-height: 80px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -188,7 +187,7 @@
         <div class="card">
             <div class="stats-bar">
                 <span id="timer-display">60.0s</span>
-                <span id="progress-display">Q: 1/10</span>
+                <span>BrainiacGym</span>
             </div>
 
             <div class="score-badges">
@@ -200,7 +199,7 @@
             
             <div id="answer-area" style="display:none;">
                 <div id="result-bubble" class="result-bubble" style="display:none"></div>
-                <h3 id="feedback-text" style="color:var(--gray-label); margin-top:0;">What is the product?</h3>
+                <h3 id="feedback-text" style="color:var(--gray-label); margin-top:0;">Answer:</h3>
                 <input type="number" id="user-ans" placeholder="?" style="text-align:center; font-size: 2rem; height: 70px; margin-bottom: 20px; width: 80%;">
             </div>
 
@@ -236,7 +235,7 @@
         timeLeft = parseFloat(document.getElementById("totalTime").value);
         
         isFlash = document.getElementById("flashMode").checked;
-        isAuto = isFlash && document.getElementById("autoLoop").checked; 
+        isAuto = document.getElementById("autoLoop").checked;
         waitTime = parseFloat(document.getElementById("autoDelay").value) * 1000;
         viewSpeed = parseFloat(document.getElementById("speed").value) * 1000;
 
@@ -255,6 +254,7 @@
             timeLeft -= 0.1;
             if (timeLeft <= 0) {
                 timeLeft = 0;
+                clearInterval(timerInterval);
                 endSession("Time's Up!");
             }
             updateUI();
@@ -268,10 +268,9 @@
         const l2 = parseFloat(document.getElementById("low2").value);
         const h2 = parseFloat(document.getElementById("high2").value);
 
-        // Generate numbers and handle decimals
-        const n1 = (Math.random() * (h1 - l1) + l1).toFixed(1);
-        const n2 = (Math.random() * (h2 - l2) + l2).toFixed(1);
-        correctAnswer = parseFloat((n1 * n2).toFixed(2));
+        const n1 = parseFloat((Math.random() * (h1 - l1) + l1).toFixed(2));
+        const n2 = parseFloat((Math.random() * (h2 - l2) + l2).toFixed(2));
+        correctAnswer = parseFloat((n1 * n2).toFixed(4));
 
         const display = document.getElementById("flash-display");
         const ansArea = document.getElementById("answer-area");
@@ -280,53 +279,63 @@
         display.innerText = `${n1} × ${n2}`;
         display.style.display = "flex";
         ansArea.style.display = "none";
-        checkBtn.style.display = "none";
+        
+        checkBtn.style.display = "block";
+        checkBtn.onclick = null; 
+        
+        let sec = Math.ceil(viewSpeed / 1000);
+        checkBtn.innerText = `Showing in ${sec}s`;
+        
+        countdownTimer = setInterval(() => {
+            sec--;
+            if (sec > 0) checkBtn.innerText = `Showing in ${sec}s`;
+            else clearInterval(countdownTimer);
+        }, 1000);
 
-        // Hide question after "View Speed"
+        // Transition to Answer Mode immediately after viewSpeed ends
         autoTimer = setTimeout(setupAnswerMode, viewSpeed);
-        updateUI();
     }
 
-    function setupAnswerMode() {
-        clearTimers();
-        const display = document.getElementById("flash-display");
-        const ansArea = document.getElementById("answer-area");
-        const bubble = document.getElementById("result-bubble");
-        const feedback = document.getElementById("feedback-text");
-        const input = document.getElementById("user-ans");
-        const checkBtn = document.getElementById("check-btn");
+function setupAnswerMode() {
+    clearTimers();
+    const display = document.getElementById("flash-display");
+    const ansArea = document.getElementById("answer-area");
+    const bubble = document.getElementById("result-bubble");
+    const feedback = document.getElementById("feedback-text");
+    const input = document.getElementById("user-ans");
+    const checkBtn = document.getElementById("check-btn");
 
-        display.style.display = isFlash ? "none" : "flex";
-        ansArea.style.display = "block";
-        bubble.style.display = "none";
-        checkBtn.style.display = "block";
+    // Hide the question display if in Flash Mode
+    display.style.display = isFlash ? "none" : "flex";
+    ansArea.style.display = "block";
+    bubble.style.display = "none";
 
-        if (isFlash) {
-            input.style.display = "none";
-            feedback.innerText = "Mental Calculation...";
+    if (isFlash) {
+        // ALWAYS hide the input box in Flash Mode
+        input.style.display = "none"; 
+        
+        if (isAuto) {
+            // In Auto Flash, we don't even need the button to say "Show Answer"
+            // We just jump straight to showing the result
+            revealFlashAnswer();
+        } else {
+            // Manual Flash: User clicks "SHOW ANSWER" to see the result
+            feedback.innerText = "Calculate Mentally";
             checkBtn.innerText = "SHOW ANSWER";
             checkBtn.onclick = revealFlashAnswer;
-
-            if (isAuto) {
-                let sec = Math.ceil(waitTime / 1000);
-                checkBtn.innerText = `REVEALING IN ${sec}s`;
-                countdownTimer = setInterval(() => {
-                    sec--;
-                    if (sec > 0) checkBtn.innerText = `REVEALING IN ${sec}s`;
-                    else clearInterval(countdownTimer);
-                }, 1000);
-                autoTimer = setTimeout(revealFlashAnswer, waitTime);
-            }
-        } else {
-            input.style.display = "block";
-            input.value = "";
-            input.focus();
-            feedback.innerText = "What is the product?";
-            checkBtn.innerText = "CHECK ANSWER";
-            checkBtn.onclick = checkAns;
+            checkBtn.style.display = "block";
         }
+    } else {
+        // Standard Mode: Input IS required here
+        input.style.display = "block";
+        input.value = "";
+        input.focus();
+        feedback.innerText = "What is the product?";
+        checkBtn.innerText = "CHECK ANSWER";
+        checkBtn.onclick = checkAns;
+        checkBtn.style.display = "block";
     }
-
+}
     function revealFlashAnswer() {
         clearTimers();
         const bubble = document.getElementById("result-bubble");
@@ -336,17 +345,12 @@
         bubble.style.background = "var(--primary)";
         bubble.innerText = correctAnswer;
         
+        checkBtn.style.display = "block";
         checkBtn.innerText = "NEXT QUESTION";
         checkBtn.onclick = nextQuestion;
 
         if (isAuto) {
-            let sec = Math.ceil(waitTime / 1000);
-            checkBtn.innerText = `NEXT IN ${sec}s`;
-            countdownTimer = setInterval(() => {
-                sec--;
-                if (sec > 0) checkBtn.innerText = `NEXT IN ${sec}s`;
-                else clearInterval(countdownTimer);
-            }, 1000);
+            // Wait Time only applies AFTER the answer is shown before moving to next question
             autoTimer = setTimeout(nextQuestion, waitTime);
         }
     }
@@ -359,20 +363,19 @@
         bubble.innerText = correctAnswer;
         bubble.style.display = "inline-flex";
 
-        // Precise decimal comparison
-        if (Math.abs(user - correctAnswer) < 0.01) {
+        if (Math.abs(user - correctAnswer) < 0.0001) {
             bubble.style.background = "var(--success-color)";
             feedback.innerText = "CORRECT! ✓";
             rightCount++;
         } else {
             bubble.style.background = "var(--error-color)";
-            feedback.innerText = "WRONG!";
+            feedback.innerText = "WRONG! Answer was:";
             wrongCount++;
         }
 
         updateUI();
         document.getElementById("check-btn").style.display = "none";
-        setTimeout(nextQuestion, 1500);
+        setTimeout(nextQuestion, 2000);
     }
 
     function nextQuestion() {
@@ -381,7 +384,7 @@
             currentSumIndex++;
             generateQuestion();
         } else {
-            endSession(timeLeft <= 0 ? "Time's Up!" : "Practice Complete!");
+            endSession("Practice Complete!");
         }
     }
 
@@ -389,21 +392,17 @@
         document.getElementById("timer-display").innerText = `${timeLeft.toFixed(1)}s`;
         document.getElementById("right-count").innerText = rightCount;
         document.getElementById("wrong-count").innerText = wrongCount;
-        document.getElementById("progress-display").innerText = `Q: ${currentSumIndex}/${totalSums}`;
     }
 
     function endSession(msg) {
         clearInterval(timerInterval);
         clearTimers();
-        const display = document.getElementById("flash-display");
-        display.innerText = msg;
-        display.style.display = "flex";
+        document.getElementById("flash-display").innerText = msg;
+        document.getElementById("flash-display").style.display = "flex";
         document.getElementById("answer-area").style.display = "none";
         document.getElementById("check-btn").style.display = "none";
-        
-        const stopBtn = document.getElementById("stop-btn");
-        stopBtn.innerText = "RESTART";
-        stopBtn.onclick = () => location.reload();
+        document.getElementById("stop-btn").innerText = "RESTART";
+        document.getElementById("stop-btn").onclick = () => location.reload();
     }
 
     function stopGame() {
