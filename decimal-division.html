@@ -604,29 +604,38 @@
 
       function checkAns() {
         const userInput = document.getElementById("user-ans").value;
-        if (userInput === "") return;
-
-        const userVal = parseFloat(userInput);
         const feedback = document.getElementById("feedback");
+        const checkBtn = document.getElementById("check-btn");
 
-        // Check Accuracy (with epsilon for float)
-        if (Math.abs(userVal - correctAnswer) < 0.01) {
+        // Prevent multiple clicks while the transition is happening
+        checkBtn.style.pointerEvents = "none";
+
+        // Check logic: must not be empty and must match the correct answer
+        if (userInput !== "" && parseInt(userInput) === correctAnswer) {
           rightCount++;
-          feedback.innerText = "Correct!";
+          feedback.innerText = "Correct! ✓";
           feedback.style.color = "var(--success-color)";
         } else {
           wrongCount++;
-          feedback.innerText = `Wrong! Answer: ${correctAnswer}`;
+          // Differentiates between a wrong answer and no answer at all
+          feedback.innerText =
+            userInput === ""
+              ? `No answer! Ans: ${correctAnswer}`
+              : `Wrong! Answer: ${correctAnswer}`;
           feedback.style.color = "var(--error-color)";
         }
 
         updateUIStats();
-        document.getElementById("check-btn").style.display = "none"; // Hide momentarily
+
+        // Temporarily hide the button to signify the round is over
+        checkBtn.style.visibility = "hidden";
 
         setTimeout(() => {
-          document.getElementById("check-btn").style.display = "block";
+          // Restore button state and move to the next question
+          checkBtn.style.pointerEvents = "auto";
+          checkBtn.style.visibility = "visible";
           nextQuestion();
-        }, 1000);
+        }, 1500);
       }
 
       function nextQuestion() {
@@ -670,7 +679,7 @@
         document.getElementById("wrong-count").innerText = wrongCount;
         document.getElementById(
           "timer-display"
-        ).innerText = `${currentSumCount}/${timeLeft.toFixed(1)}s`;
+        ).innerText = `${timeLeft.toFixed(1)}s`;
       }
 
       function endSession(message) {

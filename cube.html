@@ -552,7 +552,7 @@
         if (document.getElementById("timer-display"))
           document.getElementById(
             "timer-display"
-          ).innerText = `${currentSumIndex}/${timeLeft.toFixed(1)}s`;
+          ).innerText = `${timeLeft.toFixed(1)}s`;
       }
 
       function generateQuestion() {
@@ -659,31 +659,39 @@
 
       function checkAns() {
         const userInput = document.getElementById("user-ans").value;
-        if (userInput === "") return;
+        const feedback = document.getElementById("feedback");
+        const checkBtn = document.getElementById("check-btn");
 
-        const userVal = parseInt(userInput);
-        const feedback = document.getElementById("feedback"); // Corrected ID
-        const feedbackDiv = document.getElementById("feedback"); // Use main feedback div
+        // Prevent multiple clicks while the transition is happening
+        checkBtn.style.pointerEvents = "none";
 
-        if (userVal === correctAnswer) {
+        // Check logic: must not be empty and must match the correct answer
+        if (userInput !== "" && parseInt(userInput) === correctAnswer) {
           rightCount++;
-          feedbackDiv.innerText = "Correct!";
-          feedbackDiv.style.color = "var(--success-color)";
+          feedback.innerText = "Correct! ✓";
+          feedback.style.color = "var(--success-color)";
         } else {
           wrongCount++;
-          feedbackDiv.innerText = `Wrong! Answer: ${correctAnswer}`;
-          feedbackDiv.style.color = "var(--error-color)";
+          // Differentiates between a wrong answer and no answer at all
+          feedback.innerText =
+            userInput === ""
+              ? `No answer! Ans: ${correctAnswer}`
+              : `Wrong! Answer: ${correctAnswer}`;
+          feedback.style.color = "var(--error-color)";
         }
 
         updateUIStats();
-        document.getElementById("check-btn").style.display = "none"; // Hide momentarily
+
+        // Temporarily hide the button to signify the round is over
+        checkBtn.style.visibility = "hidden";
 
         setTimeout(() => {
-          document.getElementById("check-btn").style.display = "block";
+          // Restore button state and move to the next question
+          checkBtn.style.pointerEvents = "auto";
+          checkBtn.style.visibility = "visible";
           nextQuestion();
-        }, 1000);
+        }, 1500);
       }
-
       function nextQuestion() {
         clearTimers();
         document.getElementById("question-text").style.display = "block";

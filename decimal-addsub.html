@@ -301,7 +301,7 @@
       <div id="game-screen" class="screen">
         <div class="card">
           <div class="stats-bar">
-            <span id="timer-display">1/60.0s</span><span>BrainiacGym</span>
+            <span id="timer-display">60.0s</span><span>BrainiacGym</span>
           </div>
           <div class="score-badges">
             <div class="badge badge-green">
@@ -494,12 +494,12 @@
       }
 
       function updateUI() {
-        document.getElementById("right-count").innerText = rightCount;
-        document.getElementById("wrong-count").innerText = wrongCount;
-        document.getElementById(
-          "timer-display"
-        ).innerText = `${currentSum}/${timeLeft.toFixed(1)}s`;
-      }
+  document.getElementById("right-count").innerText = rightCount;
+  document.getElementById("wrong-count").innerText = wrongCount;
+  
+  // Updated line: removed "${currentSum}/"
+  document.getElementById("timer-display").innerText = `${timeLeft.toFixed(1)}s`;
+}
 
       function endSession() {
         clearInterval(timerInterval);

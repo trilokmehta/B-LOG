@@ -299,29 +299,40 @@
         }
       }
 
-      function checkAns() {
-        const userInput = document.getElementById("user-ans").value;
-        if (userInput === "") return;
-        const feedback = document.getElementById("feedback");
+function checkAns() {
+  const userInput = document.getElementById("user-ans").value;
+  const feedback = document.getElementById("feedback");
+  const checkBtn = document.getElementById("check-btn");
+  
+  // Prevent multiple clicks while the transition is happening
+  checkBtn.style.pointerEvents = "none";
 
-        if (parseInt(userInput) === correctAnswer) {
-          rightCount++;
-          feedback.innerText = "Correct! ✓";
-          feedback.style.color = "var(--success-color)";
-        } else {
-          wrongCount++;
-          feedback.innerText = `Wrong! Answer: ${correctAnswer}`;
-          feedback.style.color = "var(--error-color)";
-        }
+  // Check logic: must not be empty and must match the correct answer
+  if (userInput !== "" && parseInt(userInput) === correctAnswer) {
+    rightCount++;
+    feedback.innerText = "Correct! ✓";
+    feedback.style.color = "var(--success-color)";
+  } else {
+    wrongCount++;
+    // Differentiates between a wrong answer and no answer at all
+    feedback.innerText = userInput === "" 
+      ? `No answer! Ans: ${correctAnswer}` 
+      : `Wrong! Answer: ${correctAnswer}`;
+    feedback.style.color = "var(--error-color)";
+  }
 
-        updateUIStats();
-        document.getElementById("check-btn").style.display = "none";
-        setTimeout(() => {
-          document.getElementById("check-btn").style.display = "block";
-          nextQuestion();
-        }, 1000);
-      }
+  updateUIStats();
+  
+  // Temporarily hide the button to signify the round is over
+  checkBtn.style.visibility = "hidden";
 
+  setTimeout(() => {
+    // Restore button state and move to the next question
+    checkBtn.style.pointerEvents = "auto";
+    checkBtn.style.visibility = "visible";
+    nextQuestion();
+  }, 1500);
+}
       function nextQuestion() {
         clearTimers();
         if (currentSumIndex < totalSums && timeLeft > 0) {
@@ -345,10 +356,12 @@
       }
 
       function updateUIStats() {
-        document.getElementById("right-count").innerText = rightCount;
-        document.getElementById("wrong-count").innerText = wrongCount;
-        document.getElementById("progress-timer").innerText = `${currentSumIndex} / ${timeLeft.toFixed(1)}s`;
-      }
+  document.getElementById("right-count").innerText = rightCount;
+  document.getElementById("wrong-count").innerText = wrongCount;
+  
+  // Change this line to remove the "currentSumCount /" part
+  document.getElementById("progress-timer").innerText = `${timeLeft.toFixed(1)}s`;
+}
 
       function endSession(message) {
         clearInterval(timerInterval);
