@@ -108,7 +108,7 @@
       label {
         display: block;
         margin-bottom: 8px;
-        font-weight: 600;
+        font-weight: 700;
         color: #636e72;
         font-size: 0.9rem;
       }
@@ -128,7 +128,6 @@
 
       /* --- 4. GAME SCREEN SPECIFICS --- */
 
-      /* Top Gray Bar */
       .stats-bar {
         display: flex;
         justify-content: space-between;
@@ -141,7 +140,6 @@
         font-size: 1rem;
       }
 
-      /* Score Pills (Hidden in Watch Mode) */
       .score-badges {
         display: flex;
         justify-content: center;
@@ -162,7 +160,6 @@
         background-color: var(--error-color);
       }
 
-      /* Big Question */
       .question-box {
         font-size: 3.5rem;
         font-weight: 800;
@@ -171,7 +168,6 @@
         min-height: 80px;
       }
 
-      /* Big Input */
       #user-ans {
         text-align: center;
         font-size: 2rem;
@@ -183,26 +179,7 @@
         border-radius: 12px;
         border: 2px solid #dfe6e9;
       }
-      #user-ans::placeholder {
-        color: #b2bec3;
-      }
 
-      /* Result Bubble (Flash Mode) */
-      .result-bubble {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        padding: 15px 40px;
-        border-radius: 50px;
-        background: var(--primary);
-        color: white;
-        font-size: 2rem;
-        font-weight: 800;
-        margin-bottom: 30px;
-        box-shadow: 0 5px 15px rgba(245, 130, 32, 0.3);
-      }
-
-      /* Buttons (No Icons) */
       .btn {
         width: 100%;
         padding: 18px;
@@ -212,19 +189,13 @@
         font-weight: 800;
         cursor: pointer;
         color: white;
-        transition: transform 0.1s;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         margin-bottom: 15px;
-      }
-      .btn:active {
-        transform: scale(0.98);
       }
 
       .btn-check {
         background: var(--primary);
-        box-shadow: 0 5px 15px rgba(245, 130, 32, 0.3);
       }
       .btn-restart {
         background: var(--gray-btn);
@@ -235,7 +206,6 @@
         border: 2px solid var(--error-color);
       }
 
-      /* Feedback Text */
       .feedback-text {
         font-size: 1.2rem;
         font-weight: 700;
@@ -244,7 +214,6 @@
         color: #636e72;
       }
 
-      /* Settings Toggle Box */
       .settings-box {
         background: #f8f9fa;
         padding: 15px;
@@ -256,30 +225,23 @@
       .checkbox-row {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
         margin-bottom: 10px;
       }
       .checkbox-row input {
-        width: 20px;
-        height: 20px;
-        margin: 0;
-        cursor: pointer;
+        width: 22px;
+        height: 22px;
         accent-color: var(--primary);
       }
-      .checkbox-row label {
-        margin: 0;
-        cursor: pointer;
-        font-weight: 600;
-        color: #2d3436;
-      }
-      #auto-options {
-        display: none;
-        margin-top: 10px;
-        padding-top: 10px;
+      .divider {
         border-top: 1px dashed #ccc;
+        margin: 15px 0;
       }
 
-      /* Screen Visibility */
+      #auto-options {
+        display: none;
+      }
+
       .screen {
         display: none;
       }
@@ -288,24 +250,14 @@
         animation: fadeIn 0.4s ease;
       }
       @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
       }
     </style>
   </head>
   <body>
     <header>
-      <img
-        src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
-        alt="Logo"
-        class="logo"
-      />
+      <img src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png" alt="Logo" class="logo" />
       <nav class="nav-links">
         <a href="index.html">Home</a>
         <a href="#">About</a>
@@ -321,106 +273,70 @@
 
           <div class="input-grid">
             <div>
-              <label>Table Of (e.g. 2)</label
-              ><input type="number" id="tableOf" value="2" />
+              <label>Table Of</label>
+              <input type="number" id="tableOf" value="2" />
             </div>
             <div>
-              <label>Up to (e.g. 10)</label
-              ><input type="number" id="totalSums" value="10" />
+              <label>Up to</label>
+              <input type="number" id="totalSums" value="10" />
             </div>
           </div>
-          <div class="input-grid" style="grid-template-columns: 1fr">
-            <div>
-              <label>Speed (Sec)</label
-              ><input type="number" id="speed" value="2" step="0.5" />
+          
+          <div class="input-grid">
+            <div style="grid-column: span 2;">
+              <label>Time Limit (Sec)</label>
+              <input type="number" id="totalTime" value="60" />
             </div>
           </div>
 
           <div class="settings-box">
             <div class="checkbox-row">
-              <input
-                type="checkbox"
-                id="flashMode"
-                onchange="toggleAutoOptions()"
-              />
+              <input type="checkbox" id="flashMode" onchange="toggleAutoOptions()" />
               <label for="flashMode">Flash Mode (Watch & Learn)</label>
             </div>
+            
             <div id="auto-options">
+              <div class="divider"></div>
               <div class="checkbox-row">
                 <input type="checkbox" id="autoLoop" />
                 <label for="autoLoop">Auto Next Question</label>
               </div>
+              
               <label style="margin-top: 10px">Wait Time (Sec):</label>
-              <input
-                type="number"
-                id="autoDelay"
-                value="3"
-                style="margin-top: 5px"
-              />
-              <div>
-                <label>View Time (Sec)</label
-                ><input type="number" id="speed" value="3" step="0.5" />
-              </div>
+              <input type="number" id="autoDelay" value="3" />
+              
+              <label style="margin-top: 15px">View Time (Sec):</label>
+              <input type="number" id="speed" value="3" step="0.5" />
             </div>
           </div>
 
-          <button class="btn btn-check" onclick="startApp()">
-            START PRACTICE
-          </button>
+          <button class="btn btn-check" onclick="startApp()">START PRACTICE</button>
         </div>
       </div>
 
       <div id="game-screen" class="screen">
         <div class="card">
           <div class="stats-bar">
-            <span id="progress-display">1 / 10</span>
+            <span id="timer-display">1 / 60.0s</span>
             <span>BrainiacGym</span>
           </div>
 
           <div id="score-area" class="score-badges">
-            <div class="badge badge-green">
-              Right: <span id="right-count">0</span>
-            </div>
-            <div class="badge badge-red">
-              Wrong: <span id="wrong-count">0</span>
-            </div>
+            <div class="badge badge-green">Right: <span id="right-count">0</span></div>
+            <div class="badge badge-red">Wrong: <span id="wrong-count">0</span></div>
           </div>
 
           <div id="question-text" class="question-box">2 x 1</div>
-
           <div id="feedback" class="feedback-text"></div>
 
           <div id="manual-input-area">
-            <label style="font-weight: 600; color: #b2bec3; font-size: 0.9rem"
-              >Enter Answer</label
-            >
-            <input
-              type="number"
-              id="user-ans"
-              autocomplete="off"
-              placeholder="?"
-            />
+            <label style="font-weight: 600; color: #b2bec3; font-size: 0.9rem">Enter Answer</label>
+            <input type="number" id="user-ans" autocomplete="off" placeholder="?" />
           </div>
 
-          <button id="check-btn" class="btn btn-check" onclick="checkAns()">
-            CHECK ANSWER
-          </button>
-          <button
-            id="stop-btn"
-            class="btn btn-stop"
-            style="display: none"
-            onclick="stopGame()"
-          >
-            STOP AUTO
-          </button>
-          <button
-            id="restart-btn"
-            class="btn btn-restart"
-            style="margin-top: 0; display: none"
-            onclick="location.reload()"
-          >
-            RESTART
-          </button>
+          <button id="check-btn" class="btn btn-check" onclick="checkAns()">CHECK ANSWER</button>
+          <button id="stop-btn" class="btn btn-stop" style="display: none" onclick="stopGame()">STOP AUTO</button>
+          <button id="restart-btn" class="btn btn-restart" style="display: none" onclick="location.reload()">RESTART</button>
         </div>
       </div>
     </div>
@@ -428,36 +344,34 @@
     <script>
       function toggleAutoOptions() {
         const isFlash = document.getElementById("flashMode").checked;
-        document.getElementById("auto-options").style.display = isFlash
-          ? "block"
-          : "none";
+        document.getElementById("auto-options").style.display = isFlash ? "block" : "none";
       }
 
-      // --- Game Variables ---
       let rightCount = 0;
       let wrongCount = 0;
       let currentSumIndex = 1;
       let totalSums = 0;
       let tableBase = 0;
+      let timeLeft = 0;
       let speed = 0;
 
       let isFlashMode = false;
       let isAutoLoop = false;
       let autoDelay = 3000;
 
+      let timerInterval;
       let autoTimeout;
       let countdownInterval;
 
       function startApp() {
         tableBase = parseInt(document.getElementById("tableOf").value);
         totalSums = parseInt(document.getElementById("totalSums").value);
-        speed = parseFloat(document.getElementById("speed").value) * 1000;
-
-        // Settings
+        timeLeft = parseFloat(document.getElementById("totalTime").value);
+        
         isFlashMode = document.getElementById("flashMode").checked;
         isAutoLoop = document.getElementById("autoLoop").checked;
-        autoDelay =
-          parseFloat(document.getElementById("autoDelay").value) * 1000;
+        autoDelay = parseFloat(document.getElementById("autoDelay").value) * 1000;
+        speed = parseFloat(document.getElementById("speed").value) * 1000;
 
         if (isNaN(totalSums) || totalSums <= 0) return;
 
@@ -465,63 +379,62 @@
         rightCount = 0;
         wrongCount = 0;
 
-        updateUIStats();
         showScreen("game-screen");
+        updateUIStats();
         generateQuestion();
+        startTimer();
+      }
+
+      function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+          timeLeft -= 0.1;
+          if (timeLeft <= 0) {
+            timeLeft = 0;
+            clearInterval(timerInterval);
+            endSession("Time's Up!");
+          }
+          updateUIStats();
+        }, 100);
       }
 
       function generateQuestion() {
         const qBox = document.getElementById("question-text");
         const feedback = document.getElementById("feedback");
-
-        // Update Progress
-        document.getElementById(
-          "progress-display"
-        ).innerText = `${currentSumIndex} / ${totalSums}`;
-        feedback.innerText = "";
-        document.getElementById("user-ans").value = "";
-
-        // Setup UI based on mode
         const manualArea = document.getElementById("manual-input-area");
         const scoreArea = document.getElementById("score-area");
         const checkBtn = document.getElementById("check-btn");
         const stopBtn = document.getElementById("stop-btn");
         const restartBtn = document.getElementById("restart-btn");
 
+        feedback.innerText = "";
+        document.getElementById("user-ans").value = "";
+        updateUIStats();
+
         if (isFlashMode) {
-          // --- Flash Mode (Watch) ---
           manualArea.style.display = "none";
           scoreArea.style.display = "none";
-
-          // Show Equation
-          qBox.innerText = `${tableBase} x ${currentSumIndex} = ${
-            tableBase * currentSumIndex
-          }`;
+          qBox.innerText = `${tableBase} x ${currentSumIndex} = ${tableBase * currentSumIndex}`;
 
           checkBtn.innerText = "NEXT >>";
           checkBtn.onclick = nextQuestion;
           checkBtn.style.display = "block";
-          restartBtn.style.display = "block";
 
           if (isAutoLoop) {
             stopBtn.style.display = "block";
             restartBtn.style.display = "none";
 
-            // Countdown
-            let sec = speed / 1000;
-            checkBtn.innerText = `Next in ${sec}s...`;
+            let secCount = speed / 1000;
+            checkBtn.innerText = `Next in ${secCount}s...`;
             countdownInterval = setInterval(() => {
-              sec--;
-              if (sec > 0) checkBtn.innerText = `Next in ${sec}s...`;
+              secCount--;
+              if (secCount > 0) checkBtn.innerText = `Next in ${secCount}s...`;
               else clearInterval(countdownInterval);
             }, 1000);
 
             autoTimeout = setTimeout(nextQuestion, speed);
-          } else {
-            stopBtn.style.display = "none";
           }
         } else {
-          // --- Manual Mode (Test) ---
           manualArea.style.display = "block";
           scoreArea.style.display = "flex";
           qBox.innerText = `${tableBase} x ${currentSumIndex}`;
@@ -545,11 +458,11 @@
 
         if (userVal === correctVal) {
           rightCount++;
-          feedback.innerText = "Correct!";
+          feedback.innerText = "Correct! ✓";
           feedback.style.color = "var(--success-color)";
         } else {
           wrongCount++;
-          feedback.innerText = `Wrong! It's ${correctVal}`;
+          feedback.innerText = `Wrong! Answer: ${correctVal}`;
           feedback.style.color = "var(--error-color)";
         }
 
@@ -564,16 +477,16 @@
 
       function nextQuestion() {
         clearTimers();
-
-        if (currentSumIndex < totalSums) {
+        if (currentSumIndex < totalSums && timeLeft > 0) {
           currentSumIndex++;
           generateQuestion();
         } else {
-          endSession("Table Completed!");
+          endSession(timeLeft <= 0 ? "Time's Up!" : "Practice Complete!");
         }
       }
 
       function stopGame() {
+        clearInterval(timerInterval);
         clearTimers();
         showScreen("setup-screen");
       }
@@ -586,9 +499,12 @@
       function updateUIStats() {
         document.getElementById("right-count").innerText = rightCount;
         document.getElementById("wrong-count").innerText = wrongCount;
+        document.getElementById("timer-display").innerText = `${currentSumIndex} / ${timeLeft.toFixed(1)}s`;
       }
 
       function endSession(msg) {
+        clearInterval(timerInterval);
+        clearTimers();
         document.getElementById("question-text").innerText = msg;
         document.getElementById("manual-input-area").style.display = "none";
         document.getElementById("check-btn").style.display = "none";
@@ -603,17 +519,13 @@
       }
 
       function showScreen(id) {
-        document
-          .querySelectorAll(".screen")
-          .forEach((s) => s.classList.remove("active"));
+        document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
         document.getElementById(id).classList.add("active");
       }
 
-      document
-        .getElementById("user-ans")
-        .addEventListener("keypress", function (e) {
-          if (e.key === "Enter") checkAns();
-        });
+      document.getElementById("user-ans").addEventListener("keypress", function (e) {
+        if (e.key === "Enter") checkAns();
+      });
     </script>
   </body>
 </html>
