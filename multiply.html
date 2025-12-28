@@ -75,18 +75,49 @@
         .badge-green { background-color: var(--success-color); }
         .badge-red { background-color: var(--error-color); }
 
-        /* --- INPUTS --- */
+        /* --- INPUT UI FIXES --- */
+        
+        /* Removes browser arrows (spinners) */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield; /* Firefox fix */
+            width: 100%; 
+            padding: 12px; 
+            border: 2px solid #dfe6e9;
+            border-radius: 10px; 
+            font-size: 1.1rem; 
+            outline: none; 
+            box-sizing: border-box;
+            text-align: center; /* Centers text inside all number inputs */
+        }
+
         .input-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
             margin-bottom: 15px; text-align: left;
         }
         label { display: block; margin-bottom: 5px; font-weight: 700; color: var(--gray-label); font-size: 0.85rem; }
-        input[type="number"] {
-            width: 100%; padding: 12px; border: 2px solid #dfe6e9;
-            border-radius: 10px; font-size: 1.1rem; outline: none; box-sizing: border-box;
-        }
 
-        /* --- SETTINGS BOX (MATCHING SCREENSHOT) --- */
+        /* Specific centering for the game answer input */
+        #user-ans {
+            display: block;
+            margin: 0 auto 20px auto; /* Centers the element horizontally */
+            width: 85%;
+            height: 70px;
+            font-size: 2.5rem;
+            font-weight: 800;
+            border: 2px solid #dfe6e9;
+            border-radius: 15px;
+            text-align: center; /* Ensures the typed digits are centered */
+            transition: border-color 0.2s;
+        }
+        #user-ans:focus { border-color: var(--primary); }
+
+        /* --- SETTINGS BOX --- */
         .settings-box {
             background: #f8f9fa; padding: 20px; border-radius: 15px;
             margin-bottom: 25px; text-align: left; border: 1px solid #edf2f4;
@@ -133,7 +164,7 @@
 <header>
     <img src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png" alt="Logo" class="logo">
     <nav class="nav-links">
-        <a href="index.html">Home</a>
+        <a href="#">Home</a>
         <a href="#">About</a>
         <a href="#">Courses</a>
         <a href="#">Contact</a>
@@ -197,10 +228,10 @@
 
             <div id="flash-display"></div>
             
-            <div id="answer-area" style="display:none;">
+            <div id="answer-area" style="display:none; text-align: center;">
                 <div id="result-bubble" class="result-bubble" style="display:none"></div>
-                <h3 id="feedback-text" style="color:var(--gray-label); margin-top:0;">Answer:</h3>
-                <input type="number" id="user-ans" placeholder="?" style="text-align:center; font-size: 2rem; height: 70px; margin-bottom: 20px; width: 80%;">
+                <h3 id="feedback-text" style="color:var(--gray-label); margin-bottom: 15px;">What is the product?</h3>
+                <input type="number" id="user-ans" placeholder="?">
             </div>
 
             <button id="check-btn" class="btn btn-start" onclick="checkAns()">CHECK ANSWER</button>
@@ -275,67 +306,66 @@
         const display = document.getElementById("flash-display");
         const ansArea = document.getElementById("answer-area");
         const checkBtn = document.getElementById("check-btn");
+        const input = document.getElementById("user-ans");
+        const feedback = document.getElementById("feedback-text");
+        const bubble = document.getElementById("result-bubble");
 
         display.innerText = `${n1} × ${n2}`;
         display.style.display = "flex";
-        ansArea.style.display = "none";
-        
-        checkBtn.style.display = "block";
-        checkBtn.onclick = null; 
-        
-        let sec = Math.ceil(viewSpeed / 1000);
-        checkBtn.innerText = `Showing in ${sec}s`;
-        
-        countdownTimer = setInterval(() => {
-            sec--;
-            if (sec > 0) checkBtn.innerText = `Showing in ${sec}s`;
-            else clearInterval(countdownTimer);
-        }, 1000);
+        bubble.style.display = "none";
 
-        // Transition to Answer Mode immediately after viewSpeed ends
-        autoTimer = setTimeout(setupAnswerMode, viewSpeed);
-    }
-
-function setupAnswerMode() {
-    clearTimers();
-    const display = document.getElementById("flash-display");
-    const ansArea = document.getElementById("answer-area");
-    const bubble = document.getElementById("result-bubble");
-    const feedback = document.getElementById("feedback-text");
-    const input = document.getElementById("user-ans");
-    const checkBtn = document.getElementById("check-btn");
-
-    // Hide the question display if in Flash Mode
-    display.style.display = isFlash ? "none" : "flex";
-    ansArea.style.display = "block";
-    bubble.style.display = "none";
-
-    if (isFlash) {
-        // ALWAYS hide the input box in Flash Mode
-        input.style.display = "none"; 
-        
-        if (isAuto) {
-            // In Auto Flash, we don't even need the button to say "Show Answer"
-            // We just jump straight to showing the result
-            revealFlashAnswer();
-        } else {
-            // Manual Flash: User clicks "SHOW ANSWER" to see the result
-            feedback.innerText = "Calculate Mentally";
-            checkBtn.innerText = "SHOW ANSWER";
-            checkBtn.onclick = revealFlashAnswer;
+        if (isFlash) {
+            ansArea.style.display = "none";
             checkBtn.style.display = "block";
+            checkBtn.onclick = null; 
+            
+            let sec = Math.ceil(viewSpeed / 1000);
+            checkBtn.innerText = `Showing in ${sec}s`;
+            
+            countdownTimer = setInterval(() => {
+                sec--;
+                if (sec > 0) checkBtn.innerText = `Showing in ${sec}s`;
+                else clearInterval(countdownTimer);
+            }, 1000);
+
+            autoTimer = setTimeout(setupAnswerMode, viewSpeed);
+        } else {
+            ansArea.style.display = "block";
+            input.style.display = "block";
+            input.value = "";
+            input.focus();
+            feedback.innerText = "What is the product?";
+            
+            checkBtn.style.display = "block";
+            checkBtn.innerText = "CHECK ANSWER";
+            checkBtn.onclick = checkAns;
         }
-    } else {
-        // Standard Mode: Input IS required here
-        input.style.display = "block";
-        input.value = "";
-        input.focus();
-        feedback.innerText = "What is the product?";
-        checkBtn.innerText = "CHECK ANSWER";
-        checkBtn.onclick = checkAns;
-        checkBtn.style.display = "block";
     }
-}
+
+    function setupAnswerMode() {
+        clearTimers();
+        const display = document.getElementById("flash-display");
+        const ansArea = document.getElementById("answer-area");
+        const input = document.getElementById("user-ans");
+        const checkBtn = document.getElementById("check-btn");
+        const feedback = document.getElementById("feedback-text");
+
+        if (isFlash) {
+            display.style.display = "none";
+            ansArea.style.display = "block";
+            input.style.display = "none";
+
+            if (isAuto) {
+                revealFlashAnswer();
+            } else {
+                feedback.innerText = "Calculate Mentally";
+                checkBtn.innerText = "SHOW ANSWER";
+                checkBtn.onclick = revealFlashAnswer;
+                checkBtn.style.display = "block";
+            }
+        }
+    }
+
     function revealFlashAnswer() {
         clearTimers();
         const bubble = document.getElementById("result-bubble");
@@ -350,7 +380,6 @@ function setupAnswerMode() {
         checkBtn.onclick = nextQuestion;
 
         if (isAuto) {
-            // Wait Time only applies AFTER the answer is shown before moving to next question
             autoTimer = setTimeout(nextQuestion, waitTime);
         }
     }
@@ -422,7 +451,10 @@ function setupAnswerMode() {
     }
 
     document.getElementById("user-ans").addEventListener("keypress", (e) => {
-        if (e.key === "Enter") checkAns();
+        if (e.key === "Enter") {
+            const isFlashMode = document.getElementById("flashMode").checked;
+            if (!isFlashMode) checkAns();
+        }
     });
 </script>
 </body>
