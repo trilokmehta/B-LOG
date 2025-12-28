@@ -6,16 +6,15 @@
     <title>Table Practice | BrainiacGym</title>
     <style>
       :root {
-        /* Brand Colors */
-        --primary: #f58220; /* The Orange */
+        --primary: #f58220;
         --secondary: #2d3436;
         --bg-color: #f4f7f6;
         --card-bg: #ffffff;
         --header-height: 80px;
-        --success-color: #27ae60; /* Vibrant Green */
-        --error-color: #c0392b; /* Vibrant Red */
-        --gray-btn: #636e72; /* Dark Gray */
-        --bar-bg: #f1f2f6; /* Light gray for top bar */
+        --success-color: #27ae60;
+        --error-color: #c0392b;
+        --gray-btn: #636e72;
+        --bar-bg: #f1f2f6;
       }
 
       * {
@@ -33,7 +32,6 @@
         padding-top: calc(var(--header-height) + 40px);
       }
 
-      /* --- 1. FIXED HEADER --- */
       header {
         position: fixed;
         top: 0;
@@ -47,35 +45,18 @@
         padding: 0 5%;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         z-index: 1000;
-        box-sizing: border-box;
       }
 
-      .logo {
-        height: 40px;
-      }
+      .logo { height: 40px; }
 
-      .nav-links {
-        display: flex;
-        gap: 20px;
-      }
+      .nav-links { display: flex; gap: 20px; }
       .nav-links a {
         text-decoration: none;
         color: #555;
         font-weight: 600;
         font-size: 0.95rem;
-        transition: color 0.2s;
-      }
-      .nav-links a:hover {
-        color: #f58220;
       }
 
-      @media (max-width: 600px) {
-        .nav-links {
-          display: none;
-        }
-      }
-
-      /* --- 2. CONTAINER & CARD --- */
       .container {
         max-width: 600px;
         margin: 0 auto;
@@ -91,12 +72,6 @@
         border-top: 6px solid var(--primary);
       }
 
-      h2 {
-        color: var(--secondary);
-        margin-bottom: 25px;
-      }
-
-      /* --- 3. INPUTS FOR SETUP --- */
       .input-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -120,13 +95,7 @@
         border-radius: 10px;
         font-size: 1.1rem;
         outline: none;
-        transition: border-color 0.3s;
       }
-      input[type="number"]:focus {
-        border-color: var(--primary);
-      }
-
-      /* --- 4. GAME SCREEN SPECIFICS --- */
 
       .stats-bar {
         display: flex;
@@ -137,7 +106,6 @@
         font-weight: 700;
         color: #636e72;
         margin-bottom: 30px;
-        font-size: 1rem;
       }
 
       .score-badges {
@@ -146,6 +114,7 @@
         gap: 20px;
         margin-bottom: 20px;
       }
+
       .badge {
         padding: 8px 25px;
         border-radius: 50px;
@@ -153,12 +122,9 @@
         font-weight: 800;
         color: white;
       }
-      .badge-green {
-        background-color: var(--success-color);
-      }
-      .badge-red {
-        background-color: var(--error-color);
-      }
+
+      .badge-green { background-color: var(--success-color); }
+      .badge-red { background-color: var(--error-color); }
 
       .question-box {
         font-size: 3.5rem;
@@ -174,7 +140,6 @@
         font-weight: bold;
         width: 80%;
         margin: 15px auto 30px auto;
-        letter-spacing: 1px;
         padding: 15px;
         border-radius: 12px;
         border: 2px solid #dfe6e9;
@@ -190,16 +155,11 @@
         cursor: pointer;
         color: white;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
         margin-bottom: 15px;
       }
 
-      .btn-check {
-        background: var(--primary);
-      }
-      .btn-restart {
-        background: var(--gray-btn);
-      }
+      .btn-check { background: var(--primary); }
+      .btn-restart { background: var(--gray-btn); }
       .btn-stop {
         background: white;
         color: var(--error-color);
@@ -222,52 +182,30 @@
         text-align: left;
         border: 1px solid #eee;
       }
+
       .checkbox-row {
         display: flex;
         align-items: center;
         gap: 12px;
         margin-bottom: 10px;
       }
-      .checkbox-row input {
-        width: 22px;
-        height: 22px;
-        accent-color: var(--primary);
-      }
-      .divider {
-        border-top: 1px dashed #ccc;
-        margin: 15px 0;
-      }
 
-      #auto-options {
-        display: none;
-      }
+      #auto-options { display: none; }
 
-      .screen {
-        display: none;
-      }
+      .screen { display: none; }
       .screen.active {
         display: block;
         animation: fadeIn 0.4s ease;
       }
       @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
       }
     </style>
   </head>
   <body>
     <header>
-      <img
-        src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
-        alt="Logo"
-        class="logo"
-      />
+      <img src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png" alt="Logo" class="logo" />
       <nav class="nav-links">
         <a href="index.html">Home</a>
         <a href="#">About</a>
@@ -280,7 +218,6 @@
       <div id="setup-screen" class="screen active">
         <div class="card">
           <h2>Table Practice</h2>
-
           <div class="input-grid">
             <div>
               <label>Table Of</label>
@@ -291,7 +228,6 @@
               <input type="number" id="totalSums" value="10" />
             </div>
           </div>
-
           <div class="input-grid">
             <div style="grid-column: span 2">
               <label>Time Limit (Sec)</label>
@@ -301,85 +237,43 @@
 
           <div class="settings-box">
             <div class="checkbox-row">
-              <input
-                type="checkbox"
-                id="flashMode"
-                onchange="toggleAutoOptions()"
-              />
+              <input type="checkbox" id="flashMode" onchange="toggleAutoOptions()" />
               <label for="flashMode">Flash Mode (Watch & Learn)</label>
             </div>
-
             <div id="auto-options">
-              <div class="divider"></div>
               <div class="checkbox-row">
                 <input type="checkbox" id="autoLoop" />
                 <label for="autoLoop">Auto Next Question</label>
               </div>
-
-              <label style="margin-top: 10px">Wait Time (Sec):</label>
-              <input type="number" id="autoDelay" value="3" />
-
-              <label style="margin-top: 15px">View Time (Sec):</label>
+              <label style="margin-top: 10px">View Time (Question Only):</label>
               <input type="number" id="speed" value="3" step="0.5" />
+              <label style="margin-top: 15px">Wait Time (Show Answer):</label>
+              <input type="number" id="autoDelay" value="2" />
             </div>
           </div>
-
-          <button class="btn btn-check" onclick="startApp()">
-            START PRACTICE
-          </button>
+          <button class="btn btn-check" onclick="startApp()">START PRACTICE</button>
         </div>
       </div>
 
       <div id="game-screen" class="screen">
         <div class="card">
           <div class="stats-bar">
-            <span id="timer-display">1 / 60.0s</span>
+            <span id="timer-display">60.0s</span>
             <span>BrainiacGym</span>
           </div>
-
           <div id="score-area" class="score-badges">
-            <div class="badge badge-green">
-              Right: <span id="right-count">0</span>
-            </div>
-            <div class="badge badge-red">
-              Wrong: <span id="wrong-count">0</span>
-            </div>
+            <div class="badge badge-green">Right: <span id="right-count">0</span></div>
+            <div class="badge badge-red">Wrong: <span id="wrong-count">0</span></div>
           </div>
-
-          <div id="question-text" class="question-box">2 x 1</div>
+          <div id="question-text" class="question-box"></div>
           <div id="feedback" class="feedback-text"></div>
-
           <div id="manual-input-area">
-            <label style="font-weight: 600; color: #b2bec3; font-size: 0.9rem"
-              >Enter Answer</label
-            >
-            <input
-              type="number"
-              id="user-ans"
-              autocomplete="off"
-              placeholder="?"
-            />
+            <label style="color: #b2bec3">Enter Answer</label>
+            <input type="number" id="user-ans" autocomplete="off" placeholder="?" />
           </div>
-
-          <button id="check-btn" class="btn btn-check" onclick="checkAns()">
-            CHECK ANSWER
-          </button>
-          <button
-            id="stop-btn"
-            class="btn btn-stop"
-            style="display: none"
-            onclick="stopGame()"
-          >
-            STOP AUTO
-          </button>
-          <button
-            id="restart-btn"
-            class="btn btn-restart"
-            style="display: none"
-            onclick="location.reload()"
-          >
-            RESTART
-          </button>
+          <button id="check-btn" class="btn btn-check" onclick="checkAns()">CHECK ANSWER</button>
+          <button id="stop-btn" class="btn btn-stop" style="display: none" onclick="stopGame()">STOP AUTO</button>
+          <button id="restart-btn" class="btn btn-restart" style="display: none" onclick="location.reload()">RESTART</button>
         </div>
       </div>
     </div>
@@ -387,39 +281,20 @@
     <script>
       function toggleAutoOptions() {
         const isFlash = document.getElementById("flashMode").checked;
-        document.getElementById("auto-options").style.display = isFlash
-          ? "block"
-          : "none";
+        document.getElementById("auto-options").style.display = isFlash ? "block" : "none";
       }
 
-      let rightCount = 0;
-      let wrongCount = 0;
-      let currentSumIndex = 1;
-      let totalSums = 0;
-      let tableBase = 0;
-      let timeLeft = 0;
-      let speed = 0;
-
-      let isFlashMode = false;
-      let isAutoLoop = false;
-      let autoDelay = 3000;
-
-      let timerInterval;
-      let autoTimeout;
-      let countdownInterval;
+      let rightCount, wrongCount, currentSumIndex, totalSums, tableBase, timeLeft, speed, autoDelay;
+      let isFlashMode, isAutoLoop, timerInterval, autoTimeout, countdownInterval;
 
       function startApp() {
         tableBase = parseInt(document.getElementById("tableOf").value);
         totalSums = parseInt(document.getElementById("totalSums").value);
         timeLeft = parseFloat(document.getElementById("totalTime").value);
-
         isFlashMode = document.getElementById("flashMode").checked;
         isAutoLoop = document.getElementById("autoLoop").checked;
-        autoDelay =
-          parseFloat(document.getElementById("autoDelay").value) * 1000;
+        autoDelay = parseFloat(document.getElementById("autoDelay").value) * 1000;
         speed = parseFloat(document.getElementById("speed").value) * 1000;
-
-        if (isNaN(totalSums) || totalSums <= 0) return;
 
         currentSumIndex = 1;
         rightCount = 0;
@@ -446,53 +321,69 @@
 
       function generateQuestion() {
         const qBox = document.getElementById("question-text");
-        const feedback = document.getElementById("feedback");
         const manualArea = document.getElementById("manual-input-area");
         const scoreArea = document.getElementById("score-area");
         const checkBtn = document.getElementById("check-btn");
         const stopBtn = document.getElementById("stop-btn");
-        const restartBtn = document.getElementById("restart-btn");
 
-        feedback.innerText = "";
+        document.getElementById("feedback").innerText = "";
         document.getElementById("user-ans").value = "";
-        updateUIStats();
 
         if (isFlashMode) {
           manualArea.style.display = "none";
           scoreArea.style.display = "none";
-          qBox.innerText = `${tableBase} x ${currentSumIndex} = ${
-            tableBase * currentSumIndex
-          }`;
-
-          checkBtn.innerText = "NEXT >>";
-          checkBtn.onclick = nextQuestion;
-          checkBtn.style.display = "block";
-
+          // PHASE 1: Show Question Only
+          qBox.innerText = `${tableBase} x ${currentSumIndex}`;
+          
           if (isAutoLoop) {
             stopBtn.style.display = "block";
-            restartBtn.style.display = "none";
-
             let secCount = speed / 1000;
-            checkBtn.innerText = `Next in ${secCount}s...`;
+            checkBtn.innerText = `REVEALING IN ${secCount}s...`;
+            checkBtn.onclick = null;
+
             countdownInterval = setInterval(() => {
-              secCount--;
-              if (secCount > 0) checkBtn.innerText = `Next in ${secCount}s...`;
+              secCount -= 1;
+              if (secCount > 0) checkBtn.innerText = `REVEALING IN ${Math.ceil(secCount)}s...`;
               else clearInterval(countdownInterval);
             }, 1000);
 
-            autoTimeout = setTimeout(nextQuestion, speed);
+            autoTimeout = setTimeout(revealAnswer, speed);
+          } else {
+            checkBtn.innerText = "SHOW ANSWER";
+            checkBtn.onclick = revealAnswer;
           }
         } else {
           manualArea.style.display = "block";
           scoreArea.style.display = "flex";
           qBox.innerText = `${tableBase} x ${currentSumIndex}`;
-          document.getElementById("user-ans").focus();
-
           checkBtn.innerText = "CHECK ANSWER";
           checkBtn.onclick = checkAns;
-          checkBtn.style.display = "block";
-          stopBtn.style.display = "none";
-          restartBtn.style.display = "block";
+          document.getElementById("user-ans").focus();
+        }
+      }
+
+      function revealAnswer() {
+        clearInterval(countdownInterval);
+        const qBox = document.getElementById("question-text");
+        const checkBtn = document.getElementById("check-btn");
+        
+        // PHASE 2: Show Answer
+        qBox.innerText = `${tableBase} x ${currentSumIndex} = ${tableBase * currentSumIndex}`;
+
+        if (isFlashMode && isAutoLoop) {
+          let secCount = autoDelay / 1000;
+          checkBtn.innerText = `NEXT IN ${secCount}s...`;
+          
+          countdownInterval = setInterval(() => {
+            secCount -= 1;
+            if (secCount > 0) checkBtn.innerText = `NEXT IN ${Math.ceil(secCount)}s...`;
+            else clearInterval(countdownInterval);
+          }, 1000);
+
+          autoTimeout = setTimeout(nextQuestion, autoDelay);
+        } else {
+          checkBtn.innerText = "NEXT QUESTION >>";
+          checkBtn.onclick = nextQuestion;
         }
       }
 
@@ -500,36 +391,21 @@
         const userInput = document.getElementById("user-ans").value;
         const feedback = document.getElementById("feedback");
         const checkBtn = document.getElementById("check-btn");
-
-        // Calculate the correct answer for the current table row
         const correctAnswer = tableBase * currentSumIndex;
 
-        // Prevent multiple clicks while the transition is happening
-        checkBtn.style.pointerEvents = "none";
-
-        // Check logic: must not be empty and must match the calculated product
         if (userInput !== "" && parseInt(userInput) === correctAnswer) {
           rightCount++;
           feedback.innerText = "Correct! ✓";
           feedback.style.color = "var(--success-color)";
         } else {
           wrongCount++;
-          // Differentiates between a wrong answer and no answer at all
-          feedback.innerText =
-            userInput === ""
-              ? `No answer! Ans: ${correctAnswer}`
-              : `Wrong! Answer: ${correctAnswer}`;
+          feedback.innerText = userInput === "" ? `No answer! Ans: ${correctAnswer}` : `Wrong! Ans: ${correctAnswer}`;
           feedback.style.color = "var(--error-color)";
         }
 
         updateUIStats();
-
-        // Temporarily hide the button to signify the round is over
         checkBtn.style.visibility = "hidden";
-
         setTimeout(() => {
-          // Restore button state and move to the next question
-          checkBtn.style.pointerEvents = "auto";
           checkBtn.style.visibility = "visible";
           nextQuestion();
         }, 1500);
@@ -559,9 +435,7 @@
       function updateUIStats() {
         document.getElementById("right-count").innerText = rightCount;
         document.getElementById("wrong-count").innerText = wrongCount;
-        document.getElementById(
-          "timer-display"
-        ).innerText = `${timeLeft.toFixed(1)}s`;
+        document.getElementById("timer-display").innerText = `${timeLeft.toFixed(1)}s`;
       }
 
       function endSession(msg) {
@@ -571,27 +445,20 @@
         document.getElementById("manual-input-area").style.display = "none";
         document.getElementById("check-btn").style.display = "none";
         document.getElementById("stop-btn").style.display = "none";
-
-        const feedback = document.getElementById("feedback");
-        feedback.innerText = `Final Score: ${rightCount} / ${totalSums}`;
-        feedback.style.color = "var(--primary)";
-        feedback.style.fontSize = "1.5rem";
-
+        const fb = document.getElementById("feedback");
+        fb.innerText = `Final Score: ${rightCount} / ${totalSums}`;
+        fb.style.color = "var(--primary)";
         document.getElementById("restart-btn").style.display = "block";
       }
 
       function showScreen(id) {
-        document
-          .querySelectorAll(".screen")
-          .forEach((s) => s.classList.remove("active"));
+        document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
         document.getElementById(id).classList.add("active");
       }
 
-      document
-        .getElementById("user-ans")
-        .addEventListener("keypress", function (e) {
-          if (e.key === "Enter") checkAns();
-        });
+      document.getElementById("user-ans").addEventListener("keypress", (e) => {
+        if (e.key === "Enter") checkAns();
+      });
     </script>
   </body>
 </html>

@@ -391,12 +391,10 @@ function checkAns() {
       }
 
       function updateUIStats() {
-  document.getElementById("right-count").innerText = rightCount;
-  document.getElementById("wrong-count").innerText = wrongCount;
-  
-  // Change this line to remove the "currentSumCount /" part
-  document.getElementById("progress-timer").innerText = `${timeLeft.toFixed(1)}s`;
-}
+        document.getElementById("right-count").innerText = rightCount;
+        document.getElementById("wrong-count").innerText = wrongCount;
+        document.getElementById("progress-timer").innerText = `${timeLeft.toFixed(1)}s`;
+      }
 
       function endSession(message) {
         clearInterval(timerInterval);
