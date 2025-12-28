@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Decimal Add & Sub | BrainiacGym</title>
+    <style>
+      :root {
+        --primary: #f58220;
+        --secondary: #2d3436;
+        --bg-color: #f4f7f6;
+        --card-bg: #ffffff;
+        --header-height: 80px;
+        --success-color: #27ae60;
+        --error-color: #c0392b;
+        --gray-btn: #636e72;
+        --bar-bg: #f1f2f6;
+      }
+
+      * {
+        box-sizing: border-box;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Roboto, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--secondary);
+        padding-top: calc(var(--header-height) + 20px);
+      }
+
+      /* --- 1. HEADER --- */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        z-index: 1000;
+      }
+      .logo {
+        height: 40px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+      .nav-links a {
+        text-decoration: none;
+        color: #555;
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      /* --- 2. CONTAINER --- */
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .card {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        border-top: 6px solid var(--primary);
+      }
+
+      /* --- 3. STATS & BADGES --- */
+      .stats-bar {
+        display: flex;
+        justify-content: space-between;
+        background: var(--bar-bg);
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-weight: 700;
+        color: #636e72;
+        margin-bottom: 25px;
+        font-size: 1rem;
+      }
+      .score-badges {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      .badge {
+        padding: 8px 25px;
+        border-radius: 50px;
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: white;
+      }
+      .badge-green {
+        background-color: var(--success-color);
+      }
+      .badge-red {
+        background-color: var(--error-color);
+      }
+
+      /* --- 4. GAMEPLAY --- */
+      #flash-display {
+        font-size: 4.5rem;
+        font-weight: 800;
+        color: #2d3436;
+        margin: 30px 0;
+        min-height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #user-ans {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: bold;
+        width: 80%;
+        margin: 15px auto 30px auto;
+        padding: 15px;
+        border-radius: 12px;
+        border: 2px solid #dfe6e9;
+      }
+      .result-bubble {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        padding: 15px 40px;
+        border-radius: 50px;
+        background: var(--primary);
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 30px;
+      }
+
+      /* --- 5. BUTTONS --- */
+      .btn {
+        width: 100%;
+        padding: 18px;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 800;
+        cursor: pointer;
+        color: white;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+      }
+      .btn-check {
+        background: var(--primary);
+        box-shadow: 0 5px 15px rgba(245, 130, 32, 0.3);
+      }
+      .btn-stop {
+        background: white;
+        color: var(--error-color);
+        border: 2px solid var(--error-color);
+      }
+      .btn-restart {
+        background: var(--gray-btn);
+      }
+
+      /* --- 6. SETUP ELEMENTS --- */
+      .input-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 20px;
+        text-align: left;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #636e72;
+        font-size: 0.9rem;
+      }
+      input[type="number"] {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #dfe6e9;
+        border-radius: 10px;
+      }
+      .settings-box {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+        text-align: left;
+        border: 1px solid #eee;
+      }
+      .checkbox-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      #auto-options {
+        display: none;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px dashed #ccc;
+      }
+
+      .screen {
+        display: none;
+      }
+      .screen.active {
+        display: block;
+        animation: fadeIn 0.4s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img
+        src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
+        alt="Logo"
+        class="logo"
+      />
+      <nav class="nav-links">
+        <a href="index.html">Home</a><a href="#">About</a><a href="#">Courses</a
+        ><a href="#">Contact</a>
+      </nav>
+    </header>
+
+    <div class="container">
+      <div id="setup-screen" class="screen active">
+        <div class="card">
+          <h2>Decimal Add/Sub Setup</h2>
+          <div class="input-grid">
+            <div>
+              <label>Digits</label><input type="number" id="digits" value="1" />
+            </div>
+            <div>
+              <label>Rows per Round</label
+              ><input type="number" id="rows" value="5" />
+            </div>
+          </div>
+          <div class="input-grid">
+            <div>
+              <label>Total Questions</label
+              ><input type="number" id="totalSums" value="10" />
+            </div>
+            <div>
+              <label>Time Limit (Sec)</label
+              ><input type="number" id="totalTime" value="60" />
+            </div>
+          </div>
+          <div class="input-grid" style="grid-template-columns: 1fr">
+            <div>
+              <label>Flash Speed (Sec)</label
+              ><input type="number" id="speed" value="1.5" step="0.1" />
+            </div>
+          </div>
+          <div class="settings-box">
+            <div class="checkbox-row">
+              <input
+                type="checkbox"
+                id="flashMode"
+                onchange="toggleAuto()"
+              /><label for="flashMode">Flash Mode (Mental Math)</label>
+            </div>
+            <div id="auto-options">
+              <div class="checkbox-row">
+                <input type="checkbox" id="autoLoop" /><label for="autoLoop"
+                  >Auto Next Question</label
+                >
+              </div>
+              <label style="margin-top: 10px">Wait Time (Sec):</label
+              ><input type="number" id="autoDelay" value="3" />
+              <div>
+                <label>View Time (Sec)</label
+                ><input type="number" id="speed" value="3" step="0.5" />
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-check" onclick="startApp()">
+            START PRACTICE
+          </button>
+        </div>
+      </div>
+
+      <div id="game-screen" class="screen">
+        <div class="card">
+          <div class="stats-bar">
+            <span id="timer-display">1/60.0s</span><span>BrainiacGym</span>
+          </div>
+          <div class="score-badges">
+            <div class="badge badge-green">
+              Right: <span id="right-count">0</span>
+            </div>
+            <div class="badge badge-red">
+              Wrong: <span id="wrong-count">0</span>
+            </div>
+          </div>
+          <div id="flash-display">---</div>
+          <div id="result-bubble" class="result-bubble"></div>
+          <div
+            id="feedback"
+            style="min-height: 30px; font-weight: 700; margin-bottom: 15px"
+          ></div>
+          <div id="input-area">
+            <label style="font-weight: 600; color: #b2bec3"
+              >What was the total?</label
+            ><input type="number" id="user-ans" step="0.1" placeholder="?" />
+          </div>
+          <button id="action-btn" class="btn btn-check" onclick="checkAns()">
+            CHECK ANSWER
+          </button>
+          <button class="btn btn-stop" onclick="location.reload()">
+            STOP PRACTICE
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function toggleAuto() {
+        document.getElementById("auto-options").style.display =
+          document.getElementById("flashMode").checked ? "block" : "none";
+      }
+
+      let rightCount = 0,
+        wrongCount = 0,
+        currentSum = 1,
+        totalSums = 0,
+        timeLeft = 0,
+        correctAnswer = 0,
+        speed = 0;
+      let sequence = [],
+        isFlash = false,
+        isAuto = false,
+        autoDelay = 0,
+        timerInterval,
+        autoTimeout,
+        countdownInterval;
+
+      function startApp() {
+        totalSums = parseInt(document.getElementById("totalSums").value);
+        timeLeft = parseFloat(document.getElementById("totalTime").value);
+        speed = parseFloat(document.getElementById("speed").value) * 1000;
+        isFlash = document.getElementById("flashMode").checked;
+        isAuto = document.getElementById("autoLoop").checked;
+        autoDelay =
+          parseFloat(document.getElementById("autoDelay").value) * 1000;
+
+        rightCount = 0;
+        wrongCount = 0;
+        currentSum = 1;
+        showScreen("game-screen");
+        generateSequence();
+        startGlobalTimer();
+      }
+
+      function generateSequence() {
+        const d = parseInt(document.getElementById("digits").value),
+          r = parseInt(document.getElementById("rows").value);
+        correctAnswer = 0;
+        sequence = [];
+        for (let i = 0; i < r; i++) {
+          let n = parseFloat(
+            (Math.random() * (Math.pow(10, d) - 1) + 1).toFixed(1)
+          );
+          if (i > 0 && Math.random() > 0.5 && correctAnswer - n >= 0) {
+            sequence.push(-n);
+            correctAnswer = parseFloat((correctAnswer - n).toFixed(1));
+          } else {
+            sequence.push(n);
+            correctAnswer = parseFloat((correctAnswer + n).toFixed(1));
+          }
+        }
+        runFlashSequence();
+      }
+
+      function runFlashSequence() {
+        resetUIForNewRound();
+        let i = 0;
+        const interval = setInterval(() => {
+          if (i < sequence.length) {
+            let val = sequence[i];
+            document.getElementById("flash-display").innerText =
+              i > 0 && val > 0 ? "+" + val : val;
+            i++;
+          } else {
+            clearInterval(interval);
+            setTimeout(showAnswerPhase, 500);
+          }
+        }, speed);
+      }
+
+      function showAnswerPhase() {
+        if (isFlash) {
+          document.getElementById("flash-display").style.display = "none";
+          document.getElementById("result-bubble").style.display = "flex";
+          document.getElementById("result-bubble").innerText = correctAnswer;
+          document.getElementById("feedback").innerText = "Answer:";
+          document.getElementById("action-btn").innerText = "NEXT QUESTION >>";
+          document.getElementById("action-btn").onclick = nextQuestion;
+          if (isAuto) {
+            let sec = autoDelay / 1000;
+            document.getElementById(
+              "action-btn"
+            ).innerText = `Next in ${sec}s...`;
+            countdownInterval = setInterval(() => {
+              sec--;
+              if (sec > 0)
+                document.getElementById(
+                  "action-btn"
+                ).innerText = `Next in ${sec}s...`;
+              else clearInterval(countdownInterval);
+            }, 1000);
+            autoTimeout = setTimeout(nextQuestion, autoDelay);
+          }
+        } else {
+          document.getElementById("flash-display").innerText = "???";
+          document.getElementById("input-area").style.display = "block";
+          document.getElementById("user-ans").focus();
+        }
+      }
+
+      function checkAns() {
+        const val = parseFloat(document.getElementById("user-ans").value);
+        if (isNaN(val)) return;
+        document.getElementById("result-bubble").innerText = correctAnswer;
+        document.getElementById("result-bubble").style.display = "flex";
+        document.getElementById("flash-display").style.display = "none";
+        if (Math.abs(val - correctAnswer) < 0.01) {
+          rightCount++;
+          document.getElementById("feedback").innerText = "Correct! ✓";
+          document.getElementById("feedback").style.color =
+            "var(--success-color)";
+        } else {
+          wrongCount++;
+          document.getElementById("feedback").innerText = "Wrong!";
+          document.getElementById("feedback").style.color =
+            "var(--error-color)";
+        }
+        updateUI();
+        document.getElementById("action-btn").innerText = "NEXT QUESTION >>";
+        document.getElementById("action-btn").onclick = nextQuestion;
+      }
+
+      function nextQuestion() {
+        clearTimeout(autoTimeout);
+        clearInterval(countdownInterval);
+        if (currentSum < totalSums) {
+          currentSum++;
+          generateSequence();
+        } else {
+          endSession();
+        }
+      }
+
+      function resetUIForNewRound() {
+        document.getElementById("flash-display").style.display = "flex";
+        document.getElementById("flash-display").innerText = "Focus...";
+        document.getElementById("result-bubble").style.display = "none";
+        document.getElementById("input-area").style.display = "none";
+        document.getElementById("feedback").innerText = "";
+        document.getElementById("action-btn").innerText = "CHECK ANSWER";
+        document.getElementById("action-btn").onclick = checkAns;
+        document.getElementById("user-ans").value = "";
+        updateUI();
+      }
+
+      function startGlobalTimer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+          timeLeft -= 0.1;
+          if (timeLeft <= 0) {
+            timeLeft = 0;
+            endSession();
+          }
+          updateUI();
+        }, 100);
+      }
+
+      function updateUI() {
+        document.getElementById("right-count").innerText = rightCount;
+        document.getElementById("wrong-count").innerText = wrongCount;
+        document.getElementById(
+          "timer-display"
+        ).innerText = `${currentSum}/${timeLeft.toFixed(1)}s`;
+      }
+
+      function endSession() {
+        clearInterval(timerInterval);
+        document.getElementById("flash-display").innerText = "Complete!";
+        document.getElementById(
+          "feedback"
+        ).innerText = `Final Score: ${rightCount}/${totalSums}`;
+        document.getElementById("action-btn").style.display = "none";
+        document.getElementById("input-area").style.display = "none";
+      }
+
+      function showScreen(id) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+      }
+    </script>
+  </body>
+</html>

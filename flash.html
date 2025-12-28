@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Negative +/- Practice | BrainiacGym</title>
+    <style>
+      :root {
+        /* Brand Colors */
+        --primary: #f58220;
+        --primary-dark: #d35400;
+        --secondary: #2d3436;
+        --bg-color: #f4f7f6;
+        --card-bg: #ffffff;
+        --header-height: 80px;
+        --success-color: #27ae60;
+        --error-color: #c0392b;
+      }
+
+      * {
+        box-sizing: border-box;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--secondary);
+        padding-top: calc(var(--header-height) + 40px);
+      }
+
+      /* --- UI COMPONENTS --- */
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        border-top: 5px solid var(--primary);
+      }
+
+      h2,
+      h3 {
+        color: var(--secondary);
+        margin-bottom: 25px;
+      }
+
+      /* Inputs */
+      label {
+        display: block;
+        text-align: left;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #636e72;
+        font-size: 0.9rem;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 2px solid #dfe6e9;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        outline: none;
+        transition: border-color 0.3s;
+      }
+
+      input[type="number"]:focus {
+        border-color: var(--primary);
+      }
+
+      /* Buttons */
+      .btn-main {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(245, 130, 32, 0.3);
+        transition: transform 0.2s;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .btn-main:active {
+        transform: scale(0.95);
+      }
+
+      /* Screen Visibility Logic */
+      .screen {
+        display: none;
+      }
+      .screen.active {
+        display: block;
+        animation: fadeIn 0.5s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Flash Display Styles */
+      #flash-display {
+        font-size: 5rem;
+        font-weight: 800;
+        color: var(--secondary);
+        margin: 40px 0;
+        min-height: 100px;
+      }
+
+      /* Result Bubble */
+      .result-bubble {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      /* --- NAVIGATION --- */
+      .navbar {
+        height: var(--header-height);
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      .navbar-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        padding: 0 20px;
+      }
+
+      .logo {
+        height: 50px;
+        width: auto;
+      }
+      .logo-right {
+        height: 55px;
+        width: auto;
+        margin-left: 20px;
+      }
+
+      .navbar-menu {
+        display: flex;
+        gap: 25px;
+      }
+      .nav-link {
+        text-decoration: none;
+        color: var(--secondary);
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+      }
+
+      .hamburger {
+        display: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--secondary);
+      }
+
+      /* Mobile Menu Drawer */
+      .mobile-menu {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 999;
+        flex-direction: column;
+        gap: 15px;
+        display: flex;
+      }
+      .mobile-menu.open {
+        transform: translateY(0);
+      }
+
+      @media (max-width: 768px) {
+        .navbar-menu,
+        .logo-right {
+          display: none;
+        }
+        .hamburger {
+          display: block;
+        }
+        .logo {
+          height: 40px;
+        }
+        .card {
+          padding: 25px;
+        }
+        #flash-display {
+          font-size: 4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="navbar-container">
+        <div class="logo-wrapper">
+          <img
+            src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
+            alt="BrainiacGym"
+            class="logo"
+          />
+        </div>
+
+        <nav class="navbar-menu">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="#" class="nav-link">About</a>
+          <a href="#" class="nav-link">Courses</a>
+          <a href="#" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="logo-wrapper">
+          <img
+            src="https://brainiacgym.com/wp-content/uploads/2025/10/Untitled-820-x-500-px.png"
+            alt="NSDC"
+            class="logo-right"
+          />
+          <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" class="nav-link">HOME</a>
+      <a href="#" class="nav-link">ABOUT</a>
+      <a href="#" class="nav-link">COURSES</a>
+      <a href="#" class="nav-link">CONTACT</a>
+    </div>
+
+    <div class="container">
+      <div id="setup-screen" class="screen active">
+        <div class="card">
+          <h2>Negative +/- Setup</h2>
+          <label>Number of Digits</label>
+          <input type="number" id="digits" value="1" min="1" />
+
+          <label>How many rows?</label>
+          <input type="number" id="rows" value="5" min="2" />
+
+          <label>Seconds per number</label>
+          <input type="number" id="speed" value="1" step="0.1" min="0.3" />
+
+          <button class="btn-main" onclick="startApp()">Start Practice</button>
+        </div>
+      </div>
+
+      <div id="flash-screen" class="screen">
+        <div class="card">
+          <div id="flash-display"></div>
+          <p id="status-text" style="color: #7f8c8d; font-weight: 600">
+            Get Ready!
+          </p>
+        </div>
+      </div>
+
+      <div id="answer-screen" class="screen">
+        <div class="card">
+          <div
+            id="result-bubble"
+            class="result-bubble"
+            style="display: none"
+          ></div>
+
+          <h3 id="feedback-text">What was the final total?</h3>
+
+          <input
+            type="number"
+            id="user-ans"
+            placeholder="Enter answer (can be negative)"
+          />
+
+          <button id="check-btn" class="btn-main" onclick="checkAns()">
+            Check Answer
+          </button>
+          <button
+            id="retry-btn"
+            class="btn-main"
+            style="display: none; background: #636e72"
+            onclick="location.reload()"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // --- Navigation Logic ---
+      function toggleMenu() {
+        document.getElementById("mobileMenu").classList.toggle("open");
+      }
+
+      // --- Game Logic ---
+      let correctAnswer = 0;
+      let sequence = [];
+
+      function startApp() {
+        const d = parseInt(document.getElementById("digits").value);
+        const r = parseInt(document.getElementById("rows").value);
+        const speed = parseFloat(document.getElementById("speed").value) * 1000;
+
+        correctAnswer = 0;
+        sequence = [];
+
+        for (let i = 0; i < r; i++) {
+          // Generate random number based on digit count
+          let n =
+            Math.floor(
+              Math.random() * (Math.pow(10, d) - Math.pow(10, d - 1))
+            ) + Math.pow(10, d - 1);
+
+          // Logic: 50% chance to subtract
+          // UNLIKE the basic tool, we DO NOT guard against negative results here.
+          // We want the user to practice negative numbers.
+          if (Math.random() > 0.5) {
+            sequence.push(-n);
+            correctAnswer -= n;
+          } else {
+            sequence.push(n);
+            correctAnswer += n;
+          }
+        }
+
+        showScreen("flash-screen");
+        let i = 0;
+        const interval = setInterval(() => {
+          if (i < sequence.length) {
+            // Show a '+' for positive numbers (except the first one) and '-' for negative
+            let displayVal = sequence[i];
+            if (i > 0 && displayVal > 0) displayVal = "+" + displayVal;
+
+            document.getElementById("flash-display").innerText = displayVal;
+            i++;
+          } else {
+            clearInterval(interval);
+            document.getElementById("status-text").innerText = "Done!";
+            setTimeout(() => showScreen("answer-screen"), 800);
+          }
+        }, speed);
+      }
+
+      function checkAns() {
+        const user = parseFloat(document.getElementById("user-ans").value);
+        const bubble = document.getElementById("result-bubble");
+        bubble.innerText = correctAnswer;
+        bubble.style.display = "inline-flex";
+
+        if (user === correctAnswer) {
+          bubble.style.backgroundColor = "var(--success-color)";
+          document.getElementById("feedback-text").innerText =
+            "Correct! Well done.";
+        } else {
+          bubble.style.backgroundColor = "var(--error-color)";
+          document.getElementById("feedback-text").innerText =
+            "Not quite. Try again!";
+        }
+        document.getElementById("check-btn").style.display = "none";
+        document.getElementById("retry-btn").style.display = "block";
+      }
+
+      function showScreen(id) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+      }
+    </script>
+  </body>
+</html>

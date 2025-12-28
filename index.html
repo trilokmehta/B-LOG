@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abacus Junior Master | BrainiacGym</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        /* Brand Colors */
+        --primary: #f58220;
+        --primary-dark: #d35400;
+        --secondary: #2d3436;
+        --bg-color: #f4f7f6;
+        --card-bg: #ffffff;
+        --header-height: 80px;
+      }
+
+      * {
+        box-sizing: border-box;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--secondary);
+        padding-top: calc(var(--header-height) + 40px);
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* --- NAVIGATION --- */
+      .navbar {
+        height: var(--header-height);
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      .navbar-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        padding: 0 20px;
+      }
+
+      .logo-wrapper {
+        display: flex;
+        align-items: center;
+        height: 100%;
+      }
+      .logo {
+        height: 50px;
+        width: auto;
+        object-fit: contain;
+      }
+      .logo-right {
+        height: 55px;
+        width: auto;
+        margin-left: 20px;
+      }
+
+      .navbar-menu {
+        display: flex;
+        gap: 25px;
+      }
+
+      .nav-link {
+        text-decoration: none;
+        color: var(--secondary);
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        transition: color 0.3s;
+      }
+
+      .nav-link:hover {
+        color: var(--primary);
+      }
+
+      .hamburger {
+        display: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--secondary);
+      }
+
+      /* Mobile Menu */
+      .mobile-menu {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 999;
+        flex-direction: column;
+        gap: 15px;
+        display: flex;
+        text-align: center;
+      }
+      .mobile-menu.open {
+        transform: translateY(0);
+      }
+
+      /* --- HERO --- */
+      .page-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 0 20px;
+      }
+
+      .page-header h1 {
+        color: var(--primary);
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        font-weight: 800;
+      }
+
+      .page-header p {
+        font-size: 1.2rem;
+        color: #636e72;
+        margin: 0;
+      }
+
+      /* --- MENU GRID --- */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px 60px 20px;
+      }
+
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+        gap: 20px;
+      }
+
+      .menu-card {
+        background-color: var(--card-bg);
+        border-radius: 15px;
+        padding: 30px 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border: 1px solid #eee;
+        cursor: pointer;
+        height: 100%;
+        text-decoration: none;
+      }
+
+      .menu-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(245, 130, 32, 0.15);
+        border-color: var(--primary);
+      }
+
+      /* --- ICON STYLING (The Fix) --- */
+      .icon-box {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 15px;
+        border-radius: 50%;
+        background-color: #fff8f0; /* Very light orange */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+
+      /* The Icon Font itself */
+      .icon-box i {
+        font-size: 32px; /* Consistent Size */
+        color: var(--primary); /* Orange Color */
+        transition: color 0.3s ease;
+      }
+
+      /* Hover State */
+      .menu-card:hover .icon-box {
+        background-color: var(--primary); /* Circle becomes orange */
+      }
+
+      .menu-card:hover .icon-box i {
+        color: white; /* Icon becomes white */
+      }
+
+      .menu-label {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--secondary);
+      }
+
+      /* --- MOBILE --- */
+      @media (max-width: 768px) {
+        :root {
+          --header-height: 70px;
+        }
+        .navbar-menu,
+        .logo-right {
+          display: none;
+        }
+        .hamburger {
+          display: block;
+        }
+        .logo {
+          height: 40px;
+        }
+        .page-header h1 {
+          font-size: 2rem;
+        }
+
+        .menu-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 15px;
+        }
+
+        .menu-card {
+          padding: 20px 10px;
+        }
+        /* Smaller icons on mobile */
+        .icon-box {
+          width: 55px;
+          height: 55px;
+          margin-bottom: 10px;
+        }
+        .icon-box i {
+          font-size: 24px;
+        }
+        .menu-label {
+          font-size: 0.9rem;
+        }
+      }
+
+      /* --- SOCIAL FOOTER --- */
+      .social-footer {
+        background-color: white;
+        padding: 20px 0;
+        margin-top: 40px;
+        border-top: 1px solid #eee;
+        text-align: center;
+      }
+
+      .social-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      /* Base Button Style */
+      .social-btn {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background-color: #f4f7f6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--secondary);
+        font-size: 1.2rem;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      /* Hover Effects with Brand Colors */
+      .social-btn:hover {
+        transform: translateY(-3px);
+        color: white;
+      }
+
+      .share-btn:hover {
+        background-color: var(--primary);
+      }
+      .fb:hover {
+        background-color: #1877f2;
+      }
+      .x:hover {
+        background-color: #000000;
+      }
+      .insta:hover {
+        background: radial-gradient(
+          circle at 30% 107%,
+          #fdf497 0%,
+          #fdf497 5%,
+          #fd5949 45%,
+          #d6249f 60%,
+          #285aeb 90%
+        );
+      }
+      .linkedin:hover {
+        background-color: #0077b5;
+      }
+      .yt:hover {
+        background-color: #ff0000;
+      }
+
+      /* Divider line between Share and Follow */
+      .divider-vertical {
+        width: 1px;
+        height: 30px;
+        background-color: #ddd;
+        margin: 0 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="navbar-container">
+        <div class="logo-wrapper">
+          <img
+            src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
+            alt="BrainiacGym"
+            class="logo"
+          />
+        </div>
+
+        <nav class="navbar-menu">
+          <a href="#" class="nav-link active">Home</a>
+          <a href="#" class="nav-link">About</a>
+          <a href="#" class="nav-link">Courses</a>
+          <a href="#" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="logo-wrapper">
+          <img
+            src="https://brainiacgym.com/wp-content/uploads/2025/10/Untitled-820-x-500-px.png"
+            alt="NSDC"
+            class="logo-right"
+          />
+          <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#" class="nav-link" onclick="toggleMenu()">HOME</a>
+      <a href="#" class="nav-link" onclick="toggleMenu()">ABOUT</a>
+      <a href="#" class="nav-link" onclick="toggleMenu()">COURSES</a>
+      <a href="#" class="nav-link" onclick="toggleMenu()">CONTACT</a>
+    </div>
+
+    <div class="page-header">
+      <h1>Brainiacgym Academy of Abacus Official Application</h1>
+      <p>The fun way to master mental math</p>
+    </div>
+
+    <div class="container">
+      <div class="menu-grid">
+        <a href="addition.html" class="menu-card">
+          <div class="icon-box"><i class="fa-solid fa-plus"></i></div>
+          <span class="menu-label">Addition</span>
+        </a>
+
+        <a href="addsub.html" class="menu-card">
+          <div class="icon-box"><i class="fa-solid fa-plus-minus"></i></div>
+          <span class="menu-label">Add/Sub</span>
+        </a>
+
+        <a href="decimal-addsub.html" class="menu-card">
+          <div class="icon-box"><i class="fa-solid fa-calculator"></i></div>
+          <span class="menu-label">Decimal +/-</span>
+        </a>
+
+        <a href="multiply.html" class="menu-card">
+          <div class="icon-box"><i class="fa-solid fa-xmark"></i></div>
+          <span class="menu-label">Multiplication</span>
+        </a>
+
+        <a href="long-multiply.html" class="menu-card">
+          <div class="icon-box"><i class="fa-solid fa-star-of-life"></i></div>
+          <span class="menu-label">Long Multiplication</span>
+        </a>
+
+        <a href="division.html" class="menu-card">
+          <div class="icon-box"><i class="fa-solid fa-divide"></i></div>
+          <span class="menu-label">Division</span>
+        </a>
+
+        <a href="decimal-division.html" class="menu-card">
+          <div class="icon-box"><i class="fa-solid fa-percent"></i></div>
+          <span class="menu-label">Decimal Div</span>
+        </a>
+
+        <a href="table.html" class="menu-card">
+          <div class="icon-box"><i class="fa-solid fa-table-cells"></i></div>
+          <span class="menu-label">Table Practice</span>
+        </a>
+
+        <a href="percentage.html" class="menu-card">
+          <div class="icon-box"><i class="fa-solid fa-percent"></i></div>
+          <span class="menu-label">Percentage</span>
+        </a>
+
+        <a href="sq-root.html" class="menu-card">
+          <div class="icon-box">
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 8C3 6.5 4 5.5 5.5 5.5C7 5.5 8 6.5 8 8C8 9.5 6 11 3 13H8"
+                stroke="#F58220"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M9 14L11.5 19L15.5 5H21"
+                stroke="#F58220"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <span class="menu-label">Square Root</span>
+        </a>
+
+        <a href="cube-root.html" class="menu-card">
+          <div class="icon-box">
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 7H7L4.5 9.5C6 9.5 7.5 10.5 7.5 12C7.5 13.5 6 14.5 3 14.5"
+                stroke="#F58220"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M9 14L11.5 19L15.5 5H21"
+                stroke="#F58220"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <span class="menu-label">Cube Root</span>
+        </a>
+
+        <a href="square.html" class="menu-card">
+          <div class="icon-box">
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 19L13 11M5 11L13 19"
+                stroke="#F58220"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M16 7C16 5.5 17 4.5 18.5 4.5C20 4.5 21 5.5 21 7C21 8.5 19 10 16 12H21"
+                stroke="#F58220"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <span class="menu-label">Square</span>
+        </a>
+
+        <a href="cube.html" class="menu-card">
+          <div class="icon-box">
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 19L13 11M5 11L13 19"
+                stroke="#F58220"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M16 5H20L17.5 7.5C19 7.5 20.5 8.5 20.5 10C20.5 11.5 19 12.5 16 12.5"
+                stroke="#F58220"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <span class="menu-label">Cube</span>
+        </a>
+
+        <a href="lcm.html" class="menu-card">
+          <div class="icon-box">
+            <i class="fa-solid fa-arrow-down-short-wide"></i>
+          </div>
+          <span class="menu-label">LCM</span>
+        </a>
+
+        <a href="hcf.html" class="menu-card">
+          <div class="icon-box">
+            <i class="fa-solid fa-arrow-up-wide-short"></i>
+          </div>
+          <span class="menu-label">HCF</span>
+        </a>
+
+        <a href="calculator.html" class="menu-card">
+          <div class="icon-box">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+          </div>
+          <span class="menu-label">Calculator</span>
+        </a>
+
+        <a href="negative.html" class="menu-card">
+          <div class="icon-box"><i class="fa-solid fa-minus"></i></div>
+          <span class="menu-label">Negative +/-</span>
+        </a>
+
+        <a href="stopwatch.html" class="menu-card">
+          <div class="icon-box">
+            <i class="fa-solid fa-stopwatch"></i>
+          </div>
+          <span class="menu-label">Stopwatch</span>
+        </a>
+
+        <a href="decimal-multiply.html" class="menu-card">
+          <div class="icon-box">
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="7" cy="17" r="3" fill="#F58220" />
+
+              <path
+                d="M12 7L20 17M20 7L12 17"
+                stroke="#F58220"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <span class="menu-label">Decimal Mult</span>
+        </a>
+
+        <a href="https://examvest.com/blog/abacus.html" class="menu-card">
+          <div class="icon-box">
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="2"
+                y="2"
+                width="20"
+                height="20"
+                rx="2"
+                stroke="#F58220"
+                stroke-width="2"
+              />
+              <path d="M2 8H22M2 16H22" stroke="#F58220" stroke-width="1.5" />
+              <circle cx="6" cy="5" r="2" fill="#F58220" />
+              <circle cx="12" cy="5" r="2" fill="#F58220" />
+              <circle cx="18" cy="5" r="2" fill="#F58220" />
+              <circle cx="6" cy="12" r="2" fill="#F58220" />
+              <circle cx="12" cy="12" r="2" fill="#F58220" />
+              <circle cx="18" cy="20" r="2" fill="#F58220" />
+            </svg>
+          </div>
+          <span class="menu-label">Abacus</span>
+        </a>
+      </div>
+    </div>
+    <footer class="social-footer">
+      <div class="social-container">
+        <button
+          class="social-btn share-btn"
+          onclick="sharePage()"
+          title="Share App"
+        >
+          <i class="fa-solid fa-share-nodes"></i>
+        </button>
+
+        <div class="divider-vertical"></div>
+
+        <a
+          href="https://m.facebook.com/brainiacgym/"
+          target="_blank"
+          class="social-btn fb"
+        >
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+
+        <a
+          href="https://twitter.com/brainiacgym"
+          target="_blank"
+          class="social-btn x"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            style="
+              width: 18px;
+              height: 18px;
+              fill: currentColor;
+              margin-top: 4px;
+            "
+          >
+            <path
+              d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
+            />
+          </svg>
+        </a>
+
+        <a
+          href="https://www.instagram.com/"
+          target="_blank"
+          class="social-btn insta"
+        >
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+
+        <a
+          href="https://www.linkedin.com/in/brainiacgym?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+          target="_blank"
+          class="social-btn linkedin"
+        >
+          <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+
+        <a
+          href="https://youtube.com/@abacusclassesbrainiacgym?si=qRIcMLtOBvx2fcyj"
+          target="_blank"
+          class="social-btn yt"
+        >
+          <i class="fa-brands fa-youtube"></i>
+        </a>
+      </div>
+    </footer>
+
+    <script>
+      function toggleMenu() {
+        const menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("open");
+      }
+    </script>
+  </body>
+</html>
