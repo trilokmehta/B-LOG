@@ -260,25 +260,35 @@ function generateQuestion() {
       }
 
       function checkAns() {
-        const userInput = document.getElementById("user-ans").value;
-        const feedback = document.getElementById("feedback");
-        const btn = document.getElementById("check-btn");
-        btn.style.pointerEvents = "none";
+  const userInput = document.getElementById("user-ans").value;
+  const feedback = document.getElementById("feedback");
+  const btn = document.getElementById("check-btn");
 
-        if (userInput !== "" && parseInt(userInput) === correctAnswer) {
-          rightCount++;
-          feedback.innerText = "Correct! ✓";
-          feedback.style.color = "var(--success-color)";
-        } else {
-          wrongCount++;
-          feedback.innerText = userInput === "" ? `No answer! Ans: ${correctAnswer}` : `Wrong! Answer: ${correctAnswer}`;
-          feedback.style.color = "var(--error-color)";
-        }
+  // Disable the button instead of hiding it
+  btn.disabled = true; 
+  btn.style.opacity = "0.5"; // Make it look inactive
+  btn.style.cursor = "not-allowed";
 
-        updateUIStats();
-        btn.style.visibility = "hidden";
-        setTimeout(() => { btn.style.pointerEvents = "auto"; btn.style.visibility = "visible"; nextQuestion(); }, 1200);
-      }
+  if (userInput !== "" && parseInt(userInput) === correctAnswer) {
+    rightCount++;
+    feedback.innerText = "Correct! ✓";
+    feedback.style.color = "var(--success-color)";
+  } else {
+    wrongCount++;
+    feedback.innerText = userInput === "" ? `No answer! Ans: ${correctAnswer}` : `Wrong! Answer: ${correctAnswer}`;
+    feedback.style.color = "var(--error-color)";
+  }
+
+  updateUIStats();
+
+  // Wait 1.2 seconds, then reset the button and move to next question
+  setTimeout(() => { 
+    btn.disabled = false; 
+    btn.style.opacity = "1";
+    btn.style.cursor = "pointer";
+    nextQuestion(); 
+  }, 500);
+}
 
       function nextQuestion() {
         clearTimers();

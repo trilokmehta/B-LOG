@@ -590,38 +590,33 @@
 function checkAns() {
   const userInput = document.getElementById("user-ans").value;
   const feedback = document.getElementById("feedback");
-  const checkBtn = document.getElementById("check-btn");
-  
-  // Prevent multiple clicks while the transition is happening
-  checkBtn.style.pointerEvents = "none";
+  const btn = document.getElementById("check-btn");
 
-  // Check logic: must not be empty and must match the correct answer
+  // Disable the button instead of hiding it
+  btn.disabled = true; 
+  btn.style.opacity = "0.5"; // Make it look inactive
+  btn.style.cursor = "not-allowed";
+
   if (userInput !== "" && parseInt(userInput) === correctAnswer) {
     rightCount++;
     feedback.innerText = "Correct! ✓";
     feedback.style.color = "var(--success-color)";
   } else {
     wrongCount++;
-    // Differentiates between a wrong answer and no answer at all
-    feedback.innerText = userInput === "" 
-      ? `No answer! Ans: ${correctAnswer}` 
-      : `Wrong! Answer: ${correctAnswer}`;
+    feedback.innerText = userInput === "" ? `No answer! Ans: ${correctAnswer}` : `Wrong! Answer: ${correctAnswer}`;
     feedback.style.color = "var(--error-color)";
   }
 
   updateUIStats();
-  
-  // Temporarily hide the button to signify the round is over
-  checkBtn.style.visibility = "hidden";
 
-  setTimeout(() => {
-    // Restore button state and move to the next question
-    checkBtn.style.pointerEvents = "auto";
-    checkBtn.style.visibility = "visible";
-    nextQuestion();
-  }, 1500);
+  // Wait 1.2 seconds, then reset the button and move to next question
+  setTimeout(() => { 
+    btn.disabled = false; 
+    btn.style.opacity = "1";
+    btn.style.cursor = "pointer";
+    nextQuestion(); 
+  }, 500);
 }
-
       function nextQuestion() {
         clearTimers();
         document.getElementById("question-text").style.display = "block";
