@@ -490,9 +490,19 @@
         const l2 = parseFloat(document.getElementById("low2").value);
         const h2 = parseFloat(document.getElementById("high2").value);
 
-        const n1 = parseFloat((Math.random() * (h1 - l1) + l1).toFixed(1));
-        const n2 = parseFloat((Math.random() * (h2 - l2) + l2).toFixed(1));
-        correctAnswer = parseFloat((n1 * n2).toFixed(2));
+        // 1. Calculate the precision based on your input steps
+        // This counts how many decimal places are in your range inputs
+        const getPrecision = (num) =>
+          (num.toString().split(".")[1] || "").length;
+        const p1 = getPrecision(document.getElementById("low1").value) || 1;
+        const p2 = getPrecision(document.getElementById("low2").value) || 1;
+
+        // 2. Generate numbers using the detected precision
+        const n1 = parseFloat((Math.random() * (h1 - l1) + l1).toFixed(p1));
+        const n2 = parseFloat((Math.random() * (h2 - l2) + l2).toFixed(p2));
+
+        // 3. Calculate answer and round to the sum of precisions (e.g., 0.01 * 0.1 = 0.001)
+        correctAnswer = parseFloat((n1 * n2).toFixed(p1 + p2));
 
         document.getElementById("question-text").innerText = `${n1} × ${n2}`;
         document.getElementById("feedback").innerText = "";
@@ -502,7 +512,6 @@
 
         setupQuestionUI();
       }
-
       function setupQuestionUI() {
         const manualArea = document.getElementById("manual-input-area");
         const checkBtn = document.getElementById("check-btn");
@@ -620,12 +629,14 @@
       }
 
       function updateUIStats() {
-  document.getElementById("right-count").innerText = rightCount;
-  document.getElementById("wrong-count").innerText = wrongCount;
-  
-  // Change this line to remove the "currentSumCount /" part
-  document.getElementById("progress-timer").innerText = `${timeLeft.toFixed(1)}s`;
-}
+        document.getElementById("right-count").innerText = rightCount;
+        document.getElementById("wrong-count").innerText = wrongCount;
+
+        // Change this line to remove the "currentSumCount /" part
+        document.getElementById(
+          "progress-timer"
+        ).innerText = `${timeLeft.toFixed(1)}s`;
+      }
 
       function endSession(message) {
         clearInterval(timerInterval);
