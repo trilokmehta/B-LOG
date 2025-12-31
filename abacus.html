@@ -534,115 +534,114 @@
 
     <script>
       // Configuration
-      const COLUMN_COUNT = 17; // 17 Rows as requested
-      let abacusState = Array(COLUMN_COUNT).fill(0);
+      const COLUMN_COUNT = 17;
+      const UNIT_INDEX = 8; // The 9th rod (middle dot) is the Units Place (Value = 1)
 
       const abacusFrame = document.getElementById("abacusFrame");
       const totalDisplay = document.getElementById("totalDisplay");
-
-      // Audio Context for sound
       const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
       function initAbacus() {
-        // Clear existing rods (keep beam)
         const oldRods = document.querySelectorAll(".rod");
         oldRods.forEach((r) => r.remove());
-
         for (let i = 0; i < COLUMN_COUNT; i++) {
           createRod(i);
         }
+        updateTotal();
       }
 
       function createRod(colIndex) {
         const rodDiv = document.createElement("div");
         rodDiv.className = "rod";
 
-        // NEW LOGIC: Add a red dot every 3 rods (3rd, 6th, 9th, 12th, 15th)
-        // (colIndex + 1) converts 0-indexing to 1st, 2nd, 3rd...
+        // Add the red dots
         if ((colIndex + 1) % 3 === 0) {
           const mark = document.createElement("div");
           mark.className = "rod-mark";
+          // Highlight the Unit Rod differently if desired
+          if (colIndex === UNIT_INDEX) mark.style.backgroundColor = "#2ecc71"; // Green for Units
           rodDiv.appendChild(mark);
         }
 
-        // 1. Heaven Bead (Value 5)
+        // Heaven Bead (Value 5)
         const heavenBead = document.createElement("div");
         heavenBead.className = "bead heaven";
-        heavenBead.onclick = () => toggleHeaven(colIndex, heavenBead);
+        heavenBead.onclick = () => {
+          heavenBead.classList.toggle("active");
+          playSound();
+          updateTotal();
+        };
         rodDiv.appendChild(heavenBead);
 
-        // 2. Earth Beads (Value 1) - 4 of them
+        // Earth Beads (Value 1)
         for (let j = 0; j < 4; j++) {
           const earthBead = document.createElement("div");
           earthBead.className = "bead earth";
-          earthBead.dataset.idx = j;
           earthBead.onclick = () => toggleEarth(colIndex, j);
           rodDiv.appendChild(earthBead);
         }
-
         abacusFrame.appendChild(rodDiv);
-      }
-      function toggleHeaven(colIndex, el) {
-        el.classList.toggle("active");
-        playSound();
-        updateTotal();
       }
 
       function toggleEarth(colIndex, clickedIdx) {
-        const rod = document.querySelectorAll(".rod")[colIndex];
-        const earthBeads = rod.querySelectorAll(".bead.earth");
-
-        // Logic:
-        // If I click bead #2 (index 1), and it is NOT active -> Activate 0 and 1.
-        // If I click bead #2 (index 1), and it IS active -> Deactivate 1, 2, 3.
-
+        const rods = document.querySelectorAll(".rod");
+        const earthBeads = rods[colIndex].querySelectorAll(".bead.earth");
         const isClickedActive =
           earthBeads[clickedIdx].classList.contains("active");
 
         if (!isClickedActive) {
-          // Activate this bead and all above it
           earthBeads.forEach((b, i) => {
             if (i <= clickedIdx) b.classList.add("active");
           });
         } else {
-          // Deactivate this bead and all below it
-          // Actually, standard behavior: If I click an active bead, I am pushing it down (deactivating).
-          // So this bead and anything below it (physically below = higher index) falls down.
           earthBeads.forEach((b, i) => {
             if (i >= clickedIdx) b.classList.remove("active");
           });
         }
-
         playSound();
         updateTotal();
       }
 
-      function updateTotal() {
-        let total = 0;
-        let stringVal = "";
+      /**
+ * REWRITTEN CALCULATION LOGIC
+ * This ignores all empty rods to the right of the last active bead.
+ * The rightmost active rod becomes the "Units" (1) place.
+ */
+function updateTotal() {
+  const rods = document.querySelectorAll(".rod");
+  let rodValues = [];
 
-        const rods = document.querySelectorAll(".rod");
+  // 1. Capture all rod values (0-9)
+  rods.forEach((rod) => {
+    let val = 0;
+    if (rod.querySelector(".heaven").classList.contains("active")) val += 5;
+    val += rod.querySelectorAll(".earth.active").length;
+    rodValues.push(val);
+  });
 
-        rods.forEach((rod, index) => {
-          let colVal = 0;
+  // 2. Find the index of the rightmost active rod (the "k" in your formula)
+  // This ensures that if you move a bead on any rod, it can be "1"
+  let lastActiveIndex = -1;
+  for (let i = rodValues.length - 1; i >= 0; i--) {
+    if (rodValues[i] > 0) {
+      lastActiveIndex = i;
+      break;
+    }
+  }
 
-          // Check Heaven
-          if (rod.querySelector(".heaven").classList.contains("active")) {
-            colVal += 5;
-          }
+  // 3. Calculate total based on that chosen unit point
+  let total = BigInt(0);
+  if (lastActiveIndex !== -1) {
+    for (let i = 0; i <= lastActiveIndex; i++) {
+      let rodValue = rodValues[i];
+      let exponent = lastActiveIndex - i; // Number of places to the left of our "unit"
+      total += BigInt(rodValue) * (10n ** BigInt(exponent));
+    }
+  }
 
-          // Check Earth
-          const activeEarths = rod.querySelectorAll(".earth.active").length;
-          colVal += activeEarths;
-
-          // Build string for display (treating Col 0 as Leftmost/Highest value)
-          stringVal += colVal;
-        });
-
-        // Parse Int to remove leading zeros, then locale string
-        // If string is "00000", parseInt is 0.
-        totalDisplay.innerText = parseInt(stringVal).toLocaleString();
-      }
+  // 4. Display the result
+  totalDisplay.innerText = total === 0n ? "0" : total.toLocaleString();
+}
 
       function resetAbacus() {
         const beads = document.querySelectorAll(".bead");
@@ -653,31 +652,25 @@
 
       function playSound() {
         if (audioCtx.state === "suspended") audioCtx.resume();
-
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
-
         osc.type = "sine";
         osc.frequency.setValueAtTime(600, audioCtx.currentTime);
         osc.frequency.exponentialRampToValueAtTime(
           100,
           audioCtx.currentTime + 0.08
         );
-
         gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(
           0.001,
           audioCtx.currentTime + 0.08
         );
-
         osc.connect(gain);
         gain.connect(audioCtx.destination);
-
         osc.start();
         osc.stop(audioCtx.currentTime + 0.08);
       }
 
-      // Run
       initAbacus();
     </script>
   </body>
