@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pro Reactive Abacus - Mobile Optimized</title>
+    <style>
+      :root {
+        /* Colors */
+        --primary: #f58220;
+        --bg-color: #eef1f5;
+        --frame-inner: #2d3436;
+        --frame-outer: #dfe6e9;
+        --rod-color: #b2bec3;
+        --beam-color: #636e72;
+
+        /* Bead Colors */
+        --bead-heaven: #ff9f43; 
+        --bead-heaven-shadow: #e67e22;
+        --bead-earth: #54a0ff; 
+        --bead-earth-shadow: #2e86de;
+
+        /* Dimensions */
+        --rod-width: 50px; 
+        --bead-height: 32px;
+        --bead-width: 46px; 
+        --bead-gap: 10px;
+        --abacus-scale: 1; /* Dynamic Scale */
+      }
+
+      /* --- Header Navigation --- */
+      .navbar {
+        height: 130px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 200;
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-right {
+        height: 120px; 
+        width: auto;
+        object-fit: contain;
+      }
+
+      .navbar-menu {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+      }
+
+      .logo {
+        height: 75px !important;
+        width: auto;
+        object-fit: contain;
+      }
+
+      .navbar-left {
+        flex-shrink: 0;
+        margin-right: 60px;
+      }
+
+      .navbar-container {
+        max-width: 95%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Roboto, sans-serif;
+        background-color: var(--bg-color);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding-top: 150px;
+      }
+
+      /* --- Mobile Specific Controls --- */
+      .mobile-controls {
+        display: none; /* Hidden on desktop */
+        background: #fff;
+        padding: 15px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        width: 90%;
+        max-width: 400px;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 150;
+      }
+
+      .control-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      /* --- Score Header --- */
+      .score-board {
+        margin-bottom: 20px;
+        background: white;
+        padding: 10px 30px;
+        border-radius: 50px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        max-width: 800px;
+        border: 2px solid #fff;
+      }
+
+      .score-value {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #2d3436;
+      }
+
+      /* --- Abacus Container & Rotation Logic --- */
+      .abacus-scroll-container {
+        width: 100%;
+        max-width: 1200px;
+        overflow-x: auto;
+        padding: 40px 20px;
+        display: flex;
+        justify-content: center;
+        transition: all 0.5s ease;
+      }
+
+      .abacus-frame {
+        background-color: var(--frame-inner);
+        padding: 20px;
+        border-radius: 15px;
+        display: inline-flex;
+        gap: 12px;
+        position: relative;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), inset 0 0 30px rgba(0, 0, 0, 0.5);
+        border: 4px solid #4a5153;
+        transform: scale(var(--abacus-scale));
+        transform-origin: center;
+        transition: transform 0.3s ease;
+      }
+
+      /* Rotation Class */
+      .rotated-view {
+        transform: rotate(90deg) scale(var(--abacus-scale));
+        margin-top: 150px; /* Space for the height of the rotated abacus */
+        margin-bottom: 150px;
+      }
+
+      .beam {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 90px;
+        height: 14px;
+        background: var(--beam-color);
+        z-index: 5;
+      }
+
+      .rod {
+        width: var(--rod-width);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      .rod::before {
+        content: "";
+        position: absolute;
+        top: -30px;
+        bottom: -30px;
+        width: 6px;
+        background: var(--rod-color);
+        z-index: 0;
+      }
+
+      .bead {
+        width: var(--bead-width);
+        height: var(--bead-height);
+        border-radius: 12px;
+        position: relative;
+        z-index: 2;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        box-shadow: inset 0 5px 5px rgba(255, 255, 255, 0.3), inset 0 -5px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .bead.heaven { background: var(--bead-heaven); margin-bottom: 90px; }
+      .bead.earth { background: var(--bead-earth); margin-top: var(--bead-gap); }
+      .rod .bead.earth:first-of-type { margin-top: 65px; }
+
+      .bead.heaven.active { transform: translateY(35px); }
+      .bead.earth.active { transform: translateY(-35px); }
+
+      .btn-reset {
+        margin-top: 30px;
+        background: #2d3436;
+        color: white;
+        padding: 12px 40px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      /* Mobile Adjustments */
+      @media (max-width: 768px) {
+        .navbar-menu, .logo-right { display: none; }
+        .navbar { height: 80px; }
+        body { padding-top: 100px; }
+        .mobile-controls { display: flex; }
+        .score-board { padding: 10px; }
+        .score-value { font-size: 1.5rem; }
+      }
+      
+      /* Helper for the rotated layout container */
+      .rotate-active-container {
+        height: 600px; /* Force height so the frame doesn't overlap other UI when vertical */
+        overflow: visible !important;
+      }
+
+      .rod-mark {
+        position: absolute;
+        top: 77px;
+        left: 25px;
+        transform: translate(-50%, -50%);
+        width: 15px;
+        height: 15px;
+        background-color: #d63737;
+        border-radius: 50%;
+        z-index: 6;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="navbar-container">
+        <div class="navbar-left">
+          <img src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png" alt="BrainiacGym" class="logo" />
+        </div>
+        <nav class="navbar-menu">
+          <a href="index.html" class="nav-link">HOME</a>
+          <a href="#" class="nav-link">ABOUT</a>
+          <a href="#" class="nav-link">COURSES</a>
+          <a href="#" class="nav-link">CONTACT</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="score-board">
+      <span class="score-label">Total Value</span>
+      <span class="score-value" id="totalDisplay">0</span>
+    </div>
+
+    <div class="mobile-controls">
+      <div class="control-row">
+        <span>Rotate Abacus (90°)</span>
+        <button onclick="toggleRotation()" style="padding: 5px 15px;">Toggle</button>
+      </div>
+      <div class="control-row">
+        <span>Size / Zoom</span>
+        <input type="range" min="0.3" max="1.2" step="0.1" value="1" id="zoomSlider" oninput="adjustZoom(this.value)">
+      </div>
+    </div>
+
+    <div class="abacus-scroll-container" id="scrollContainer">
+      <div class="abacus-frame" id="abacusFrame">
+        <div class="beam"></div>
+      </div>
+    </div>
+
+    <button class="btn-reset" onclick="resetAbacus()">Reset Board</button>
+
+    <script>
+      const COLUMN_COUNT = 17;
+      const abacusFrame = document.getElementById("abacusFrame");
+      const scrollContainer = document.getElementById("scrollContainer");
+      const totalDisplay = document.getElementById("totalDisplay");
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+      let isRotated = false;
+
+      function initAbacus() {
+        for (let i = 0; i < COLUMN_COUNT; i++) {
+          createRod(i);
+        }
+      }
+
+      function createRod(colIndex) {
+        const rodDiv = document.createElement("div");
+        rodDiv.className = "rod";
+        if ((colIndex + 1) % 3 === 0) {
+          const mark = document.createElement("div");
+          mark.className = "rod-mark";
+          rodDiv.appendChild(mark);
+        }
+        const heavenBead = document.createElement("div");
+        heavenBead.className = "bead heaven";
+        heavenBead.onclick = () => { heavenBead.classList.toggle("active"); playSound(); updateTotal(); };
+        rodDiv.appendChild(heavenBead);
+
+        for (let j = 0; j < 4; j++) {
+          const earthBead = document.createElement("div");
+          earthBead.className = "bead earth";
+          earthBead.onclick = () => toggleEarth(colIndex, j);
+          rodDiv.appendChild(earthBead);
+        }
+        abacusFrame.appendChild(rodDiv);
+      }
+
+      function toggleEarth(colIndex, clickedIdx) {
+        const rods = document.querySelectorAll(".rod");
+        const earthBeads = rods[colIndex].querySelectorAll(".bead.earth");
+        const isClickedActive = earthBeads[clickedIdx].classList.contains("active");
+        if (!isClickedActive) {
+          earthBeads.forEach((b, i) => { if (i <= clickedIdx) b.classList.add("active"); });
+        } else {
+          earthBeads.forEach((b, i) => { if (i >= clickedIdx) b.classList.remove("active"); });
+        }
+        playSound();
+        updateTotal();
+      }
+
+      function updateTotal() {
+        const rods = document.querySelectorAll(".rod");
+        let rodValues = [];
+        rods.forEach((rod) => {
+          let val = 0;
+          if (rod.querySelector(".heaven").classList.contains("active")) val += 5;
+          val += rod.querySelectorAll(".earth.active").length;
+          rodValues.push(val);
+        });
+
+        let lastActiveIndex = -1;
+        for (let i = rodValues.length - 1; i >= 0; i--) {
+          if (rodValues[i] > 0) { lastActiveIndex = i; break; }
+        }
+
+        let total = BigInt(0);
+        if (lastActiveIndex !== -1) {
+          for (let i = 0; i <= lastActiveIndex; i++) {
+            total += BigInt(rodValues[i]) * (10n ** BigInt(lastActiveIndex - i));
+          }
+        }
+        totalDisplay.innerText = total === 0n ? "0" : total.toLocaleString();
+      }
+
+      function resetAbacus() {
+        document.querySelectorAll(".bead").forEach((b) => b.classList.remove("active"));
+        updateTotal();
+        playSound();
+      }
+
+      // --- MOBILE SPECIFIC FUNCTIONS ---
+      function toggleRotation() {
+        isRotated = !isRotated;
+        if (isRotated) {
+          abacusFrame.classList.add("rotated-view");
+          scrollContainer.classList.add("rotate-active-container");
+        } else {
+          abacusFrame.classList.remove("rotated-view");
+          scrollContainer.classList.remove("rotate-active-container");
+        }
+      }
+
+      function adjustZoom(val) {
+        document.documentElement.style.setProperty('--abacus-scale', val);
+      }
+
+      function playSound() {
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(); osc.stop(audioCtx.currentTime + 0.08);
+      }
+
+      initAbacus();
+    </script>
+  </body>
+</html>
