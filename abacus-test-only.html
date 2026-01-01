@@ -198,24 +198,24 @@
         line-height: 1;
       }
 
-/* Fixed container: 'text-align: center' allows scrolling to both sides safely */
-.abacus-scroll-container {
-  width: 100%;
-  max-width: 100vw;
-  overflow: auto;
-  padding: 60px 20px;
-  text-align: center; /* Centers the abacus but allows scrolling to left edge */
-  min-height: 500px;
-  display: block; /* Block is safer for horizontal scrolling than Flex */
-}
+      /* Fixed container: 'text-align: center' allows scrolling to both sides safely */
+      .abacus-scroll-container {
+        width: 100%;
+        max-width: 100vw;
+        overflow: auto;
+        padding: 60px 20px;
+        text-align: center; /* Centers the abacus but allows scrolling to left edge */
+        min-height: 500px;
+        display: block; /* Block is safer for horizontal scrolling than Flex */
+      }
 
-/* This layer handles the (+) and (-) sizing */
-.abacus-zoom-layer {
-  display: inline-block;
-  transition: transform 0.3s ease;
-  transform-origin: center center;
-  margin: 0 auto;
-}
+      /* This layer handles the (+) and (-) sizing */
+      .abacus-zoom-layer {
+        display: inline-block;
+        transition: transform 0.3s ease;
+        transform-origin: center;
+        margin: 0 auto;
+      }
       /* Custom scrollbar webkit */
       .abacus-scroll-container::-webkit-scrollbar {
         height: 8px;
@@ -325,10 +325,10 @@
 
       /* --- Reset Button --- */
       .btn-reset {
-        margin-top: 20px;
-        margin-bottom: 50px;
+        margin-top: 2px;
+        margin-bottom: 5px;
         background: #2d3436;
-        color: white;
+        color: rgb(253, 253, 253);
         border: none;
         padding: 12px 30px;
         font-size: 1rem;
@@ -458,26 +458,26 @@
       }
 
       /* Container for mobile buttons */
-.mobile-controls {
-  display: none; /* Hidden by default */
-  gap: 10px;
-  margin-bottom: -3px;
-  z-index: 150;
-}
+      .mobile-controls {
+        display: none; /* Hidden by default */
+        gap: 10px;
+        margin-bottom: -100px;
+        z-index: 150;
+      }
 
-/* Rotation logic: we add extra vertical margin so it doesn't hit the header */
-.abacus-frame.rotated {
-  transform: rotate(90deg);
-  margin: 180px 0; 
-}
+      /* Rotation logic: we add extra vertical margin so it doesn't hit the header */
+      .abacus-frame.rotated {
+        transform: rotate(90deg);
+        margin: 180px 0;
+      }
 
-@media (max-width: 500px) {
-  .mobile-controls {
-    display: flex;
-    justify-content: center;
-    padding: 1px;
-  }
-}
+      @media (max-width: 500px) {
+        .mobile-controls {
+          display: flex;
+          justify-content: center;
+          padding: 1px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -520,25 +520,25 @@
         </div>
       </div>
     </header>
-    <div class="mobile-controls">
-      <button onclick="rotateAbacus()">Rotate 90°</button>
-      <button onclick="changeScale(0.05)">+ SIZE</button>
-      <button onclick="changeScale(-0.05)">- SIZE</button>
-  <div class="score-board">
-    <span class="score-label">Total Value</span>
-    <span class="score-value" id="totalDisplay">0</span>
-    <div class="scroll-hint">← Swipe to see more rods →</div>
-  </div>
+<div class="score-board">
+  <span class="score-label">Total Value</span>
+  <span class="score-value" id="totalDisplay">0</span>
+  <div class="scroll-hint">← Swipe to see more rods →</div>
 </div>
 
-<div class="abacus-scroll-container">
-  <div class="abacus-zoom-layer" id="zoomLayer"> 
-    <div class="abacus-frame" id="abacusFrame">
-      <div class="beam"></div>
+<div class="mobile-controls">
+  </div>
+
+    <div class="abacus-scroll-container">
+      <div class="abacus-zoom-layer" id="zoomLayer">
+        <div class="abacus-frame" id="abacusFrame">
+          <div class="beam"></div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
+    <button class="btn-reset" onclick="rotateAbacus()">Rotate 90°</button>
+    <button class="btn-reset" onclick="changeScale(0.05)">+ SIZE</button>
+    <button class="btn-reset" onclick="changeScale(-0.05)">- SIZE</button>
     <button class="btn-reset" onclick="resetAbacus()">Reset Board</button>
     <div class="about-container">
       <h2 class="section-title">About Us</h2>
@@ -638,45 +638,46 @@
       }
 
       /**
- * REWRITTEN CALCULATION LOGIC
- * This ignores all empty rods to the right of the last active bead.
- * The rightmost active rod becomes the "Units" (1) place.
- */
-function updateTotal() {
-  const rods = document.querySelectorAll(".rod");
-  let rodValues = [];
+       * REWRITTEN CALCULATION LOGIC
+       * This ignores all empty rods to the right of the last active bead.
+       * The rightmost active rod becomes the "Units" (1) place.
+       */
+      function updateTotal() {
+        const rods = document.querySelectorAll(".rod");
+        let rodValues = [];
 
-  // 1. Capture all rod values (0-9)
-  rods.forEach((rod) => {
-    let val = 0;
-    if (rod.querySelector(".heaven").classList.contains("active")) val += 5;
-    val += rod.querySelectorAll(".earth.active").length;
-    rodValues.push(val);
-  });
+        // 1. Capture all rod values (0-9)
+        rods.forEach((rod) => {
+          let val = 0;
+          if (rod.querySelector(".heaven").classList.contains("active"))
+            val += 5;
+          val += rod.querySelectorAll(".earth.active").length;
+          rodValues.push(val);
+        });
 
-  // 2. Find the index of the rightmost active rod (the "k" in your formula)
-  // This ensures that if you move a bead on any rod, it can be "1"
-  let lastActiveIndex = -1;
-  for (let i = rodValues.length - 1; i >= 0; i--) {
-    if (rodValues[i] > 0) {
-      lastActiveIndex = i;
-      break;
-    }
-  }
+        // 2. Find the index of the rightmost active rod (the "k" in your formula)
+        // This ensures that if you move a bead on any rod, it can be "1"
+        let lastActiveIndex = -1;
+        for (let i = rodValues.length - 1; i >= 0; i--) {
+          if (rodValues[i] > 0) {
+            lastActiveIndex = i;
+            break;
+          }
+        }
 
-  // 3. Calculate total based on that chosen unit point
-  let total = BigInt(0);
-  if (lastActiveIndex !== -1) {
-    for (let i = 0; i <= lastActiveIndex; i++) {
-      let rodValue = rodValues[i];
-      let exponent = lastActiveIndex - i; // Number of places to the left of our "unit"
-      total += BigInt(rodValue) * (10n ** BigInt(exponent));
-    }
-  }
+        // 3. Calculate total based on that chosen unit point
+        let total = BigInt(0);
+        if (lastActiveIndex !== -1) {
+          for (let i = 0; i <= lastActiveIndex; i++) {
+            let rodValue = rodValues[i];
+            let exponent = lastActiveIndex - i; // Number of places to the left of our "unit"
+            total += BigInt(rodValue) * 10n ** BigInt(exponent);
+          }
+        }
 
-  // 4. Display the result
-  totalDisplay.innerText = total === 0n ? "0" : total.toLocaleString();
-}
+        // 4. Display the result
+        totalDisplay.innerText = total === 0n ? "0" : total.toLocaleString();
+      }
 
       function resetAbacus() {
         const beads = document.querySelectorAll(".bead");
@@ -708,32 +709,31 @@ function updateTotal() {
 
       initAbacus();
 
-
       let currentScale = 1.0;
-let isRotated = false;
+      let isRotated = false;
 
-function rotateAbacus() {
-  const frame = document.getElementById('abacusFrame');
-  isRotated = !isRotated;
-  
-  if (isRotated) {
-    frame.classList.add('rotated');
-  } else {
-    frame.classList.remove('rotated');
-  }
-}
+      function rotateAbacus() {
+        const frame = document.getElementById("abacusFrame");
+        isRotated = !isRotated;
 
-function changeScale(amount) {
-  const frame = document.getElementById('abacusFrame');
-  currentScale += amount;
-  
-  // Constrain scale so it doesn't get too small or too huge
-  currentScale = Math.min(Math.max(0.4, currentScale), 1.5);
-  
-  // Apply scale while maintaining the rotation if active
-  const rotationStr = isRotated ? 'rotate(90deg) translateY(-50%)' : '';
-  frame.style.transform = `${rotationStr} scale(${currentScale})`;
-}
+        if (isRotated) {
+          frame.classList.add("rotated");
+        } else {
+          frame.classList.remove("rotated");
+        }
+      }
+
+      function changeScale(amount) {
+        const frame = document.getElementById("abacusFrame");
+        currentScale += amount;
+
+        // Constrain scale so it doesn't get too small or too huge
+        currentScale = Math.min(Math.max(0.4, currentScale), 1.5);
+
+        // Apply scale while maintaining the rotation if active
+        const rotationStr = isRotated ? "rotate(90deg) translateY(-50%)" : "";
+        frame.style.transform = `${rotationStr} scale(${currentScale})`;
+      }
     </script>
   </body>
 </html>
