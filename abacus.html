@@ -3,154 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pro Reactive Abacus</title>
+    <title>BrainiacGym - Pro Abacus</title>
     <style>
       :root {
-        /* Colors */
         --primary: #f58220;
-        --bg-color: #eef1f5;
+        --bg-color: #f8f9fa;
         --frame-inner: #2d3436;
-        --frame-outer: #dfe6e9;
         --rod-color: #b2bec3;
-        --beam-color: #636e72;
-
-        /* Bead Colors */
-        --bead-heaven: #ff9f43; /* Warm Orange */
-        --bead-heaven-shadow: #e67e22;
-        --bead-earth: #54a0ff; /* Bright Blue */
-        --bead-earth-shadow: #2e86de;
-
-        /* Dimensions */
-        --rod-width: 50px; /* Fixed width prevents shrinking on mobile */
-        --bead-height: 32px;
-        --bead-width: 46px; /* Slightly smaller than rod to fit nicely */
-        --bead-gap: 10px;
-      }
-      /* --- Header Navigation --- */
-      /* 2. Increase Header Height to fit bigger images */
-      .navbar {
-        height: 130px; /* Increased height */
-        background-color: #ffffff;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 200;
-        display: flex;
-        align-items: center; /* Vertically center everything */
-      }
-
-      /* 3. Make the logos on the right BIGGER */
-      .logo-right {
-        height: 160px; /* Increased from 48px to ~85px to match screenshot */
-        width: auto;
-        object-fit: contain;
-      }
-
-      /* 4. Ensure Menu is Central */
-      .navbar-menu {
-        flex: 1; /* Takes up all available space between logos */
-        display: flex;
-        justify-content: center; /* Pushes links to the exact center */
-        align-items: center;
-        gap: 30px; /* Space between links */
-      }
-
-      /* 1. Make the Main Logo Bigger */
-      .logo {
-        height: 75px !important; /* Increased from 75px to 95px */
-        width: auto;
-        object-fit: contain;
-        transition: all 0.3s ease; /* Smooth resize if needed */
-      }
-
-      /* 2. Add Distance between Logo and Menu */
-      .navbar-left {
-        flex-shrink: 0;
-        margin-right: 60px; /* This pushes the menu text further away */
-      }
-
-      /* 3. Ensure the container handles the bigger items nicely */
-      .navbar-container {
-        max-width: 95%;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 40px; /* Increased side padding for a cleaner look */
-        height: 100%;
-      }
-
-      /* 6. Adjust body padding so content doesn't hide behind taller header */
-      body {
-        padding-top: 130px;
-      }
-
-      .nav-link {
-        text-decoration: none;
-        color: #000000;
-        font-weight: 600;
-        font-size: 0.95rem;
-        transition: color 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        letter-spacing: 0.5px;
-      }
-
-      .nav-link:first-child {
-        color: #f58220;
-      }
-
-      .nav-link:hover {
-        color: #f58220;
-      }
-
-      .dropdown-icon {
-        font-size: 0.7rem;
-        display: inline-block;
-      }
-
-      .navbar-right {
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        padding-left: 20px;
-      }
-
-      /* --- New Hamburger Styles --- */
-      .hamburger-icon {
-        display: none; /* Hidden on desktop */
-        font-size: 30px;
-        color: #333;
-        padding: 5px;
-      }
-
-      @media (max-width: 768px) {
-        .navbar-menu {
-          display: none;
-        }
-        .logo {
-          height: 50px;
-        }
-        /* Hide the right image on mobile */
-        .logo-right {
-          display: none;
-        }
-        /* Show the hamburger on mobile */
-        .hamburger-icon {
-          display: block;
-        }
-        .navbar-container {
-          padding: 10px 20px;
-        }
+        --bead-heaven: #ff9f43;
+        --bead-earth: #54a0ff;
       }
 
       * {
         box-sizing: border-box;
         user-select: none;
-        -webkit-tap-highlight-color: transparent;
       }
 
       body {
@@ -161,517 +27,290 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        min-height: 100vh;
-        padding-top: 250px; /* Space for fixed header */
+        /* UI FIX: Reduced top gap */
+        padding-top: 70px; 
       }
 
-      /* --- Sticky Score Header --- */
-      .score-board {
+      /* --- Persistent Reload Button --- */
+      .back-refresh-btn {
         position: fixed;
-        top: 150px;
-        z-index: 100;
-        background: white;
-        padding: 10px 30px;
-        border-radius: 50px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 90%;
-        max-width: 800px;
-        border: 2px solid #fff;
-      }
-
-      .score-label {
-        font-size: 0.8rem;
-        color: #888;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: 700;
-      }
-
-      .score-value {
-        font-size: 2.2rem;
-        font-weight: 800;
-        color: #2d3436;
-        font-variant-numeric: tabular-nums;
-        line-height: 1;
-      }
-
-      /* --- Scrollable Abacus Wrapper --- */
-      .abacus-scroll-container {
-        width: 100%;
-        max-width: 1200px;
-        overflow-x: auto; /* Enables horizontal scroll */
-        padding: 20px;
-        /* Hide scrollbar for cleaner look but keep functionality */
-        scrollbar-width: thin;
-        scrollbar-color: #ccc transparent;
-      }
-
-      /* Custom scrollbar webkit */
-      .abacus-scroll-container::-webkit-scrollbar {
-        height: 8px;
-      }
-      .abacus-scroll-container::-webkit-scrollbar-thumb {
-        background-color: #ccc;
-        border-radius: 4px;
-      }
-
-      /* --- The Abacus Frame --- */
-      .abacus-frame {
-        background-color: var(--frame-inner);
-        padding: 20px; /* Frame thickness */
-        border-radius: 15px;
-        display: inline-flex; /* Allows it to grow wide */
-        gap: 12px; /* Spacing between rods */
-        position: relative;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3),
-          inset 0 0 30px rgba(0, 0, 0, 0.5);
-        border: 4px solid #4a5153;
-        min-width: min-content; /* Force fit content */
-      }
-
-      /* The Horizontal Beam */
-      .beam {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 90px; /* Exact position based on bead heights */
-        height: 14px;
-        background: var(--beam-color);
-        z-index: 5;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-        border-top: 1px solid #7f8c8d;
-        border-bottom: 1px solid #2d3436;
-      }
-
-      /* Individual Rod */
-      .rod {
-        width: var(--rod-width);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
-        flex-shrink: 0; /* Prevents rods from squishing */
-      }
-
-      /* The Stick */
-      .rod::before {
-        content: "";
-        position: absolute;
-        top: -30px;
-        bottom: -30px;
-        width: 6px;
-        background: var(--rod-color);
-        border-radius: 3px;
-        z-index: 0;
-      }
-
-      /* --- Beads --- */
-      .bead {
-        width: var(--bead-width);
-        height: var(--bead-height);
-        border-radius: 12px; /* Rounded rectangle/football shape */
-        position: relative;
-        z-index: 2;
-        cursor: pointer;
-        transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
-
-        /* Realistic 3D look */
-        box-shadow: inset 0 5px 5px rgba(255, 255, 255, 0.3),
-          /* Highlight */ inset 0 -5px 5px rgba(0, 0, 0, 0.2),
-          /* Lowlight */ 0 5px 10px rgba(0, 0, 0, 0.3); /* Drop shadow */
-      }
-
-      /* Heaven Bead (Top) */
-      .bead.heaven {
-        background: var(--bead-heaven);
-        border-bottom: 3px solid var(--bead-heaven-shadow);
-        margin-bottom: 90px; /* Gap for beam + travel distance */
-        margin-top: 1px;
-      }
-
-      /* Earth Beads (Bottom) */
-      .bead.earth {
-        background: var(--bead-earth);
-        border-bottom: 3px solid var(--bead-earth-shadow);
-        margin-top: var(--bead-gap);
-      }
-
-      /* First earth bead needs space from beam */
-      .rod .bead.earth:first-of-type {
-        margin-top: 65px; /* Push down to create the 'inactive' gap */
-      }
-
-      /* --- Animations --- */
-
-      /* Heaven Active: Moves DOWN to touch beam */
-      .bead.heaven.active {
-        transform: translateY(35px);
-      }
-
-      /* Earth Active: Moves UP to touch beam */
-      .bead.earth.active {
-        transform: translateY(-35px);
-      }
-
-      /* --- Reset Button --- */
-      .btn-reset {
-        margin-top: 20px;
-        margin-bottom: 50px;
-        background: #2d3436;
+        top: 80px;
+        left: 15px;
+        z-index: 1000;
+        background: #d63737;
         color: white;
         border: none;
-        padding: 12px 30px;
-        font-size: 1rem;
+        padding: 10px 15px;
         border-radius: 8px;
+        font-weight: bold;
         cursor: pointer;
-        font-weight: 600;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        transition: transform 0.1s;
-      }
-      .btn-reset:active {
-        transform: scale(0.95);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       }
 
-      /* --- Mobile Hint --- */
-      .scroll-hint {
-        display: none;
-        color: #888;
-        font-size: 0.9rem;
-        margin-bottom: 5px;
-        animation: pulse 2s infinite;
-      }
-
-      @keyframes pulse {
-        0% {
-          opacity: 0.5;
-        }
-        50% {
-          opacity: 1;
-        }
-        100% {
-          opacity: 0.5;
-        }
-      }
-
-      @media (max-width: 600px) {
-        .scroll-hint {
-          display: block;
-        }
-        .score-board {
-          width: 100%;
-          padding: 8px 20px;
-        }
-        .score-value {
-          font-size: 1.8rem;
-        }
-        body {
-          padding-top: 230px; /* More space for header on mobile */
-        }
-      }
-
-      /* --- About Us Section Styles --- */
-      .about-container {
-        width: 90%;
-        max-width: 800px;
+      /* --- Compact Navbar --- */
+      .navbar {
+        height: 65px;
         background: white;
-        padding: 40px;
-        margin: 0 auto 80px auto; /* Spacing from bottom of page */
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 500;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+      }
+      .logo { height: 45px; }
+      .logo-right { height: 40px; }
+
+      /* --- Sleek Score Board --- */
+      .score-board {
+        background: white;
+        padding: 15px;
         border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
         text-align: center;
-        color: #2d3436;
+        width: 95%;
+        max-width: 500px;
+        margin-bottom: 10px;
+        border: 1px solid #eee;
+        z-index: 100;
+      }
+      .score-label { font-size: 0.75rem; color: #777; text-transform: uppercase; }
+      .score-value { font-size: 2.2rem; font-weight: 800; color: #2d3436; margin: 5px 0; }
+
+      /* --- Control Panel --- */
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+      }
+      .btn {
+        padding: 8px 10px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        background: white;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .btn-move { color: var(--bead-earth); }
+      .btn-clear { background: #2d3436; color: white; border: none; }
+
+      /* --- FIXED SCROLLING CONTAINER --- */
+      .abacus-scroll-container {
+        width: 100%;
+        overflow: auto; 
+        max-height: 75vh;
+        /* UI FIX: Block + text-align ensures 50% scroll works and no left clipping */
+        display: block; 
+        text-align: center; 
+        padding: 20px 0;
+        -webkit-overflow-scrolling: touch;
       }
 
-      .section-title {
-        color: #f58220; /* Your Primary Orange */
-        font-size: 2rem;
-        font-weight: 800;
-        margin-bottom: 20px;
-        margin-top: 0;
-      }
-
-      .sub-title {
-        color: #2d3436;
-        font-size: 1.4rem;
-        font-weight: 700;
-        margin-top: 10px;
-        margin-bottom: 15px;
-      }
-
-      .section-text {
-        color: #636e72;
-        line-height: 1.8;
-        margin-bottom: 25px;
-        font-size: 1.05rem;
-      }
-
-      .btn-explore {
+      /* --- ZOOM & TRANSFORMATION LAYER --- */
+      .abacus-zoom-layer {
         display: inline-block;
-        background-color: #f58220;
-        color: white;
-        text-decoration: none;
-        padding: 15px 40px;
-        border-radius: 50px;
-        font-weight: 700;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 10px 20px rgba(245, 130, 32, 0.3);
-        margin-bottom: 30px;
+        transition: transform 0.2s ease-out;
+        padding: 100px; /* Buffer for rotation/scaling */
+        transform-origin: center center;
       }
 
-      .btn-explore:hover {
-        transform: translateY(-3px);
-        background-color: #e67e22;
-        box-shadow: 0 15px 25px rgba(245, 130, 32, 0.4);
+      .abacus-frame {
+        background-color: var(--frame-inner);
+        padding: 15px;
+        border-radius: 12px;
+        display: flex;
+        gap: 10px;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       }
 
-      .divider {
-        height: 1px;
-        background: #dfe6e9;
-        margin: 40px auto;
-        width: 80%;
-      }
-
-      /* Updated for Red Dots */
-      .rod-mark {
+      .beam {
         position: absolute;
-        top: 77px;
-        left: 25px;
-        transform: translate(-50%, -50%);
-        width: 15px; /* Slightly larger for visibility */
-        height: 15px;
-        background-color: #d63737; /* Red */
-        border-radius: 50%;
-        z-index: 6;
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-        pointer-events: none;
+        left: 0; right: 0; top: 85px; height: 12px;
+        background: #636e72; z-index: 5;
       }
+
+      .rod { width: 46px; display: flex; flex-direction: column; align-items: center; position: relative; }
+      .rod::before { content: ""; position: absolute; top: -10px; bottom: -10px; width: 6px; background: var(--rod-color); border-radius: 3px; }
+      
+      .bead {
+        width: 44px; height: 30px; border-radius: 10px; z-index: 10; cursor: pointer;
+        transition: transform 0.2s;
+        box-shadow: inset 0 4px 4px rgba(255,255,255,0.2), 0 4px 8px rgba(0,0,0,0.2);
+      }
+      .bead.heaven { background: var(--bead-heaven); margin-bottom: 70px; }
+      .bead.earth { background: var(--bead-earth); margin-top: 8px; }
+      .rod .bead.earth:first-of-type { margin-top: 55px; }
+
+      .bead.heaven.active { transform: translateY(35px); }
+      .bead.earth.active { transform: translateY(-35px); }
+
+      .rod-mark { position: absolute; top: 72px; width: 12px; height: 12px; background: #d63737; border-radius: 50%; z-index: 20; }
+
+      /* --- About Us Section --- */
+      .about-container { width: 90%; max-width: 800px; background: white; padding: 30px; margin: 40px auto; border-radius: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+      h2 { color: var(--primary); }
+      p { color: #636e72; line-height: 1.6; }
+
+      @media (max-width: 600px) { .logo-right { display: none; } }
     </style>
   </head>
   <body>
-    <!-- Header Navigation -->
-    <!-- Header Navigation -->
+
+    <!-- <button class="back-refresh-btn" onclick="location.reload()">↻</button> -->
+
     <header class="navbar">
-      <div class="navbar-container">
-        <div class="navbar-left">
-          <img
-            src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
-            alt="BrainiacGym"
-            class="logo"
-          />
-        </div>
-
-        <nav class="navbar-menu">
-          <a href="index.html" class="nav-link">HOME</a>
-          <a href="#" class="nav-link dropdown"
-            >ABOUT <span class="dropdown-icon">▼</span></a
-          >
-          <a href="#" class="nav-link dropdown"
-            >COURSES <span class="dropdown-icon">▼</span></a
-          >
-          <a href="#" class="nav-link dropdown"
-            >JOIN US <span class="dropdown-icon">▼</span></a
-          >
-          <a href="#" class="nav-link">PRODUCT</a>
-          <a href="#" class="nav-link">BLOGS</a>
-          <a href="#" class="nav-link">CONTACT</a>
-          <a href="#" class="nav-link">FAQS</a>
-        </nav>
-
-        <div class="navbar-right">
-          <img
-            src="https://brainiacgym.com/wp-content/uploads/2025/10/Untitled-820-x-500-px.png"
-            alt="NSDC Skill India"
-            class="logo-right"
-          />
-          <div class="hamburger-icon">&#9776;</div>
-        </div>
-      </div>
+      <img src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png" class="logo" alt="Logo" />
+      <img src="https://brainiacgym.com/wp-content/uploads/2025/10/Untitled-820-x-500-px.png" class="logo-right" />
     </header>
+
     <div class="score-board">
-      <span class="score-label">Total Value</span>
-      <span class="score-value" id="totalDisplay">0</span>
-    </div>
-
-    <div class="scroll-hint">← Swipe to see more rods →</div>
-
-    <div class="abacus-scroll-container">
-      <div class="abacus-frame" id="abacusFrame">
-        <div class="beam"></div>
+      <div class="score-label">Total Value</div>
+      <div class="score-value" id="totalDisplay">0</div>
+      
+      <div class="controls">
+        <button class="btn" onclick="rotateAbacus()">Rotate 90°</button>
+        <button class="btn" onclick="changeScale(0.1)">+ Size</button>
+        <button class="btn" onclick="changeScale(-0.1)">- Size</button>
+        <button class="btn btn-clear" onclick="resetBeads()">Clear</button>
+        <!-- <button class="btn btn-move" onclick="moveAbacus(-30, 0)">⬅️</button>
+        <button class="btn btn-move" onclick="moveAbacus(30, 0)">➡️</button> -->
+        <button class="btn btn-move" onclick="moveAbacus(0, -30)">⬆ UP</button>
+        <button class="btn btn-move" onclick="moveAbacus(0, 30)">⬇ DOWN</button>
+        <button class="btn btn-clear" onclick="fitToScreen()">Fit Screen</button>
       </div>
     </div>
 
-    <button class="btn-reset" onclick="resetAbacus()">Reset Board</button>
+    <div class="abacus-scroll-container" id="scrollContainer">
+      <div class="abacus-zoom-layer" id="zoomLayer">
+        <div class="abacus-frame" id="abacusFrame">
+          <div class="beam"></div>
+        </div>
+      </div>
+    </div>
+
     <div class="about-container">
-      <h2 class="section-title">About Us</h2>
-      <p class="section-text">
-        BrainiacGym is an academy of experienced professionals focusing on
-        building curriculum skills of the children aged 6 to 16 years by
-        offering unique & essential skill development programs in Abacus
-        Training Course.
-      </p>
-
-      <a href="#" class="btn-explore">Explore Courses</a>
-
-      <div class="divider"></div>
-
-      <h3 class="sub-title">About BrainiacGym</h3>
-      <p class="section-text">
-        We are a team of talented & ambitious professionals who have come
-        together to offer quality life by doing our utmost to shape the future
-        of tomorrow. Along with the growth of Abacus interests in India, our
-        interest in Education & Training laid the foundations of the BrainiacGym
-        Academy in 2012 and we provide Abacus Training Course.
-      </p>
-      <p class="section-text">
-        The BrainiacGym presents several courses and programs that will
-        influence and substantially enhance your child’s brain.
-      </p>
+      <h2>About Us</h2>
+      <p>BrainiacGym Academy focuses on essential skill development through unique Abacus Training for children aged 6 to 16.</p>
     </div>
 
     <script>
-      // Configuration
       const COLUMN_COUNT = 17;
-      const UNIT_INDEX = 8; // The 9th rod (middle dot) is the Units Place (Value = 1)
-
       const abacusFrame = document.getElementById("abacusFrame");
       const totalDisplay = document.getElementById("totalDisplay");
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      
+      // PERSISTENCE: Load saved state or null for first-time calculation
+      let currentScale = parseFloat(localStorage.getItem('abacusScale')) || null;
+      let isRotated = localStorage.getItem('abacusRotated') === 'true';
+      let translateX = parseFloat(localStorage.getItem('abacusX')) || 0;
+      let translateY = parseFloat(localStorage.getItem('abacusY')) || 0;
 
-      function initAbacus() {
-        const oldRods = document.querySelectorAll(".rod");
-        oldRods.forEach((r) => r.remove());
+      function init() {
         for (let i = 0; i < COLUMN_COUNT; i++) {
-          createRod(i);
+          const rod = document.createElement("div");
+          rod.className = "rod";
+          if ((i + 1) % 3 === 0) {
+            const mark = document.createElement("div");
+            mark.className = "rod-mark";
+            rod.appendChild(mark);
+          }
+          const heaven = document.createElement("div");
+          heaven.className = "bead heaven";
+          heaven.onclick = () => { heaven.classList.toggle("active"); updateScore(); };
+          rod.appendChild(heaven);
+          for (let j = 0; j < 4; j++) {
+            const earth = document.createElement("div");
+            earth.className = "bead earth";
+            earth.onclick = () => toggleEarth(i, j);
+            rod.appendChild(earth);
+          }
+          abacusFrame.appendChild(rod);
         }
-        updateTotal();
+
+        if (currentScale === null) fitToScreen();
+        else applyTransform();
+        
+        // Centering logic
+        setTimeout(centerAbacusScroll, 150);
       }
 
-      function createRod(colIndex) {
-        const rodDiv = document.createElement("div");
-        rodDiv.className = "rod";
-
-        // Add the red dots
-        if ((colIndex + 1) % 3 === 0) {
-          const mark = document.createElement("div");
-          mark.className = "rod-mark";
-          // Highlight the Unit Rod differently if desired
-          if (colIndex === UNIT_INDEX) mark.style.backgroundColor = "#d63737"; // Green for Units
-          rodDiv.appendChild(mark);
-        }
-
-        // Heaven Bead (Value 5)
-        const heavenBead = document.createElement("div");
-        heavenBead.className = "bead heaven";
-        heavenBead.onclick = () => {
-          heavenBead.classList.toggle("active");
-          playSound();
-          updateTotal();
-        };
-        rodDiv.appendChild(heavenBead);
-
-        // Earth Beads (Value 1)
-        for (let j = 0; j < 4; j++) {
-          const earthBead = document.createElement("div");
-          earthBead.className = "bead earth";
-          earthBead.onclick = () => toggleEarth(colIndex, j);
-          rodDiv.appendChild(earthBead);
-        }
-        abacusFrame.appendChild(rodDiv);
+      function fitToScreen() {
+        const totalWidth = (COLUMN_COUNT * 46) + ((COLUMN_COUNT - 1) * 10) + 60;
+        const screenWidth = window.innerWidth - 40;
+        currentScale = Math.min(screenWidth / totalWidth, 1.2);
+        translateX = 0;
+        translateY = 0;
+        applyTransform();
+        setTimeout(centerAbacusScroll, 100);
       }
 
-      function toggleEarth(colIndex, clickedIdx) {
+      function centerAbacusScroll() {
+        const container = document.getElementById('scrollContainer');
+        container.scrollLeft = (container.scrollWidth - container.clientWidth) / 2;
+      }
+
+      function toggleEarth(rodIdx, beadIdx) {
         const rods = document.querySelectorAll(".rod");
-        const earthBeads = rods[colIndex].querySelectorAll(".bead.earth");
-        const isClickedActive =
-          earthBeads[clickedIdx].classList.contains("active");
+        const beads = rods[rodIdx].querySelectorAll(".bead.earth");
+        const isActive = beads[beadIdx].classList.contains("active");
+        beads.forEach((b, i) => {
+          if (!isActive) { if (i <= beadIdx) b.classList.add("active"); } 
+          else { if (i >= beadIdx) b.classList.remove("active"); }
+        });
+        updateScore();
+      }
 
-        if (!isClickedActive) {
-          earthBeads.forEach((b, i) => {
-            if (i <= clickedIdx) b.classList.add("active");
-          });
-        } else {
-          earthBeads.forEach((b, i) => {
-            if (i >= clickedIdx) b.classList.remove("active");
-          });
+      function updateScore() {
+        const rods = document.querySelectorAll(".rod");
+        let total = BigInt(0);
+        let values = Array.from(rods).map(rod => {
+          let v = rod.querySelector(".heaven").classList.contains("active") ? 5 : 0;
+          v += rod.querySelectorAll(".earth.active").length;
+          return v;
+        });
+        let lastActive = -1;
+        for (let i = values.length - 1; i >= 0; i--) if (values[i] > 0) { lastActive = i; break; }
+        if (lastActive !== -1) {
+          for (let i = 0; i <= lastActive; i++) {
+            total += BigInt(values[i]) * (10n ** BigInt(lastActive - i));
+          }
         }
-        playSound();
-        updateTotal();
+        totalDisplay.innerText = total.toLocaleString();
       }
 
-      /**
- * REWRITTEN CALCULATION LOGIC
- * This ignores all empty rods to the right of the last active bead.
- * The rightmost active rod becomes the "Units" (1) place.
- */
-function updateTotal() {
-  const rods = document.querySelectorAll(".rod");
-  let rodValues = [];
+      function rotateAbacus() { isRotated = !isRotated; applyTransform(); }
+      function changeScale(amt) { currentScale = Math.min(Math.max(0.2, currentScale + amt), 3.0); applyTransform(); }
+      function moveAbacus(x, y) { translateX += x; translateY += y; applyTransform(); }
+      function resetBeads() { document.querySelectorAll(".bead").forEach(b => b.classList.remove("active")); updateScore(); }
 
-  // 1. Capture all rod values (0-9)
-  rods.forEach((rod) => {
-    let val = 0;
-    if (rod.querySelector(".heaven").classList.contains("active")) val += 5;
-    val += rod.querySelectorAll(".earth.active").length;
-    rodValues.push(val);
-  });
+      function applyTransform() {
+        const layer = document.getElementById("zoomLayer");
+        const container = document.getElementById('scrollContainer');
+        
+        const rot = isRotated ? "rotate(90deg)" : "rotate(0deg)";
+        layer.style.transform = `translate(${translateX}px, ${translateY}px) ${rot} scale(${currentScale})`;
+        
+        // PERSISTENCE: Save to localStorage
+        localStorage.setItem('abacusScale', currentScale);
+        localStorage.setItem('abacusRotated', isRotated);
+        localStorage.setItem('abacusX', translateX);
+        localStorage.setItem('abacusY', translateY);
 
-  // 2. Find the index of the rightmost active rod (the "k" in your formula)
-  // This ensures that if you move a bead on any rod, it can be "1"
-  let lastActiveIndex = -1;
-  for (let i = rodValues.length - 1; i >= 0; i--) {
-    if (rodValues[i] > 0) {
-      lastActiveIndex = i;
-      break;
-    }
-  }
-
-  // 3. Calculate total based on that chosen unit point
-  let total = BigInt(0);
-  if (lastActiveIndex !== -1) {
-    for (let i = 0; i <= lastActiveIndex; i++) {
-      let rodValue = rodValues[i];
-      let exponent = lastActiveIndex - i; // Number of places to the left of our "unit"
-      total += BigInt(rodValue) * (10n ** BigInt(exponent));
-    }
-  }
-
-  // 4. Display the result
-  totalDisplay.innerText = total === 0n ? "0" : total.toLocaleString();
-}
-
-      function resetAbacus() {
-        const beads = document.querySelectorAll(".bead");
-        beads.forEach((b) => b.classList.remove("active"));
-        updateTotal();
-        playSound();
+        // VERTICAL SCROLL FIX: Adjust container height when rotated
+        if (isRotated) {
+          const frameWidth = abacusFrame.offsetWidth * currentScale;
+          container.style.minHeight = (frameWidth + 250) + "px";
+        } else {
+          container.style.minHeight = "auto";
+        }
       }
 
-      function playSound() {
-        if (audioCtx.state === "suspended") audioCtx.resume();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(
-          100,
-          audioCtx.currentTime + 0.08
-        );
-        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(
-          0.001,
-          audioCtx.currentTime + 0.08
-        );
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.08);
-      }
-
-      initAbacus();
+      init();
     </script>
   </body>
 </html>
