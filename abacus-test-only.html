@@ -198,17 +198,24 @@
         line-height: 1;
       }
 
-      /* --- Scrollable Abacus Wrapper --- */
-      .abacus-scroll-container {
-        width: 100%;
-        max-width: 1200px;
-        overflow-x: auto; /* Enables horizontal scroll */
-        padding: 20px;
-        /* Hide scrollbar for cleaner look but keep functionality */
-        scrollbar-width: thin;
-        scrollbar-color: #ccc transparent;
-      }
+/* Fixed container: 'text-align: center' allows scrolling to both sides safely */
+.abacus-scroll-container {
+  width: 100%;
+  max-width: 100vw;
+  overflow: auto;
+  padding: 60px 20px;
+  text-align: center; /* Centers the abacus but allows scrolling to left edge */
+  min-height: 500px;
+  display: block; /* Block is safer for horizontal scrolling than Flex */
+}
 
+/* This layer handles the (+) and (-) sizing */
+.abacus-zoom-layer {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  transform-origin: center center;
+  margin: 0 auto;
+}
       /* Custom scrollbar webkit */
       .abacus-scroll-container::-webkit-scrollbar {
         height: 8px;
@@ -334,48 +341,7 @@
       .btn-reset:active {
         transform: scale(0.95);
       }
-/* Mobile Controls Styling */
-.mobile-controls {
-    display: none; /* Hidden on desktop */
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-    flex-direction: column;
-    gap: 10px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 15px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
 
-/* Rotation logic */
-.rotated-90 {
-    transform: rotate(90deg);
-    transform-origin: center center;
-    margin-top: 150px; /* Offset to prevent overlapping other UI */
-}
-
-/* Responsive Trigger */
-@media (max-width: 768px) {
-    .mobile-controls {
-        display: flex;
-    }
-    
-    .abacus-scroll-container {
-        /* This allows the scale to work without clipping */
-        overflow: visible; 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #abacusFrame {
-        /* Use a CSS variable for scaling */
-        transform: scale(var(--abacus-scale, 1));
-        transition: transform 0.3s ease;
-    }
-}
       /* --- Mobile Hint --- */
       .scroll-hint {
         display: none;
@@ -403,7 +369,7 @@
         }
         .score-board {
           width: 100%;
-          padding: 8px 20px;
+          padding: 1px 20px;
         }
         .score-value {
           font-size: 1.8rem;
@@ -490,6 +456,28 @@
         box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
         pointer-events: none;
       }
+
+      /* Container for mobile buttons */
+.mobile-controls {
+  display: none; /* Hidden by default */
+  gap: 10px;
+  margin-bottom: 2px;
+  z-index: 150;
+}
+
+/* Rotation logic: we add extra vertical margin so it doesn't hit the header */
+.abacus-frame.rotated {
+  transform: rotate(90deg);
+  margin: 180px 0; 
+}
+
+@media (max-width: 500px) {
+  .mobile-controls {
+    display: flex;
+    justify-content: center;
+    padding: 1px;
+  }
+}
     </style>
   </head>
   <body>
@@ -532,27 +520,24 @@
         </div>
       </div>
     </header>
-
-<div class="mobile-controls">
-    <button onclick="rotateAbacus()" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">🔄 Rotate 90°</button>
-    <div style="display: flex; gap: 5px;">
-        <button onclick="changeScale(0.1)" style="flex:1; padding: 10px;">➕ Size</button>
-        <button onclick="changeScale(-0.1)" style="flex:1; padding: 10px;">➖ Size</button>
-    </div>
+    <div class="mobile-controls">
+      <button onclick="rotateAbacus()">Rotate 90°</button>
+      <button onclick="changeScale(0.05)">+ SIZE</button>
+      <button onclick="changeScale(-0.05)">- SIZE</button>
+  <div class="score-board">
+    <span class="score-label">Total Value</span>
+    <span class="score-value" id="totalDisplay">0</span>
+    <div class="scroll-hint">← Swipe to see more rods →</div>
+  </div>
 </div>
 
-    <div class="score-board">
-      <span class="score-label">Total Value</span>
-      <span class="score-value" id="totalDisplay">0</span>
+<div class="abacus-scroll-container">
+  <div class="abacus-zoom-layer" id="zoomLayer"> 
+    <div class="abacus-frame" id="abacusFrame">
+      <div class="beam"></div>
     </div>
-
-    <div class="scroll-hint">← Swipe to see more rods →</div>
-
-    <div class="abacus-scroll-container">
-      <div class="abacus-frame" id="abacusFrame">
-        <div class="beam"></div>
-      </div>
-    </div>
+  </div>
+</div>
 
     <button class="btn-reset" onclick="resetAbacus()">Reset Board</button>
     <div class="about-container">
@@ -723,29 +708,31 @@ function updateTotal() {
 
       initAbacus();
 
-      let currentRotation = 0;
-let currentScale = 0.6; // Start slightly smaller for mobile fit
+
+      let currentScale = 1.0;
+let isRotated = false;
 
 function rotateAbacus() {
-    const frame = document.getElementById('abacusFrame');
-    currentRotation = currentRotation === 0 ? 90 : 0;
-    
-    if (currentRotation === 90) {
-        frame.classList.add('rotated-90');
-    } else {
-        frame.classList.remove('rotated-90');
-    }
+  const frame = document.getElementById('abacusFrame');
+  isRotated = !isRotated;
+  
+  if (isRotated) {
+    frame.classList.add('rotated');
+  } else {
+    frame.classList.remove('rotated');
+  }
 }
 
-function changeScale(delta) {
-    const frame = document.getElementById('abacusFrame');
-    currentScale = Math.min(Math.max(0.3, currentScale + delta), 1.5); // Min 0.3, Max 1.5
-    frame.style.setProperty('--abacus-scale', currentScale);
-}
-
-// Set initial mobile scale on load
-if (window.innerWidth < 768) {
-    document.getElementById('abacusFrame').style.setProperty('--abacus-scale', currentScale);
+function changeScale(amount) {
+  const frame = document.getElementById('abacusFrame');
+  currentScale += amount;
+  
+  // Constrain scale so it doesn't get too small or too huge
+  currentScale = Math.min(Math.max(0.4, currentScale), 1.5);
+  
+  // Apply scale while maintaining the rotation if active
+  const rotationStr = isRotated ? 'rotate(90deg) translateY(-50%)' : '';
+  frame.style.transform = `${rotationStr} scale(${currentScale})`;
 }
     </script>
   </body>
