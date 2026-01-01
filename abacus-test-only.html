@@ -27,8 +27,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        /* Fixed top gap: reduced padding */
-        padding-top: 70px; 
+        padding-top: 70px;
       }
 
       /* --- Persistent Reload Button (Top Left) --- */
@@ -44,14 +43,14 @@
         border-radius: 8px;
         font-weight: bold;
         cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       }
 
       /* --- Compact Navbar --- */
       .navbar {
         height: 65px;
         background: white;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         position: fixed;
         top: 0;
         width: 100%;
@@ -62,8 +61,12 @@
         padding: 0 20px;
       }
 
-      .logo { height: 45px; }
-      .logo-right { height: 40px; }
+      .logo {
+        height: 45px;
+      }
+      .logo-right {
+        height: 40px;
+      }
 
       /* --- Sleek Score Board --- */
       .score-board {
@@ -76,6 +79,8 @@
         max-width: 500px;
         margin-bottom: 20px;
         border: 1px solid #eee;
+        position: relative;
+        z-index: 100;
       }
 
       .score-label {
@@ -100,13 +105,15 @@
         gap: 8px;
         margin-top: 10px;
       }
-.sub-title {
+
+      .sub-title {
         color: #2d3436;
         font-size: 1.4rem;
         font-weight: 700;
         margin-top: 10px;
         margin-bottom: 15px;
       }
+
       .btn {
         padding: 8px 12px;
         border-radius: 6px;
@@ -117,24 +124,30 @@
         cursor: pointer;
         transition: 0.2s;
       }
-      .btn:active { transform: scale(0.95); }
-      .btn-reset { background: #2d3436; color: white; border: none; }
+      .btn:active {
+        transform: scale(0.95);
+      }
+      .btn-reset {
+        background: #2d3436;
+        color: white;
+        border: none;
+      }
 
-      /* --- Abacus Container with Vertical Scrolling --- */
       .abacus-scroll-container {
         width: 100%;
+        max-height: 80vh; /* Limits height to 80% of the screen */
         overflow-x: auto;
-        overflow-y: auto; /* Enable vertical scroll for rotated mode */
-        max-height: 60vh;
-        padding: 20px 0;
-        display: flex;
-        justify-content: center;
+        overflow-y: auto;
+        display: block; /* Changing from flex to block prevents 'left-side' clipping */
+        text-align: center;
+        padding: 20px;
       }
 
       .abacus-zoom-layer {
         display: inline-block;
         transition: transform 0.3s ease;
-        padding: 40px;
+        padding: 100px; /* Provides a large 'buffer' zone for zooming */
+        transform-origin: center center;
       }
 
       .abacus-frame {
@@ -145,6 +158,7 @@
         gap: 10px;
         position: relative;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        margin: 0 auto;
       }
 
       /* --- Abacus Components --- */
@@ -185,16 +199,28 @@
         z-index: 10;
         cursor: pointer;
         transition: transform 0.2s;
-        box-shadow: inset 0 4px 4px rgba(255,255,255,0.2), 0 4px 8px rgba(0,0,0,0.2);
+        box-shadow: inset 0 4px 4px rgba(255, 255, 255, 0.2),
+          0 4px 8px rgba(0, 0, 0, 0.2);
       }
 
-      .bead.heaven { background: var(--bead-heaven); margin-bottom: 70px; }
-      .bead.earth { background: var(--bead-earth); margin-top: 8px; }
-      .rod .bead.earth:first-of-type { margin-top: 55px; }
+      .bead.heaven {
+        background: var(--bead-heaven);
+        margin-bottom: 70px;
+      }
+      .bead.earth {
+        background: var(--bead-earth);
+        margin-top: 8px;
+      }
+      .rod .bead.earth:first-of-type {
+        margin-top: 55px;
+      }
 
-      /* Active States */
-      .bead.heaven.active { transform: translateY(35px); }
-      .bead.earth.active { transform: translateY(-35px); }
+      .bead.heaven.active {
+        transform: translateY(35px);
+      }
+      .bead.earth.active {
+        transform: translateY(-35px);
+      }
 
       .rod-mark {
         position: absolute;
@@ -206,8 +232,6 @@
         z-index: 20;
       }
 
-
-      
       .btn-explore {
         display: inline-block;
         background-color: #f58220;
@@ -228,9 +252,6 @@
         box-shadow: 0 15px 25px rgba(245, 130, 32, 0.4);
       }
 
-      
-
-      /* --- About Us Section --- */
       .about-container {
         width: 90%;
         max-width: 800px;
@@ -239,35 +260,55 @@
         margin: 40px 0;
         border-radius: 20px;
         text-align: center;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
       }
 
-      h2 { color: var(--primary); margin-top: 0; }
-      p { color: #636e72; line-height: 1.6; }
+      h2 {
+        color: var(--primary);
+        margin-top: 0;
+      }
+      p {
+        color: #636e72;
+        line-height: 1.6;
+      }
 
       @media (max-width: 600px) {
-        .logo-right { display: none; }
-        .score-value { font-size: 2rem; }
+        .logo-right {
+          display: none;
+        }
+        .score-value {
+          font-size: 2rem;
+        }
       }
     </style>
   </head>
   <body>
-
-    
     <header class="navbar">
-      <img src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png" class="logo" alt="Logo" />
-      <img src="https://brainiacgym.com/wp-content/uploads/2025/10/Untitled-820-x-500-px.png" class="logo-right" alt="Skill India" />
+      <img
+        src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
+        class="logo"
+        alt="Logo"
+      />
+      <img
+        src="https://brainiacgym.com/wp-content/uploads/2025/10/Untitled-820-x-500-px.png"
+        class="logo-right"
+        alt="Skill India"
+      />
     </header>
 
     <div class="score-board">
       <div class="score-label">Total Value</div>
       <div class="score-value" id="totalDisplay">0</div>
-      
+
       <div class="controls">
         <button class="btn" onclick="rotateAbacus()">Rotate 90°</button>
-        <button class="btn" onclick="changeScale(0.1)">+ Size</button>
-        <button class="btn" onclick="changeScale(-0.1)">- Size</button>
-        <button class="btn " onclick="resetBeads()">Clear Beads</button>
+        <button class="btn" onclick="changeScale(0.05)">+ Size</button>
+        <button class="btn" onclick="changeScale(-0.05)">- Size</button>
+        <button class="btn" onclick="resetBeads()">Clear Beads</button>
+        <!-- <button class="btn" onclick="moveAbacus(-20, 0)">⬅️ Left</button>
+        <button class="btn" onclick="moveAbacus(20, 0)">➡️ Right</button> -->
+        <button class="btn" onclick="moveAbacus(0, -20)">⬆️ Up</button>
+        <button class="btn" onclick="moveAbacus(0, 20)">⬇️ Down</button>
       </div>
     </div>
 
@@ -275,7 +316,7 @@
       <div class="abacus-zoom-layer" id="zoomLayer">
         <div class="abacus-frame" id="abacusFrame">
           <div class="beam"></div>
-          </div>
+        </div>
       </div>
     </div>
 
@@ -300,19 +341,23 @@
         interest in Education & Training laid the foundations of the BrainiacGym
         Academy in 2012 and we provide Abacus Training Course.
       </p>
-      <p class="section-text">
-        The BrainiacGym presents several courses and programs that will
-        influence and substantially enhance your child’s brain.
-      </p>
     </div>
 
     <script>
       const COLUMN_COUNT = 17;
       const abacusFrame = document.getElementById("abacusFrame");
       const totalDisplay = document.getElementById("totalDisplay");
-      let currentScale = 1.0;
-      let isRotated = false;
+// Load saved values or set defaults if no data exists
+let currentScale = parseFloat(localStorage.getItem('abacusScale')) || 1.0;
+let isRotated = localStorage.getItem('abacusRotated') === 'true';
+let translateX = parseFloat(localStorage.getItem('abacusX')) || 0;
+let translateY = parseFloat(localStorage.getItem('abacusY')) || 0;
 
+      function moveAbacus(xAmount, yAmount) {
+        translateX += xAmount;
+        translateY += yAmount;
+        applyTransform();
+      }
       function init() {
         for (let i = 0; i < COLUMN_COUNT; i++) {
           const rod = document.createElement("div");
@@ -326,7 +371,10 @@
 
           const heaven = document.createElement("div");
           heaven.className = "bead heaven";
-          heaven.onclick = () => { heaven.classList.toggle("active"); updateScore(); };
+          heaven.onclick = () => {
+            heaven.classList.toggle("active");
+            updateScore();
+          };
           rod.appendChild(heaven);
 
           for (let j = 0; j < 4; j++) {
@@ -336,6 +384,8 @@
             rod.appendChild(earth);
           }
           abacusFrame.appendChild(rod);
+          applyTransform();
+          setTimeout(centerAbacusScroll, 100);
         }
       }
 
@@ -345,8 +395,11 @@
         const isActive = beads[beadIdx].classList.contains("active");
 
         beads.forEach((b, i) => {
-          if (!isActive) { if (i <= beadIdx) b.classList.add("active"); } 
-          else { if (i >= beadIdx) b.classList.remove("active"); }
+          if (!isActive) {
+            if (i <= beadIdx) b.classList.add("active");
+          } else {
+            if (i >= beadIdx) b.classList.remove("active");
+          }
         });
         updateScore();
       }
@@ -356,26 +409,33 @@
         let total = BigInt(0);
         let lastActive = -1;
 
-        const values = Array.from(rods).map(rod => {
-          let v = rod.querySelector(".heaven").classList.contains("active") ? 5 : 0;
+        const values = Array.from(rods).map((rod) => {
+          let v = rod.querySelector(".heaven").classList.contains("active")
+            ? 5
+            : 0;
           v += rod.querySelectorAll(".earth.active").length;
           return v;
         });
 
         for (let i = values.length - 1; i >= 0; i--) {
-          if (values[i] > 0) { lastActive = i; break; }
+          if (values[i] > 0) {
+            lastActive = i;
+            break;
+          }
         }
 
         if (lastActive !== -1) {
           for (let i = 0; i <= lastActive; i++) {
-            total += BigInt(values[i]) * (10n ** BigInt(lastActive - i));
+            total += BigInt(values[i]) * 10n ** BigInt(lastActive - i);
           }
         }
         totalDisplay.innerText = total.toLocaleString();
       }
 
       function resetBeads() {
-        document.querySelectorAll(".bead").forEach(b => b.classList.remove("active"));
+        document
+          .querySelectorAll(".bead")
+          .forEach((b) => b.classList.remove("active"));
         updateScore();
       }
 
@@ -385,19 +445,51 @@
       }
 
       function changeScale(amt) {
-        currentScale = Math.min(Math.max(0.5, currentScale + amt), 1.5);
+        currentScale = Math.min(Math.max(0.3, currentScale + amt), 1.5);
         applyTransform();
       }
+function centerAbacusScroll() {
+  const container = document.querySelector('.abacus-scroll-container');
+  // Calculation: (Total width of abacus - visible screen width) / 2
+  const scrollCenter = (container.scrollWidth - container.clientWidth) / 2;
+  container.scrollLeft = scrollCenter;
+}
 
-      function applyTransform() {
-        const layer = document.getElementById("zoomLayer");
-        const rotation = isRotated ? "rotate(90deg)" : "rotate(0deg)";
-        layer.style.transform = `${rotation} scale(${currentScale})`;
-        
-        // Ensure container height adjusts for rotation
-        document.querySelector('.abacus-scroll-container').style.minHeight = isRotated ? "500px" : "auto";
-      }
+function resetView() {
+  currentScale = 1.0;
+  isRotated = false;
+  translateX = 0;
+  translateY = 0;
+  applyTransform();
+}
+function applyTransform() {
+  const layer = document.getElementById("zoomLayer");
+  const container = document.querySelector('.abacus-scroll-container');
+  const frame = document.getElementById("abacusFrame");
+  
+  const translationStr = `translate(${translateX}px, ${translateY}px)`;
+  const rotationStr = isRotated ? "rotate(90deg)" : "rotate(0deg)";
+  const scaleStr = `scale(${currentScale})`;
 
+  layer.style.transform = `${translationStr} ${rotationStr} ${scaleStr}`;
+  
+  // Save current state to browser memory
+  localStorage.setItem('abacusScale', currentScale);
+  localStorage.setItem('abacusRotated', isRotated);
+  localStorage.setItem('abacusX', translateX);
+  localStorage.setItem('abacusY', translateY);
+
+  // Vertical scrolling logic
+  if (isRotated) {
+    const rotatedHeight = (frame.offsetWidth * currentScale) + 200;
+    container.style.minHeight = rotatedHeight + "px";
+    container.style.overflowY = "auto";
+  } else {
+    container.style.minHeight = "auto";
+    container.style.overflowY = "hidden";
+  }
+  centerAbacusScroll();
+}
       init();
     </script>
   </body>
