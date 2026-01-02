@@ -315,7 +315,7 @@
     </style>
   </head>
   <body>
-    <button class="back-refresh-btn" onclick="location.reload()">↻</button>
+    <button class="back-refresh-btn" onclick="location.reload()">← BACK</button>
 
     <header>
       <img
@@ -519,13 +519,13 @@
         const h2 = parseInt(document.getElementById("high2").value);
 
         let n1;
-  // If it's the first question, pick a random number from Range 1
-  // Otherwise, use the answer from the previous round
-  if (previousAnswer === null) {
-    n1 = Math.floor(Math.random() * (h1 - l1 + 1)) + l1;
-  } else {
-    n1 = previousAnswer;
-  }
+        // If it's the first question, pick a random number from Range 1
+        // Otherwise, use the answer from the previous round
+        if (previousAnswer === null) {
+          n1 = Math.floor(Math.random() * (h1 - l1 + 1)) + l1;
+        } else {
+          n1 = previousAnswer;
+        }
         // Logic: Random Multiplication
         // const n1 = Math.floor(Math.random() * (h1 - l1 + 1)) + l1;
         const n2 = Math.floor(Math.random() * (h2 - l2 + 1)) + l2;
@@ -533,7 +533,7 @@
         correctAnswer = n1 * n2;
 
         // Update display
-  document.getElementById("question-text").innerText = `${n1} x ${n2}`;
+        document.getElementById("question-text").innerText = `${n1} x ${n2}`;
 
         // Reset UI
         document.getElementById("feedback").innerText = "";
@@ -616,36 +616,39 @@
         }
       }
 
-function checkAns() {
-  const userInput = document.getElementById("user-ans").value;
-  const feedback = document.getElementById("feedback");
-  const btn = document.getElementById("check-btn");
+      function checkAns() {
+        const userInput = document.getElementById("user-ans").value;
+        const feedback = document.getElementById("feedback");
+        const btn = document.getElementById("check-btn");
 
-  // Disable the button instead of hiding it
-  btn.disabled = true; 
-  btn.style.opacity = "0.9"; // Make it look inactive
-  btn.style.cursor = "not-allowed";
+        // Disable the button instead of hiding it
+        btn.disabled = true;
+        btn.style.opacity = "0.9"; // Make it look inactive
+        btn.style.cursor = "not-allowed";
 
-  if (userInput !== "" && parseInt(userInput) === correctAnswer) {
-    rightCount++;
-    feedback.innerText = "Correct! ✓";
-    feedback.style.color = "var(--success-color)";
-  } else {
-    wrongCount++;
-    feedback.innerText = userInput === "" ? `No answer! Ans: ${correctAnswer}` : `Wrong! Answer: ${correctAnswer}`;
-    feedback.style.color = "var(--error-color)";
-  }
+        if (userInput !== "" && parseInt(userInput) === correctAnswer) {
+          rightCount++;
+          feedback.innerText = "Correct! ✓";
+          feedback.style.color = "var(--success-color)";
+        } else {
+          wrongCount++;
+          feedback.innerText =
+            userInput === ""
+              ? `No answer! Ans: ${correctAnswer}`
+              : `Wrong! Answer: ${correctAnswer}`;
+          feedback.style.color = "var(--error-color)";
+        }
 
-  updateUIStats();
+        updateUIStats();
 
-  // Wait 1.2 seconds, then reset the button and move to next question
-  setTimeout(() => { 
-    btn.disabled = false; 
-    btn.style.opacity = "1";
-    btn.style.cursor = "pointer";
-    nextQuestion(); 
-  }, 300);
-}
+        // Wait 1.2 seconds, then reset the button and move to next question
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.style.opacity = "1";
+          btn.style.cursor = "pointer";
+          nextQuestion();
+        }, 300);
+      }
       function nextQuestion() {
         clearTimers();
         previousAnswer = correctAnswer;

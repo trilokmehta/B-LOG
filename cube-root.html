@@ -324,7 +324,7 @@
     </style>
   </head>
   <body>
-    <button class="back-refresh-btn" onclick="location.reload()">↻</button>
+    <button class="back-refresh-btn" onclick="location.reload()">← BACK</button>
 
     <header>
       <img
@@ -342,8 +342,17 @@
 
     <div class="container">
       <div id="setup-screen" class="screen active">
-                <div class="back-arrow-btn" onclick="location.reload()">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#f58220" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <div class="back-arrow-btn" onclick="location.reload()">
+          <svg
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#f58220"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
@@ -647,7 +656,7 @@
           feedback.classList.remove("show");
           document.getElementById("check-btn").style.visibility = "visible";
           nextQuestion();
-        }, 1000);
+        }, 300);
       }
 
       function nextQuestion() {

@@ -245,8 +245,7 @@
           transform: translateY(0);
         }
       }
-
-/* --- Persistent Reload Button --- */
+      /* --- Persistent Reload Button --- */
       .back-refresh-btn {
         position: fixed;
         top: 80px;
@@ -261,11 +260,10 @@
         cursor: pointer;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       }
-      
     </style>
   </head>
   <body>
-    <button class="back-refresh-btn" onclick="location.reload()">↻</button>
+    <button class="back-refresh-btn" onclick="location.reload()">← BACK</button>
 
     <header>
       <img
@@ -274,96 +272,89 @@
         class="logo"
       />
       <nav class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="#">About</a>
-    <a href="#">Courses</a>
-    <a href="#">Contact</a>
-  </nav>
-</header>
+        <a href="index.html">Home</a><a href="#">About</a><a href="#">Courses</a
+        ><a href="#">Contact</a>
+      </nav>
+    </header>
 
+    <div class="container">
+      <div id="setup-screen" class="screen active">
+        <div class="card">
+          <h2>Multiples Practice</h2>
 
-<div class="container">
-  <div id="setup-screen" class="screen active">
-    
-  </div>
-  <div class="card">
-    <h2>Multiples Practice</h2>
-      
-      <div class="input-grid">
-        <div>
-          <label>Range 1: Low (Base)</label
-            ><input type="number" id="low1" value="2" />
-          </div>
-          <div>
-            <label>Range 1: High (Base)</label
+          <div class="input-grid">
+            <div>
+              <label>Range 1: Low (Base)</label
+              ><input type="number" id="low1" value="2" />
+            </div>
+            <div>
+              <label>Range 1: High (Base)</label
               ><input type="number" id="high1" value="9" />
             </div>
           </div>
           <div class="input-grid">
             <div>
               <label>Range 2: Low (Multiplier)</label
-                ><input type="number" id="low2" value="2" />
-              </div>
-              <div>
-                <label>Range 2: High (Multiplier)</label
-                  ><input type="number" id="high2" value="9" />
-                </div>
-              </div>
+              ><input type="number" id="low2" value="2" />
+            </div>
+            <div>
+              <label>Range 2: High (Multiplier)</label
+              ><input type="number" id="high2" value="9" />
+            </div>
+          </div>
           <div class="input-grid">
             <div>
               <label>Total Questions</label
-                ><input type="number" id="totalSums" value="10" />
-              </div>
-              <div>
-                <label>Time Limit (Sec)</label
-                  ><input type="number" id="totalTime" value="60" />
-                </div>
-              </div>
-              
-              <div class="settings-box">
-                <div class="checkbox-row">
-                  <input
-                  type="checkbox"
-                  id="flashMode"
-                  onchange="toggleAutoOptions()"
-                  />
-                  <label for="flashMode">Flash Mode (Mental Math)</label>
-                </div>
-                <div id="auto-options">
-                  <div class="checkbox-row">
-                    <input type="checkbox" id="autoLoop" />
-                    <label for="autoLoop">Auto Next Question</label>
-                  </div>
-                  <label style="margin-top: 10px; display: block"
-                  >Wait Time (Sec):</label
-                  >
-                  <input
-                  type="number"
-                  id="autoDelay"
-                  value="3"
-                  style="width: 100%"
-                  />
-                  <label style="margin-top: 10px; display: block"
-                  >View Time (Sec):</label
-                  >
-                  <input
-                  type="number"
-                  id="speed"
-                  value="3"
-                  step="0.5"
-                  style="width: 100%"
-                  />
-                </div>
-              </div>
-              <button class="btn btn-check" onclick="startApp()">
-                START PRACTICE
-              </button>
-              
-              
+              ><input type="number" id="totalSums" value="10" />
+            </div>
+            <div>
+              <label>Time Limit (Sec)</label
+              ><input type="number" id="totalTime" value="60" />
             </div>
           </div>
-          
-          <div id="game-screen" class="screen">
+
+          <div class="settings-box">
+            <div class="checkbox-row">
+              <input
+                type="checkbox"
+                id="flashMode"
+                onchange="toggleAutoOptions()"
+              />
+              <label for="flashMode">Flash Mode (Mental Math)</label>
+            </div>
+            <div id="auto-options">
+              <div class="checkbox-row">
+                <input type="checkbox" id="autoLoop" />
+                <label for="autoLoop">Auto Next Question</label>
+              </div>
+              <label style="margin-top: 10px; display: block"
+                >Wait Time (Sec):</label
+              >
+              <input
+                type="number"
+                id="autoDelay"
+                value="3"
+                style="width: 100%"
+              />
+              <label style="margin-top: 10px; display: block"
+                >View Time (Sec):</label
+              >
+              <input
+                type="number"
+                id="speed"
+                value="3"
+                step="0.5"
+                style="width: 100%"
+              />
+            </div>
+          </div>
+          <button class="btn btn-check" onclick="startApp()">
+            START PRACTICE
+          </button>
+        </div>
+      </div>
+
+      <div id="game-screen" class="screen">
         <div class="card">
           <div class="stats-bar">
             <span id="timer-display">60.0s</span><span>BrainiacGym</span>
@@ -561,7 +552,7 @@
           btn.style.opacity = "1";
           btn.style.cursor = "pointer";
           nextQuestion();
-        }, 500);
+        }, 300);
       }
 
       function nextQuestion() {

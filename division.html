@@ -254,7 +254,7 @@
           opacity: 1;
           transform: translateY(0);
         }
-      } 
+      }
       /* --- Persistent Reload Button --- */
       .back-refresh-btn {
         position: fixed;
@@ -273,7 +273,7 @@
     </style>
   </head>
   <body>
-    <button class="back-refresh-btn" onclick="location.reload()">↻</button>
+    <button class="back-refresh-btn" onclick="location.reload()">← BACK</button>
 
     <header>
       <img
@@ -620,7 +620,7 @@
           checkBtn.style.pointerEvents = "auto";
           checkBtn.style.visibility = "visible";
           nextQuestion();
-        }, 1500);
+        }, 300);
       }
 
       function nextQuestion() {
