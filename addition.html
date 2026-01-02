@@ -227,14 +227,63 @@
           transform: translateY(0);
         }
       }
+/* --- Persistent Reload Button --- */
+      .back-refresh-btn {
+        position: fixed;
+        top: 80px;
+        left: 15px;
+        z-index: 1000;
+        background: #d63737;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+      /* --- RESET BUTTON STYLE --- */
+.btn-reset {
+  background: #f58220; /* Grey color to distinguish from 'Start' */
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition:  0.2s;
+  white-space: nowrap;
+}
+
+.btn-reset:hover {
+  background: #2d3436;
+}
+
+/* Adjust header for mobile to ensure button doesn't overlap logo */
+@media (max-width: 600px) {
+  header {
+    padding: 0 3%;
+    justify-content: space-between;
+  }
+  .logo {
+    height: 30px; /* Slightly smaller logo on mobile */
+  }
+  .btn-reset {
+    padding: 6px 10px;
+    font-size: 0.7rem;
+  }
+}
     </style>
   </head>
   <body>
+    <button class="back-refresh-btn" onclick="location.reload()">↻</button>
     <header>
+
       <img
-        src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
-        alt="Logo"
-        class="logo"
+      src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
+      alt="Logo"
+      class="logo"
       />
       <nav class="nav-links">
         <a href="index.html">Home</a>
@@ -242,8 +291,9 @@
         <a href="#">Courses</a>
         <a href="#">Contact</a>
       </nav>
+      <!-- <button class="btn-reset" onclick="resetPage()">← BACK / RESET</button> -->
     </header>
-
+    
     <div class="container">
       <div id="setup-screen" class="screen active">
         <div class="card">
@@ -505,6 +555,11 @@
           .forEach((s) => s.classList.remove("active"));
         document.getElementById(id).classList.add("active");
       }
+
+      function resetPage() {
+  // This reloads the entire page, clearing all variables and returning to setup
+  window.location.reload();
+}
     </script>
   </body>
 </html>

@@ -179,7 +179,21 @@
       .btn-back {
         background: #636e72;
       }
-
+/* --- Persistent Reload Button --- */
+      .back-refresh-btn {
+        position: fixed;
+        top: 80px;
+        left: 15px;
+        z-index: 1000;
+        background: #d63737;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
       /* --- 3. FLASH DISPLAY (Smart Resizing) --- */
       #flash-display {
         /* Clamp font size: Minimum 3rem, Preferred 10vw, Max 6rem */
@@ -230,6 +244,8 @@
     </style>
   </head>
   <body>
+    <button class="back-refresh-btn" onclick="location.reload()">↻</button>
+
     <header>
       <img
         src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
@@ -246,6 +262,7 @@
 
     <div class="container">
       <div id="setup-screen" class="screen active">
+        
         <div class="card">
           <h2 style="margin-top: 0; margin-bottom: 30px">Add & Sub</h2>
 
