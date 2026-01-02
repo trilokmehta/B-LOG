@@ -461,6 +461,7 @@
       let speed = 0;
       let timerInterval = null;
       let correctAnswer = 0;
+      let previousAnswer = null;
 
       // Auto/Flash Variables
       let isFlashMode = false;
@@ -470,6 +471,7 @@
       let countdownInterval;
 
       function startApp() {
+        previousAnswer = null;
         // Inputs
         timeLeft = parseFloat(document.getElementById("totalTime").value);
         speed = parseFloat(document.getElementById("speed").value) * 1000;
@@ -499,12 +501,22 @@
         const l2 = parseInt(document.getElementById("low2").value);
         const h2 = parseInt(document.getElementById("high2").value);
 
+        let n1;
+  // If it's the first question, pick a random number from Range 1
+  // Otherwise, use the answer from the previous round
+  if (previousAnswer === null) {
+    n1 = Math.floor(Math.random() * (h1 - l1 + 1)) + l1;
+  } else {
+    n1 = previousAnswer;
+  }
         // Logic: Random Multiplication
-        const n1 = Math.floor(Math.random() * (h1 - l1 + 1)) + l1;
+        // const n1 = Math.floor(Math.random() * (h1 - l1 + 1)) + l1;
         const n2 = Math.floor(Math.random() * (h2 - l2 + 1)) + l2;
 
         correctAnswer = n1 * n2;
-        document.getElementById("question-text").innerText = `${n1} x ${n2}`;
+
+        // Update display
+  document.getElementById("question-text").innerText = `${n1} x ${n2}`;
 
         // Reset UI
         document.getElementById("feedback").innerText = "";
@@ -594,7 +606,7 @@ function checkAns() {
 
   // Disable the button instead of hiding it
   btn.disabled = true; 
-  btn.style.opacity = "0.5"; // Make it look inactive
+  btn.style.opacity = "0.9"; // Make it look inactive
   btn.style.cursor = "not-allowed";
 
   if (userInput !== "" && parseInt(userInput) === correctAnswer) {
@@ -615,10 +627,11 @@ function checkAns() {
     btn.style.opacity = "1";
     btn.style.cursor = "pointer";
     nextQuestion(); 
-  }, 500);
+  }, 300);
 }
       function nextQuestion() {
         clearTimers();
+        previousAnswer = correctAnswer;
         document.getElementById("question-text").style.display = "block";
         currentSumCount++;
         updateUIStats();
