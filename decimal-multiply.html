@@ -508,20 +508,22 @@
         const h2 = parseFloat(document.getElementById("high2").value);
 
         // 1. Calculate the precision based on your input steps
-        // This counts how many decimal places are in your range inputs
-        const getPrecision = (num) =>
-          (num.toString().split(".")[1] || "").length;
-        const p1 = getPrecision(document.getElementById("low1").value) || 1;
-        const p2 = getPrecision(document.getElementById("low2").value) || 1;
+        const getPrecision = (num) => {
+    const parts = num.toString().split(".");
+    return parts.length > 1 ? parts[1].length : 0; 
+  };
+  
+  const p1 = getPrecision(document.getElementById("low1").value);
+  const p2 = getPrecision(document.getElementById("low2").value);
 
-        // 2. Generate numbers using the detected precision
-        const n1 = parseFloat((Math.random() * (h1 - l1) + l1).toFixed(p1));
-        const n2 = parseFloat((Math.random() * (h2 - l2) + l2).toFixed(p2));
+  // Generate numbers
+  const n1 = parseFloat((Math.random() * (h1 - l1) + l1).toFixed(p1));
+  const n2 = parseFloat((Math.random() * (h2 - l2) + l2).toFixed(p2));
 
         // 3. Calculate answer and round to the sum of precisions (e.g., 0.01 * 0.1 = 0.001)
         correctAnswer = parseFloat((n1 * n2).toFixed(p1 + p2));
 
-        document.getElementById("question-text").innerText = `${n1} × ${n2}`;
+  document.getElementById("question-text").innerText = `${n1} × ${n2}`;
         document.getElementById("feedback").innerText = "";
         document.getElementById("result-bubble").style.display = "none";
         document.getElementById("question-text").style.display = "block";
