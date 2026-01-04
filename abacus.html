@@ -414,65 +414,67 @@
       }
 
       function updateScore() {
-    const rods = document.querySelectorAll(".rod");
-    let total = BigInt(0);
-    
-    // 1. Map all rod values (0-9) into an array
-    let values = Array.from(rods).map((rod) => {
-        let v = rod.querySelector(".heaven").classList.contains("active") ? 5 : 0;
-        v += rod.querySelectorAll(".earth.active").length;
-        return v;
-    });
+        const rods = document.querySelectorAll(".rod");
+        let total = BigInt(0);
 
-    // 2. Find the Rightmost Active Rod (highest index with a value > 0)
-    let rightmostActive = -1;
-    for (let i = values.length - 1; i >= 0; i--) {
-        if (values[i] > 0) {
+        // 1. Map all rod values (0-9) into an array
+        let values = Array.from(rods).map((rod) => {
+          let v = rod.querySelector(".heaven").classList.contains("active")
+            ? 5
+            : 0;
+          v += rod.querySelectorAll(".earth.active").length;
+          return v;
+        });
+
+        // 2. Find the Rightmost Active Rod (highest index with a value > 0)
+        let rightmostActive = -1;
+        for (let i = values.length - 1; i >= 0; i--) {
+          if (values[i] > 0) {
             rightmostActive = i;
-            break; 
+            break;
+          }
         }
-    }
 
-    // 3. Find the Leftmost Active Rod (to know where to start the loop)
-    let leftmostActive = -1;
-    for (let i = 0; i < values.length; i++) {
-        if (values[i] > 0) {
+        // 3. Find the Leftmost Active Rod (to know where to start the loop)
+        let leftmostActive = -1;
+        for (let i = 0; i < values.length; i++) {
+          if (values[i] > 0) {
             leftmostActive = i;
             break;
+          }
         }
-    }
 
-    if (rightmostActive !== -1) {
-        // 4. Identify the "Units" Reference
-        // We find the nearest red-dot rod that is at or to the right of our rightmost bead.
-        // In your code, marks are at: 2, 5, 8, 11, 14
-        let unitsIndex = 0;
-        for (let i = rightmostActive; i < values.length; i++) {
+        if (rightmostActive !== -1) {
+          // 4. Identify the "Units" Reference
+          // We find the nearest red-dot rod that is at or to the right of our rightmost bead.
+          // In your code, marks are at: 2, 5, 8, 11, 14
+          let unitsIndex = 0;
+          for (let i = rightmostActive; i < values.length; i++) {
             if ((i + 1) % 3 === 0) {
-                unitsIndex = i;
-                break;
+              unitsIndex = i;
+              break;
             }
-        }
-        
-        // If no red dot is found to the right, we default to the last rod (index 16)
-        if (unitsIndex === 0) unitsIndex = values.length - 1;
+          }
 
-        // 5. Calculate the total based on distance from that Units Index
-        for (let i = leftmostActive; i <= rightmostActive; i++) {
+          // If no red dot is found to the right, we default to the last rod (index 16)
+          if (unitsIndex === 0) unitsIndex = values.length - 1;
+
+          // 5. Calculate the total based on distance from that Units Index
+          for (let i = leftmostActive; i <= rightmostActive; i++) {
             let power = unitsIndex - i;
             if (power >= 0) {
-                // Standard calculation: rodValue * 10^(distance from units rod)
-                total += BigInt(values[i]) * (10n ** BigInt(power));
+              // Standard calculation: rodValue * 10^(distance from units rod)
+              total += BigInt(values[i]) * 10n ** BigInt(power);
             } else {
-                // This handles if beads are moved to the RIGHT of the units rod (decimals)
-                // For now, we will treat them as 0 or ignore to keep it simple as per your request
-                continue; 
+              // This handles if beads are moved to the RIGHT of the units rod (decimals)
+              // For now, we will treat them as 0 or ignore to keep it simple as per your request
+              continue;
             }
+          }
         }
-    }
 
-    totalDisplay.innerText = total.toLocaleString();
-}
+        totalDisplay.innerText = total.toLocaleString();
+      }
 
       function rotateAbacus() {
         isRotated = !isRotated;
