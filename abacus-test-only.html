@@ -28,7 +28,7 @@
         flex-direction: column;
         align-items: center;
         /* UI FIX: Reduced top gap */
-        padding-top: 70px; 
+        padding-top: 70px;
       }
 
       /* --- Persistent Reload Button --- */
@@ -44,14 +44,14 @@
         border-radius: 8px;
         font-weight: bold;
         cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       }
 
       /* --- Compact Navbar --- */
       .navbar {
         height: 65px;
         background: white;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         position: fixed;
         top: 0;
         width: 100%;
@@ -61,8 +61,12 @@
         align-items: center;
         padding: 0 20px;
       }
-      .logo { height: 45px; }
-      .logo-right { height: 40px; }
+      .logo {
+        height: 45px;
+      }
+      .logo-right {
+        height: 40px;
+      }
 
       /* --- Sleek Score Board --- */
       .score-board {
@@ -77,8 +81,17 @@
         border: 1px solid #eee;
         z-index: 100;
       }
-      .score-label { font-size: 0.75rem; color: #777; text-transform: uppercase; }
-      .score-value { font-size: 2.2rem; font-weight: 800; color: #2d3436; margin: 5px 0; }
+      .score-label {
+        font-size: 0.75rem;
+        color: #777;
+        text-transform: uppercase;
+      }
+      .score-value {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #2d3436;
+        margin: 5px 0;
+      }
 
       /* --- Control Panel --- */
       .controls {
@@ -87,6 +100,27 @@
         justify-content: center;
         gap: 6px;
       }
+
+      .btn-explore {
+        display: inline-block;
+        background-color: #f58220;
+        color: white;
+        text-decoration: none;
+        padding: 15px 40px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(245, 130, 32, 0.3);
+        margin-bottom: 30px;
+      }
+
+      .btn-explore:hover {
+        transform: translateY(-3px);
+        background-color: #e67e22;
+        box-shadow: 0 15px 25px rgba(245, 130, 32, 0.4);
+      }
+
       .btn {
         padding: 8px 10px;
         border-radius: 6px;
@@ -96,19 +130,32 @@
         font-weight: 600;
         cursor: pointer;
       }
-      .btn-move { color: var(--bead-earth); }
-      .btn-clear { background: #2d3436; color: white; border: none; }
+      .btn-move {
+        color: var(--bead-earth);
+      }
+      .btn-clear {
+        background: #2d3436;
+        color: white;
+        border: none;
+      }
 
       /* --- FIXED SCROLLING CONTAINER --- */
       .abacus-scroll-container {
         width: 100%;
-        overflow: auto; 
+        overflow: auto;
         max-height: 75vh;
         /* UI FIX: Block + text-align ensures 50% scroll works and no left clipping */
-        display: block; 
-        text-align: center; 
+        display: block;
+        text-align: center;
         padding: 20px 0;
         -webkit-overflow-scrolling: touch;
+      }
+      .sub-title {
+        color: #383e3f;
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-top: 10px;
+        margin-bottom: 15px;
       }
 
       /* --- ZOOM & TRANSFORMATION LAYER --- */
@@ -131,59 +178,131 @@
 
       .beam {
         position: absolute;
-        left: 0; right: 0; top: 85px; height: 12px;
-        background: #636e72; z-index: 5;
+        left: 0;
+        right: 0;
+        top: 85px;
+        height: 12px;
+        background: #636e72;
+        z-index: 5;
       }
 
-      .rod { width: 46px; display: flex; flex-direction: column; align-items: center; position: relative; }
-      .rod::before { content: ""; position: absolute; top: -10px; bottom: -10px; width: 6px; background: var(--rod-color); border-radius: 3px; }
-      
+      .rod {
+        width: 46px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+      }
+      .rod::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        bottom: -10px;
+        width: 6px;
+        background: var(--rod-color);
+        border-radius: 3px;
+      }
+
       .bead {
-        width: 44px; height: 30px; border-radius: 10px; z-index: 10; cursor: pointer;
+        width: 44px;
+        height: 30px;
+        border-radius: 10px;
+        z-index: 10;
+        cursor: pointer;
         transition: transform 0.2s;
-        box-shadow: inset 0 4px 4px rgba(255,255,255,0.2), 0 4px 8px rgba(0,0,0,0.2);
+        box-shadow: inset 0 4px 4px rgba(255, 255, 255, 0.2),
+          0 4px 8px rgba(0, 0, 0, 0.2);
       }
-      .bead.heaven { background: var(--bead-heaven); margin-bottom: 70px; }
-      .bead.earth { background: var(--bead-earth); margin-top: 8px; }
-      .rod .bead.earth:first-of-type { margin-top: 55px; }
+      .bead.heaven {
+        background: var(--bead-heaven);
+        margin-bottom: 70px;
+      }
+      .bead.earth {
+        background: var(--bead-earth);
+        margin-top: 8px;
+      }
+      .rod .bead.earth:first-of-type {
+        margin-top: 55px;
+      }
 
-      .bead.heaven.active { transform: translateY(35px); }
-      .bead.earth.active { transform: translateY(-35px); }
+      .bead.heaven.active {
+        transform: translateY(35px);
+      }
+      .bead.earth.active {
+        transform: translateY(-35px);
+      }
 
-      .rod-mark { position: absolute; top: 72px; width: 12px; height: 12px; background: #d63737; border-radius: 50%; z-index: 20; }
+      .rod-mark {
+        position: absolute;
+        top: 72px;
+        width: 12px;
+        height: 12px;
+        background: #d63737;
+        border-radius: 50%;
+        z-index: 20;
+      }
 
       /* --- About Us Section --- */
-      .about-container { width: 90%; max-width: 800px; background: white; padding: 30px; margin: 40px auto; border-radius: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-      h2 { color: var(--primary); }
-      p { color: #636e72; line-height: 1.6; }
+      .about-container {
+        width: 90%;
+        max-width: 800px;
+        background: white;
+        padding: 30px;
+        margin: 40px auto;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+      h2 {
+        color: var(--primary);
+      }
+      p {
+        color: #636e72;
+        line-height: 1.6;
+      }
 
-      @media (max-width: 600px) { .logo-right { display: none; } }
+      @media (max-width: 600px) {
+        .logo-right {
+          display: none;
+        }
+      }
     </style>
   </head>
   <body>
-
-    <button class="back-refresh-btn" onclick="location.reload()">↻</button>
-
+    <button class="back-refresh-btn" onclick="location.reload()">←BACK</button>
     <header class="navbar">
-      <img src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png" class="logo" alt="Logo" />
-      <img src="https://brainiacgym.com/wp-content/uploads/2025/10/Untitled-820-x-500-px.png" class="logo-right" />
+      <img
+        src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
+        class="logo"
+        alt="Logo"
+      />
+
+      <a href="index.html" class="btn btn-clear">HOME</a>
+
+      <img
+        src="https://brainiacgym.com/wp-content/uploads/2025/10/Untitled-820-x-500-px.png"
+        class="logo-right"
+      />
     </header>
 
     <div class="score-board">
       <div class="score-label">Total Value</div>
       <div class="score-value" id="totalDisplay">0</div>
-      
+
       <div class="controls">
         <button class="btn" onclick="rotateAbacus()">Rotate 90°</button>
         <button class="btn" onclick="changeScale(0.1)">+ Size</button>
         <button class="btn" onclick="changeScale(-0.1)">- Size</button>
-        <button class="btn btn-clear" onclick="resetBeads()">Reset Abacus work</button>
+        <button class="btn btn-clear" onclick="resetBeads()">
+          Reset Abacus Work
+        </button>
         <!-- <button class="btn btn-move" onclick="moveAbacus(-30, 0)">⬅️</button>
-        <button class="btn btn-move" onclick="moveAbacus(30, 0)">➡️</button> 
-        <button class="btn btn-move" onclick="moveAbacus(0, -30)">UP</button>
-        <button class="btn btn-move" onclick="moveAbacus(0, 30)">DOWN</button>
--->   
-  <button class="btn btn-clear" onclick="fitToScreen()">Fit Screen</button>
+        <button class="btn btn-move" onclick="moveAbacus(30, 0)">➡️</button> -->
+        <!-- <button class="btn btn-move" onclick="moveAbacus(0, -30)">⬆ UP</button>
+        <button class="btn btn-move" onclick="moveAbacus(0, 30)">⬇ DOWN</button> -->
+        <button class="btn btn-clear" onclick="fitToScreen()">
+          Fit Screen
+        </button>
       </div>
     </div>
 
@@ -196,20 +315,41 @@
     </div>
 
     <div class="about-container">
-      <h2>About Us</h2>
-      <p>BrainiacGym Academy focuses on essential skill development through unique Abacus Training for children aged 6 to 16.</p>
+      <h2 class="section-title">About Us</h2>
+      <p class="section-text">
+        BrainiacGym is an academy of experienced professionals focusing on
+        building curriculum skills of the children aged 6 to 16 years by
+        offering unique & essential skill development programs in Abacus
+        Training Course.
+      </p>
+
+      <a href="#" class="btn-explore">Explore Courses</a>
+
+      <h3 class="sub-title">About BrainiacGym</h3>
+      <p class="section-text">
+        We are a team of talented & ambitious professionals who have come
+        together to offer quality life by doing our utmost to shape the future
+        of tomorrow. Along with the growth of Abacus interests in India, our
+        interest in Education & Training laid the foundations of the BrainiacGym
+        Academy in 2012 and we provide Abacus Training Course.
+      </p>
+      <p class="section-text">
+        The BrainiacGym presents several courses and programs that will
+        influence and substantially enhance your child’s brain.
+      </p>
     </div>
 
     <script>
       const COLUMN_COUNT = 17;
       const abacusFrame = document.getElementById("abacusFrame");
       const totalDisplay = document.getElementById("totalDisplay");
-      
+
       // PERSISTENCE: Load saved state or null for first-time calculation
-      let currentScale = parseFloat(localStorage.getItem('abacusScale')) || null;
-      let isRotated = localStorage.getItem('abacusRotated') === 'true';
-      let translateX = parseFloat(localStorage.getItem('abacusX')) || 0;
-      let translateY = parseFloat(localStorage.getItem('abacusY')) || 0;
+      let currentScale =
+        parseFloat(localStorage.getItem("abacusScale")) || null;
+      let isRotated = localStorage.getItem("abacusRotated") === "true";
+      let translateX = parseFloat(localStorage.getItem("abacusX")) || 0;
+      let translateY = parseFloat(localStorage.getItem("abacusY")) || 0;
 
       function init() {
         for (let i = 0; i < COLUMN_COUNT; i++) {
@@ -222,7 +362,10 @@
           }
           const heaven = document.createElement("div");
           heaven.className = "bead heaven";
-          heaven.onclick = () => { heaven.classList.toggle("active"); updateScore(); };
+          heaven.onclick = () => {
+            heaven.classList.toggle("active");
+            updateScore();
+          };
           rod.appendChild(heaven);
           for (let j = 0; j < 4; j++) {
             const earth = document.createElement("div");
@@ -235,13 +378,13 @@
 
         if (currentScale === null) fitToScreen();
         else applyTransform();
-        
+
         // Centering logic
         setTimeout(centerAbacusScroll, 150);
       }
 
       function fitToScreen() {
-        const totalWidth = (COLUMN_COUNT * 46) + ((COLUMN_COUNT - 1) * 10) + 60;
+        const totalWidth = COLUMN_COUNT * 46 + (COLUMN_COUNT - 1) * 10 + 60;
         const screenWidth = window.innerWidth - 40;
         currentScale = Math.min(screenWidth / totalWidth, 1.2);
         translateX = 0;
@@ -251,8 +394,9 @@
       }
 
       function centerAbacusScroll() {
-        const container = document.getElementById('scrollContainer');
-        container.scrollLeft = (container.scrollWidth - container.clientWidth) / 2;
+        const container = document.getElementById("scrollContainer");
+        container.scrollLeft =
+          (container.scrollWidth - container.clientWidth) / 2;
       }
 
       function toggleEarth(rodIdx, beadIdx) {
@@ -260,8 +404,11 @@
         const beads = rods[rodIdx].querySelectorAll(".bead.earth");
         const isActive = beads[beadIdx].classList.contains("active");
         beads.forEach((b, i) => {
-          if (!isActive) { if (i <= beadIdx) b.classList.add("active"); } 
-          else { if (i >= beadIdx) b.classList.remove("active"); }
+          if (!isActive) {
+            if (i <= beadIdx) b.classList.add("active");
+          } else {
+            if (i >= beadIdx) b.classList.remove("active");
+          }
         });
         updateScore();
       }
@@ -269,43 +416,64 @@
       function updateScore() {
         const rods = document.querySelectorAll(".rod");
         let total = BigInt(0);
-        let values = Array.from(rods).map(rod => {
-          let v = rod.querySelector(".heaven").classList.contains("active") ? 5 : 0;
+        let values = Array.from(rods).map((rod) => {
+          let v = rod.querySelector(".heaven").classList.contains("active")
+            ? 5
+            : 0;
           v += rod.querySelectorAll(".earth.active").length;
           return v;
         });
         let lastActive = -1;
-        for (let i = values.length - 1; i >= 0; i--) if (values[i] > 0) { lastActive = i; break; }
+        for (let i = values.length - 1; i >= 0; i--)
+          if (values[i] > 0) {
+            lastActive = i;
+            break;
+          }
         if (lastActive !== -1) {
           for (let i = 0; i <= lastActive; i++) {
-            total += BigInt(values[i]) * (10n ** BigInt(lastActive - i));
+            total += BigInt(values[i]) * 10n ** BigInt(lastActive - i);
           }
         }
         totalDisplay.innerText = total.toLocaleString();
       }
 
-      function rotateAbacus() { isRotated = !isRotated; applyTransform(); }
-      function changeScale(amt) { currentScale = Math.min(Math.max(0.2, currentScale + amt), 3.0); applyTransform(); }
-      function moveAbacus(x, y) { translateX += x; translateY += y; applyTransform(); }
-      function resetBeads() { document.querySelectorAll(".bead").forEach(b => b.classList.remove("active")); updateScore(); }
+      function rotateAbacus() {
+        isRotated = !isRotated;
+        applyTransform();
+      }
+      function changeScale(amt) {
+        currentScale = Math.min(Math.max(0.2, currentScale + amt), 3.0);
+        applyTransform();
+      }
+      function moveAbacus(x, y) {
+        translateX += x;
+        translateY += y;
+        applyTransform();
+      }
+      function resetBeads() {
+        document
+          .querySelectorAll(".bead")
+          .forEach((b) => b.classList.remove("active"));
+        updateScore();
+      }
 
       function applyTransform() {
         const layer = document.getElementById("zoomLayer");
-        const container = document.getElementById('scrollContainer');
-        
+        const container = document.getElementById("scrollContainer");
+
         const rot = isRotated ? "rotate(90deg)" : "rotate(0deg)";
         layer.style.transform = `translate(${translateX}px, ${translateY}px) ${rot} scale(${currentScale})`;
-        
+
         // PERSISTENCE: Save to localStorage
-        localStorage.setItem('abacusScale', currentScale);
-        localStorage.setItem('abacusRotated', isRotated);
-        localStorage.setItem('abacusX', translateX);
-        localStorage.setItem('abacusY', translateY);
+        localStorage.setItem("abacusScale", currentScale);
+        localStorage.setItem("abacusRotated", isRotated);
+        localStorage.setItem("abacusX", translateX);
+        localStorage.setItem("abacusY", translateY);
 
         // VERTICAL SCROLL FIX: Adjust container height when rotated
         if (isRotated) {
           const frameWidth = abacusFrame.offsetWidth * currentScale;
-          container.style.minHeight = (frameWidth + 250) + "px";
+          container.style.minHeight = frameWidth + 250 + "px";
         } else {
           container.style.minHeight = "auto";
         }
