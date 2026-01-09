@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Junior Scientific Calculator | BrainiacGym</title>
+    <style>
+      :root {
+        /* Brand Colors */
+        --primary: #f58220;
+        --primary-dark: #d35400;
+        --secondary: #2d3436;
+        --bg-color: #f4f7f6;
+        --card-bg: #ffffff;
+        --header-height: 80px;
+
+        /* Calculator Specifics */
+        --calc-bg: #2d3436;
+        --btn-num: #ffffff;
+        --btn-op: #f58220;
+        --btn-func: #636e72;
+        --btn-text: #2d3436;
+      }
+
+      * {
+        box-sizing: border-box;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--secondary);
+        padding-top: calc(var(--header-height) + 40px);
+      }
+
+      /* --- NAVIGATION --- */
+      .navbar {
+        height: var(--header-height);
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      .navbar-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        padding: 0 20px;
+      }
+
+      .logo {
+        height: 50px;
+        width: auto;
+      }
+      .logo-right {
+        height: 55px;
+        width: auto;
+        margin-left: 20px;
+      }
+
+      .navbar-menu {
+        display: flex;
+        gap: 25px;
+      }
+      .nav-link {
+        text-decoration: none;
+        color: var(--secondary);
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+      }
+
+      .hamburger {
+        display: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--secondary);
+      }
+
+      /* Mobile Menu Drawer */
+      .mobile-menu {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 999;
+        flex-direction: column;
+        gap: 15px;
+        display: flex;
+      }
+      .mobile-menu.open {
+        transform: translateY(0);
+      }
+
+      /* --- CALCULATOR STYLES --- */
+      .container {
+        max-width: 400px; /* Standard calculator width */
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      .calculator-card {
+        background-color: var(--calc-bg);
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      }
+
+      .calc-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #dfe6e9;
+        margin-bottom: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+      }
+
+      /* Display Screen */
+      #display {
+        width: 100%;
+        height: 80px;
+        background-color: #dfe6e9;
+        border: none;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        text-align: right;
+        padding: 10px 20px;
+        font-size: 2.5rem;
+        font-family: "Consolas", monospace;
+        color: var(--secondary);
+        box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.1);
+        outline: none;
+      }
+
+      /* Button Grid */
+      .btn-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+
+      button {
+        border: none;
+        height: 60px;
+        border-radius: 12px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.1s, opacity 0.2s;
+        box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      button:active {
+        transform: translateY(4px);
+        box-shadow: none;
+      }
+
+      /* Button Variants */
+      .btn-num {
+        background-color: var(--btn-num);
+        color: var(--btn-text);
+      }
+
+      .btn-op {
+        background-color: var(--btn-op);
+        color: white;
+        font-size: 1.4rem;
+      }
+
+      .btn-func {
+        background-color: var(--btn-func);
+        color: white;
+        font-size: 1rem;
+      }
+
+      .btn-clear {
+        background-color: #ff7675;
+        color: white;
+      }
+
+      .btn-equal {
+        background-color: #00b894;
+        color: white;
+        grid-column: span 1;
+      }
+
+      .btn-zero {
+        grid-column: span 2; /* Make zero double width */
+      }
+
+      @media (max-width: 768px) {
+        .navbar-menu,
+        .logo-right {
+          display: none;
+        }
+        .hamburger {
+          display: block;
+        }
+        .logo {
+          height: 40px;
+        }
+        button {
+          height: 55px;
+          font-size: 1.1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="navbar-container">
+        <div class="logo-wrapper">
+          <img
+            src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
+            alt="BrainiacGym"
+            class="logo"
+          />
+        </div>
+
+        <nav class="navbar-menu">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="#" class="nav-link">About</a>
+          <a href="#" class="nav-link">Courses</a>
+          <a href="#" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="logo-wrapper">
+          <img
+            src="https://brainiacgym.com/wp-content/uploads/2025/10/Untitled-820-x-500-px.png"
+            alt="NSDC"
+            class="logo-right"
+          />
+          <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" class="nav-link">HOME</a>
+      <a href="#" class="nav-link">ABOUT</a>
+      <a href="#" class="nav-link">COURSES</a>
+      <a href="#" class="nav-link">CONTACT</a>
+    </div>
+
+    <div class="container">
+      <div class="calculator-card">
+        <div class="back-arrow-btn" onclick="location.reload()">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#f58220" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </div>        
+        <div class="calc-header">
+          <span>JUNIOR SCIENTIFIC</span>
+          <span style="opacity: 0.7">BrainiacGym</span>
+        </div>
+
+        <input type="text" id="display" readonly placeholder="0" />
+
+        <div class="btn-grid">
+          <button class="btn-func" onclick="applyMath('sqrt')">√</button>
+          <button class="btn-func" onclick="applyMath('cbrt')">∛</button>
+          <button class="btn-func" onclick="applyMath('sq')">x²</button>
+          <button class="btn-func" onclick="applyMath('cube')">x³</button>
+
+          <button class="btn-clear" onclick="clearDisplay()">AC</button>
+          <button class="btn-func" onclick="deleteLast()">DEL</button>
+          <button class="btn-func" onclick="appendOperator('%')">%</button>
+          <button class="btn-op" onclick="appendOperator('/')">÷</button>
+
+          <button class="btn-num" onclick="appendNumber('7')">7</button>
+          <button class="btn-num" onclick="appendNumber('8')">8</button>
+          <button class="btn-num" onclick="appendNumber('9')">9</button>
+          <button class="btn-op" onclick="appendOperator('*')">×</button>
+
+          <button class="btn-num" onclick="appendNumber('4')">4</button>
+          <button class="btn-num" onclick="appendNumber('5')">5</button>
+          <button class="btn-num" onclick="appendNumber('6')">6</button>
+          <button class="btn-op" onclick="appendOperator('-')">-</button>
+
+          <button class="btn-num" onclick="appendNumber('1')">1</button>
+          <button class="btn-num" onclick="appendNumber('2')">2</button>
+          <button class="btn-num" onclick="appendNumber('3')">3</button>
+          <button class="btn-op" onclick="appendOperator('+')">+</button>
+
+          <button class="btn-num btn-zero" onclick="appendNumber('0')">
+            0
+          </button>
+          <button class="btn-num" onclick="appendNumber('.')">.</button>
+          <button class="btn-equal" onclick="calculate()">=</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // --- Navigation ---
+      function toggleMenu() {
+        document.getElementById("mobileMenu").classList.toggle("open");
+      }
+
+      // --- Calculator Logic ---
+      const display = document.getElementById("display");
+
+      function appendNumber(num) {
+        if (display.value === "0" || display.value === "Error") {
+          display.value = num;
+        } else {
+          display.value += num;
+        }
+      }
+
+      function appendOperator(op) {
+        const lastChar = display.value.slice(-1);
+        if (["+", "-", "*", "/", "%"].includes(lastChar)) {
+          display.value = display.value.slice(0, -1) + op;
+        } else if (display.value !== "") {
+          display.value += op;
+        }
+      }
+
+      function clearDisplay() {
+        display.value = "";
+      }
+
+      function deleteLast() {
+        display.value = display.value.slice(0, -1);
+      }
+
+      function applyMath(type) {
+        try {
+          // Check if display is empty
+          if (display.value === "") return;
+
+          let currentVal = eval(display.value);
+          if (currentVal === undefined) return;
+
+          let result;
+          switch (type) {
+            case "sqrt":
+              result = Math.sqrt(currentVal);
+              break;
+            case "cbrt":
+              result = Math.cbrt(currentVal);
+              break;
+            case "sq":
+              result = Math.pow(currentVal, 2);
+              break;
+            case "cube":
+              result = Math.pow(currentVal, 3);
+              break;
+          }
+
+          // Format result to avoid long decimal strings
+          display.value = Number(Math.round(result + "e4") + "e-4");
+        } catch (e) {
+          display.value = "Error";
+          setTimeout(clearDisplay, 1000);
+        }
+      }
+
+      function calculate() {
+        try {
+          // Safety check: Don't eval if empty
+          if (display.value === "") return;
+
+          const result = new Function("return " + display.value)();
+          if (result !== undefined) {
+            // Round to 4 decimal places
+            display.value = Number(Math.round(result + "e4") + "e-4");
+          }
+        } catch (error) {
+          display.value = "Error";
+          setTimeout(clearDisplay, 1500);
+        }
+      }
+    </script>
+  </body>
+</html>

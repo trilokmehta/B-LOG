@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stopwatch | BrainiacGym</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        /* Brand Colors */
+        --primary: #f58220;
+        --primary-dark: #d35400;
+        --secondary: #2d3436;
+        --bg-color: #f4f7f6;
+        --card-bg: #ffffff;
+        --header-height: 80px;
+        --success-color: #27ae60;
+        --error-color: #c0392b;
+      }
+
+      * {
+        box-sizing: border-box;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--secondary);
+        padding-top: calc(var(--header-height) + 40px);
+      }
+
+      /* --- UI COMPONENTS --- */
+      .container {
+        max-width: 500px; /* Narrower for stopwatch focus */
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 40px 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        border-top: 5px solid var(--primary);
+      }
+
+      /* Stopwatch Display */
+      .timer-display {
+        font-family: "Courier New", Courier, monospace; /* Monospace prevents jitter */
+        font-size: 4rem;
+        font-weight: 700;
+        color: var(--secondary);
+        margin: 30px 0;
+        letter-spacing: -2px;
+      }
+
+      .timer-ms {
+        font-size: 2rem;
+        color: #b2bec3;
+      }
+
+      /* Controls */
+      .controls {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+
+      .btn-circle {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s;
+      }
+
+      .btn-circle:active {
+        transform: scale(0.95);
+      }
+
+      .btn-start {
+        background-color: var(--success-color);
+      }
+      .btn-stop {
+        background-color: var(--error-color);
+        display: none;
+      }
+      .btn-reset {
+        background-color: var(--secondary);
+      }
+      .btn-lap {
+        background-color: var(--primary);
+      }
+
+      /* Laps List */
+      .laps-container {
+        max-height: 300px;
+        overflow-y: auto;
+        border-top: 1px solid #eee;
+        padding-top: 10px;
+      }
+
+      .lap-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 20px;
+        border-bottom: 1px solid #f1f1f1;
+        font-family: "Courier New", monospace;
+        font-weight: 600;
+        color: #636e72;
+      }
+
+      .lap-item:first-child {
+        color: var(--primary);
+        font-weight: 800;
+      }
+
+      .lap-number {
+        color: #b2bec3;
+      }
+
+      /* --- NAVIGATION --- */
+      .navbar {
+        height: var(--header-height);
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      .navbar-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        padding: 0 20px;
+      }
+
+      .logo {
+        height: 50px;
+        width: auto;
+      }
+      .logo-right {
+        height: 55px;
+        width: auto;
+        margin-left: 20px;
+      }
+
+      .navbar-menu {
+        display: flex;
+        gap: 25px;
+      }
+      .nav-link {
+        text-decoration: none;
+        color: var(--secondary);
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+      }
+
+      .hamburger {
+        display: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--secondary);
+      }
+
+      /* Mobile Menu */
+      .mobile-menu {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 999;
+        flex-direction: column;
+        gap: 15px;
+        display: flex;
+      }
+      .mobile-menu.open {
+        transform: translateY(0);
+      }
+
+      @media (max-width: 768px) {
+        .navbar-menu,
+        .logo-right {
+          display: none;
+        }
+        .hamburger {
+          display: block;
+        }
+        .logo {
+          height: 40px;
+        }
+        .timer-display {
+          font-size: 3rem;
+        }
+      }
+      /* --- Persistent Reload Button --- */
+      .back-refresh-btn {
+        position: fixed;
+        top: 80px;
+        left: 15px;
+        z-index: 1000;
+        background: #d63737;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <button class="back-refresh-btn" onclick="location.reload()">← BACK</button>
+
+    <header class="navbar">
+      <div class="navbar-container">
+        <div class="logo-wrapper">
+          <img
+            src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
+            alt="BrainiacGym"
+            class="logo"
+          />
+        </div>
+
+        <nav class="navbar-menu">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="#" class="nav-link">About</a>
+          <a href="#" class="nav-link">Courses</a>
+          <a href="#" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="logo-wrapper">
+          <img
+            src="https://brainiacgym.com/wp-content/uploads/2025/10/Untitled-820-x-500-px.png"
+            alt="NSDC"
+            class="logo-right"
+          />
+          <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" class="nav-link">HOME</a>
+      <a href="#" class="nav-link">ABOUT</a>
+      <a href="#" class="nav-link">COURSES</a>
+      <a href="#" class="nav-link">CONTACT</a>
+    </div>
+
+    <div class="container">
+      <div class="card">
+        <h2 style="color: var(--secondary); margin-bottom: 0">
+          Practice Timer
+        </h2>
+
+        <div class="timer-display">
+          <span id="min">00</span>:<span id="sec">00</span
+          ><span class="timer-ms">.<span id="ms">00</span></span>
+        </div>
+
+        <div class="controls">
+          <button
+            class="btn-circle btn-reset"
+            onclick="resetTimer()"
+            title="Reset"
+          >
+            <i class="fa-solid fa-rotate-left"></i>
+          </button>
+
+          <button
+            class="btn-circle btn-start"
+            id="startBtn"
+            onclick="startTimer()"
+            title="Start"
+          >
+            <i class="fa-solid fa-play"></i>
+          </button>
+
+          <button
+            class="btn-circle btn-stop"
+            id="stopBtn"
+            onclick="stopTimer()"
+            title="Stop"
+          >
+            <i class="fa-solid fa-pause"></i>
+          </button>
+
+          <button class="btn-circle btn-lap" onclick="recordLap()" title="Lap">
+            <i class="fa-solid fa-flag"></i>
+          </button>
+        </div>
+
+        <div class="laps-container" id="lapsList"></div>
+      </div>
+    </div>
+
+    <script>
+      // --- Navigation ---
+      function toggleMenu() {
+        document.getElementById("mobileMenu").classList.toggle("open");
+      }
+
+      // --- Stopwatch Logic ---
+      let startTime;
+      let elapsedTime = 0;
+      let timerInterval;
+      let lapCounter = 1;
+
+      const minEl = document.getElementById("min");
+      const secEl = document.getElementById("sec");
+      const msEl = document.getElementById("ms");
+      const startBtn = document.getElementById("startBtn");
+      const stopBtn = document.getElementById("stopBtn");
+      const lapsList = document.getElementById("lapsList");
+
+      function timeToString(time) {
+        let diffInHrs = time / 3600000;
+        let hh = Math.floor(diffInHrs);
+
+        let diffInMin = (diffInHrs - hh) * 60;
+        let mm = Math.floor(diffInMin);
+
+        let diffInSec = (diffInMin - mm) * 60;
+        let ss = Math.floor(diffInSec);
+
+        let diffInMs = (diffInSec - ss) * 100;
+        let ms = Math.floor(diffInMs);
+
+        let formattedMM = mm.toString().padStart(2, "0");
+        let formattedSS = ss.toString().padStart(2, "0");
+        let formattedMS = ms.toString().padStart(2, "0");
+
+        return { mm: formattedMM, ss: formattedSS, ms: formattedMS };
+      }
+
+      function print(txt) {
+        minEl.innerHTML = txt.mm;
+        secEl.innerHTML = txt.ss;
+        msEl.innerHTML = txt.ms;
+      }
+
+      function startTimer() {
+        startTime = Date.now() - elapsedTime;
+        timerInterval = setInterval(function printTime() {
+          elapsedTime = Date.now() - startTime;
+          print(timeToString(elapsedTime));
+        }, 10);
+
+        // Toggle Buttons
+        startBtn.style.display = "none";
+        stopBtn.style.display = "flex";
+      }
+
+      function stopTimer() {
+        clearInterval(timerInterval);
+        // Toggle Buttons
+        startBtn.style.display = "flex";
+        stopBtn.style.display = "none";
+      }
+
+      function resetTimer() {
+        clearInterval(timerInterval);
+        print({ mm: "00", ss: "00", ms: "00" });
+        elapsedTime = 0;
+        lapCounter = 1;
+        lapsList.innerHTML = "";
+
+        startBtn.style.display = "flex";
+        stopBtn.style.display = "none";
+      }
+
+      function recordLap() {
+        if (elapsedTime === 0) return; // Don't lap if not started
+
+        const t = timeToString(elapsedTime);
+        const lapTime = `${t.mm}:${t.ss}.${t.ms}`;
+
+        const li = document.createElement("div");
+        li.className = "lap-item";
+        li.innerHTML = `
+                <span class="lap-number">Lap ${lapCounter}</span>
+                <span>${lapTime}</span>
+            `;
+
+        // Insert at top
+        lapsList.insertBefore(li, lapsList.firstChild);
+        lapCounter++;
+      }
+    </script>
+  </body>
+</html>
