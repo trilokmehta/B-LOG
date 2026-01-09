@@ -314,8 +314,6 @@
     </style>
   </head>
   <body>
-    <button class="back-refresh-btn" onclick="location.reload()">←BACK</button>
-
     <header>
       <img
         src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
@@ -407,6 +405,9 @@
       </div>
 
       <div id="game-screen" class="screen">
+        <button class="back-refresh-btn" onclick="location.reload()">
+          ← BACK
+        </button>
         <div class="card">
           <div class="stats-bar">
             <span id="timer-display">1/60.0s</span>
@@ -518,34 +519,51 @@
         startTimer();
       }
 
-      function generateQuestion() {
-        const maxA = parseFloat(document.getElementById("maxAns").value);
-        const minA = parseFloat(document.getElementById("minAns").value);
-        const maxD = parseFloat(document.getElementById("maxDiv").value);
-        const minD = parseFloat(document.getElementById("minDiv").value);
+function generateQuestion() {
+    // 1. Get raw string values to check for a decimal point
+    const maxAnsStr = document.getElementById("maxAns").value;
+    const minAnsStr = document.getElementById("minAns").value;
+    const maxDivStr = document.getElementById("maxDiv").value;
+    const minDivStr = document.getElementById("minDiv").value;
 
-        // Pick Answer & Divisor (Logic: Answer * Divisor = Dividend)
-        const ans = parseFloat(
-          (Math.random() * (maxA - minA) + minA).toFixed(1)
-        );
-        const div = parseFloat(
-          (Math.random() * (maxD - minD) + minD).toFixed(1)
-        );
-        const dividend = parseFloat((ans * div).toFixed(2));
+    // 2. Convert to numbers for calculation
+    const maxA = parseFloat(maxAnsStr);
+    const minA = parseFloat(minAnsStr);
+    const maxD = parseFloat(maxDivStr);
+    const minD = parseFloat(minDivStr);
 
-        correctAnswer = ans;
-        document.getElementById(
-          "question-text"
-        ).innerText = `${dividend} ÷ ${div}`;
+    // --- Generate Answer (Quotient) ---
+    let ans;
+    // If user didn't type a dot in Answer range, make it an integer
+    if (!maxAnsStr.includes('.') && !minAnsStr.includes('.')) {
+        ans = Math.floor(Math.random() * (maxA - minA + 1)) + Math.floor(minA);
+    } else {
+        ans = parseFloat((Math.random() * (maxA - minA) + minA).toFixed(1));
+    }
 
-        // Reset UI
-        document.getElementById("feedback").innerText = "";
-        document.getElementById("result-bubble").style.display = "none";
-        document.getElementById("question-text").style.display = "block";
-        document.getElementById("user-ans").value = "";
+    // --- Generate Divisor ---
+    let div;
+    // If user didn't type a dot in Divisor range, make it an integer
+    if (!maxDivStr.includes('.') && !minDivStr.includes('.')) {
+        div = Math.floor(Math.random() * (maxD - minD + 1)) + Math.floor(minD);
+    } else {
+        div = parseFloat((Math.random() * (maxD - minD) + minD).toFixed(1));
+    }
 
-        setupQuestionUI();
-      }
+    // Calculate Dividend (ensure it doesn't have endless decimals)
+    const dividend = parseFloat((ans * div).toFixed(2));
+
+    correctAnswer = ans;
+    document.getElementById("question-text").innerText = `${dividend} ÷ ${div}`;
+
+    // Reset UI
+    document.getElementById("feedback").innerText = "";
+    document.getElementById("result-bubble").style.display = "none";
+    document.getElementById("question-text").style.display = "block";
+    document.getElementById("user-ans").value = "";
+
+    setupQuestionUI();
+}
 
       function setupQuestionUI() {
         const manualArea = document.getElementById("manual-input-area");
