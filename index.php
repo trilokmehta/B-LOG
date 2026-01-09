@@ -1,9 +1,17 @@
+<?php 
+session_start(); 
+if(!isset($_SESSION['user_id'])){ 
+    header("Location: /index.php"); 
+    exit(); 
+} 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Abacus Junior Master | BrainiacGym</title>
+    <title>Brainiacgym Academy of Abacus | Official Training Application</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -327,6 +335,37 @@
         background-color: #ddd;
         margin: 0 10px;
       }
+      
+      
+      
+      /* --- LOGOUT CARD STYLE --- */
+.menu-card.logout-card {
+  border-top: 4px solid #d63031; /* Red border */
+}
+
+/* Make the icon red */
+.menu-card.logout-card .icon-box i {
+  color: #d63031; 
+}
+
+/* Hover effect for logout (White text, Red background) */
+.menu-card.logout-card:hover {
+  background-color: #d63031;
+  border-color: #d63031;
+}
+.menu-card.logout-card:hover .menu-label {
+  color: white;
+}
+.menu-card.logout-card:hover .icon-box {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.menu-card.logout-card:hover .icon-box i {
+  color: white;
+}
+
+
+
+
     </style>
   </head>
   <body>
@@ -362,51 +401,50 @@
       <a href="#" class="nav-link">COURSES</a>
       <a href="#" class="nav-link">CONTACT</a>
     </div>
-    
+
     <div class="page-header">
       <h1>Brainiacgym Academy of Abacus</h1>
       <p>Official Training Application</p>
     </div>
-    
+
     <div class="container">
       <div class="menu-grid">
-
-        <a href="addition.html" class="menu-card">
+        <a href="/application/addition/" class="menu-card">
           <div class="icon-box"><i class="fa-solid fa-plus"></i></div>
           <span class="menu-label">Addition</span>
         </a>
-        
-        <a href="addsub.html" class="menu-card">
+
+        <a href="/application/addsub/" class="menu-card">
           <div class="icon-box"><i class="fa-solid fa-plus-minus"></i></div>
           <span class="menu-label">Add/Sub</span>
         </a>
 
-        <a href="negative.html" class="menu-card">
+        <a href="/application/negative/" class="menu-card">
           <div class="icon-box"><i class="fa-solid fa-minus"></i></div>
           <span class="menu-label">Negative +/-</span>
         </a>
 
-        <a href="decimal-addsub.html" class="menu-card">
+        <a href="/application/decimal-addsub/" class="menu-card">
           <div class="icon-box"><i class="fa-solid fa-calculator"></i></div>
           <span class="menu-label">Decimal +/-</span>
         </a>
 
-        <a href="division.html" class="menu-card">
+        <a href="/application/division/" class="menu-card">
           <div class="icon-box"><i class="fa-solid fa-divide"></i></div>
           <span class="menu-label">Division</span>
         </a>
 
-        <a href="decimal-division.html" class="menu-card">
+        <a href="/application/decimal-division/" class="menu-card">
           <div class="icon-box"><i class="fa-solid fa-percent"></i></div>
           <span class="menu-label">Decimal Div</span>
         </a>
 
-        <a href="multiply.html" class="menu-card">
+        <a href="/application/multiply/" class="menu-card">
           <div class="icon-box"><i class="fa-solid fa-xmark"></i></div>
           <span class="menu-label">Multiplication</span>
         </a>
 
-        <a href="decimal-multiply.html" class="menu-card">
+        <a href="/application/decimal-multiply/" class="menu-card">
           <div class="icon-box">
             <svg
               width="36"
@@ -428,22 +466,22 @@
           <span class="menu-label">Decimal Mult</span>
         </a>
 
-        <a href="long-multiply.html" class="menu-card">
+        <a href="/application/long-multiply/" class="menu-card">
           <div class="icon-box"><i class="fa-solid fa-star-of-life"></i></div>
           <span class="menu-label">Long Multiplication</span>
         </a>
 
-        <a href="table.html" class="menu-card">
+        <a href="/application/table/" class="menu-card">
           <div class="icon-box"><i class="fa-solid fa-table-cells"></i></div>
           <span class="menu-label">Table Practice</span>
         </a>
 
-        <a href="percentage.html" class="menu-card">
+        <a href="/application/percentage/" class="menu-card">
           <div class="icon-box"><i class="fa-solid fa-percent"></i></div>
           <span class="menu-label">Percentage</span>
         </a>
 
-        <a href="sq-root.html" class="menu-card">
+        <a href="/application/sq-root/" class="menu-card">
           <div class="icon-box">
             <svg
               width="36"
@@ -471,7 +509,7 @@
           <span class="menu-label">Square Root</span>
         </a>
 
-        <a href="cube-root.html" class="menu-card">
+        <a href="/application/cube-root/" class="menu-card">
           <div class="icon-box">
             <svg
               width="36"
@@ -499,7 +537,7 @@
           <span class="menu-label">Cube Root</span>
         </a>
 
-        <a href="square.html" class="menu-card">
+        <a href="/application/square/" class="menu-card">
           <div class="icon-box">
             <svg
               width="36"
@@ -527,7 +565,7 @@
           <span class="menu-label">Square</span>
         </a>
 
-        <a href="cube.html" class="menu-card">
+        <a href="/application/cube/" class="menu-card">
           <div class="icon-box">
             <svg
               width="36"
@@ -555,34 +593,33 @@
           <span class="menu-label">Cube</span>
         </a>
 
-        <a href="lcm.html" class="menu-card">
+        <a href="/application/lcm/" class="menu-card">
           <div class="icon-box">
             <i class="fa-solid fa-arrow-down-short-wide"></i>
           </div>
           <span class="menu-label">LCM</span>
         </a>
 
-        <a href="hcf.html" class="menu-card">
+        <a href="/application/hcf/" class="menu-card">
           <div class="icon-box">
             <i class="fa-solid fa-arrow-up-wide-short"></i>
           </div>
           <span class="menu-label">HCF</span>
         </a>
 
-        <a href="calculator.html" class="menu-card">
+        <a href="/application/calculator/" class="menu-card">
           <div class="icon-box">
             <i class="fa-solid fa-mobile-screen-button"></i>
           </div>
           <span class="menu-label">Calculator</span>
         </a>
 
-
-        <a href="stopwatch.html" class="menu-card">
+        <a href="/application/stopwatch/" class="menu-card">
           <div class="icon-box"><i class="fa-solid fa-stopwatch"></i></div>
           <span class="menu-label">Stopwatch</span>
         </a>
 
-        <a href="abacus.html" class="menu-card">
+        <a href="/abacus/" class="menu-card">
           <div class="icon-box">
             <svg
               width="36"
@@ -611,7 +648,12 @@
           </div>
           <span class="menu-label">Abacus</span>
         </a>
-        
+        <a href="/logout.php" class="menu-card logout-card">
+          <div class="icon-box">
+            <i class="fa-solid fa-power-off"></i>
+          </div>
+          <span class="menu-label">Logout</span>
+        </a>
       </div>
     </div>
 

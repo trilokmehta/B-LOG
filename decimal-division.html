@@ -470,6 +470,48 @@
     </div>
 
     <script>
+      // --- CACHE / PERSISTENCE LOGIC ---
+      const cacheFields = [
+        "maxAns", "minAns", 
+        "maxDiv", "minDiv", 
+        "totalSums", "totalTime", 
+        "flashMode", "autoLoop", 
+        "autoDelay", "speed"
+      ];
+
+      function saveSettings() {
+        cacheFields.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) {
+            if (el.type === "checkbox") {
+              localStorage.setItem('div_practice_' + id, el.checked);
+            } else {
+              localStorage.setItem('div_practice_' + id, el.value);
+            }
+          }
+        });
+      }
+
+      function loadSettings() {
+        cacheFields.forEach(id => {
+          const savedValue = localStorage.getItem('div_practice_' + id);
+          if (savedValue !== null) {
+            const el = document.getElementById(id);
+            if (el) {
+              if (el.type === "checkbox") {
+                el.checked = (savedValue === "true");
+              } else {
+                el.value = savedValue;
+              }
+            }
+          }
+        });
+        // Important: Update visibility of auto-options after loading
+        toggleAutoOptions(); 
+      }
+
+      // Load settings automatically when the page is opened
+      window.onload = loadSettings;
       function toggleAutoOptions() {
         const isFlash = document.getElementById("flashMode").checked;
         document.getElementById("auto-options").style.display = isFlash
@@ -495,6 +537,7 @@
       let countdownInterval;
 
       function startApp() {
+        saveSettings();
         // Inputs
         totalSums = parseInt(document.getElementById("totalSums").value);
         timeLeft = parseFloat(document.getElementById("totalTime").value);

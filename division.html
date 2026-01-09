@@ -273,8 +273,6 @@
     </style>
   </head>
   <body>
-    <button class="back-refresh-btn" onclick="location.reload()">←BACK</button>
-
     <header>
       <img
         src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
@@ -297,21 +295,21 @@
           <div class="input-grid">
             <div>
               <label>Min Answer</label
-              ><input type="number" id="minAns" value="1.0" step="0.001" />
+              ><input type="number" id="minAns" value="1" step="0.001" />
             </div>
             <div>
               <label>Max Answer</label
-              ><input type="number" id="maxAns" value="10.0" step="0.001" />
+              ><input type="number" id="maxAns" value="10" step="0.001" />
             </div>
           </div>
           <div class="input-grid">
             <div>
               <label>Min Divisor</label
-              ><input type="number" id="minDiv" value="2.0" step="0.001" />
+              ><input type="number" id="minDiv" value="2" step="0.001" />
             </div>
             <div>
               <label>Max Divisor</label
-              ><input type="number" id="maxDiv" value="5.0" step="0.001" />
+              ><input type="number" id="maxDiv" value="5" step="0.001" />
             </div>
           </div>
           <div class="input-grid">
@@ -386,6 +384,9 @@
       </div>
 
       <div id="game-screen" class="screen">
+        <button class="back-refresh-btn" onclick="location.reload()">
+          ← BACK
+        </button>
         <div class="card">
           <div class="stats-bar">
             <span id="timer-display">60.0s</span>
@@ -446,6 +447,49 @@
     </div>
 
     <script>
+      // --- UNIVERSAL CACHE LOGIC ---
+// Use the Page Title as a unique key prefix to prevent data mixing between different practice types
+const PAGE_ID = document.title.split('|')[0].trim().replace(/\s+/g, '_').toLowerCase();
+
+// List of all possible setup IDs across all your files
+const ALL_SETTING_IDS = [
+  "lowNo", "highNo", "low1", "high1", "low2", "high2", "minAns", "maxAns", 
+  "minDiv", "maxDiv", "tableOf", "totalSums", "totalTime", 
+  "flashMode", "autoLoop", "autoDelay", "speed"
+];
+
+function saveSettings() {
+  ALL_SETTING_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const value = (el.type === "checkbox") ? el.checked : el.value;
+      localStorage.setItem(`${PAGE_ID}_${id}`, value);
+    }
+  });
+}
+
+function loadSettings() {
+  ALL_SETTING_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    const savedValue = localStorage.getItem(`${PAGE_ID}_${id}`);
+    
+    if (el && savedValue !== null) {
+      if (el.type === "checkbox") {
+        el.checked = (savedValue === "true");
+      } else {
+        el.value = savedValue;
+      }
+    }
+  });
+  
+  // Refresh UI visibility for auto-options if the function exists in the file
+  if (typeof toggleAutoOptions === "function") toggleAutoOptions();
+  if (typeof toggleAuto === "function") toggleAuto();
+}
+
+// Load automatically when the page opens
+window.addEventListener('DOMContentLoaded', loadSettings);
+
       function toggleAutoOptions() {
         const isFlash = document.getElementById("flashMode").checked;
         document.getElementById("auto-options").style.display = isFlash
@@ -468,6 +512,7 @@
         countdownInterval;
 
       function startApp() {
+        saveSettings();
         totalSums = parseInt(document.getElementById("totalSums").value);
         timeLeft = parseFloat(document.getElementById("totalTime").value);
         isFlashMode = document.getElementById("flashMode").checked;
@@ -502,30 +547,32 @@
       }
 
       function generateQuestion() {
-        const maxA = parseFloat(document.getElementById("maxAns").value);
-        const minA = parseFloat(document.getElementById("minAns").value);
-        const maxD = parseFloat(document.getElementById("maxDiv").value);
-        const minD = parseFloat(document.getElementById("minDiv").value);
+  // Use parseInt to ensure we are working with whole numbers from the inputs
+  const maxA = parseInt(document.getElementById("maxAns").value);
+  const minA = parseInt(document.getElementById("minAns").value);
+  const maxD = parseInt(document.getElementById("maxDiv").value);
+  const minD = parseInt(document.getElementById("minDiv").value);
 
-        const ans = parseFloat(
-          (Math.random() * (maxA - minA) + minA).toFixed(5)
-        );
-        const div = parseFloat(
-          (Math.random() * (maxD - minD) + minD).toFixed(3)
-        );
-        const dividend = parseFloat((ans * div).toFixed(8));
+  // Generate a random integer for the divisor (div) and the answer (ans)
+  const div = Math.floor(Math.random() * (maxD - minD + 1)) + minD;
+  const ans = Math.floor(Math.random() * (maxA - minA + 1)) + minA;
+  
+  // Calculate the dividend (the number to be divided)
+  // Since both ans and div are integers, dividend will always be an integer
+  const dividend = ans * div;
 
-        correctAnswer = ans;
-        document.getElementById(
-          "question-text"
-        ).innerText = `${dividend} ÷ ${div}`;
-        document.getElementById("feedback").innerText = "";
-        document.getElementById("result-bubble").style.display = "none";
-        document.getElementById("question-text").style.display = "block";
-        document.getElementById("user-ans").value = "";
+  correctAnswer = ans;
+  
+  // Display the question as an integer
+  document.getElementById("question-text").innerText = `${dividend} ÷ ${div}`;
+  
+  document.getElementById("feedback").innerText = "";
+  document.getElementById("result-bubble").style.display = "none";
+  document.getElementById("question-text").style.display = "block";
+  document.getElementById("user-ans").value = "";
 
-        setupQuestionUI();
-      }
+  setupQuestionUI();
+}
 
       function setupQuestionUI() {
         const manualArea = document.getElementById("manual-input-area");

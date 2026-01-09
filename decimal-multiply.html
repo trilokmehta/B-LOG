@@ -273,8 +273,6 @@
     </style>
   </head>
   <body>
-    <button class="back-refresh-btn" onclick="location.reload()">←BACK</button>
-
     <header>
       <img
         src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
@@ -386,6 +384,9 @@
       </div>
 
       <div id="game-screen" class="screen">
+        <button class="back-refresh-btn" onclick="location.reload()">
+          ← BACK
+        </button>
         <div class="card">
           <div class="stats-bar">
             <span id="progress-timer">1 / 60.0s</span>
@@ -446,6 +447,49 @@
     </div>
 
     <script>
+      // --- UNIVERSAL CACHE LOGIC ---
+// Use the Page Title as a unique key prefix to prevent data mixing between different practice types
+const PAGE_ID = document.title.split('|')[0].trim().replace(/\s+/g, '_').toLowerCase();
+
+// List of all possible setup IDs across all your files
+const ALL_SETTING_IDS = [
+  "lowNo", "highNo", "low1", "high1", "low2", "high2", "minAns", "maxAns", 
+  "minDiv", "maxDiv", "tableOf", "totalSums", "totalTime", 
+  "flashMode", "autoLoop", "autoDelay", "speed"
+];
+
+function saveSettings() {
+  ALL_SETTING_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const value = (el.type === "checkbox") ? el.checked : el.value;
+      localStorage.setItem(`${PAGE_ID}_${id}`, value);
+    }
+  });
+}
+
+function loadSettings() {
+  ALL_SETTING_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    const savedValue = localStorage.getItem(`${PAGE_ID}_${id}`);
+    
+    if (el && savedValue !== null) {
+      if (el.type === "checkbox") {
+        el.checked = (savedValue === "true");
+      } else {
+        el.value = savedValue;
+      }
+    }
+  });
+  
+  // Refresh UI visibility for auto-options if the function exists in the file
+  if (typeof toggleAutoOptions === "function") toggleAutoOptions();
+  if (typeof toggleAuto === "function") toggleAuto();
+}
+
+// Load automatically when the page opens
+window.addEventListener('DOMContentLoaded', loadSettings);
+
       function toggleAutoOptions() {
         const isFlash = document.getElementById("flashMode").checked;
         document.getElementById("auto-options").style.display = isFlash
@@ -468,6 +512,7 @@
         countdownInterval;
 
       function startApp() {
+        saveSettings();
         totalSums = parseInt(document.getElementById("totalSums").value);
         timeLeft = parseFloat(document.getElementById("totalTime").value);
         isFlashMode = document.getElementById("flashMode").checked;
@@ -509,21 +554,21 @@
 
         // 1. Calculate the precision based on your input steps
         const getPrecision = (num) => {
-    const parts = num.toString().split(".");
-    return parts.length > 1 ? parts[1].length : 0; 
-  };
-  
-  const p1 = getPrecision(document.getElementById("low1").value);
-  const p2 = getPrecision(document.getElementById("low2").value);
+          const parts = num.toString().split(".");
+          return parts.length > 1 ? parts[1].length : 0;
+        };
 
-  // Generate numbers
-  const n1 = parseFloat((Math.random() * (h1 - l1) + l1).toFixed(p1));
-  const n2 = parseFloat((Math.random() * (h2 - l2) + l2).toFixed(p2));
+        const p1 = getPrecision(document.getElementById("low1").value);
+        const p2 = getPrecision(document.getElementById("low2").value);
+
+        // Generate numbers
+        const n1 = parseFloat((Math.random() * (h1 - l1) + l1).toFixed(p1));
+        const n2 = parseFloat((Math.random() * (h2 - l2) + l2).toFixed(p2));
 
         // 3. Calculate answer and round to the sum of precisions (e.g., 0.01 * 0.1 = 0.001)
         correctAnswer = parseFloat((n1 * n2).toFixed(p1 + p2));
 
-  document.getElementById("question-text").innerText = `${n1} × ${n2}`;
+        document.getElementById("question-text").innerText = `${n1} × ${n2}`;
         document.getElementById("feedback").innerText = "";
         document.getElementById("result-bubble").style.display = "none";
         document.getElementById("question-text").style.display = "block";

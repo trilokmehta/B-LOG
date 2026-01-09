@@ -300,8 +300,6 @@
     </style>
   </head>
   <body>
-    <button class="back-refresh-btn" onclick="location.reload()">←BACK</button>
-
     <header>
       <img
         src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
@@ -387,6 +385,9 @@
       </div>
 
       <div id="game-screen" class="screen">
+        <button class="back-refresh-btn" onclick="location.reload()">
+          ← BACK
+        </button>
         <div class="card">
           <div class="stats-bar">
             <span id="timer-display">1/60.0s</span>
@@ -443,6 +444,49 @@
     </div>
 
     <script>
+      // --- UNIVERSAL CACHE LOGIC ---
+// Use the Page Title as a unique key prefix to prevent data mixing between different practice types
+const PAGE_ID = document.title.split('|')[0].trim().replace(/\s+/g, '_').toLowerCase();
+
+// List of all possible setup IDs across all your files
+const ALL_SETTING_IDS = [
+  "lowNo", "highNo", "low1", "high1", "low2", "high2", "minAns", "maxAns", 
+  "minDiv", "maxDiv", "tableOf", "totalSums", "totalTime", 
+  "flashMode", "autoLoop", "autoDelay", "speed"
+];
+
+function saveSettings() {
+  ALL_SETTING_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const value = (el.type === "checkbox") ? el.checked : el.value;
+      localStorage.setItem(`${PAGE_ID}_${id}`, value);
+    }
+  });
+}
+
+function loadSettings() {
+  ALL_SETTING_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    const savedValue = localStorage.getItem(`${PAGE_ID}_${id}`);
+    
+    if (el && savedValue !== null) {
+      if (el.type === "checkbox") {
+        el.checked = (savedValue === "true");
+      } else {
+        el.value = savedValue;
+      }
+    }
+  });
+  
+  // Refresh UI visibility for auto-options if the function exists in the file
+  if (typeof toggleAutoOptions === "function") toggleAutoOptions();
+  if (typeof toggleAuto === "function") toggleAuto();
+}
+
+// Load automatically when the page opens
+window.addEventListener('DOMContentLoaded', loadSettings);
+
       function toggleAutoOptions() {
         const isFlash = document.getElementById("flashMode").checked;
         document.getElementById("auto-options").style.display = isFlash
@@ -467,6 +511,7 @@
       let countdownInterval;
 
       function startApp() {
+        saveSettings();
         totalSums = parseInt(document.getElementById("totalSums").value);
         timeLeft = parseFloat(document.getElementById("totalTime").value);
 
