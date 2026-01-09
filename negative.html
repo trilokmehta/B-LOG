@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Negative +/- Practice | BrainiacGym</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        background: #f4f7f6;
+        margin: 0;
+        padding: 0;
+        padding-top: 80px;
+        color: #2d3436;
+      }
+
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .logo {
+        height: 40px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+      .nav-links a {
+        text-decoration: none;
+        color: #555;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: #f58220;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+
+      .card {
+        background: white;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border-top: 5px solid #f58220;
+        text-align: center;
+      }
+
+      .input-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 30px;
+        text-align: left;
+      }
+
+      @media (max-width: 600px) {
+        .input-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      label {
+        font-weight: 700;
+        color: #636e72;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #dfe6e9;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        outline: none;
+        box-sizing: border-box;
+      }
+      input[type="number"]:focus {
+        border-color: #f58220;
+      }
+
+      .settings-area {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        text-align: left;
+        border: 1px solid #eee;
+      }
+
+      .toggle-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+      input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        accent-color: #f58220;
+      }
+
+      #auto-options {
+        display: none;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px dashed #ccc;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 16px;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 800;
+        cursor: pointer;
+        color: white;
+        transition: transform 0.1s;
+      }
+      .btn:active {
+        transform: scale(0.98);
+      }
+      .btn-start {
+        background: #f58220;
+        box-shadow: 0 5px 15px rgba(245, 130, 32, 0.3);
+      }
+      .btn-check {
+        background: #f58220;
+        margin-bottom: 15px;
+      }
+      .btn-next {
+        background: #f58220;
+        margin-bottom: 10px;
+      }
+      .btn-stop {
+        background: white;
+        color: #c0392b;
+        border: 2px solid #c0392b;
+        margin-top: 10px;
+      }
+      .btn-back {
+        background: #636e72;
+      }
+
+      #flash-display {
+        font-size: clamp(3rem, 10vw, 6rem);
+        font-weight: 800;
+        color: #2d3436;
+        margin: 40px 0;
+        min-height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .result-bubble {
+        background: #f58220;
+        color: white;
+        padding: 20px 40px;
+        border-radius: 50px;
+        font-size: 2.5rem;
+        font-weight: 800;
+        display: inline-flex;
+        margin-bottom: 30px;
+      }
+
+      .screen {
+        display: none;
+      }
+      .screen.active {
+        display: block;
+        animation: fadeUp 0.3s ease;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .back-refresh-btn {
+        position: fixed;
+        top: 80px;
+        left: 15px;
+        z-index: 1000;
+        background: #d63737;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img
+        src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
+        alt="Logo"
+        class="logo"
+      />
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="#">About</a>
+        <a href="#">Courses</a>
+        <a href="#">Contact</a>
+      </nav>
+    </header>
+
+    <div class="container">
+      <div id="setup-screen" class="screen active">
+        <div class="card">
+          <h2 style="margin-top: 0; margin-bottom: 30px">
+            Negative +/- (Infinite)
+          </h2>
+          <div class="input-grid">
+            <div>
+              <label>Digits</label>
+              <input type="number" id="digits" value="1" max="10" />
+            </div>
+            <div>
+              <label>Rows</label>
+              <input type="number" id="rows" value="5" />
+            </div>
+            <div>
+              <label>Speed (Sec)</label>
+              <input type="number" id="speed" value="1" step="0.1" />
+            </div>
+          </div>
+
+          <div class="settings-area">
+            <div class="toggle-row">
+              <input type="checkbox" id="flashMode" onchange="toggleAuto()" />
+              <label for="flashMode">Flash Mode (Mental Math)</label>
+            </div>
+            <div id="auto-options">
+              <div class="toggle-row">
+                <input type="checkbox" id="autoLoop" />
+                <label for="autoLoop">Auto Next Question</label>
+              </div>
+              <div style="margin-top: 15px">
+                <label>Wait Time (Seconds):</label>
+                <input type="number" id="autoDelay" value="3" />
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-start" onclick="startApp()">
+            START PRACTICE
+          </button>
+        </div>
+      </div>
+
+      <div id="flash-screen" class="screen">
+        <div class="card">
+          <div id="flash-display"></div>
+          <p style="color: #b2bec3; font-weight: 600">Focus...</p>
+        </div>
+        <button class="back-refresh-btn" onclick="location.reload()">
+          ← BACK
+        </button>
+      </div>
+
+      <div id="answer-screen" class="screen">
+        <div class="card">
+          <div
+            id="result-bubble"
+            class="result-bubble"
+            style="display: none"
+          ></div>
+          <h3 id="feedback-text" style="color: #636e72; margin-top: 0">
+            What was the total?
+          </h3>
+          <input
+            type="number"
+            id="user-ans"
+            placeholder="Enter answer"
+            style="margin-bottom: 20px"
+          />
+
+          <button id="check-btn" class="btn btn-check">CHECK ANSWER</button>
+
+          <button
+            id="next-btn"
+            class="btn btn-next"
+            style="display: none"
+            onclick="startApp()"
+          >
+            NEXT QUESTION >>
+          </button>
+
+          <button
+            id="retry-btn"
+            class="btn btn-back"
+            style="display: none"
+            onclick="stopGame()"
+          >
+            BACK TO MENU
+          </button>
+
+          <button
+            id="stop-btn"
+            class="btn btn-stop"
+            style="display: none"
+            onclick="stopGame()"
+          >
+            STOP AUTO
+          </button>
+        </div>
+        <button class="back-refresh-btn" onclick="location.reload()">
+          ← BACK
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // --- UNIVERSAL CACHE LOGIC ---
+// Use the Page Title as a unique key prefix to prevent data mixing between different practice types
+const PAGE_ID = document.title.split('|')[0].trim().replace(/\s+/g, '_').toLowerCase();
+
+// List of all possible setup IDs across all your files
+const ALL_SETTING_IDS = [
+  "lowNo", "highNo", "low1", "high1", "low2", "high2", "minAns", "maxAns", 
+  "minDiv", "maxDiv", "tableOf", "totalSums", "totalTime", 
+  "flashMode", "autoLoop", "autoDelay", "speed"
+];
+
+function saveSettings() {
+  ALL_SETTING_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const value = (el.type === "checkbox") ? el.checked : el.value;
+      localStorage.setItem(`${PAGE_ID}_${id}`, value);
+    }
+  });
+}
+
+function loadSettings() {
+  ALL_SETTING_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    const savedValue = localStorage.getItem(`${PAGE_ID}_${id}`);
+    
+    if (el && savedValue !== null) {
+      if (el.type === "checkbox") {
+        el.checked = (savedValue === "true");
+      } else {
+        el.value = savedValue;
+      }
+    }
+  });
+  
+  // Refresh UI visibility for auto-options if the function exists in the file
+  if (typeof toggleAutoOptions === "function") toggleAutoOptions();
+  if (typeof toggleAuto === "function") toggleAuto();
+}
+
+// Load automatically when the page opens
+window.addEventListener('DOMContentLoaded', loadSettings);
+
+      function toggleAuto() {
+        const isFlash = document.getElementById("flashMode").checked;
+        document.getElementById("auto-options").style.display = isFlash
+          ? "block"
+          : "none";
+      }
+
+      let correctAnswer = 0;
+      let sequence = [];
+      let isFlash = false;
+      let isAuto = false;
+      let autoDelay = 3000;
+      let autoTimer, countdownTimer;
+
+      function startApp() {
+        saveSettings();
+        clearTimers(); // Clear any existing timers before starting new round
+        const d = parseInt(document.getElementById("digits").value);
+        const r = parseInt(document.getElementById("rows").value);
+        const speed = parseFloat(document.getElementById("speed").value) * 1000;
+        isFlash = document.getElementById("flashMode").checked;
+        isAuto = document.getElementById("autoLoop").checked;
+        autoDelay =
+          parseFloat(document.getElementById("autoDelay").value) * 1000;
+
+        correctAnswer = 0;
+        sequence = [];
+
+        for (let i = 0; i < r; i++) {
+          let min = Math.pow(10, d - 1);
+          let max = Math.pow(10, d) - 1;
+          if (d === 1) {
+            min = 1;
+            max = 9;
+          }
+          let n = Math.floor(Math.random() * (max - min + 1)) + min;
+
+          if (i > 0 && Math.random() > 0.5) {
+            sequence.push(-n);
+            correctAnswer -= n;
+          } else {
+            sequence.push(n);
+            correctAnswer += n;
+          }
+        }
+
+        showScreen("flash-screen");
+        let i = 0;
+        const interval = setInterval(() => {
+          if (i < sequence.length) {
+            let val = sequence[i];
+            document.getElementById("flash-display").innerText =
+              i > 0 && val > 0 ? "+" + val : val;
+            i++;
+          } else {
+            clearInterval(interval);
+            setTimeout(showAnswerScreen, 500);
+          }
+        }, speed);
+      }
+
+      function showAnswerScreen() {
+        showScreen("answer-screen");
+        const input = document.getElementById("user-ans");
+        const checkBtn = document.getElementById("check-btn");
+        const nextBtn = document.getElementById("next-btn");
+        const stopBtn = document.getElementById("stop-btn");
+        const retryBtn = document.getElementById("retry-btn");
+        const bubble = document.getElementById("result-bubble");
+        const feedback = document.getElementById("feedback-text");
+
+        nextBtn.style.display = "none";
+        retryBtn.style.display = "none";
+        checkBtn.style.display = "block";
+        checkBtn.disabled = false;
+
+        if (isFlash) {
+          input.style.display = "none";
+          bubble.style.display = "inline-block";
+          bubble.innerText = correctAnswer;
+          bubble.style.background = "#F58220";
+          feedback.innerText = "Answer:";
+
+          checkBtn.innerText = "NEXT QUESTION >>";
+          checkBtn.onclick = () => {
+            startApp();
+          };
+
+          if (isAuto) {
+            stopBtn.style.display = "block";
+            let sec = autoDelay / 1000;
+            checkBtn.innerText = `NEXT IN ${sec}s`;
+            countdownTimer = setInterval(() => {
+              sec--;
+              if (sec > 0) checkBtn.innerText = `NEXT IN ${sec}s`;
+              else clearInterval(countdownTimer);
+            }, 1000);
+            autoTimer = setTimeout(startApp, autoDelay);
+          } else {
+            stopBtn.style.display = "none";
+          }
+        } else {
+          input.style.display = "block";
+          input.value = "";
+          input.focus();
+          bubble.style.display = "none";
+          stopBtn.style.display = "none";
+          feedback.innerText = "What was the total?";
+          checkBtn.innerText = "CHECK ANSWER";
+          checkBtn.onclick = checkAns;
+        }
+      }
+
+      function checkAns() {
+        const user = parseInt(document.getElementById("user-ans").value);
+        const bubble = document.getElementById("result-bubble");
+        const feedback = document.getElementById("feedback-text");
+
+        bubble.innerText = correctAnswer;
+        bubble.style.display = "inline-block";
+
+        if (user === correctAnswer) {
+          bubble.style.background = "#27ae60";
+          feedback.innerText = "Correct!";
+        } else {
+          bubble.style.background = "#c0392b";
+          feedback.innerText = "Wrong";
+        }
+
+        document.getElementById("check-btn").style.display = "none";
+        // Show NEXT QUESTION instead of forcing Back to Menu
+        document.getElementById("next-btn").style.display = "block";
+        document.getElementById("retry-btn").style.display = "block";
+      }
+
+      function stopGame() {
+        clearTimers();
+        showScreen("setup-screen");
+      }
+
+      function clearTimers() {
+        clearTimeout(autoTimer);
+        clearInterval(countdownTimer);
+      }
+
+      function showScreen(id) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+      }
+    </script>
+  </body>
+</html>
