@@ -1,8 +1,11 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    	<link name="favicon" type="image/x-icon" href="https://course.brainiacgym.com/uploads/system/favicon.png" rel="shortcut icon" />
     <title>Decimal Add & Sub | BrainiacGym</title>
     <style>
       :root {
@@ -244,8 +247,6 @@
     </style>
   </head>
   <body>
-    <button class="back-refresh-btn" onclick="location.reload()">←BACK</button>
-
     <header>
       <img
         src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
@@ -253,8 +254,10 @@
         class="logo"
       />
       <nav class="nav-links">
-        <a href="index.html">Home</a><a href="#">About</a><a href="#">Courses</a
-        ><a href="#">Contact</a>
+        <a href="/application/">Home</a>
+        <a href="https://brainiacgym.com/about-us/">About</a>
+        <a href="https://course.brainiacgym.com/">Courses</a>
+        <a href="/contact">Contact</a>
       </nav>
     </header>
 
@@ -271,20 +274,13 @@
               ><input type="number" id="rows" value="5" />
             </div>
           </div>
-          <div class="input-grid">
-            <div>
-              <label>Total Questions</label
-              ><input type="number" id="totalSums" value="10" />
-            </div>
-            <div>
-              <label>Time Limit (Sec)</label
-              ><input type="number" id="totalTime" value="60" />
-            </div>
-            <div>
-              <label>Questions frequency (Sec)</label
-              ><input type="number" id="speed" value="3" step="0.5" />
+          <div class="input-grid" style="grid-template-columns: 1fr;">
+             <div>
+              <label>Questions frequency (Sec)</label>
+              <input type="number" id="speed" value="3" step="0.5" />
             </div>
           </div>
+         
           <div class="input-grid" style="grid-template-columns: 1fr">
             <!-- <div>
               <label>Flash Speed (Sec)</label
@@ -320,10 +316,13 @@
       </div>
 
       <div id="game-screen" class="screen">
+        <button class="back-refresh-btn" onclick="location.reload()">
+          ← BACK
+        </button>
         <div class="card">
-          <div class="stats-bar">
-            <span id="timer-display">60.0s</span><span>BrainiacGym</span>
-          </div>
+<div class="stats-bar">
+   <span>Practice Mode</span><span>BrainiacGym</span>
+</div>
           <div class="score-badges">
             <div class="badge badge-green">
               Right: <span id="right-count">0</span>
@@ -375,21 +374,19 @@
         countdownInterval;
 
       function startApp() {
-        totalSums = parseInt(document.getElementById("totalSums").value);
-        timeLeft = parseFloat(document.getElementById("totalTime").value);
-        speed = parseFloat(document.getElementById("speed").value) * 1000;
-        isFlash = document.getElementById("flashMode").checked;
-        isAuto = document.getElementById("autoLoop").checked;
-        autoDelay =
-          parseFloat(document.getElementById("autoDelay").value) * 1000;
+  // Removed totalSums and totalTime variables
+  speed = parseFloat(document.getElementById("speed").value) * 1000;
+  isFlash = document.getElementById("flashMode").checked;
+  isAuto = document.getElementById("autoLoop").checked;
+  autoDelay = parseFloat(document.getElementById("autoDelay").value) * 1000;
 
-        rightCount = 0;
-        wrongCount = 0;
-        currentSum = 1;
-        showScreen("game-screen");
-        generateSequence();
-        startGlobalTimer();
-      }
+  rightCount = 0;
+  wrongCount = 0;
+  currentSum = 1;
+  showScreen("game-screen");
+  generateSequence();
+  // Removed startGlobalTimer();
+}
 
       function generateSequence() {
         const d = parseInt(document.getElementById("digits").value),
@@ -450,45 +447,59 @@
             }, 1000);
             autoTimeout = setTimeout(nextQuestion, autoDelay);
           }
-        } else {
-          document.getElementById("flash-display").innerText = "???";
-          document.getElementById("input-area").style.display = "block";
-          document.getElementById("user-ans").focus();
-        }
+        // Inside showAnswerPhase() manual mode else block:
+} else {
+    document.getElementById("flash-display").innerText = "???";
+    document.getElementById("input-area").style.display = "block";
+    document.getElementById("user-ans").focus();
+    document.getElementById("action-btn").innerText = "SHOW ANSWER / CHECK";
+}
       }
 
       function checkAns() {
-        const val = parseFloat(document.getElementById("user-ans").value);
-        if (isNaN(val)) return;
-        document.getElementById("result-bubble").innerText = correctAnswer;
-        document.getElementById("result-bubble").style.display = "flex";
-        document.getElementById("flash-display").style.display = "none";
-        if (Math.abs(val - correctAnswer) < 0.01) {
-          rightCount++;
-          document.getElementById("feedback").innerText = "Correct! ✓";
-          document.getElementById("feedback").style.color =
-            "var(--success-color)";
-        } else {
-          wrongCount++;
-          document.getElementById("feedback").innerText = "Wrong!";
-          document.getElementById("feedback").style.color =
-            "var(--error-color)";
-        }
-        updateUI();
-        document.getElementById("action-btn").innerText = "NEXT QUESTION >>";
-        document.getElementById("action-btn").onclick = nextQuestion;
-      }
+    const userInputField = document.getElementById("user-ans");
+    const val = parseFloat(userInputField.value);
+    const feedback = document.getElementById("feedback");
+    const resultBubble = document.getElementById("result-bubble");
+    const actionBtn = document.getElementById("action-btn");
+    const flashDisplay = document.getElementById("flash-display");
+
+    // 1. Always show the answer bubble regardless of input
+    resultBubble.innerText = correctAnswer;
+    resultBubble.style.display = "flex";
+    flashDisplay.style.display = "none";
+    document.getElementById("input-area").style.display = "none";
+
+    // 2. Check logic: If user typed nothing, just show the answer
+    if (userInputField.value === "") {
+        feedback.innerText = "Answer revealed:";
+        feedback.style.color = "var(--secondary)";
+    } 
+    // 3. If they typed something, check if it is right or wrong
+    else if (Math.abs(val - correctAnswer) < 0.01) {
+        rightCount++;
+        feedback.innerText = "Correct! ✓";
+        feedback.style.color = "var(--success-color)";
+    } else {
+        wrongCount++;
+        feedback.innerText = "Wrong! The answer was:";
+        feedback.style.color = "var(--error-color)";
+    }
+
+    updateUI();
+
+    // 4. Change button to move to the next question
+    actionBtn.innerText = "NEXT QUESTION >>";
+    actionBtn.onclick = nextQuestion;
+}
 
       function nextQuestion() {
-        clearTimeout(autoTimeout);
-        clearInterval(countdownInterval);
-        if (currentSum < totalSums) {
-          currentSum++;
-          generateSequence();
-        } else {
-          endSession();
-        }
-      }
+  clearTimeout(autoTimeout);
+  clearInterval(countdownInterval);
+  // Infinite loop: always go to next
+  currentSum++;
+  generateSequence();
+}
 
       function resetUIForNewRound() {
         document.getElementById("flash-display").style.display = "flex";
@@ -514,15 +525,10 @@
         }, 100);
       }
 
-      function updateUI() {
-        document.getElementById("right-count").innerText = rightCount;
-        document.getElementById("wrong-count").innerText = wrongCount;
-
-        // Updated line: removed "${currentSum}/"
-        document.getElementById(
-          "timer-display"
-        ).innerText = `${timeLeft.toFixed(1)}s`;
-      }
+     function updateUI() {
+  document.getElementById("right-count").innerText = rightCount;
+  document.getElementById("wrong-count").innerText = wrongCount;
+}
 
       function endSession() {
         clearInterval(timerInterval);
