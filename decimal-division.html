@@ -519,51 +519,44 @@
         startTimer();
       }
 
-function generateQuestion() {
-    // 1. Get raw string values to check for a decimal point
-    const maxAnsStr = document.getElementById("maxAns").value;
-    const minAnsStr = document.getElementById("minAns").value;
-    const maxDivStr = document.getElementById("maxDiv").value;
-    const minDivStr = document.getElementById("minDiv").value;
+      function generateQuestion() {
+        // 1. Get raw string values to check for a decimal point
+        const maxAnsStr = document.getElementById("maxAns").value;
+        const minAnsStr = document.getElementById("minAns").value;
+        const maxDivStr = document.getElementById("maxDiv").value;
+        const minDivStr = document.getElementById("minDiv").value;
 
-    // 2. Convert to numbers for calculation
-    const maxA = parseFloat(maxAnsStr);
-    const minA = parseFloat(minAnsStr);
-    const maxD = parseFloat(maxDivStr);
-    const minD = parseFloat(minDivStr);
+        // 2. Convert to numbers for calculation
+        const maxA = parseFloat(maxAnsStr);
+        const minA = parseFloat(minAnsStr);
+        const maxD = parseFloat(maxDivStr);
+        const minD = parseFloat(minDivStr);
 
-    // --- Generate Answer (Quotient) ---
-    let ans;
-    // If user didn't type a dot in Answer range, make it an integer
-    if (!maxAnsStr.includes('.') && !minAnsStr.includes('.')) {
-        ans = Math.floor(Math.random() * (maxA - minA + 1)) + Math.floor(minA);
-    } else {
-        ans = parseFloat((Math.random() * (maxA - minA) + minA).toFixed(1));
-    }
+        // --- Generate Answer (Quotient) ---
+        let ans = parseFloat((Math.random() * (maxA - minA) + minA).toFixed(2));
+    let div = parseFloat((Math.random() * (maxD - minD) + minD).toFixed(2));
 
-    // --- Generate Divisor ---
-    let div;
-    // If user didn't type a dot in Divisor range, make it an integer
-    if (!maxDivStr.includes('.') && !minDivStr.includes('.')) {
-        div = Math.floor(Math.random() * (maxD - minD + 1)) + Math.floor(minD);
-    } else {
-        div = parseFloat((Math.random() * (maxD - minD) + minD).toFixed(1));
-    }
+    // Safety Check: If rounding made them 0, force them to a minimum value
+    if (ans <= 0) ans = 0.1;
+    if (div <= 0) div = 0.1;
 
-    // Calculate Dividend (ensure it doesn't have endless decimals)
-    const dividend = parseFloat((ans * div).toFixed(2));
+    const dividend = parseFloat((ans * div).toFixed(4));
 
-    correctAnswer = ans;
-    document.getElementById("question-text").innerText = `${dividend} ÷ ${div}`;
+        
 
-    // Reset UI
-    document.getElementById("feedback").innerText = "";
-    document.getElementById("result-bubble").style.display = "none";
-    document.getElementById("question-text").style.display = "block";
-    document.getElementById("user-ans").value = "";
+        correctAnswer = ans;
+        document.getElementById(
+          "question-text"
+        ).innerText = `${dividend} ÷ ${div}`;
 
-    setupQuestionUI();
-}
+        // Reset UI
+        document.getElementById("feedback").innerText = "";
+        document.getElementById("result-bubble").style.display = "none";
+        document.getElementById("question-text").style.display = "block";
+        document.getElementById("user-ans").value = "";
+
+        setupQuestionUI();
+      }
 
       function setupQuestionUI() {
         const manualArea = document.getElementById("manual-input-area");
