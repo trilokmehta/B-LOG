@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://127.0.0.1:5500/index.html# -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>body {transition: opacity ease-in 0.2s; } 
+body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
+</style>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERPLI - Enterprise features at a startup price.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./ERPLI - Enterprise features at a startup price._files/css2" rel="stylesheet">
+    <link rel="stylesheet" href="./ERPLI - Enterprise features at a startup price._files/all.min.css">
+    <style>
+      /* Base Styles & Variables */
+      :root {
+        --primary-color: #f28482; /* Coral pink */
+        --secondary-color: #3d405b; /* Dark blue */
+        --bg-light: #fffbf5; /* Light cream */
+        --white: #ffffff;
+        --text-dark: #3d405b;
+        --text-muted: #666;
+        --font-family: "Inter", sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: var(--font-family);
+        background-color: var(--bg-light);
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-weight: 800;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: 2px solid transparent;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: var(--white);
+        box-shadow: 0 4px 6px rgba(242, 132, 130, 0.3);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(242, 132, 130, 0.4);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border-color: var(--secondary-color);
+        color: var(--secondary-color);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--secondary-color);
+        color: var(--white);
+      }
+
+      /* Header */
+      header {
+        padding: 20px 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 100;
+        background-color: var(--bg-light);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--secondary-color);
+      }
+
+      .logo span {
+        color: var(--primary-color);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+      }
+
+      .nav-links a {
+        font-weight: 500;
+        color: var(--secondary-color);
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary-color);
+      }
+
+      /* Hero Section */
+      .hero {
+        padding-top: 120px;
+        padding-bottom: 100px;
+        background: radial-gradient(
+            circle at top right,
+            rgba(242, 132, 130, 0.1),
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at bottom left,
+            rgba(129, 178, 154, 0.1),
+            transparent 40%
+          );
+      }
+
+      .hero .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+      }
+
+      .hero-content h1 {
+        font-size: 4rem;
+        line-height: 1.1;
+        margin-bottom: 20px;
+      }
+
+      .hero-content h1 span {
+        color: var(--primary-color);
+      }
+
+      .hero-content p {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+        margin-bottom: 30px;
+        max-width: 500px;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 15px;
+      }
+
+      .hero-graphic {
+        position: relative;
+      }
+
+      .dashboard-mockup {
+        background-color: var(--white);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        transform: rotate(-2deg);
+        position: relative;
+        z-index: 1;
+      }
+
+      .mockup-line {
+        height: 10px;
+        background-color: #eee;
+        border-radius: 5px;
+        margin-bottom: 15px;
+      }
+
+      .floating-card {
+        position: absolute;
+        background-color: var(--white);
+        padding: 15px 20px;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        z-index: 2;
+      }
+
+      .fc-growth {
+        top: 20px;
+        right: -30px;
+        transform: rotate(5deg);
+      }
+
+      .fc-attendance {
+        bottom: 20px;
+        left: -30px;
+        transform: rotate(-5deg);
+      }
+
+      .fc-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        color: var(--white);
+      }
+
+      .icon-growth {
+        background-color: #81b29a;
+      }
+      .icon-attendance {
+        background-color: var(--primary-color);
+      }
+
+      .fc-text h4 {
+        font-size: 1rem;
+        margin-bottom: 5px;
+      }
+
+      .fc-text span {
+        font-weight: 700;
+        color: var(--secondary-color);
+      }
+
+      /* Sections General */
+      section {
+        padding: 80px 0;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .section-title h2 {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+      }
+
+      .section-title p {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+      }
+
+      /* Built for Educators Section */
+      .target-section {
+        background-color: var(--white);
+      }
+
+      .target-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+      }
+
+      .target-card {
+        background-color: var(--bg-light);
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+
+      .target-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .target-icon {
+        font-size: 3rem;
+        color: var(--secondary-color);
+        margin-bottom: 20px;
+      }
+
+      .target-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+
+      .target-card p {
+        color: var(--text-muted);
+      }
+
+      /* Whom We Target Styling */
+      .target-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+        margin-top: 40px;
+      }
+
+      .target-item {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 25px;
+        font-size: 1.05rem;
+      }
+
+      .target-item i {
+        color: var(--secondary-color);
+        font-size: 1.2rem;
+        margin-top: 5px;
+        width: 25px;
+        text-align: center;
+      }
+
+      .target-info-box {
+        background-color: var(--white);
+        padding: 40px;
+        border-radius: 20px;
+        border: 3px solid #f4d35e; /* Highlight Yellow from your image */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      }
+
+      .target-info-box h3 {
+        margin-bottom: 15px;
+        color: var(--secondary-color);
+      }
+
+      /* Comparison Table Styling */
+      .comparison-section {
+        background-color: var(--bg-light);
+      }
+
+      .table-responsive {
+        overflow-x: auto;
+        margin-top: 40px;
+      }
+
+      .comparison-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background-color: var(--white);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .comparison-table th {
+        background-color: var(--secondary-color);
+        color: var(--white);
+        padding: 25px;
+        text-align: left;
+        font-weight: 700;
+      }
+
+      .comparison-table td {
+        padding: 30px;
+        border-bottom: 1px solid #eee;
+        font-weight: 500;
+      }
+
+      /* Color Coding for SEO & Clarity */
+      .text-red {
+        color: #e76f51;
+        font-weight: 700;
+      }
+      .text-green {
+        color: #1f776d;
+        font-weight: 700;
+      }
+      .highlight-cell {
+        color: #2a9d8f;
+        font-weight: 800;
+        background-color: rgba(42, 157, 143, 0.05);
+      }
+
+      /* Mobile Fix for Targets */
+      @media (max-width: 768px) {
+        .target-container {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Styling for the 3x2 "What We Do" Grid */
+      .ecosystem-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Creates 3 columns */
+        gap: 30px;
+        margin-top: 40px;
+      }
+
+      .eco-card {
+        background-color: var(--white);
+        padding: 50px 30px;
+        border-radius: 25px; /* Softer rounded corners */
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border: 1px solid #f0f0f0;
+        transition: transform 0.3s ease;
+      }
+
+      .eco-card h4 {
+        margin-bottom: 15px;
+        font-size: 1.25rem;
+        color: var(--secondary-color);
+      }
+
+      .eco-card p {
+        line-height: 1.5;
+        color: var(--text-muted);
+      }
+
+      /* Icon box styles matching the image colors */
+      .eco-icon {
+        width: 65px;
+        height: 65px;
+        border-radius: 12px;
+        margin: 0 auto 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+      }
+
+      .icon-pink {
+        background-color: rgba(242, 132, 130, 0.15);
+        color: #f28482;
+      }
+      .icon-green {
+        background-color: rgba(129, 178, 154, 0.15);
+        color: #81b29a;
+      }
+      .icon-yellow {
+        background-color: rgba(244, 211, 94, 0.2);
+        color: #f4d35e;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 992px) {
+        .ecosystem-grid {
+          grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+        }
+      }
+
+      @media (max-width: 650px) {
+        .ecosystem-grid {
+          grid-template-columns: 1fr; /* 1 column on phones */
+        }
+      }
+
+      .eco-card h4 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+
+      .eco-card p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      /* Why ERPLI Section */
+      .why-section {
+        background-color: var(--white);
+      }
+
+      .why-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+      }
+
+      .why-card {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+      }
+
+      .why-icon {
+        width: 50px;
+        height: 50px;
+        background-color: var(--secondary-color);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: var(--white);
+        flex-shrink: 0;
+      }
+
+      .why-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+      }
+
+      .why-card p {
+        color: var(--text-muted);
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--white);
+        padding: 80px 0 40px;
+        border-top: 1px solid #eee;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 60px;
+      }
+
+      .footer-about p {
+        color: var(--text-muted);
+        margin-top: 20px;
+        max-width: 300px;
+      }
+
+      .footer-links h4 {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+        color: var(--secondary-color);
+      }
+
+      .footer-links ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links ul li a {
+        color: var(--text-muted);
+        transition: color 0.3s ease;
+      }
+
+      .footer-links ul li a:hover {
+        color: var(--primary-color);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
+        .hero .container,
+        .target-grid,
+        .why-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero {
+          text-align: center;
+          padding-top: 100px;
+        }
+        .hero-buttons {
+          justify-content: center;
+        }
+        .hero-graphic {
+          margin-top: 50px;
+        }
+        .ecosystem-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .nav-links {
+          display: none;
+        }
+        .ecosystem-grid {
+          grid-template-columns: 1fr;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* FAQ Section Styling */
+      .faq-list {
+        max-width: 850px;
+        margin: 0 auto;
+      }
+
+      .faq-item {
+        background-color: var(--white);
+        border: 1px solid #e0e0e0;
+        border-radius: 12px; /* Matches the rounded corners in your image */
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+      }
+
+      .faq-item:hover {
+        border-color: var(--primary-color);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      .faq-question {
+        padding: 22px 25px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--secondary-color);
+      }
+
+      .faq-question i {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        transition: transform 0.3s ease;
+      }
+
+      .faq-answer {
+        padding: 0 25px 22px;
+        color: var(--text-muted);
+        line-height: 1.6;
+        display: none; /* Hidden until clicked */
+      }
+
+      /* Active Class for JavaScript */
+      .faq-item.active .faq-answer {
+        display: block;
+      }
+
+      .faq-item.active .faq-question i {
+        transform: rotate(45deg); /* Turns the + into an x */
+        color: var(--primary-color);
+      }
+    </style>
+  <link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style></head>
+  <body>
+    <header>
+      <div class="container">
+        <nav>
+          <a href="http://127.0.0.1:5500/index.html#" class="logo">ERPLI<span>.</span></a>
+          <div class="nav-links">
+            <a href="http://127.0.0.1:5500/index.html#">Solutions</a>
+            <a href="http://127.0.0.1:5500/index.html#">Features</a>
+            <a href="http://127.0.0.1:5500/index.html#">Pricing</a>
+            <a href="http://127.0.0.1:5500/index.html#">FAQ</a>
+            <a href="http://127.0.0.1:5500/index.html#" class="btn btn-primary">Give us a Call</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Enterprise features at a <span>startup price.</span></h1>
+          <p>
+            The all-in-one management suite designed to help you grow. From
+            admissions to alumni, we handle the technology so you can focus on
+            education.
+          </p>
+          <div class="hero-buttons">
+            <a href="http://127.0.0.1:5500/index.html#" class="btn btn-primary">Give us a Call</a>
+            <a href="http://127.0.0.1:5500/index.html#" class="btn btn-outline">View Plan</a>
+          </div>
+        </div>
+        <div class="hero-graphic">
+          <div class="dashboard-mockup">
+            <div class="mockup-line" style="width: 40%"></div>
+            <div class="mockup-line" style="width: 80%"></div>
+            <div class="mockup-line" style="width: 60%"></div>
+            <div class="mockup-line" style="width: 90%"></div>
+          </div>
+          <div class="floating-card fc-growth">
+            <div class="fc-icon icon-growth">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="fc-text">
+              <h4>Growth</h4>
+              <span>+125%</span>
+            </div>
+          </div>
+          <div class="floating-card fc-attendance">
+            <div class="fc-icon icon-attendance">
+              <i class="fas fa-user-check"></i>
+            </div>
+            <div class="fc-text">
+              <h4>Attendance</h4>
+              <span>98.5%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ecosystem-section">
+      <div class="container">
+        <div class="section-title">
+          <h2>What <span>We Do</span></h2>
+          <p>
+            We simplify education management. We provide the technical backbone
+            so you can focus on what you do best: Teaching.
+          </p>
+        </div>
+
+        <div class="ecosystem-grid">
+          <div class="eco-card">
+            <div class="eco-icon icon-pink"><i class="fas fa-desktop"></i></div>
+            <h4>Professional Website</h4>
+            <p>
+              Get your own branded website with your logo, domain, and colors.
+              Professionalism on day one.
+            </p>
+          </div>
+
+          <div class="eco-card">
+            <div class="eco-icon icon-green">
+              <i class="fas fa-play-circle"></i>
+            </div>
+            <h4>Secure LMS</h4>
+            <p>
+              Upload videos and PDFs securely. Our system prevents unauthorized
+              downloads of your hard work.
+            </p>
+          </div>
+
+          <div class="eco-card">
+            <div class="eco-icon icon-yellow">
+              <i class="fas fa-wallet"></i>
+            </div>
+            <h4>Fee Management</h4>
+            <p>
+              Track payments, send automated WhatsApp reminders, and accept
+              online UPI payments easily.
+            </p>
+          </div>
+
+          <div class="eco-card">
+            <div class="eco-icon icon-green">
+              <i class="fas fa-user-check"></i>
+            </div>
+            <h4>Smart Attendance</h4>
+            <p>
+              Mark attendance in one tap. Automatically notify parents when a
+              student is absent.
+            </p>
+          </div>
+
+          <div class="eco-card">
+            <div class="eco-icon icon-pink">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h4>Growth Reports</h4>
+            <p>
+              Deep analytics on student performance, revenue, and batch
+              efficiency to help you scale.
+            </p>
+          </div>
+
+          <div class="eco-card">
+            <div class="eco-icon icon-yellow"><i class="fas fa-box"></i></div>
+            <h4>Inventory &amp; Books</h4>
+            <p>
+              Manage and sell your physical books or digital study materials
+              directly through your portal.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="target" class="target-section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Whom We <span>Target</span></h2>
+          <p>
+            ERPLI is built for the "Least Tech" guy who wants big-tech power.
+          </p>
+        </div>
+        <div class="target-container">
+          <div class="target-list">
+            <div class="target-item">
+              <i class="fab fa-youtube"></i>
+              <div>
+                <strong>YouTubers:</strong> Move your community to your own app
+                and monetize securely.
+              </div>
+            </div>
+            <div class="target-item">
+              <i class="fas fa-university"></i>
+              <div>
+                <strong>Coaching Institutes:</strong> Manage multiple batches,
+                staff, and fees effortlessly.
+              </div>
+            </div>
+            <div class="target-item">
+              <i class="fas fa-home"></i>
+              <div>
+                <strong>Private Tutors:</strong> Go digital and professional
+                with your own branded student login.
+              </div>
+            </div>
+            <div class="target-item">
+              <i class="fas fa-laptop-code"></i>
+              <div>
+                <strong>Online Classes:</strong> Integrate live classes and
+                recorded content in one place.
+              </div>
+            </div>
+          </div>
+          <div class="target-info-box">
+            <h3>Why Target Small Tutors?</h3>
+            <p>
+              We believe every teacher is a brand. Big platforms take high
+              commissions—ERPLI gives you the tools for a flat, honest fee of
+              ₹999.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="comparison-section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Why <span>Choose Us</span></h2>
+          <p>Compare and see why 500+ teachers trust ERPLI.</p>
+        </div>
+        <div class="table-responsive">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Doing it Manually</th>
+                <th>Expensive Platforms</th>
+                <th>ERPLI (₹999)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Setup Cost</td>
+                <td>Free (But time-consuming)</td>
+                <td>₹15,000 - ₹50,000</td>
+                <td class="highlight-cell">₹999 Only</td>
+              </tr>
+              <tr>
+                <td>Branding</td>
+                <td class="text-red">None</td>
+                <td>Shared Branding</td>
+                <td class="text-green">Your Own Brand</td>
+              </tr>
+              <tr>
+                <td>Video Security</td>
+                <td class="text-red">None (YouTube Links)</td>
+                <td>Yes</td>
+                <td class="text-green">Bank-Level Security</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="target-section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Built for <span>Educators</span> of all sizes.</h2>
+          <p>Tailored solutions for every type of educator.</p>
+        </div>
+        <div class="target-grid">
+          <div class="target-card">
+            <div class="target-icon">
+              <i class="fas fa-chalkboard-teacher"></i>
+            </div>
+            <h3>Coaching Centers</h3>
+            <p>
+              Manage students, fees, and attendance for your coaching classes
+              effortlessly.
+            </p>
+          </div>
+          <div class="target-card">
+            <div class="target-icon"><i class="fab fa-youtube"></i></div>
+            <h3>YouTube Teachers</h3>
+            <p>
+              Monetize your content and manage your online student community in
+              one place.
+            </p>
+          </div>
+          <div class="target-card">
+            <div class="target-icon"><i class="fas fa-school"></i></div>
+            <h3>Schools &amp; Institutes</h3>
+            <p>
+              Comprehensive ERP for large institutions, from admissions to
+              alumni management.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ecosystem-section">
+      <div class="container">
+        <div class="section-title">
+          <h2>A Complete <span>Digital Ecosystem</span>.</h2>
+          <p>All the tools you need, integrated seamlessly.</p>
+        </div>
+        <div class="ecosystem-grid">
+          <div class="eco-card">
+            <div class="eco-icon" style="background-color: #f28482">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <h4>LMS &amp; Content</h4>
+            <p>Share study materials and manage courses.</p>
+          </div>
+          <div class="eco-card">
+            <div class="eco-icon" style="background-color: #81b29a">
+              <i class="fas fa-file-invoice-dollar"></i>
+            </div>
+            <h4>Fee Management</h4>
+            <p>Automate fee collection and reminders.</p>
+          </div>
+          <div class="eco-card">
+            <div class="eco-icon" style="background-color: #f4d35e">
+              <i class="fas fa-user-clock"></i>
+            </div>
+            <h4>Attendance ERP</h4>
+            <p>Track student and staff attendance easily.</p>
+          </div>
+          <div class="eco-card">
+            <div class="eco-icon" style="background-color: #9b5de5">
+              <i class="fas fa-users"></i>
+            </div>
+            <h4>Student CRM</h4>
+            <p>Manage admissions and student data.</p>
+          </div>
+          <div class="eco-card">
+            <div class="eco-icon" style="background-color: #00bbf9">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h4>White Label App</h4>
+            <p>Your own branded mobile application.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="why-section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Why <span>ERPLI</span>?</h2>
+          <p>The smart choice for your educational institution.</p>
+        </div>
+        <div class="why-grid">
+          <div class="why-card">
+            <div class="why-icon"><i class="fas fa-tags"></i></div>
+            <div>
+              <h3>Affordable Pricing</h3>
+              <p>
+                Enterprise-grade features at a price that fits your budget, no
+                hidden costs.
+              </p>
+            </div>
+          </div>
+          <div class="why-card">
+            <div class="why-icon"><i class="fas fa-layer-group"></i></div>
+            <div>
+              <h3>All-in-One Solution</h3>
+              <p>
+                Stop juggling multiple tools. ERPLI brings everything together
+                in one platform.
+              </p>
+            </div>
+          </div>
+          <div class="why-card">
+            <div class="why-icon"><i class="fas fa-rocket"></i></div>
+            <div>
+              <h3>Easy to Use</h3>
+              <p>
+                Intuitive interface designed for educators, not just tech
+                experts. Get started quickly.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="faq-section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Common <span>Questions</span></h2>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="faq-question">
+              Do I need technical knowledge? <i class="fas fa-plus"></i>
+            </div>
+            <div class="faq-answer">
+              No technical knowledge is required. We handle all the setup and
+              hosting for you. If you can use a smartphone, you can manage your
+              institute with ERPLI.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              What does the ₹999 plan include? <i class="fas fa-plus"></i>
+            </div>
+            <div class="faq-answer">
+              The ₹999 plan gives you full access for one year: your
+              professional website, secure LMS, fee management, student
+              attendance, and basic growth reports.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              Can I use my own logo? <i class="fas fa-plus"></i>
+            </div>
+            <div class="faq-answer">
+              Absolutely! ERPLI is fully white-labeled. You can upload your own
+              logo, use your brand colors, and even connect your custom domain
+              name.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              Is my content safe? <i class="fas fa-plus"></i>
+            </div>
+            <div class="faq-answer">
+              Security is our priority. Your videos are protected with
+              anti-download technology, and your student data is encrypted and
+              stored on secure enterprise servers.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      document.querySelectorAll(".faq-question").forEach((question) => {
+        question.addEventListener("click", () => {
+          const item = question.parentElement;
+
+          // Toggle the active class on the clicked item
+          item.classList.toggle("active");
+
+          // Optional: Close other open questions when a new one is clicked
+          document.querySelectorAll(".faq-item").forEach((otherItem) => {
+            if (otherItem !== item) {
+              otherItem.classList.remove("active");
+            }
+          });
+        });
+      });
+    </script><div id="open-incognito-widget" role="button" tabindex="0" aria-label="Open current tab in incognito"><template shadowrootmode="open"><style>
+            :host {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                z-index: 2147483646;
+                opacity: 0.35;
+                padding: 0;
+                width: 8px;
+                height: 8px;
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: visible;
+                background-color: rgba(0, 0, 0, 0.55);
+            }
+            :host(.expanded) {
+                opacity: 1;
+                width: 52px;
+                height: 52px;
+                border-radius: 0 10px 0 0;
+                background-color: unset;
+            }
+            img {
+                width: 0;
+                height: 0;
+                object-fit: contain;
+                transition: width 0.2s ease, height 0.2s ease;
+            }
+            :host(.expanded) img {
+                width: calc(100% - 20px);
+                height: calc(100% - 20px);
+                transform: translate(-5px, 5px);
+                padding: 5px;
+                box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+                border-radius: 10px;
+                background-color: #c6c6c7;
+            }
+            button {
+                position: absolute;
+                top: 2px;
+                right: 2px;
+                width: 18px;
+                height: 18px;
+                border: none;
+                border-radius: 50%;
+                background-color: rgba(0, 0, 0, 0.55);
+                color: #ffffff;
+                font-size: 14px;
+                line-height: 18px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                opacity: 0;
+                pointer-events: none;
+            }
+            :host(.expanded) button {
+                opacity: 0.9;
+                pointer-events: auto;
+            }
+        </style><img src="chrome-extension://ebgmlfdcgihhfheckfdmhnmedjigogmm/images/48x48.png" alt=""><button type="button" aria-label="Hide widget" title="Hide widget">×</button></template></div>
+
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-about">
+            <div class="logo">ERPLI<span>.</span></div>
+            <p>
+              The unified platform empowering thousands of educators to build
+              their own digital legacy.
+            </p>
+          </div>
+          <div class="footer-links">
+            <h4>Product Suite</h4>
+            <ul>
+              <li><a href="http://127.0.0.1:5500/index.html#">LMS &amp; Content</a></li>
+              <li><a href="http://127.0.0.1:5500/index.html#">Fee Management</a></li>
+              <li><a href="http://127.0.0.1:5500/index.html#">Attendance ERP</a></li>
+              <li><a href="http://127.0.0.1:5500/index.html#">Student CRM</a></li>
+            </ul>
+          </div>
+          <div class="footer-links">
+            <h4>Solutions</h4>
+            <ul>
+              <li><a href="http://127.0.0.1:5500/index.html#">Coaching Centers</a></li>
+              <li><a href="http://127.0.0.1:5500/index.html#">YouTube Teachers</a></li>
+              <li><a href="http://127.0.0.1:5500/index.html#">Solo Educators</a></li>
+              <li><a href="http://127.0.0.1:5500/index.html#">School ERP</a></li>
+            </ul>
+          </div>
+          <div class="footer-links">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="http://127.0.0.1:5500/index.html#">About Us</a></li>
+              <li><a href="http://127.0.0.1:5500/index.html#">Pricing</a></li>
+              <li><a href="http://127.0.0.1:5500/index.html#">Success Stories</a></li>
+              <li><a href="http://127.0.0.1:5500/index.html#">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-links">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="http://127.0.0.1:5500/index.html#">Privacy Policy</a></li>
+              <li><a href="http://127.0.0.1:5500/index.html#">Terms &amp; Conditions</a></li>
+              <li><a href="http://127.0.0.1:5500/index.html#">GDPR Compliance</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            © 2026 ERPLI Education Systems. All Rights Reserved. Built for
+            Teachers.
+          </p>
+        </div>
+      </div>
+    </footer>
+  <!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+<div id="aUKCVgKPVGTHCEG" style="color-scheme: initial; forced-color-adjust: initial; mask: initial; math-depth: initial; position: relative; position-anchor: initial; text-size-adjust: initial; appearance: initial; color: initial; font: initial; font-palette: initial; font-synthesis: initial; position-area: initial; text-orientation: initial; text-rendering: initial; text-spacing-trim: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; accent-color: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; anchor-name: initial; anchor-scope: initial; animation-composition: initial; animation: initial; app-region: initial; aspect-ratio: initial; backdrop-filter: initial; backface-visibility: initial; background: initial; background-blend-mode: initial; baseline-shift: initial; baseline-source: initial; block-size: initial; border-block: initial; border: initial; border-radius: initial; border-collapse: initial; border-end-end-radius: initial; border-end-start-radius: initial; border-inline: initial; border-start-end-radius: initial; border-start-start-radius: initial; inset: initial; box-decoration-break: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-animation: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-block-size: initial; contain-intrinsic-size: initial; contain-intrinsic-inline-size: initial; container: initial; content: initial; content-visibility: initial; corner-shape: initial; corner-block-end-shape: initial; corner-block-start-shape: initial; counter-increment: initial; counter-reset: initial; counter-set: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: initial; dominant-baseline: initial; dynamic-range-limit: initial; empty-cells: initial; field-sizing: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: initial; hyphenate-character: initial; hyphenate-limit-chars: initial; hyphens: initial; image-orientation: initial; image-rendering: initial; initial-letter: initial; inline-size: initial; inset-block: initial; inset-inline: initial; interest-delay: initial; interpolate-size: initial; isolation: initial; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block: initial; margin: initial; margin-inline: initial; marker: initial; mask-type: initial; math-shift: initial; math-style: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: initial; mix-blend-mode: initial; object-fit: initial; object-position: initial; object-view-box: initial; offset: initial; opacity: initial; order: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-block: initial; overflow-clip-margin: initial; overflow-inline: initial; overflow-wrap: initial; overflow: initial; overlay: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block: initial; padding: initial; padding-inline: initial; page: initial; page-orientation: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position-try: initial; position-visibility: initial; print-color-adjust: initial; quotes: initial; r: initial; reading-flow: initial; reading-order: initial; resize: initial; rotate: initial; ruby-align: initial; ruby-position: initial; rx: initial; ry: initial; scale: initial; scroll-behavior: initial; scroll-initial-target: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-marker-group: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; scroll-target-group: initial; scroll-timeline: initial; scrollbar-color: initial; scrollbar-gutter: initial; scrollbar-width: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-autospace: initial; text-box: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-emphasis: initial; text-emphasis-position: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-transform: initial; text-underline-offset: initial; text-underline-position: initial; text-wrap: initial; timeline-scope: initial; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; transition: initial; translate: initial; user-select: initial; vector-effect: initial; vertical-align: initial; view-timeline: initial; view-transition-class: initial; view-transition-group: initial; view-transition-name: initial; visibility: initial; border-spacing: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-user-drag: initial; white-space-collapse: initial; widows: initial; width: initial; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: 2147483647;"><div style="all: initial;"><template shadowrootmode="closed"><div></div></template></div></div></body></html>
