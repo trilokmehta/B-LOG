@@ -602,6 +602,113 @@
         .hero-content h1 { font-size: 2.5rem; }
         .nav-links .dropdown, .nav-links a:not(.btn) { display: none; }
     }
+
+    /* --- Why ERPLI Section --- */
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+.why-item {
+    text-align: left;
+}
+.why-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--secondary-color);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+.why-item h3 { font-size: 1.4rem; margin-bottom: 10px; }
+
+/* --- Integrations Section --- */
+.integrations { text-align: center; border-top: 1px solid #eee; padding: 60px 0; }
+.integration-label { 
+    font-size: 0.8rem; 
+    font-weight: 700; 
+    letter-spacing: 2px; 
+    color: var(--text-muted); 
+    margin-bottom: 40px; 
+}
+.integration-grid {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+.int-box { text-align: center; color: var(--text-muted); opacity: 0.7; transition: 0.3s; }
+.int-box:hover { opacity: 1; transform: translateY(-5px); }
+.int-box i { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+.int-box span { font-size: 0.8rem; font-weight: 600; }
+
+/* --- Security Section --- */
+.security-flex { display: flex; align-items: center; gap: 80px; padding: 100px 0; }
+.security-mockup { flex: 1; display: flex; justify-content: center; }
+.shield-card {
+    background: white;
+    padding: 60px;
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+    text-align: center;
+    border: 1px solid #f0f0f0;
+}
+.shield-logo { font-size: 2rem; font-weight: 900; margin-bottom: 20px; }
+.shield-card i { font-size: 6rem; color: var(--primary-color); }
+.security-text { flex: 1; }
+
+/* --- Footer --- */
+.main-footer { background: #fff; padding-top: 80px; border-top: 1px solid #eee; }
+.footer-grid { 
+    display: grid; 
+    grid-template-columns: 1.5fr 1fr 1fr 1fr; 
+    gap: 40px; 
+    padding-bottom: 60px;
+}
+.footer-brand p { margin-top: 20px; color: var(--text-muted); max-width: 300px; }
+.footer-col h4 { margin-bottom: 25px; font-size: 1.1rem; }
+.footer-col ul li { margin-bottom: 12px; color: var(--text-muted); font-size: 0.95rem; cursor: pointer; }
+.footer-col ul li:hover { color: var(--primary-color); }
+
+.footer-bottom { 
+    border-top: 1px solid #eee; 
+    padding: 30px 0; 
+    text-align: center; 
+    font-size: 0.9rem; 
+    color: var(--text-muted); 
+}
+
+/* Responsive fixes */
+@media (max-width: 992px) {
+    .why-grid, .footer-grid { grid-template-columns: 1fr 1fr; }
+    .security-flex { flex-direction: column; text-align: center; }
+}
+
+
+/* Step Cards Styling */
+.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
+.step-card { 
+    background: #fff; padding: 40px; border-radius: 20px; text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: 0.3s;
+}
+.step-card:hover { transform: translateY(-10px); }
+.step-num { 
+    width: 50px; height: 50px; background: var(--primary-color); color: #fff;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px; font-weight: 800; font-size: 1.2rem;
+}
+
+/* Footer Legal Styles */
+.legal-links { margin-top: 40px; }
+.legal-links h4 { margin-bottom: 15px; font-size: 1rem; }
+.legal-links a { display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px; }
+
+/* Pricing Highlight */
+.target-info-box span { color: var(--primary-color); font-weight: 900; font-size: 1.4rem; }
 </style>
 </head>
 <body>
@@ -861,7 +968,75 @@
   </div>
 </section>
 
-    <section class="faq-section reveal">
+    
+
+    <section class="why-erpli reveal">
+    <div class="container">
+        <div class="section-title">
+            <h2>Why ERPLI?</h2>
+            <p>The smart choice for your educational institution.</p>
+        </div>
+        <div class="why-grid">
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-tags"></i></div>
+                <h3>Affordable Pricing</h3>
+                <p>Enterprise-grade features at a price that fits your budget, no hidden costs.</p>
+            </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-layer-group"></i></div>
+                <h3>All-in-One Solution</h3>
+                <p>Stop juggling multiple tools. ERPLI brings everything together in one platform.</p>
+            </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-rocket"></i></div>
+                <h3>Easy to Use</h3>
+                <p>Intuitive interface designed for educators, not just tech experts. Get started quickly.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="security reveal">
+    <div class="container security-flex">
+        <div class="security-mockup">
+            <div class="shield-card">
+                <div class="shield-logo">ERPLI<span>.</span></div>
+                <i class="fas fa-shield-alt"></i>
+            </div>
+        </div>
+        <div class="security-text">
+            <h2>Your Content, <span>Locked Down.</span></h2>
+            <p>ERPLI provides a secure, white-labeled login for every student. Our system ensures your hard work stays protected from piracy with piracy-protected video hosting and secure materials access.</p>
+        </div>
+    </div>
+</section>
+<section class="how-it-works reveal">
+  <div class="container">
+    <div class="section-title">
+      <h2>How It <span>Works</span></h2>
+      <p>Start your digital academy in just 3 simple steps.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Quick Registration</h3>
+        <p>Enter your institute name and logo. We handle the technical setup and hosting for you instantly.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Upload Content</h3>
+        <p>Upload your videos and PDFs. Our secure system ensures your hard work stays protected from piracy.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Share & Grow</h3>
+        <p>Share your branded link with students on WhatsApp and start collecting fees via UPI directly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section reveal">
         <div class="container">
             <h2 style="text-align: center; margin-bottom: 50px;">Common <span>Questions</span></h2>
             <div class="faq-list" style="max-width: 800px; margin: 0 auto;">
@@ -877,17 +1052,47 @@
         </div>
     </section>
 
-    <footer style="padding: 80px 0; background: white; border-top: 1px solid #eee;">
-        <div class="container" style="text-align: center;">
+
+<footer class="main-footer">
+    <div class="container footer-grid">
+        <div class="footer-brand">
             <div class="logo">ERPLI<span>.</span></div>
-            <p style="margin: 20px 0; color: var(--text-muted);">© 2026 ERPLI Education Systems. Built for Teachers, by Techies.</p>
-            <div class="social-links" style="display: flex; justify-content: center; gap: 20px; font-size: 1.5rem;">
-                <i class="fab fa-whatsapp"></i>
-                <i class="fab fa-youtube"></i>
-                <i class="fab fa-instagram"></i>
-            </div>
+            <p>The unified platform empowering thousands of educators to build their own digital legacy.</p>
         </div>
-    </footer>
+        <div class="footer-col">
+            <h4>Product Suite</h4>
+            <ul>
+                <li>LMS & Content</li>
+                <li>Fee Management</li>
+                <li>Attendance ERP</li>
+                <li>Student CRM</li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Solutions</h4>
+            <ul>
+                <li>Coaching Centers</li>
+                <li>YouTube Teachers</li>
+                <li>Solo Educators</li>
+                <li>School ERP</li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Company</h4>
+            <ul>
+                <li>About Us</li>
+                <li>Pricing</li>
+                <li>Success Stories</li>
+                <li>Contact</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <p>© 2026 ERPLI Education Systems. All Rights Reserved. Built for Teachers.</p>
+        </div>
+    </div>
+</footer>
 
     <script>
   // 1. Create one observer to handle everything
