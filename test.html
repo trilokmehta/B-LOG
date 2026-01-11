@@ -168,10 +168,12 @@
     }
 
     .nav-links { 
-        display: flex; 
-        gap: 25px; 
-        align-items: center; 
-    }
+    display: flex; 
+    gap: 30px;          /* Space between the links */
+    align-items: center; 
+    margin-left: auto;   /* This pushes the links to the right */
+    margin-right: 40px;  /* This adds space between links and the button */
+}
 
     .dropdown { 
         position: relative; 
@@ -559,8 +561,13 @@
         border-color: var(--primary-color);
     }
 
-    .faq-item.active .faq-answer { display: block; }
+    .faq-item.active .faq-answer {
+         display: block;
+        }
 
+    .faq-question i {
+    transition: transform 0.3s ease;
+}
     /* --- Footer --- */
     footer {
         padding: 80px 0; 
@@ -709,6 +716,120 @@
 
 /* Pricing Highlight */
 .target-info-box span { color: var(--primary-color); font-weight: 900; font-size: 1.4rem; }
+
+/* --- Final CTA Section --- */
+.cta-final {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    text-align: center;
+    padding: 120px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-final h2 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+}
+
+.cta-final h2 span {
+    color: var(--primary-color);
+}
+
+.cta-final p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 40px;
+}
+
+/* White Button Variation */
+.btn-white {
+    background-color: var(--white);
+    color: var(--secondary-color);
+    padding: 18px 45px;
+    font-size: 1.1rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.btn-white:hover {
+    background-color: var(--bg-light);
+    transform: translateY(-5px);
+}
+
+.trust-note {
+    font-size: 0.85rem !important;
+    margin-top: 20px;
+    opacity: 0.6 !important;
+}
+
+/* Responsive fix for CTA */
+@media (max-width: 768px) {
+    .cta-final h2 { font-size: 2.2rem; }
+    .cta-final { padding: 80px 20px; }
+}
+
+/* --- Comparison Table --- */
+.comparison-wrapper {
+    overflow-x: auto; /* Enable swipe on mobile */
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+    padding: 20px;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    min-width: 700px; /* Ensures it doesn't look cramped */
+}
+
+.comparison-table th, 
+.comparison-table td {
+    padding: 25px 20px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+}
+
+.comparison-table th {
+    background: var(--bg-light);
+    color: var(--secondary-color);
+    font-weight: 800;
+}
+
+/* Highlighting the ERPLI Column */
+.highlight-head {
+    background: var(--primary-color) !important;
+    color: white !important;
+    border-radius: 12px 12px 0 0;
+    text-align: center;
+}
+
+.highlight-cell {
+    background: rgba(242, 132, 130, 0.05);
+    font-weight: 700;
+    color: var(--secondary-color);
+    text-align: center;
+    border-left: 2px solid rgba(242, 132, 130, 0.1);
+    border-right: 2px solid rgba(242, 132, 130, 0.1);
+}
+
+.comparison-table tr:last-child td.highlight-cell {
+    border-radius: 0 0 12px 12px;
+    border-bottom: 2px solid rgba(242, 132, 130, 0.1);
+}
+
+/* Mobile hint */
+@media (max-width: 768px) {
+    .comparison-wrapper::after {
+        content: "← Swipe to compare →";
+        display: block;
+        text-align: center;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-top: 15px;
+    }
+}
 </style>
 </head>
 <body>
@@ -716,16 +837,15 @@
     <header>
         <div class="container">
             <nav>
-                <a href="#" class="logo">ERPLI<span>.</span></a>
+                <a href="https://erpli.com/" class="logo">ERPLI<span>.</span></a>
                 <div class="nav-links">
                     <div class="nav-links">
-  <a href="#">Solutions <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
-  <a href="#">Features</a>
-  <a href="#">Pricing <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
-  
-</div>
+                    <a href="#">Solutions <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+                    <a href="#">Features</a>
+                    <a href="#">Pricing <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+                </div>
                     
-                    </div>
+                </div>
                     <a href="#" class="btn btn-primary">Give us a Call</a>
                 </div>
             </nav>
@@ -740,23 +860,23 @@
                 <div class="hero-buttons">
                     <a href="#" class="btn btn-primary">Start Your Legacy</a>
                     <a href="#" class="btn btn-outline">Explore Features</a>
-                </div>
+            </div>
             </div>
             <div class="hero-graphic">
-  <div class="dashboard-mockup">
-    <div class="mockup-line" style="width: 75%;"></div>
-    <div class="mockup-line" style="width: 90%;"></div>
-    <div class="mockup-line" style="width: 60%;"></div>
+            <div class="dashboard-mockup">
+            <div class="mockup-line" style="width: 75%;"></div>
+            <div class="mockup-line" style="width: 90%;"></div>
+            <div class="mockup-line" style="width: 60%;"></div>
 
-    <div class="stat-card stat-attendance">
-      <div class="stat-icon icon-red">
-        <i class="fas fa-user-check"></i>
-      </div>
-      <div class="stat-text">
-        <span class="label">Attendance</span>
-        <span class="value">98.5%</span>
-      </div>
-    </div>
+            <div class="stat-card stat-attendance">
+                <div class="stat-icon icon-red">
+                  <i class="fas fa-user-check"></i>
+                </div>
+                <div class="stat-text">
+                  <span class="label">Attendance</span>
+                  <span class="value">98.5%</span>
+                </div>
+            </div>
 
     <div class="stat-card stat-growth">
       <div class="stat-icon icon-green">
@@ -996,20 +1116,47 @@
     </div>
 </section>
 
-<section class="security reveal">
-    <div class="container security-flex">
-        <div class="security-mockup">
-            <div class="shield-card">
-                <div class="shield-logo">ERPLI<span>.</span></div>
-                <i class="fas fa-shield-alt"></i>
+
+
+
+<section class="faq-section reveal">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 50px;">Common <span>Questions</span></h2>
+            <div class="faq-list" style="max-width: 800px; margin: 0 auto;">
+                <div class="faq-item">
+                    <div class="faq-question">What's the catch with ₹999? <i class="fas fa-plus"></i></div>
+                    <div class="faq-answer">No catch. We use enterprise cloud architecture to keep costs low and pass those savings to you.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Can I use my own domain? <i class="fas fa-plus"></i></div>
+                    <div class="faq-answer">Yes! Connect your .com or .in domain easily in one click.</div>
+                </div>
+                <div class="faq-item">
+    <div class="faq-question">Do you take any commission on my course sales? <i class="fas fa-plus"></i></div>
+    <div class="faq-answer">Absolutely not. Unlike other platforms that take 10-30%, ERPLI is a 0% commission platform. Your hard-earned money stays with you.</div>
+</div>
+
+<div class="faq-item">
+    <div class="faq-question">Is the ₹999 price per student or per year? <i class="fas fa-plus"></i></div>
+    <div class="faq-answer">It is a flat fee of ₹999 per year for the basic ERP suite. There are no "per-student" charges, so you can grow from 10 to 10,000 students without worrying about rising costs.</div>
+</div>
+<div class="faq-item">
+    <div class="faq-question">How do you prevent students from sharing my videos? <i class="fas fa-plus"></i></div>
+    <div class="faq-answer">We use multi-layer protection: Device-locked logins (one account = one device), dynamic watermarking (student's email/phone floats on screen), and anti-screen record technology.</div>
+</div>
+
+<div class="faq-item">
+    <div class="faq-question">Can students download videos for offline viewing? <i class="fas fa-plus"></i></div>
+    <div class="faq-answer">Yes, but only within the encrypted ERPLI app. They cannot access the raw file in their gallery or share it via WhatsApp or Telegram.</div>
+</div>
+<div class="faq-item">
+    <div class="faq-question">Can I manage my offline coaching staff with this? <i class="fas fa-plus"></i></div>
+    <div class="faq-answer">Yes. You can create sub-admin roles for your receptionists, teachers, and accountants with restricted access to specific data like fee collection or attendance.</div>
+</div>
             </div>
         </div>
-        <div class="security-text">
-            <h2>Your Content, <span>Locked Down.</span></h2>
-            <p>ERPLI provides a secure, white-labeled login for every student. Our system ensures your hard work stays protected from piracy with piracy-protected video hosting and secure materials access.</p>
-        </div>
-    </div>
 </section>
+
 <section class="how-it-works reveal">
   <div class="container">
     <div class="section-title">
@@ -1036,22 +1183,66 @@
   </div>
 </section>
 
-<section class="faq-section reveal">
-        <div class="container">
-            <h2 style="text-align: center; margin-bottom: 50px;">Common <span>Questions</span></h2>
-            <div class="faq-list" style="max-width: 800px; margin: 0 auto;">
-                <div class="faq-item">
-                    <div class="faq-question">What's the catch with ₹999? <i class="fas fa-plus"></i></div>
-                    <div class="faq-answer">No catch. We use enterprise cloud architecture to keep costs low and pass those savings to you.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Can I use my own domain? <i class="fas fa-plus"></i></div>
-                    <div class="faq-answer">Yes! Connect your .com or .in domain easily in one click.</div>
-                </div>
+<section class="comparison-section reveal">
+  <div class="container">
+    <div class="section-title">
+      <h2>Why <span>Choose Us</span></h2>
+      <p>Compare and see why 500+ teachers trust ERPLI.</p>
+    </div>
+
+    <div class="comparison-wrapper">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Doing it Manually</th>
+            <th>Expensive Platforms</th>
+            <th class="highlight-head">ERPLI (₹999)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Setup Cost</strong></td>
+            <td>Free (But time-consuming)</td>
+            <td>₹15,000 - ₹50,000</td>
+            <td class="highlight-cell">₹999 Only</td>
+          </tr>
+          <tr>
+            <td><strong>Branding</strong></td>
+            <td>None</td>
+            <td>Shared Branding</td>
+            <td class="highlight-cell">Your Own Brand</td>
+          </tr>
+          <tr>
+            <td><strong>Video Security</strong></td>
+            <td>None (YouTube Links)</td>
+            <td>Yes</td>
+            <td class="highlight-cell">Bank-Level Security</td>
+          </tr>
+          <tr>
+            <td><strong>Commission</strong></td>
+            <td>0%</td>
+            <td>10% - 30%</td>
+            <td class="highlight-cell">0% (Keep 100%)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final reveal">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to build your <br><span>digital legacy?</span></h2>
+            <p>Join 500+ educators today for just <strong>₹999/year</strong>. <br>Flat pricing, no hidden fees.</p>
+            <div class="cta-actions">
+                <a href="#" class="btn btn-white">Get Started Now</a>
+                <p class="trust-note"><i class="fas fa-shield-check"></i> No credit card required to start</p>
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
 
 <footer class="main-footer">
     <div class="container footer-grid">
