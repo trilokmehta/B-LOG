@@ -1,0 +1,2443 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ERPLI - Enterprise features at a startup price.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* --- Root Variables --- */
+      :root {
+        --primary-color: #f28482; /* Coral Pink */
+        --secondary-color: #3d405b; /* Dark Navy Blue */
+        --bg-light: #fffbf5; /* Soft Cream */
+        --white: #ffffff;
+        --text-dark: #3d405b;
+        --text-muted: #666;
+        --accent-yellow: #f4d35e; /* Highlight Yellow */
+        --font-family: "Inter", sans-serif;
+      }
+
+      /* --- Base & Reset --- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font-family);
+        background-color: var(--bg-light);
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      section {
+        padding: clamp(60px, 10vw, 120px) 0;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 800;
+        line-height: 1.2;
+      }
+      span {
+        color: var(--primary-color);
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: 0.3s;
+      }
+      ul {
+        list-style: none;
+      }
+
+      /* --- Reusable Components --- */
+      .section-title {
+        text-align: center;
+        margin-bottom: 80px;
+      }
+      .section-title h2 {
+        font-size: clamp(2rem, 5vw, 2.8rem);
+        margin-bottom: 15px;
+      }
+      .section-title p {
+        max-width: 700px;
+        margin: 0 auto;
+        color: var(--text-muted);
+        font-size: 1.1rem;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 16px 36px;
+        border-radius: 50px;
+        font-weight: 700;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        text-align: center;
+        border: none;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: var(--white);
+        box-shadow: 0 4px 15px rgba(242, 132, 130, 0.3);
+        animation: pulse-red 3s infinite;
+      }
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4);
+      }
+
+      .btn-outline {
+        border: 2px solid var(--secondary-color);
+        color: var(--secondary-color);
+      }
+      .btn-outline:hover {
+        background: var(--secondary-color);
+        color: white;
+      }
+
+      .btn-white {
+        background-color: var(--white);
+        color: var(--secondary-color);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+      .btn-white:hover {
+        transform: translateY(-5px);
+      }
+
+      /* --- Animations --- */
+      @keyframes pulse-red {
+        0% {
+          box-shadow: 0 0 0 0 rgba(242, 132, 130, 0.6);
+        }
+        70% {
+          box-shadow: 0 0 0 15px rgba(242, 132, 130, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(242, 132, 130, 0);
+        }
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(-1deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(1deg);
+        }
+      }
+      @keyframes marquee {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: 0.8s ease-out;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* --- Header & Nav --- */
+      header {
+        padding: 15px 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        background-color: rgba(255, 251, 245, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 900;
+        color: var(--secondary-color);
+      }
+      .nav-links {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+        margin-left: auto;
+        margin-right: 40px;
+      }
+
+      /* --- Sections Specific Styles --- */
+      .hero {
+        padding: 180px 0 100px;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+      .hero-content h1 {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        margin-bottom: 25px;
+      }
+
+      .stat-strip {
+        background: white;
+        padding: 40px 0;
+        border-y: 1px solid #eee;
+      }
+      .stat-strip-grid {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 30px;
+        text-align: center;
+      }
+      .stat-item h3 {
+        font-size: 2.2rem;
+        color: var(--primary-color);
+      }
+
+      .split-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+      .split-image {
+        background: white;
+        border-radius: 30px;
+        padding: 40px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+      }
+
+      .features-card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+      .feat-card {
+        background: white;
+        padding: 40px;
+        border-radius: 24px;
+        transition: 0.3s;
+        border: 1px solid #f0f0f0;
+      }
+      .feat-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--primary-color);
+      }
+      .feat-card i {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 25px;
+        display: block;
+      }
+
+      .why-box {
+        background: var(--secondary-color);
+        color: white;
+        padding: 60px;
+        border-radius: 40px;
+      }
+      .why-box h2 {
+        margin-bottom: 20px;
+      }
+      .why-box ul li {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-size: 1.1rem;
+      }
+      .why-box i {
+        color: var(--accent-yellow);
+      }
+
+      .marquee-container {
+        overflow: hidden;
+        padding: 60px 0;
+        position: relative;
+        /* Fades the edges for a high-end look */
+        mask-image: linear-gradient(
+          to right,
+          transparent,
+          black 10%,
+          black 90%,
+          transparent
+        );
+      }
+
+      .eco-track {
+        display: flex;
+        width: max-content;
+        animation: scroll-loop 30s linear infinite; /* Adjusted speed */
+      }
+
+      .eco-track:hover {
+        animation-play-state: paused; /* Slows down or stops on hover */
+      }
+
+      @keyframes scroll-loop {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        } /* Halfway point is the end of Set 1 */
+      }
+
+      /* Item Styling */
+      .eco-item {
+        width: 240px;
+        background: white;
+        margin-right: 30px;
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        border: 1px solid #f0f0f0;
+      }
+      /* ... Use the specific icon colors (pdf, alerts, etc.) from previous turn ... */
+
+      .eco-item:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 20px 40px rgba(242, 132, 130, 0.1);
+        border-color: var(--primary-color);
+      }
+
+      .eco-item i {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        display: inline-block;
+        padding: 15px;
+        border-radius: 18px;
+        transition: 0.3s;
+      }
+
+      /* Feature-Specific Accent Colors */
+      .eco-item i.pdf {
+        background: #fff1f0;
+        color: #ff4d4f;
+      }
+      .eco-item i.alerts {
+        background: #e6f7ff;
+        color: #1890ff;
+      }
+      .eco-item i.attendance {
+        background: #f6ffed;
+        color: #52c41a;
+      }
+      .eco-item i.certs {
+        background: #fff7e6;
+        color: #faad14;
+      }
+      .eco-item i.store {
+        background: #f9f0ff;
+        color: #722ed1;
+      }
+      .eco-item i.support {
+        background: #e6fffb;
+        color: #13c2c2;
+      }
+
+      .eco-item h4 {
+        font-size: 1.1rem;
+        color: var(--secondary-color);
+        font-weight: 700;
+      }
+
+      .faq-item {
+        background: white;
+        border-radius: 15px;
+        margin-bottom: 15px;
+        border: 1px solid #eee;
+        overflow: hidden;
+      }
+      .faq-q {
+        padding: 25px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        font-weight: 700;
+      }
+      .faq-a {
+        padding: 0 25px 25px;
+        display: none;
+        color: var(--text-muted);
+      }
+      .faq-item.active .faq-a {
+        display: block;
+      }
+
+      /* Footer */
+      .main-footer {
+        background: #fff;
+        padding: 80px 0 20px;
+        border-top: 1px solid #eee;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 50px;
+        margin-bottom: 60px;
+      }
+
+      /* Mobile */
+      @media (max-width: 992px) {
+        .hero-grid,
+        .split-grid {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 50px;
+        }
+        .nav-links {
+          display: none;
+        }
+        .hero-content {
+          max-width: 100%;
+        }
+        .hero-buttons {
+          justify-content: center;
+        }
+      }
+
+      /* Update standard section padding and gaps */
+      section {
+        padding: 100px 0;
+      }
+      .hero-grid,
+      .split-grid {
+        gap: 100px;
+      }
+
+      /* Floating Stat Cards for Hero */
+      .stat-card {
+        position: absolute;
+        background: #ffffff;
+        padding: 15px 20px;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        min-width: 170px;
+        animation: floating-ui 4s ease-in-out infinite;
+      }
+      @keyframes floating-ui {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      /* Refined Comparison Table */
+      /* Container Fix */
+      .comparison-wrapper {
+        background: white;
+        border-radius: 30px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+        overflow: hidden; /* Clips the table corners to the border-radius */
+        border: 1px solid #eee;
+        margin-top: 40px;
+      }
+
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+      }
+
+      /* Header Styling */
+      .comparison-table th {
+        padding: 30px 20px;
+        background: #fafafa;
+        font-weight: 800;
+        color: var(--secondary-color);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 1px solid #eee;
+      }
+
+      /* Body Styling */
+      .comparison-table td {
+        padding: 25px 20px;
+        border-bottom: 1px solid #f9f9f9;
+        color: var(--text-dark);
+        font-size: 1rem;
+      }
+
+      /* Feature Name (First Column) */
+      .comparison-table td:first-child {
+        text-align: left;
+        font-weight: 700;
+        color: var(--secondary-color);
+        padding-left: 40px;
+      }
+
+      /* THE WINNING COLUMN (ERPLI) */
+      .highlight-erpli {
+        background: rgba(
+          242,
+          132,
+          130,
+          0.05
+        ); /* Very light tint of your primary color */
+        border-left: 1px solid rgba(242, 132, 130, 0.1);
+        border-right: 1px solid rgba(242, 132, 130, 0.1);
+      }
+
+      thead th.highlight-erpli {
+        background: var(--primary-color);
+        color: white !important;
+      }
+
+      /* Color Accents */
+      .text-green {
+        color: #2a9d8f;
+        font-weight: 700;
+      }
+      .text-red {
+        color: #e76f51;
+        opacity: 0.8;
+      }
+
+      /* Small text under percentages */
+      .comparison-table small {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 400;
+        opacity: 0.7;
+      }
+
+      /* Mobile Fix: Allow horizontal scroll on small screens */
+      @media (max-width: 768px) {
+        .comparison-wrapper {
+          overflow-x: auto;
+        }
+        .comparison-table {
+          min-width: 600px; /* Forces scroll instead of squishing */
+        }
+      }
+      .highlight-head {
+        background: var(--primary-color) !important;
+        color: white !important;
+        border-radius: 12px 12px 0 0;
+        text-align: center;
+      }
+      .highlight-cell {
+        background: rgba(242, 132, 130, 0.05);
+        font-weight: 700;
+        text-align: center;
+        border: 2px solid rgba(242, 132, 130, 0.1);
+      }
+      /* Ensure the parent mockup box has a position and size */
+      .dashboard-mockup {
+        position: relative; /* This is the key fix */
+        background: #ffffff;
+        padding: 60px 40px;
+        border-radius: 24px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.05);
+        max-width: 480px;
+        margin: 0 auto;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      /* Ensure the mockup lines look like a UI */
+      .mockup-line {
+        height: 10px;
+        background: #f1f1f1;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+      /* Container for the visual side */
+      .split-image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .glass-card {
+        background: white;
+        padding: 60px;
+        border-radius: 40px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05);
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+      }
+
+      .globe-viz {
+        font-size: 8rem;
+        color: var(--primary-color);
+        opacity: 0.15;
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      /* Floating labels for "Local vs Global" */
+      .floating-label {
+        position: absolute;
+        background: var(--secondary-color);
+        color: white;
+        padding: 8px 18px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        top: 30%;
+        left: 10%;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .floating-label.global {
+        top: 60%;
+        left: 60%;
+        background: var(--primary-color);
+      }
+
+      /* Content Styling */
+      .section-heading {
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        margin-bottom: 20px;
+      }
+
+      .section-subtext {
+        font-size: 1.15rem;
+        color: var(--text-muted);
+        margin-bottom: 40px;
+      }
+
+      /* Custom Checklist UI */
+      .benefit-list {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+      }
+
+      .benefit-item {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+      }
+
+      .icon-box {
+        background: rgba(129, 178, 154, 0.1); /* Soft green bg */
+        color: #81b29a;
+        padding: 10px;
+        border-radius: 12px;
+        font-size: 1.4rem;
+        line-height: 1;
+      }
+
+      .benefit-text strong {
+        display: block;
+        font-size: 1.1rem;
+        color: var(--secondary-color);
+        margin-bottom: 4px;
+      }
+
+      .benefit-text span {
+        color: var(--text-muted);
+        font-size: 1rem;
+      }
+      .integration-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 25px;
+        margin-top: 50px;
+      }
+
+      .int-card {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        border: 1px solid #f0f0f0;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .int-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+        border-color: var(--primary-color);
+      }
+
+      /* Icon Styling */
+      .int-icon-wrapper {
+        width: 60px;
+        height: 60px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        flex-shrink: 0;
+      }
+
+      /* Brand Colors */
+      .int-icon-wrapper.upi {
+        background: #e8f0fe;
+        color: #1a73e8;
+      }
+      .int-icon-wrapper.whatsapp {
+        background: #e6f7ef;
+        color: #25d366;
+      }
+      .int-icon-wrapper.zoom {
+        background: #e8f4ff;
+        color: #2d8cff;
+      }
+      .int-icon-wrapper.google {
+        background: #fff1f0;
+        color: #ea4335;
+      }
+
+      .int-info h4 {
+        font-size: 1.1rem;
+        color: var(--secondary-color);
+        margin-bottom: 4px;
+      }
+
+      .int-info p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin: 0;
+      }
+      .process-wrapper {
+        display: flex;
+        justify-content: space-between;
+        gap: 40px;
+        margin-top: 60px;
+        position: relative;
+      }
+
+      /* The connecting line between steps */
+      .process-wrapper::before {
+        content: "";
+        position: absolute;
+        top: 110px; /* Aligns with the center of the icons */
+        left: 10%;
+        right: 10%;
+        height: 2px;
+        background: linear-gradient(to right, #eee, var(--primary-color), #eee);
+        z-index: 1;
+      }
+
+      .process-step {
+        flex: 1;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Large Background Number */
+      .step-number {
+        font-size: 5rem;
+        font-weight: 900;
+        color: var(--primary-color);
+        opacity: 0.1;
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        user-select: none;
+      }
+
+      .step-icon {
+        width: 80px;
+        height: 80px;
+        background: white;
+        border: 4px solid var(--bg-light);
+        color: var(--primary-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        margin: 0 auto 25px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        transition: 0.3s;
+      }
+
+      .process-step:hover .step-icon {
+        transform: scale(1.1);
+        background: var(--primary-color);
+        color: white;
+      }
+
+      .process-step h3 {
+        font-size: 1.4rem;
+        margin-bottom: 12px;
+        color: var(--secondary-color);
+      }
+
+      .process-step p {
+        color: var(--text-muted);
+        font-size: 1rem;
+        padding: 0 20px;
+      }
+
+      /* Responsive Fix: Stack steps vertically and hide the line on mobile */
+      @media (max-width: 992px) {
+        .process-wrapper {
+          flex-direction: column;
+          gap: 80px;
+        }
+        .process-wrapper::before {
+          display: none;
+        }
+      }
+
+      /* Final CTA Improvements */
+      .cta-final {
+        background: linear-gradient(
+          135deg,
+          var(--secondary-color) 0%,
+          #2a2d45 100%
+        );
+        color: white;
+        text-align: center;
+        padding: 100px 0;
+        margin: 0 20px;
+        border-radius: 40px;
+      }
+
+      .cta-final h2 {
+        font-size: clamp(2.2rem, 5vw, 3.5rem);
+        margin-bottom: 20px;
+      }
+
+      .cta-final p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        margin-bottom: 40px;
+      }
+
+      .cta-trust {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        font-size: 0.9rem;
+        opacity: 0.7;
+      }
+
+      /* Footer & Social Media */
+      .main-footer {
+        padding-top: 100px;
+        background: white;
+      }
+
+      .footer-brand p {
+        margin: 20px 0;
+        color: var(--text-muted);
+        max-width: 250px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-links a {
+        width: 40px;
+        height: 40px;
+        background: var(--bg-light);
+        color: var(--secondary-color);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        transition: 0.3s;
+      }
+
+      .social-links a:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-3px);
+      }
+
+      .main-footer h4 {
+        margin-bottom: 25px;
+        font-size: 1.1rem;
+      }
+
+      .main-footer ul li {
+        margin-bottom: 12px;
+      }
+
+      .main-footer ul a {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+      }
+
+      .main-footer ul a:hover {
+        color: var(--primary-color);
+        padding-left: 5px;
+      }
+
+      .footer-bottom {
+        margin-top: 80px;
+        padding: 30px 0;
+        border-top: 1px solid #eee;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+      /* Call Booking Card */
+      .call-card {
+        background: #2a2d45; /* Vibrant blue from reference */
+        border-radius: 40px;
+        padding: 80px 60px 40px;
+        position: relative;
+        overflow: hidden;
+        color: white;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Decorative Smileys */
+      .deco-circle {
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        top: -40px;
+      }
+
+      .deco-black {
+        background: #000;
+        left: 20px;
+        z-index: 2;
+        transform: rotate(-15deg);
+      }
+
+      .deco-yellow {
+        background: #e76f51;
+        left: 110px;
+        z-index: 1;
+        color: #000;
+      }
+
+      /* Typography */
+      .call-content h2 {
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        line-height: 1.1;
+        margin-bottom: 40px;
+        font-weight: 700;
+      }
+
+      .serif-text {
+        font-family: "Playfair Display", serif; /* or use generic serif */
+        font-style: italic;
+        font-weight: 400;
+        opacity: 0.95;
+      }
+
+      /* Schedule Button */
+      .btn-schedule {
+        display: inline-block;
+        background: #1a1a1a;
+        color: white;
+        padding: 18px 45px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 60px;
+        transition: 0.3s;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn-schedule:hover {
+        transform: scale(1.05);
+        background: #000;
+      }
+
+      /* Card Footer */
+      .call-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 30px;
+      }
+
+      .email-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .mail-icon {
+        font-size: 1.5rem;
+        color: #ffcc00; /* Yellow accent */
+      }
+
+      .mail-text span {
+        display: block;
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+
+      .mail-text a {
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+
+      .arrow-icon {
+        width: 45px;
+        height: 45px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        opacity: 0.6;
+      }
+
+      /* Responsive Fix */
+      @media (max-width: 600px) {
+        .call-card {
+          padding: 100px 30px 30px;
+          margin: 0 15px;
+        }
+        .deco-circle {
+          width: 90px;
+          height: 90px;
+          font-size: 2rem;
+        }
+      }
+
+      /* Vision Section Styling */
+      .vision-hook h2 {
+        font-size: clamp(2.2rem, 5vw, 3.2rem);
+        margin-bottom: 20px;
+        line-height: 1.1;
+        color: var(--secondary-color);
+      }
+
+      .vision-hook .section-subtext {
+        max-width: 450px;
+        font-size: 1.15rem;
+        color: var(--text-muted);
+      }
+
+      .vision-card {
+        padding: 20px; /* Airy spacing like the screenshot */
+      }
+
+      .vision-card h3 {
+        font-size: 1.5rem;
+        color: var(--secondary-color);
+        margin-bottom: 15px;
+      }
+
+      .vision-card p {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+
+      .vision-card strong {
+        color: var(--secondary-color);
+        font-weight: 800;
+      }
+
+      /* Ensure the button matches your primary action style */
+      .vision-card .btn-primary {
+        padding: 18px 40px;
+        font-size: 1.1rem;
+      }
+
+      /* Mobile Alignment Fix */
+      @media (max-width: 992px) {
+        .vision-hook {
+          text-align: center;
+          margin-bottom: 40px;
+        }
+        .vision-card {
+          text-align: center;
+          padding: 0;
+        }
+        .vision-hook .section-subtext {
+          margin: 0 auto;
+        }
+      }
+
+      /* Mobile Responsive Fixes */
+@media (max-width: 768px) {
+  /* Header & Navigation */
+  header {
+    padding: 12px 0;
+  }
+  
+  .logo {
+    font-size: 1.4rem;
+  }
+  
+  nav {
+    padding: 0 15px;
+  }
+
+  /* Hero Section */
+  .hero {
+    padding: 120px 0 60px;
+  }
+  
+  .hero-content h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  
+  .hero-content p {
+    font-size: 1rem;
+    margin-bottom: 25px;
+  }
+  
+  .hero-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+  
+  .hero-buttons .btn {
+    width: 100%;
+    padding: 14px 20px;
+  }
+
+  /* Dashboard Mockup */
+  .dashboard-mockup {
+    max-width: 100%;
+    padding: 40px 20px;
+    margin: 40px 0 0;
+  }
+  
+  .stat-card {
+    display: none; /* Hide floating cards on mobile */
+  }
+
+  /* Stat Strip */
+  .stat-strip {
+    padding: 30px 0;
+  }
+  
+  .stat-strip-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .stat-item h3 {
+    font-size: 1.8rem;
+  }
+  
+  .stat-item p {
+    font-size: 0.9rem;
+  }
+
+  /* Section Padding */
+  section {
+    padding: 60px 0;
+  }
+
+  /* Section Titles */
+  .section-title {
+    margin-bottom: 40px;
+  }
+  
+  .section-title h2 {
+    font-size: 1.8rem;
+  }
+  
+  .section-title p {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+
+  /* Split Grids */
+  .hero-grid,
+  .split-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* Feature Cards */
+  .features-card-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .feat-card {
+    padding: 30px 20px;
+  }
+  
+  .feat-card i {
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+  
+  .feat-card h3, .feat-card h4 {
+    font-size: 1.2rem;
+  }
+
+  /* Glass Card & Globe */
+  .glass-card {
+    padding: 40px 20px;
+    max-width: 100%;
+  }
+  
+  .globe-viz {
+    font-size: 5rem;
+  }
+  
+  .floating-label {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+
+  /* Section Headings */
+  .section-heading {
+    font-size: 1.8rem;
+  }
+  
+  .section-subtext {
+    font-size: 1rem;
+  }
+
+  /* Benefit List */
+  .benefit-list {
+    gap: 20px;
+  }
+  
+  .benefit-item {
+    gap: 15px;
+  }
+  
+  .icon-box {
+    font-size: 1.2rem;
+    padding: 8px;
+  }
+  
+  .benefit-text strong {
+    font-size: 1rem;
+  }
+  
+  .benefit-text span {
+    font-size: 0.9rem;
+  }
+
+  /* Phone Mockup */
+  .phone-mockup {
+    width: 240px !important;
+    height: 480px !important;
+    margin: 0 auto 30px !important;
+  }
+
+  /* Split Images */
+  .split-image {
+    padding: 30px;
+    text-align: center;
+  }
+  
+  .split-image i {
+    font-size: 5rem !important;
+  }
+
+  /* Why Box */
+  .why-box {
+    padding: 40px 25px;
+    border-radius: 25px;
+  }
+  
+  .why-box h2 {
+    font-size: 1.6rem;
+  }
+  
+  .why-box ul li {
+    font-size: 1rem;
+  }
+
+  /* Marquee/Ecosystem */
+  .eco-item {
+    width: 180px;
+    padding: 20px;
+    margin-right: 15px;
+  }
+  
+  .eco-item i {
+    font-size: 2rem;
+    padding: 12px;
+  }
+  
+  .eco-item h4 {
+    font-size: 1rem;
+  }
+
+  /* Integrations */
+  .integration-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .int-card {
+    padding: 20px;
+  }
+  
+  .int-icon-wrapper {
+    width: 50px;
+    height: 50px;
+    font-size: 1.4rem;
+  }
+
+  /* Process Steps */
+  .process-wrapper {
+    flex-direction: column;
+    gap: 50px;
+  }
+  
+  .process-wrapper::before {
+    display: none;
+  }
+  
+  .step-number {
+    font-size: 4rem;
+    top: -30px;
+  }
+  
+  .step-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 1.5rem;
+  }
+  
+  .process-step h3 {
+    font-size: 1.3rem;
+  }
+  
+  .process-step p {
+    padding: 0 10px;
+  }
+
+  /* Call Card */
+  .call-card {
+    padding: 100px 20px 30px;
+    border-radius: 30px;
+    margin: 0 10px;
+  }
+  
+  .deco-circle {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+  }
+  
+  .deco-black {
+    left: 10px;
+  }
+  
+  .deco-yellow {
+    left: 70px;
+  }
+  
+  .call-content h2 {
+    font-size: 2rem;
+  }
+  
+  .btn-schedule {
+    padding: 15px 35px;
+    font-size: 1rem;
+    margin-bottom: 40px;
+  }
+  
+  .call-footer {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .email-info {
+    text-align: center;
+  }
+
+  /* Vision Section */
+  .vision-hook,
+  .vision-card {
+    text-align: center;
+  }
+  
+  .vision-hook h2 {
+    font-size: 1.8rem;
+  }
+
+  /* Comparison Table */
+  .comparison-wrapper {
+    overflow-x: auto;
+    border-radius: 20px;
+  }
+  
+  .comparison-table {
+    min-width: 600px;
+    font-size: 0.85rem;
+  }
+  
+  .comparison-table th,
+  .comparison-table td {
+    padding: 15px 10px;
+  }
+  
+  .comparison-table td:first-child {
+    padding-left: 15px;
+    font-size: 0.9rem;
+  }
+
+  /* FAQ */
+  .faq-q {
+    padding: 20px 15px;
+    font-size: 0.95rem;
+  }
+  
+  .faq-a {
+    padding: 0 15px 20px;
+    font-size: 0.9rem;
+  }
+
+  /* CTA Final */
+  .cta-final {
+    padding: 60px 20px;
+    margin: 0 10px;
+    border-radius: 30px;
+  }
+  
+  .cta-final h2 {
+    font-size: 1.8rem;
+  }
+  
+  .cta-final p {
+    font-size: 1rem;
+  }
+  
+  .cta-trust {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  /* Footer */
+  .main-footer {
+    padding: 60px 0 20px;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
+  
+  .footer-brand p {
+    margin: 20px auto;
+  }
+  
+  .social-links {
+    justify-content: center;
+  }
+  
+  .footer-bottom {
+    margin-top: 40px;
+    font-size: 0.85rem;
+  }
+
+  /* Container Padding */
+  .container {
+    padding: 0 15px;
+  }
+
+  /* Buttons */
+  .btn {
+    padding: 14px 28px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Small phones (320px - 480px) */
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 1.7rem;
+  }
+  
+  .section-title h2 {
+    font-size: 1.5rem;
+  }
+  
+  .stat-strip-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .call-content h2 {
+    font-size: 1.6rem;
+  }
+  
+  .comparison-table {
+    font-size: 0.75rem;
+  }
+}
+    </style>
+  </head>
+  <body>
+    <!-- 1. HEADER SECTION -->
+    <header>
+      <div class="container">
+        <nav>
+          <a href="#" class="logo">ERPLI<span>.</span></a>
+          <div class="nav-links">
+            <a href="#why-online">Why Online?</a>
+            <a href="#growth">Growth</a>
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a
+              href="#"
+              class="btn btn-primary"
+              style="padding: 10px 25px; font-size: 0.9rem"
+              >Join the Beta</a
+            >
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- 2. HERO SECTION -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content reveal">
+          <h1>The Future of <span>Education</span> is Your Brand.</h1>
+          <p>
+            Don't be a contractor for a marketplace. Be the CEO of your own
+            Digital Academy. Enterprise features for coaching centers,
+            YouTubers, and private tutors.
+          </p>
+          <div class="hero-buttons">
+            <a href="#" class="btn btn-primary">Launch My Academy</a>
+            <a href="#why-online" class="btn btn-outline">Learn Why Now?</a>
+          </div>
+        </div>
+
+        <div class="hero-graphic reveal">
+          <div class="dashboard-mockup">
+            <div class="mockup-line" style="width: 75%"></div>
+            <div class="mockup-line" style="width: 90%"></div>
+            <div class="mockup-line" style="width: 60%"></div>
+
+            <div class="stat-card" style="left: -40px; bottom: 20%">
+              <div
+                class="stat-icon"
+                style="
+                  background: var(--primary-color);
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  display: grid;
+                  place-items: center;
+                  color: white;
+                "
+              >
+                <i class="fas fa-user-check"></i>
+              </div>
+              <div class="stat-text">
+                <span style="font-size: 0.8rem; font-weight: 700"
+                  >Attendance</span
+                >
+                <br /><span style="font-weight: 800">98.5%</span>
+              </div>
+            </div>
+
+            <div
+              class="stat-card"
+              style="right: -40px; top: 15%; animation-delay: 1s"
+            >
+              <div
+                class="stat-icon"
+                style="
+                  background: #81b29a;
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  display: grid;
+                  place-items: center;
+                  color: white;
+                "
+              >
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="stat-text">
+                <span style="font-size: 0.8rem; font-weight: 700">Growth</span>
+                <br /><span style="font-weight: 800">+125%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. STATISTICS STRIP SECTION -->
+    <div class="stat-strip">
+      <div class="container stat-strip-grid">
+        <div class="stat-item">
+          <h3>500+</h3>
+          <p>Active Educators</p>
+        </div>
+        <div class="stat-item">
+          <h3>100k+</h3>
+          <p>Happy Students</p>
+        </div>
+        <div class="stat-item">
+          <h3>₹0</h3>
+          <p>Sales Commission</p>
+        </div>
+        <div class="stat-item">
+          <h3>99.9%</h3>
+          <p>App Uptime</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. WHO WE SERVE SECTION -->
+    <section id="serve" class="reveal">
+      <div class="container">
+        <div class="section-title">
+          <h2>Who is <span>ERPLI</span> For?</h2>
+        </div>
+        <div class="features-card-grid">
+          <div class="feat-card">
+            <i class="fab fa-youtube"></i>
+            <h4>YouTubers</h4>
+            <p>
+              Convert your subscribers into paid students without the platform
+              taking a cut.
+            </p>
+          </div>
+          <div class="feat-card">
+            <i class="fas fa-university"></i>
+            <h4>Large Institutes</h4>
+            <p>
+              Manage 10,000+ students across multiple branches with sub-admin
+              controls.
+            </p>
+          </div>
+          <div class="feat-card">
+            <i class="fas fa-home"></i>
+            <h4>Solo Tutors</h4>
+            <p>
+              Professionalize your tuition center with automated fees and
+              attendance.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- build for educator -->
+    <section id="vision" class="reveal">
+      <div class="container split-grid">
+        <div class="vision-hook">
+          <h2>Built for <span>Educators</span>,<br />Not Tech Experts.</h2>
+          <p class="section-subtext">
+            Whether you're a YouTuber selling merch or a coach managing 500
+            students, ERPLI adapts to you.
+          </p>
+        </div>
+
+        <div class="vision-content">
+          <div class="vision-card">
+            <h3>The Vision</h3>
+            <p>
+              We believe every teacher is a brand. We don't take commissions. We
+              don't hide your data. We give you the keys to your own digital
+              empire for a flat <strong>₹999/year.</strong>
+            </p>
+            <a href="#" class="btn btn-primary">Join the Movement</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. WHY GO ONLINE? (EDUCATIONAL) SECTION -->
+    <section id="why-online" class="reveal">
+      <div class="container split-grid">
+        <div class="split-image-container">
+          <div class="glass-card">
+            <div class="globe-viz">
+              <i class="fas fa-globe-americas"></i>
+              <div class="orbit-dot"></div>
+            </div>
+            <div class="floating-label">Local Limits</div>
+            <div class="connection-line"></div>
+            <div class="floating-label global">Global Reach</div>
+          </div>
+        </div>
+
+        <div class="split-content">
+          <h2 class="section-heading">
+            The <span>Digital Shift</span> <br />is Mandatory.
+          </h2>
+          <p class="section-subtext">
+            Relying solely on local students is risky. The pandemic proved that
+            the classroom can be anywhere. By going online, you gain:
+          </p>
+
+          <div class="benefit-list">
+            <div class="benefit-item">
+              <div class="icon-box"><i class="fas fa-check-circle"></i></div>
+              <div class="benefit-text">
+                <strong>Zero Overhead:</strong>
+                <span>No rent, no electricity bills, or physical limits.</span>
+              </div>
+            </div>
+            <div class="benefit-item">
+              <div class="icon-box"><i class="fas fa-check-circle"></i></div>
+              <div class="benefit-text">
+                <strong>24/7 Availability:</strong>
+                <span>Your academy stays open and sells while you sleep.</span>
+              </div>
+            </div>
+            <div class="benefit-item">
+              <div class="icon-box"><i class="fas fa-check-circle"></i></div>
+              <div class="benefit-text">
+                <strong>Wider Pool:</strong>
+                <span>Teach students in New York or New Delhi from home.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. HOW WE HELP YOU GROW SECTION -->
+    <section id="growth" style="background: white">
+      <div class="container">
+        <div class="section-title">
+          <h2>How We Help You <span>Scale</span></h2>
+          <p>
+            ERPLI isn't just software; it's a growth engine for teachers who
+            want to become entrepreneurs.
+          </p>
+        </div>
+        <div class="features-card-grid">
+          <div class="feat-card reveal">
+            <i class="fas fa-chart-line"></i>
+            <h3>Smart Analytics</h3>
+            <p>
+              Identify exactly where students are dropping off in your videos.
+              We provide heatmaps of your content performance.
+            </p>
+          </div>
+          <div class="feat-card reveal">
+            <i class="fas fa-robot"></i>
+            <h3>Automated Marketing</h3>
+            <p>
+              Recover lost sales. Our system automatically follows up with
+              students who visited your course page but didn't buy.
+            </p>
+          </div>
+          <div class="feat-card reveal">
+            <i class="fas fa-users"></i>
+            <h3>Community Tools</h3>
+            <p>
+              Build a tribe. Move students from passive viewers to active
+              community members who refer their friends.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. THE LMS TOOLKIT SECTION -->
+    <section id="features" class="reveal" style="background: white">
+      <div class="container">
+        <div class="section-title">
+          <h2>The <span>Education</span> Toolkit</h2>
+        </div>
+        <div class="features-card-grid">
+          <div class="feat-card">
+            <i class="fas fa-video-slash"></i>
+            <h3>Anti-Piracy Video</h3>
+            <p>
+              Bank-level encryption that prevents screen recording and illegal
+              downloads.
+            </p>
+          </div>
+          <div class="feat-card">
+            <i class="fas fa-tasks"></i>
+            <h3>Smart Exams</h3>
+            <p>
+              Create MCQ and subjective tests with auto-grading and negative
+              marking.
+            </p>
+          </div>
+          <div class="feat-card">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <h3>Fee Automation</h3>
+            <p>
+              Stop chasing students for money. We send UPI links and reminders
+              automatically.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16. FEATURE ECOSYSTEM MARQUEE SECTION -->
+    <section id="ecosystem" class="reveal">
+      <div class="container">
+        <div class="section-title">
+          <h2>Everything You Need to <span>Succeed</span></h2>
+          <p>
+            A complete ecosystem designed to automate your teaching business.
+          </p>
+        </div>
+
+        <div class="marquee-container">
+          <div class="eco-track">
+            <div class="eco-item">
+              <i class="fas fa-file-pdf pdf"></i>
+              <h4>Safe PDFs</h4>
+            </div>
+            <div class="eco-item">
+              <i class="fas fa-bullhorn alerts"></i>
+              <h4>Push Alerts</h4>
+            </div>
+            <div class="eco-item">
+              <i class="fas fa-user-clock attendance"></i>
+              <h4>Attendance</h4>
+            </div>
+            <div class="eco-item">
+              <i class="fas fa-certificate certs"></i>
+              <h4>Certificates</h4>
+            </div>
+            <div class="eco-item">
+              <i class="fas fa-store store"></i>
+              <h4>E-Book Store</h4>
+            </div>
+            <div class="eco-item">
+              <i class="fas fa-headset support"></i>
+              <h4>24/7 Support</h4>
+            </div>
+
+            <div class="eco-item">
+              <i class="fas fa-file-pdf pdf"></i>
+              <h4>Safe PDFs</h4>
+            </div>
+            <div class="eco-item">
+              <i class="fas fa-bullhorn alerts"></i>
+              <h4>Push Alerts</h4>
+            </div>
+            <div class="eco-item">
+              <i class="fas fa-user-clock attendance"></i>
+              <h4>Attendance</h4>
+            </div>
+            <div class="eco-item">
+              <i class="fas fa-certificate certs"></i>
+              <h4>Certificates</h4>
+            </div>
+            <div class="eco-item">
+              <i class="fas fa-store store"></i>
+              <h4>E-Book Store</h4>
+            </div>
+            <div class="eco-item">
+              <i class="fas fa-headset support"></i>
+              <h4>24/7 Support</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15. INTEGRATIONS SECTION -->
+    <section id="integrations" class="reveal">
+      <div class="container">
+        <div class="section-title">
+          <h2>Seamless <span>Integrations</span></h2>
+          <p>Connect your favorite tools to automate your workflow.</p>
+        </div>
+
+        <div class="integration-grid">
+          <div class="int-card">
+            <div class="int-icon-wrapper upi">
+              <i class="fas fa-qrcode"></i>
+            </div>
+            <div class="int-info">
+              <h4>UPI / GPay</h4>
+              <p>Instant fee collection</p>
+            </div>
+          </div>
+
+          <div class="int-card">
+            <div class="int-icon-wrapper whatsapp">
+              <i class="fab fa-whatsapp"></i>
+            </div>
+            <div class="int-info">
+              <h4>WhatsApp</h4>
+              <p>Automated alerts</p>
+            </div>
+          </div>
+
+          <div class="int-card">
+            <div class="int-icon-wrapper zoom">
+              <i class="fas fa-video"></i>
+            </div>
+            <div class="int-info">
+              <h4>Zoom / Meet</h4>
+              <p>Live interactive classes</p>
+            </div>
+          </div>
+
+          <div class="int-card">
+            <div class="int-icon-wrapper google">
+              <i class="fab fa-google"></i>
+            </div>
+            <div class="int-info">
+              <h4>Analytics</h4>
+              <p>Deep student insights</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. MOBILE EXPERIENCE SECTION -->
+    <section class="reveal">
+      <div class="container hero-grid">
+        <div
+          class="phone-mockup"
+          style="
+            width: 280px;
+            height: 560px;
+            background: #222;
+            border-radius: 40px;
+            border: 10px solid #333;
+            margin: 0 auto;
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+          "
+        >
+          <div style="padding: 40px 20px; color: white">
+            <div
+              style="
+                width: 40px;
+                height: 40px;
+                background: var(--primary-color);
+                border-radius: 10px;
+                margin-bottom: 20px;
+              "
+            ></div>
+            <h4>Your Academy App</h4>
+            <div
+              style="
+                height: 10px;
+                background: #444;
+                width: 80%;
+                margin: 20px 0;
+                border-radius: 5px;
+              "
+            ></div>
+            <div
+              style="
+                height: 10px;
+                background: #444;
+                width: 60%;
+                margin-bottom: 20px;
+                border-radius: 5px;
+              "
+            ></div>
+            <div
+              style="height: 150px; background: #333; border-radius: 15px"
+            ></div>
+          </div>
+        </div>
+        <div>
+          <h2>Your Brand. <span>In Their Pocket.</span></h2>
+          <p>
+            Don't just be another link in a browser. Give your students a
+            premium mobile app experience with offline video access and push
+            notifications.
+          </p>
+          <div class="hero-buttons" style="margin-top: 30px">
+            <a href="#" class="btn btn-outline">Preview Your App</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. GLOBAL REACH & SCALING SECTION -->
+    <section class="reveal">
+      <div class="container split-grid">
+        <div class="content">
+          <h2>Scale to <span>10,000+</span> Students.</h2>
+          <p>
+            Our cloud infrastructure is built on the same tech that powers the
+            world's biggest apps. Whether you have 10 students or 100,000, your
+            app will never lag.
+          </p>
+          <div
+            style="
+              margin-top: 30px;
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 20px;
+            "
+          >
+            <div style="padding: 20px; background: white; border-radius: 15px">
+              <strong>High Concurrency:</strong> 10k students can watch live at
+              once.
+            </div>
+            <div style="padding: 20px; background: white; border-radius: 15px">
+              <strong>CDN Delivery:</strong> Buffer-free videos even on slow 3G.
+            </div>
+          </div>
+        </div>
+        <div class="split-image">
+          <i
+            class="fas fa-rocket"
+            style="font-size: 8rem; color: var(--secondary-color)"
+          ></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. MIGRATION TEAM SECTION -->
+    <section class="reveal" style="background: #fff">
+      <div class="container split-grid">
+        <div class="split-image" style="background: var(--bg-light)">
+          <i
+            class="fas fa-people-carry"
+            style="font-size: 8rem; color: var(--primary-color)"
+          ></i>
+        </div>
+        <div class="content">
+          <h2>Moving is <span>Stress-Free.</span></h2>
+          <p>
+            Switching from another platform? Our dedicated migration team
+            handles the student data upload and content transfer for you in 24
+            hours.
+          </p>
+          <a href="#" class="btn btn-primary" style="margin-top: 30px"
+            >Talk to a Specialist</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. PASSIVE INCOME EDUCATION SECTION -->
+    <section class="reveal">
+      <div class="container">
+        <div class="why-box">
+          <h2>Transition to <span>Passive Income</span></h2>
+          <p style="margin-bottom: 30px; opacity: 0.8">
+            Teaching live is taxing. Teaching once and selling a thousand times
+            is smart business. ERPLI helps you package your knowledge into
+            pre-recorded courses.
+          </p>
+          <ul>
+            <li>
+              <i class="fas fa-check"></i> Unlimited pre-recorded storage.
+            </li>
+            <li>
+              <i class="fas fa-check"></i> Scheduled "Drip" content release.
+            </li>
+            <li>
+              <i class="fas fa-check"></i> Course bundles and subscriptions.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. PARENTAL TRUST & REPORTS SECTION -->
+    <section class="reveal" style="background: white">
+      <div class="container split-grid">
+        <div class="content">
+          <h2>Build <span>Parental Trust.</span></h2>
+          <p>
+            For high-ticket coaching, parents are the decision-makers. ERPLI
+            sends them automated WhatsApp reports on their child's progress,
+            building long-term loyalty.
+          </p>
+        </div>
+        <div class="split-image">
+          <div
+            style="padding: 20px; border: 1px solid #eee; border-radius: 15px"
+          >
+            <p style="font-size: 0.8rem; color: var(--text-muted)">
+              WHATSAPP MESSAGE
+            </p>
+            <p>
+              <strong>To: Parent</strong><br />"Hi! Rahul scored 92% in today's
+              Physics test. View his rank here: [Link]"
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. SECURITY & ANTI-PIRACY SECTION -->
+    <section class="reveal">
+      <div class="container split-grid">
+        <div
+          class="split-image"
+          style="
+            background: #333;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <i
+            class="fas fa-user-shield"
+            style="
+              font-size: 6rem;
+              color: var(--primary-color);
+              margin-bottom: 20px;
+            "
+          ></i>
+          <p>Encrypted Video Stream</p>
+        </div>
+        <div class="content">
+          <h2>Content <span>Locked Down.</span></h2>
+          <p>
+            Your hard work deserves protection. We use dynamic watermarking
+            (student ID on screen) and device locking to ensure your content is
+            never pirated on Telegram.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. DATA OWNERSHIP GUARANTEE SECTION -->
+    <section class="reveal" style="background: var(--bg-light)">
+      <div class="container" style="text-align: center">
+        <div class="section-title">
+          <h2>You <span>Own</span> the Keys.</h2>
+          <p>
+            We don't hold your data hostage. You own every student's email,
+            phone number, and record. One-click export, anytime.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 17. COMPARISON TABLE SECTION -->
+    <section id="pricing" class="reveal">
+      <div class="container">
+        <div class="section-title">
+          <h2>The Honest <span>Comparison</span></h2>
+        </div>
+        <div class="comparison-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Doing it Manually</th>
+                <th>Expensive Platforms</th>
+                <th class="highlight-erpli">ERPLI (₹999)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Commission</td>
+                <td>0%</td>
+                <td class="text-red">10% - 30%</td>
+                <td class="highlight-erpli text-green">
+                  0% <small>(Keep 100%)</small>
+                </td>
+              </tr>
+              <tr>
+                <td>Branding</td>
+                <td>None</td>
+                <td>Shared / Market</td>
+                <td class="highlight-erpli text-green">Your Own Brand</td>
+              </tr>
+              <tr>
+                <td>Anti-Piracy</td>
+                <td><i class="fas fa-times text-red"></i> None</td>
+                <td>Basic Protection</td>
+                <td class="highlight-erpli text-green">Military Grade</td>
+              </tr>
+              <tr>
+                <td>WhatsApp</td>
+                <td>Manual / Tedious</td>
+                <td class="text-red">Paid Add-on</td>
+                <td class="highlight-erpli text-green">Built-in Free</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 18. SUCCESS STORIES SECTION -->
+    <section class="reveal" style="background: white">
+      <div class="container">
+        <div class="section-title">
+          <h2>Educators <span>Winning</span> with ERPLI</h2>
+        </div>
+        <div class="features-card-grid">
+          <div class="feat-card">
+            <p>
+              "Moving from YouTube to my own app helped me monetize my content
+              without the noise. Best ₹999 I've ever spent."
+            </p>
+            <div style="margin-top: 20px; font-weight: 700">
+              - Rahul K. (UPSC Coach)
+            </div>
+          </div>
+          <div class="feat-card">
+            <p>
+              "The WhatsApp fee reminders alone saved me 10 hours a week. My
+              collection is now 100% on time."
+            </p>
+            <div style="margin-top: 20px; font-weight: 700">
+              - Dr. Anjali (Medical Entrance)
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Book a call -->
+    <section id="book-call" class="reveal">
+      <div class="container">
+        <div class="call-card">
+          <div class="deco-circle deco-black"><i class="far fa-smile"></i></div>
+          <div class="deco-circle deco-yellow">
+            <i class="far fa-smile"></i>
+          </div>
+
+          <div class="call-content">
+            <h2>Book a 15-minute <br /><i class="serif-text">intro call</i></h2>
+
+            <a href="#" class="btn-schedule">Schedule Now</a>
+
+            <div class="call-footer">
+              <div class="email-info">
+                <div class="mail-icon">
+                  <i class="fas fa-paper-plane"></i>
+                </div>
+                <div class="mail-text">
+                  <span>Prefer to email?</span>
+                  <a href="mailto:support@erpli.com">support@erpli.com</a>
+                </div>
+              </div>
+              <div class="arrow-icon">
+                <i class="fas fa-arrow-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 19. FAQ SECTION -->
+    <section id="faq" class="reveal">
+      <div class="container">
+        <div class="section-title">
+          <h2>Common <span>Questions</span></h2>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="faq-q">
+              What's the catch with ₹999? <i class="fas fa-plus"></i>
+            </div>
+            <div class="faq-a">
+              No catch. We use shared cloud costs to keep entry low for small
+              educators. As you grow, you stay on this price.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">
+              Do I need a laptop? <i class="fas fa-plus"></i>
+            </div>
+            <div class="faq-a">
+              No. You can manage students, fees, and videos directly from your
+              smartphone.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">
+              Can I sell physically too? <i class="fas fa-plus"></i>
+            </div>
+            <div class="faq-a">
+              Yes! Our E-store allows you to sell printed books and notes which
+              are delivered to students' homes.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 20. STEPS TO START SECTION -->
+    <section id="launch-steps" class="reveal">
+      <div class="container">
+        <div class="section-title">
+          <h2>Launch in <span>3 Simple Steps</span></h2>
+          <p>From setup to your first sale in less than 30 minutes.</p>
+        </div>
+
+        <div class="process-wrapper">
+          <div class="process-step">
+            <div class="step-number">01</div>
+            <div class="step-icon"><i class="fas fa-user-plus"></i></div>
+            <h3>Register</h3>
+            <p>Sign up in seconds and upload your academy logo.</p>
+          </div>
+
+          <div class="process-step">
+            <div class="step-number">02</div>
+            <div class="step-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <h3>Upload</h3>
+            <p>Upload your videos or schedule your first live class.</p>
+          </div>
+
+          <div class="process-step">
+            <div class="step-number">03</div>
+            <div class="step-icon"><i class="fas fa-rocket"></i></div>
+            <h3>Sell</h3>
+            <p>Share your link on WhatsApp and start collecting fees.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 21. FINAL CTA SECTION -->
+    <section class="cta-final reveal">
+      <div class="container cta-content">
+        <h2>Ready to build your <br /><span>Digital Legacy?</span></h2>
+        <p>Join 500+ educators today. Flat pricing, no hidden fees.</p>
+        <a href="#" class="btn btn-white">Get Started for ₹999</a>
+        <div class="cta-trust">
+          <span><i class="fas fa-shield-alt"></i> 14-Day Money Back</span>
+          <span><i class="fas fa-check"></i> No Credit Card Required</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 22. FOOTER SECTION -->
+    <footer class="main-footer">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <div class="logo">ERPLI<span>.</span></div>
+          <p>The unified platform for the modern educator.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-x-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#">LMS</a></li>
+            <li><a href="#">Fee Management</a></li>
+            <li><a href="#">Online Exams</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Solutions</h4>
+          <ul>
+            <li><a href="#">YouTube Teachers</a></li>
+            <li><a href="#">Coaching Centers</a></li>
+            <li><a href="#">Home Tutors</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Refund Policy</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="container">
+          <p>
+            © 2026 ERPLI Education Systems. Built with
+            <i class="fas fa-heart" style="color: var(--primary-color)"></i> for
+            Teachers.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObserver.observe(el));
+
+      document.querySelectorAll(".faq-q").forEach((q) => {
+        q.addEventListener("click", () => {
+          const item = q.parentElement;
+          item.classList.toggle("active");
+          const icon = q.querySelector("i");
+          icon.classList.toggle("fa-plus");
+          icon.classList.toggle("fa-minus");
+        });
+      });
+    </script>
+  </body>
+</html>
