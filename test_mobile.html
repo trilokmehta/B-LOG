@@ -1108,420 +1108,450 @@
       }
 
       /* Mobile Responsive Fixes */
-@media (max-width: 768px) {
-  /* Header & Navigation */
-  header {
-    padding: 12px 0;
-  }
-  
-  .logo {
-    font-size: 1.4rem;
-  }
-  
-  nav {
-    padding: 0 15px;
+      @media (max-width: 768px) {
+        /* Header & Navigation */
+        header {
+          padding: 12px 0;
+        }
+
+        .logo {
+          font-size: 1.4rem;
+        }
+
+        nav {
+          padding: 0 15px;
+        }
+
+        /* Hero Section */
+        .hero {
+          padding: 120px 0 60px;
+        }
+
+        .hero-content h1 {
+          font-size: 2rem;
+          line-height: 1.2;
+        }
+
+        .hero-content p {
+          font-size: 1rem;
+          margin-bottom: 25px;
+        }
+
+        .hero-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+          width: 100%;
+        }
+
+        .hero-buttons .btn {
+          width: 100%;
+          padding: 14px 20px;
+        }
+
+        /* Dashboard Mockup */
+        .dashboard-mockup {
+          max-width: 100%;
+          padding: 40px 20px;
+          margin: 40px 0 0;
+          display: none;
+        }
+
+        .stat-card {
+          display: none; /* Hide floating cards on mobile */
+        }
+
+        /* Stat Strip */
+        .stat-strip {
+          padding: 30px 0;
+        }
+
+        .stat-strip-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+        }
+
+        .stat-item h3 {
+          font-size: 1.8rem;
+        }
+
+        .stat-item p {
+          font-size: 0.9rem;
+        }
+
+        /* Section Padding */
+        section {
+          padding: 60px 0;
+        }
+
+        /* Section Titles */
+        .section-title {
+          margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+          font-size: 1.8rem;
+        }
+
+        .section-title p {
+          font-size: 1rem;
+          padding: 0 10px;
+        }
+
+        /* Split Grids */
+        .hero-grid,
+        .split-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        /* Feature Cards */
+        .features-card-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .feat-card {
+          padding: 30px 20px;
+        }
+
+        .feat-card i {
+          font-size: 2rem;
+          margin-bottom: 15px;
+        }
+
+        .feat-card h3,
+        .feat-card h4 {
+          font-size: 1.2rem;
+        }
+
+        /* Glass Card & Globe */
+        .glass-card {
+          padding: 40px 20px;
+          max-width: 100%;
+        }
+
+        .globe-viz {
+          font-size: 5rem;
+        }
+
+        .floating-label {
+          font-size: 0.75rem;
+          padding: 6px 12px;
+        }
+
+        /* Section Headings */
+        .section-heading {
+          font-size: 1.8rem;
+        }
+
+        .section-subtext {
+          font-size: 1rem;
+        }
+
+        /* Benefit List */
+        .benefit-list {
+          gap: 20px;
+        }
+
+        .benefit-item {
+          gap: 15px;
+        }
+
+        .icon-box {
+          font-size: 1.2rem;
+          padding: 8px;
+        }
+
+        .benefit-text strong {
+          font-size: 1rem;
+        }
+
+        .benefit-text span {
+          font-size: 0.9rem;
+        }
+
+        /* Phone Mockup */
+        .phone-mockup {
+          width: 240px !important;
+          height: 480px !important;
+          margin: 0 auto 30px !important;
+        }
+
+        /* Split Images */
+        .split-image {
+          padding: 30px;
+          text-align: center;
+        }
+
+        .split-image i {
+          font-size: 5rem !important;
+        }
+
+        /* Why Box */
+        .why-box {
+          padding: 40px 25px;
+          border-radius: 25px;
+        }
+
+        .why-box h2 {
+          font-size: 1.6rem;
+        }
+
+        .why-box ul li {
+          font-size: 1rem;
+        }
+
+        /* Marquee/Ecosystem */
+        .eco-item {
+          width: 180px;
+          padding: 20px;
+          margin-right: 15px;
+        }
+
+        .eco-item i {
+          font-size: 2rem;
+          padding: 12px;
+        }
+
+        .eco-item h4 {
+          font-size: 1rem;
+        }
+
+        /* Integrations */
+        .integration-grid {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+
+        .int-card {
+          padding: 20px;
+        }
+
+        .int-icon-wrapper {
+          width: 50px;
+          height: 50px;
+          font-size: 1.4rem;
+        }
+
+        /* Process Steps */
+        .process-wrapper {
+          flex-direction: column;
+          gap: 50px;
+        }
+
+        .process-wrapper::before {
+          display: none;
+        }
+
+        .step-number {
+          font-size: 4rem;
+          top: -30px;
+        }
+
+        .step-icon {
+          width: 70px;
+          height: 70px;
+          font-size: 1.5rem;
+        }
+
+        .process-step h3 {
+          font-size: 1.3rem;
+        }
+
+        .process-step p {
+          padding: 0 10px;
+        }
+
+        /* Call Card */
+        .call-card {
+          padding: 100px 20px 30px;
+          border-radius: 30px;
+          margin: 0 10px;
+        }
+
+        .deco-circle {
+          width: 80px;
+          height: 80px;
+          font-size: 2rem;
+        }
+
+        .deco-black {
+          left: 10px;
+        }
+
+        .deco-yellow {
+          left: 70px;
+        }
+
+        .call-content h2 {
+          font-size: 2rem;
+        }
+
+        .btn-schedule {
+          padding: 15px 35px;
+          font-size: 1rem;
+          margin-bottom: 40px;
+        }
+
+        .call-footer {
+          flex-direction: column;
+          gap: 20px;
+          align-items: center;
+        }
+
+        .email-info {
+          text-align: center;
+        }
+
+        /* Vision Section */
+        .vision-hook,
+        .vision-card {
+          text-align: center;
+        }
+
+        .vision-hook h2 {
+          font-size: 1.8rem;
+        }
+
+        /* Comparison Table */
+        .comparison-wrapper {
+          overflow-x: auto;
+          border-radius: 20px;
+        }
+
+        .comparison-table {
+          min-width: 600px;
+          font-size: 0.85rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+          padding: 15px 10px;
+        }
+
+        .comparison-table td:first-child {
+          padding-left: 15px;
+          font-size: 0.9rem;
+        }
+
+        /* FAQ */
+        .faq-q {
+          padding: 20px 15px;
+          font-size: 0.95rem;
+        }
+
+        .faq-a {
+          padding: 0 15px 20px;
+          font-size: 0.9rem;
+        }
+
+        /* CTA Final */
+        .cta-final {
+          padding: 60px 20px;
+          margin: 0 10px;
+          border-radius: 30px;
+        }
+
+        .cta-final h2 {
+          font-size: 1.8rem;
+        }
+
+        .cta-final p {
+          font-size: 1rem;
+        }
+
+        .cta-trust {
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        /* Footer */
+        .main-footer {
+    padding: 40px 0 20px; /* Reduced top padding */
+    text-align: left; /* Better readability than center */
   }
 
-  /* Hero Section */
-  .hero {
-    padding: 120px 0 60px;
-  }
-  
-  .hero-content h1 {
-    font-size: 2rem;
-    line-height: 1.2;
-  }
-  
-  .hero-content p {
-    font-size: 1rem;
-    margin-bottom: 25px;
-  }
-  
-  .hero-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-  }
-  
-  .hero-buttons .btn {
-    width: 100%;
-    padding: 14px 20px;
-  }
-
-  /* Dashboard Mockup */
-  .dashboard-mockup {
-    max-width: 100%;
-    padding: 40px 20px;
-    margin: 40px 0 0;
-  }
-  
-  .stat-card {
-    display: none; /* Hide floating cards on mobile */
-  }
-
-  /* Stat Strip */
-  .stat-strip {
-    padding: 30px 0;
-  }
-  
-  .stat-strip-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-  
-  .stat-item h3 {
-    font-size: 1.8rem;
-  }
-  
-  .stat-item p {
-    font-size: 0.9rem;
-  }
-
-  /* Section Padding */
-  section {
-    padding: 60px 0;
-  }
-
-  /* Section Titles */
-  .section-title {
-    margin-bottom: 40px;
-  }
-  
-  .section-title h2 {
-    font-size: 1.8rem;
-  }
-  
-  .section-title p {
-    font-size: 1rem;
-    padding: 0 10px;
-  }
-
-  /* Split Grids */
-  .hero-grid,
-  .split-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  /* Feature Cards */
-  .features-card-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  
-  .feat-card {
-    padding: 30px 20px;
-  }
-  
-  .feat-card i {
-    font-size: 2rem;
-    margin-bottom: 15px;
-  }
-  
-  .feat-card h3, .feat-card h4 {
-    font-size: 1.2rem;
-  }
-
-  /* Glass Card & Globe */
-  .glass-card {
-    padding: 40px 20px;
-    max-width: 100%;
-  }
-  
-  .globe-viz {
-    font-size: 5rem;
-  }
-  
-  .floating-label {
-    font-size: 0.75rem;
-    padding: 6px 12px;
-  }
-
-  /* Section Headings */
-  .section-heading {
-    font-size: 1.8rem;
-  }
-  
-  .section-subtext {
-    font-size: 1rem;
-  }
-
-  /* Benefit List */
-  .benefit-list {
-    gap: 20px;
-  }
-  
-  .benefit-item {
-    gap: 15px;
-  }
-  
-  .icon-box {
-    font-size: 1.2rem;
-    padding: 8px;
-  }
-  
-  .benefit-text strong {
-    font-size: 1rem;
-  }
-  
-  .benefit-text span {
-    font-size: 0.9rem;
-  }
-
-  /* Phone Mockup */
-  .phone-mockup {
-    width: 240px !important;
-    height: 480px !important;
-    margin: 0 auto 30px !important;
-  }
-
-  /* Split Images */
-  .split-image {
-    padding: 30px;
-    text-align: center;
-  }
-  
-  .split-image i {
-    font-size: 5rem !important;
-  }
-
-  /* Why Box */
-  .why-box {
-    padding: 40px 25px;
-    border-radius: 25px;
-  }
-  
-  .why-box h2 {
-    font-size: 1.6rem;
-  }
-  
-  .why-box ul li {
-    font-size: 1rem;
-  }
-
-  /* Marquee/Ecosystem */
-  .eco-item {
-    width: 180px;
-    padding: 20px;
-    margin-right: 15px;
-  }
-  
-  .eco-item i {
-    font-size: 2rem;
-    padding: 12px;
-  }
-  
-  .eco-item h4 {
-    font-size: 1rem;
-  }
-
-  /* Integrations */
-  .integration-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-  
-  .int-card {
-    padding: 20px;
-  }
-  
-  .int-icon-wrapper {
-    width: 50px;
-    height: 50px;
-    font-size: 1.4rem;
-  }
-
-  /* Process Steps */
-  .process-wrapper {
-    flex-direction: column;
-    gap: 50px;
-  }
-  
-  .process-wrapper::before {
-    display: none;
-  }
-  
-  .step-number {
-    font-size: 4rem;
-    top: -30px;
-  }
-  
-  .step-icon {
-    width: 70px;
-    height: 70px;
-    font-size: 1.5rem;
-  }
-  
-  .process-step h3 {
-    font-size: 1.3rem;
-  }
-  
-  .process-step p {
-    padding: 0 10px;
-  }
-
-  /* Call Card */
-  .call-card {
-    padding: 100px 20px 30px;
-    border-radius: 30px;
-    margin: 0 10px;
-  }
-  
-  .deco-circle {
-    width: 80px;
-    height: 80px;
-    font-size: 2rem;
-  }
-  
-  .deco-black {
-    left: 10px;
-  }
-  
-  .deco-yellow {
-    left: 70px;
-  }
-  
-  .call-content h2 {
-    font-size: 2rem;
-  }
-  
-  .btn-schedule {
-    padding: 15px 35px;
-    font-size: 1rem;
-    margin-bottom: 40px;
-  }
-  
-  .call-footer {
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-  }
-  
-  .email-info {
-    text-align: center;
-  }
-
-  /* Vision Section */
-  .vision-hook,
-  .vision-card {
-    text-align: center;
-  }
-  
-  .vision-hook h2 {
-    font-size: 1.8rem;
-  }
-
-  /* Comparison Table */
-  .comparison-wrapper {
-    overflow-x: auto;
-    border-radius: 20px;
-  }
-  
-  .comparison-table {
-    min-width: 600px;
-    font-size: 0.85rem;
-  }
-  
-  .comparison-table th,
-  .comparison-table td {
-    padding: 15px 10px;
-  }
-  
-  .comparison-table td:first-child {
-    padding-left: 15px;
-    font-size: 0.9rem;
-  }
-
-  /* FAQ */
-  .faq-q {
-    padding: 20px 15px;
-    font-size: 0.95rem;
-  }
-  
-  .faq-a {
-    padding: 0 15px 20px;
-    font-size: 0.9rem;
-  }
-
-  /* CTA Final */
-  .cta-final {
-    padding: 60px 20px;
-    margin: 0 10px;
-    border-radius: 30px;
-  }
-  
-  .cta-final h2 {
-    font-size: 1.8rem;
-  }
-  
-  .cta-final p {
-    font-size: 1rem;
-  }
-  
-  .cta-trust {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  /* Footer */
-  .main-footer {
-    padding: 60px 0 20px;
-  }
-  
   .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 30px;
-    text-align: center;
+    grid-template-columns: repeat(2, 1fr); /* Two columns to save height */
+    gap: 30px 15px;
+    margin-bottom: 40px;
   }
-  
+
+  /* Make the branding/logo take full width */
+  .footer-brand {
+    grid-column: span 2; 
+    margin-bottom: 10px;
+    text-align: center; /* Keep brand centered for balance */
+  }
+
   .footer-brand p {
-    margin: 20px auto;
+    margin: 10px auto 20px;
+    max-width: 100%;
+    font-size: 0.9rem;
   }
-  
+
   .social-links {
     justify-content: center;
+    margin-bottom: 20px;
   }
-  
-  .footer-bottom {
-    margin-top: 40px;
+
+  /* Compact the links */
+  .main-footer h4 {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: var(--secondary-color);
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+  }
+
+  .main-footer ul li {
+    margin-bottom: 8px;
+  }
+
+  .main-footer ul a {
     font-size: 0.85rem;
   }
 
-  /* Container Padding */
-  .container {
-    padding: 0 15px;
+  .footer-bottom {
+    margin-top: 30px;
+    padding: 20px 0;
   }
 
-  /* Buttons */
-  .btn {
-    padding: 14px 28px;
-    font-size: 0.95rem;
-  }
-}
+        /* Container Padding */
+        .container {
+          padding: 0 15px;
+        }
 
-/* Small phones (320px - 480px) */
-@media (max-width: 480px) {
-  .hero-content h1 {
-    font-size: 1.7rem;
-  }
-  
-  .section-title h2 {
-    font-size: 1.5rem;
-  }
-  
-  .stat-strip-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .call-content h2 {
-    font-size: 1.6rem;
-  }
-  
-  .comparison-table {
-    font-size: 0.75rem;
-  }
-}
+        /* Buttons */
+        .btn {
+          padding: 14px 28px;
+          font-size: 0.95rem;
+        }
+      }
+
+      /* Small phones (320px - 480px) */
+      @media (max-width: 480px) {
+        .hero-content h1 {
+          font-size: 1.7rem;
+        }
+
+        .section-title h2 {
+          font-size: 1.5rem;
+        }
+
+        .stat-strip-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .call-content h2 {
+          font-size: 1.6rem;
+        }
+
+        .comparison-table {
+          font-size: 0.75rem;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1622,21 +1652,14 @@
     <!-- 3. STATISTICS STRIP SECTION -->
     <div class="stat-strip">
       <div class="container stat-strip-grid">
-        <div class="stat-item">
-          <h3>500+</h3>
-          <p>Active Educators</p>
-        </div>
-        <div class="stat-item">
-          <h3>100k+</h3>
-          <p>Happy Students</p>
-        </div>
+        
         <div class="stat-item">
           <h3>₹0</h3>
           <p>Sales Commission</p>
         </div>
         <div class="stat-item">
           <h3>99.9%</h3>
-          <p>App Uptime</p>
+          <p>Start with</p>
         </div>
       </div>
     </div>
@@ -2371,7 +2394,7 @@
           <div class="social-links">
             <a href="#"><i class="fab fa-instagram"></i></a>
             <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#"><i class="fab fa-x-twitter"></i></a>
+            
             <a href="#"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
