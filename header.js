@@ -321,8 +321,7 @@
             <div class="menu-column">
               <div class="column-header"><i class="fas fa-cogs"></i> Manage</div>
               <a href="erp.html" class="menu-item"><i class="fas fa-users-cog"></i><div class="item-text"><h4>Institute ERP</h4><p>Fees, Attendance, Staff Payroll.</p></div></a>
-              <a href="crm.html" class="menu-item"><i class="fas fa-filter"></i><div class="item-text"><h4>Lead CRM</h4><p>Manage inquiries & follow-ups.</p></div></a>
-              <a href="library.html" class="menu-item"><i class="fas fa-book"></i><div class="item-text"><h4>Library System</h4><p>Track book issues & returns.</p></div></a>
+             
             </div>
             <div class="menu-column">
               <div class="column-header"><i class="fas fa-chart-line"></i> Grow</div>
