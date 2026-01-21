@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lead CRM & Admission Management - ERPLI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* --- Root Variables --- */
+      :root {
+        --primary-color: #f28482;
+        --secondary-color: #3d405b;
+        --bg-light: #fffbf5;
+        --white: #ffffff;
+        --text-dark: #3d405b;
+        --text-muted: #666;
+        --font-family: "Inter", sans-serif;
+        --lead-new: #3498db;
+        --lead-warm: #f1c40f;
+        --lead-won: #2ecc71;
+      }
+
+      /* --- Base & Reset --- */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: var(--font-family);
+        background-color: var(--white);
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* --- Common Components --- */
+      section { padding: 100px 0; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+      h1, h2, h3, h4 { font-weight: 800; line-height: 1.2; }
+      span { color: var(--primary-color); }
+
+      .btn {
+        display: inline-block;
+        padding: 16px 36px;
+        border-radius: 50px;
+        font-weight: 700;
+        transition: 0.3s;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+      }
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+        box-shadow: 0 4px 15px rgba(242, 132, 130, 0.3);
+      }
+      .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4); }
+
+      .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+      .reveal.visible { opacity: 1; transform: translateY(0); }
+      
+      .header-spacer { height: 80px; }
+
+      /* --- Hero Section --- */
+      .crm-hero {
+        background-color: var(--bg-light);
+        padding: 120px 0 80px;
+        text-align: center;
+      }
+      .crm-hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 25px; color: var(--secondary-color); }
+      .crm-hero p { font-size: 1.15rem; color: var(--text-muted); margin: 0 auto 40px; max-width: 700px; }
+
+      /* --- Kanban Board Mockup --- */
+      .kanban-board {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        max-width: 1000px;
+        margin: 50px auto 0;
+        text-align: left;
+      }
+      
+      .kanban-col {
+        background: #f4f6f8;
+        border-radius: 12px;
+        padding: 15px;
+        border: 1px solid #eee;
+      }
+      
+      .col-header {
+        display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;
+        font-weight: 700; font-size: 0.9rem; color: #555;
+      }
+      
+      .lead-count {
+        background: #ddd; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem;
+      }
+      
+      .lead-card {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        margin-bottom: 10px;
+        border-left: 4px solid #ccc;
+        transition: 0.2s;
+        cursor: pointer;
+      }
+      .lead-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+      
+      /* Column Specific Colors */
+      .col-new .lead-card { border-left-color: var(--lead-new); }
+      .col-follow .lead-card { border-left-color: var(--lead-warm); }
+      .col-won .lead-card { border-left-color: var(--lead-won); }
+
+      .lead-name { font-weight: 700; font-size: 0.95rem; color: #3d405b; }
+      .lead-source { font-size: 0.75rem; color: #888; margin-top: 5px; display: flex; justify-content: space-between; }
+      
+      .tag { padding: 2px 6px; border-radius: 4px; background: #eee; font-size: 0.7rem; }
+
+      /* --- Features Grid --- */
+      .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px; }
+      .feat-card {
+        padding: 30px; border-radius: 16px; background: white; border: 1px solid #eee; transition: 0.3s;
+      }
+      .feat-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
+      .feat-icon { font-size: 2rem; color: var(--primary-color); margin-bottom: 20px; }
+      .feat-card h3 { margin-bottom: 10px; color: var(--secondary-color); }
+      .feat-card p { font-size: 0.95rem; color: var(--text-muted); }
+
+      /* --- Lead Source Funnel --- */
+      .source-section { background: white; }
+      .source-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+      
+      .integrations-wrapper {
+        display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
+      }
+      .int-logo {
+        width: 70px; height: 70px; background: white; border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08); display: grid; place-items: center;
+        font-size: 1.8rem; border: 1px solid #eee;
+      }
+
+      /* --- Automation Visual --- */
+      .auto-section { background: var(--bg-light); padding: 80px 0; }
+      .chat-mockup {
+        background: white; border-radius: 20px; max-width: 400px; margin: 0 auto;
+        padding: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.05); border: 1px solid #eee;
+      }
+      .chat-bubble {
+        padding: 12px 15px; border-radius: 15px; font-size: 0.9rem; margin-bottom: 10px; max-width: 85%;
+      }
+      .bubble-bot { background: #e3f2fd; color: #1565c0; border-bottom-left-radius: 2px; }
+      .bubble-user { background: #f5f5f5; color: #333; margin-left: auto; border-bottom-right-radius: 2px; }
+
+      /* --- Comparison Section --- */
+      .comparison-box {
+        background: #3d405b; color: white; border-radius: 20px; padding: 60px;
+        text-align: center; margin-top: 80px;
+      }
+      .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; text-align: left; }
+      .comp-col h4 { margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; }
+      .comp-list li { list-style: none; margin-bottom: 15px; display: flex; gap: 10px; align-items: center; opacity: 0.9; }
+
+      /* --- Mobile Responsive --- */
+      @media (max-width: 992px) {
+        .kanban-board { grid-template-columns: 1fr; gap: 30px; }
+        .kanban-col { background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .features-grid, .source-grid, .comparison-grid { grid-template-columns: 1fr; }
+        .comparison-box { padding: 40px 20px; }
+        .hero-grid { text-align: center; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <header></header>
+    <script src="header.js"></script>
+    <div class="header-spacer"></div>
+
+    <section class="crm-hero">
+      <div class="container">
+        <div class="reveal">
+          <span style="background: #fff0f0; padding: 6px 15px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: inline-block; margin-bottom: 20px;">
+            <i class="fas fa-funnel-dollar"></i> Increase Admissions by 30%
+          </span>
+          <h1>Never Lose a Student <br><span>Inquiry Again.</span></h1>
+          <p>
+            Capture leads from Facebook, JustDial, and Walk-ins automatically. Assign them to counselors and track every follow-up until admission.
+          </p>
+        </div>
+
+        <div class="kanban-board reveal">
+          <div class="kanban-col col-new">
+            <div class="col-header">
+              <span style="color: var(--lead-new);"><i class="fas fa-bolt"></i> New Inquiries</span>
+              <span class="lead-count">3</span>
+            </div>
+            
+            <div class="lead-card">
+              <div class="lead-name">Rohan Das</div>
+              <div class="lead-source">
+                 <span><i class="fab fa-facebook"></i> Facebook Ad</span>
+                 <span class="tag">Just Now</span>
+              </div>
+            </div>
+            <div class="lead-card">
+              <div class="lead-name">Anjali Singh</div>
+              <div class="lead-source">
+                 <span><i class="fas fa-globe"></i> Website</span>
+                 <span class="tag">10 min</span>
+              </div>
+            </div>
+            <div class="lead-card">
+              <div class="lead-name">Vikram Malhotra</div>
+              <div class="lead-source">
+                 <span><i class="fas fa-walking"></i> Walk-in</span>
+                 <span class="tag">1 hr</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="kanban-col col-follow">
+            <div class="col-header">
+              <span style="color: var(--lead-warm);"><i class="fas fa-phone-volume"></i> Follow-Up</span>
+              <span class="lead-count">2</span>
+            </div>
+            
+            <div class="lead-card">
+              <div class="lead-name">Priya Sharma</div>
+              <div class="lead-source">
+                 <span>Interested in NEET</span>
+                 <span style="color: #e67e22;"><i class="fas fa-clock"></i> 2pm</span>
+              </div>
+            </div>
+             <div class="lead-card">
+              <div class="lead-name">Amit Verma</div>
+              <div class="lead-source">
+                 <span>Fees Issue</span>
+                 <span style="color: #e67e22;"><i class="fas fa-clock"></i> Tomorrow</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="kanban-col col-won">
+            <div class="col-header">
+              <span style="color: var(--lead-won);"><i class="fas fa-check-circle"></i> Admitted</span>
+              <span class="lead-count">142</span>
+            </div>
+            
+            <div class="lead-card" style="opacity: 0.7;">
+              <div class="lead-name">Sneha Gupta</div>
+              <div class="lead-source">
+                 <span>Batch 12-A</span>
+                 <span style="color: var(--lead-won);">Paid ₹5k</span>
+              </div>
+            </div>
+            <div class="lead-card" style="opacity: 0.7;">
+               <div class="lead-name">+ 141 Others</div>
+               <div class="lead-source">Total Revenue: ₹12.4L</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="features-grid">
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-magnet"></i></div>
+            <h3>Auto-Capture</h3>
+            <p>Connect your Facebook Ads, Google Forms, and JustDial account. Leads land directly in ERPLI instantly.</p>
+          </div>
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fab fa-whatsapp"></i></div>
+            <h3>One-Click WhatsApp</h3>
+            <p>Don't save numbers to your phone. Click the WhatsApp icon to send brochures and fee structures instantly.</p>
+          </div>
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-history"></i></div>
+            <h3>Call Recording</h3>
+            <p>Monitor your counselor's performance. Track how many calls they made and listen to recordings (via App).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="source-section">
+      <div class="container split-grid">
+        <div class="reveal">
+          <h2>Centralize Your <span>Marketing.</span></h2>
+          <p style="color: var(--text-muted); margin-bottom: 30px;">
+            You spend money on ads, but lose leads in Excel sheets. ERPLI brings everything into one funnel so you know exactly which ad is working.
+          </p>
+          <ul style="list-style: none; margin-bottom: 30px;">
+             <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> <strong>Zero Data Leakage:</strong> Staff can call leads without seeing the full phone number.</li>
+             <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> <strong>ROI Tracking:</strong> See cost-per-admission, not just cost-per-click.</li>
+          </ul>
+        </div>
+
+        <div class="reveal" style="text-align: center;">
+           <div class="integrations-wrapper">
+             <div class="int-logo" style="color: #1877f2;"><i class="fab fa-facebook-f"></i></div>
+             <div class="int-logo" style="color: #c32aa3;"><i class="fab fa-instagram"></i></div>
+             <div class="int-logo" style="color: #ea4335;"><i class="fab fa-google"></i></div>
+             <div class="int-logo" style="color: #ff9900; font-weight: 700; font-size: 1rem;">JustDial</div>
+             <div class="int-logo" style="color: #0077b5;"><i class="fab fa-linkedin-in"></i></div>
+           </div>
+           <div style="font-size: 2rem; color: #ccc; margin: 20px 0;"><i class="fas fa-arrow-down"></i></div>
+           <div style="background: white; padding: 20px; border-radius: 12px; border: 2px solid var(--primary-color); display: inline-block; font-weight: 700; color: #3d405b;">
+             ERPLI CRM
+           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="auto-section">
+      <div class="container split-grid">
+         <div class="chat-mockup reveal">
+            <div style="font-size: 0.8rem; text-align: center; color: #999; margin-bottom: 15px;">Today 10:23 AM</div>
+            <div class="chat-bubble bubble-bot">
+              <strong>Auto-Bot:</strong> Hi Rahul! Thanks for inquiring about the NEET Batch. Here is the brochure. 📄
+            </div>
+            <div class="chat-bubble bubble-user">
+              What is the fee structure?
+            </div>
+            <div class="chat-bubble bubble-bot">
+              <strong>Auto-Bot:</strong> The annual fee is ₹45,000. We have an Early Bird discount valid till Sunday! 🎉
+            </div>
+            <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px; color: #ccc; font-size: 0.8rem;">
+               <i class="fas fa-robot"></i> Automated response sent via WhatsApp API
+            </div>
+         </div>
+
+         <div class="reveal">
+           <h2>Sleep while we <span>Follow Up.</span></h2>
+           <p style="color: var(--text-muted);">
+             60% of leads buy after the 5th follow-up. But humans forget. Our bot sends automated messages to nurture leads until they are ready to pay.
+           </p>
+           <a href="index.html#pricing" class="btn btn-primary" style="margin-top: 20px;">Enable Automation</a>
+         </div>
+      </div>
+    </section>
+
+    <section class="container reveal">
+      <div class="comparison-box">
+        <h2>Why upgrade from Excel?</h2>
+        <div class="comparison-grid">
+           <div class="comp-col">
+             <h4 style="color: #ff6b6b;"><i class="fas fa-times"></i> Excel Sheets</h4>
+             <ul class="comp-list">
+               <li><i class="fas fa-times"></i> Leads get lost in rows</li>
+               <li><i class="fas fa-times"></i> No reminders to call</li>
+               <li><i class="fas fa-times"></i> Staff can steal data</li>
+               <li><i class="fas fa-times"></i> Manual entry errors</li>
+             </ul>
+           </div>
+           <div class="comp-col">
+             <h4 style="color: #2ecc71;"><i class="fas fa-check"></i> ERPLI CRM</h4>
+             <ul class="comp-list">
+               <li><i class="fas fa-check"></i> Visual pipeline view</li>
+               <li><i class="fas fa-check"></i> Auto-reminders & notifications</li>
+               <li><i class="fas fa-check"></i> Data masking & security</li>
+               <li><i class="fas fa-check"></i> Auto-capture from ads</li>
+             </ul>
+           </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="main-footer"></footer>
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+
+    <script>
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+    </script>
+  </body>
+</html>

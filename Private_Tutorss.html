@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For Private Tutors & Experts - ERPLI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* --- Root Variables --- */
+      :root {
+        --primary-color: #f28482;
+        --secondary-color: #3d405b;
+        --bg-light: #fffbf5;
+        --white: #ffffff;
+        --text-dark: #3d405b;
+        --text-muted: #666;
+        --font-family: "Inter", sans-serif;
+        --cal-event: #e3f2fd;
+        --cal-event-text: #1565c0;
+      }
+
+      /* --- Base & Reset --- */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: var(--font-family);
+        background-color: var(--white);
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* --- Common Components --- */
+      section { padding: 100px 0; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+      h1, h2, h3, h4 { font-weight: 800; line-height: 1.2; }
+      span { color: var(--primary-color); }
+
+      .btn {
+        display: inline-block;
+        padding: 16px 36px;
+        border-radius: 50px;
+        font-weight: 700;
+        transition: 0.3s;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+      }
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+        box-shadow: 0 4px 15px rgba(242, 132, 130, 0.3);
+      }
+      .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4); }
+
+      .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+      .reveal.visible { opacity: 1; transform: translateY(0); }
+      
+      .header-spacer { height: 80px; }
+
+      /* --- Hero Section --- */
+      .tutor-hero {
+        background-color: var(--bg-light);
+        padding: 120px 0 80px;
+        text-align: center;
+      }
+      .tutor-hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 25px; color: var(--secondary-color); }
+      .tutor-hero p { font-size: 1.15rem; color: var(--text-muted); margin: 0 auto 40px; max-width: 700px; }
+
+      /* --- Calendar Mockup --- */
+      .scheduler-container {
+        display: flex; justify-content: center; gap: 40px; margin-top: 60px;
+        flex-wrap: wrap; align-items: center;
+      }
+
+      .phone-cal {
+        background: #333; border-radius: 30px; padding: 10px; width: 280px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.2); transform: rotate(-5deg); z-index: 1;
+      }
+      .phone-screen {
+        background: white; border-radius: 20px; overflow: hidden; height: 480px;
+        display: flex; flex-direction: column;
+      }
+      .cal-header { padding: 20px; background: var(--secondary-color); color: white; }
+      .cal-grid { padding: 15px; flex: 1; }
+      .time-slot {
+        background: #f9f9f9; border-left: 3px solid #ccc; padding: 10px; margin-bottom: 10px;
+        font-size: 0.8rem; border-radius: 0 4px 4px 0;
+      }
+      .time-slot.booked {
+        background: var(--cal-event); border-left-color: var(--cal-event-text); color: var(--cal-event-text);
+      }
+      
+      .notification-pop {
+        background: white; padding: 15px 20px; border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid #eee;
+        width: 300px; position: relative; z-index: 2; transform: translateY(20px);
+        display: flex; gap: 15px; align-items: center;
+      }
+      .notif-icon {
+        width: 40px; height: 40px; background: #e6fffa; color: #047857;
+        border-radius: 50%; display: grid; place-items: center;
+      }
+
+      /* --- Problems vs Solutions Grid --- */
+      .problem-solution { background: white; }
+      .ps-grid { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0; max-width: 1000px; margin: 0 auto; align-items: center; }
+      .divider { background: #eee; height: 100%; }
+      
+      .side-box { padding: 40px; }
+      .problem-item { display: flex; gap: 15px; margin-bottom: 25px; align-items: flex-start; opacity: 0.7; }
+      .solution-item { display: flex; gap: 15px; margin-bottom: 25px; align-items: flex-start; }
+      
+      .icon-bad { color: #e74c3c; min-width: 25px; margin-top: 5px; }
+      .icon-good { color: #2ecc71; min-width: 25px; margin-top: 5px; }
+
+      /* --- Features Grid --- */
+      .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px; }
+      .feat-card {
+        padding: 30px; border-radius: 16px; background: white; border: 1px solid #eee; transition: 0.3s;
+      }
+      .feat-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
+      .feat-icon { font-size: 2rem; color: var(--primary-color); margin-bottom: 20px; }
+      .feat-card h3 { margin-bottom: 10px; color: var(--secondary-color); }
+      .feat-card p { font-size: 0.95rem; color: var(--text-muted); }
+
+      /* --- Income Calculator Banner --- */
+      .income-banner {
+        background: var(--secondary-color); color: white; border-radius: 20px; padding: 60px;
+        text-align: center; margin-top: 80px;
+      }
+      .highlight-text { font-size: 1.5rem; margin-bottom: 20px; }
+      .highlight-text span { color: #f28482; font-weight: 700; }
+
+      /* --- Mobile Responsive --- */
+      @media (max-width: 992px) {
+        .scheduler-container { flex-direction: column; }
+        .notification-pop { transform: translateY(-20px); }
+        .ps-grid { grid-template-columns: 1fr; }
+        .divider { height: 1px; width: 100%; }
+        .features-grid { grid-template-columns: 1fr; }
+        .hero-grid { text-align: center; }
+        .phone-cal { transform: rotate(0deg); }
+      }
+    </style>
+  </head>
+  <body>
+
+    <header></header>
+    <script src="header.js"></script>
+    <div class="header-spacer"></div>
+
+    <section class="tutor-hero">
+      <div class="container">
+        <div class="reveal">
+          <span style="background: #e6fffa; color: #047857; padding: 6px 15px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: inline-block; margin-bottom: 20px;">
+            <i class="fas fa-user-tie"></i> For Independent Tutors
+          </span>
+          <h1>Turn Your Knowledge <br><span>Into a Business.</span></h1>
+          <p>
+            Stop relying on chaotic WhatsApp groups and manual bank transfers. 
+            Get a professional booking site, automated payments, and your own student app.
+          </p>
+        </div>
+
+        <div class="scheduler-container reveal">
+           <div class="phone-cal">
+             <div class="phone-screen">
+               <div class="cal-header">
+                 <h4 style="margin: 0; color: white;">My Schedule</h4>
+                 <small>Wed, 24 Oct</small>
+               </div>
+               <div class="cal-grid">
+                 <div class="time-slot booked">
+                   <strong>10:00 AM</strong> - Math (Rohan)
+                 </div>
+                 <div class="time-slot">
+                   <strong>11:00 AM</strong> - Free Slot
+                 </div>
+                 <div class="time-slot booked">
+                   <strong>01:00 PM</strong> - Physics (Anjali)
+                 </div>
+                 <div class="time-slot">
+                   <strong>02:00 PM</strong> - Free Slot
+                 </div>
+                 <div class="time-slot booked" style="border-left-color: #f1c40f; background: #fffbe6; color: #b7950b;">
+                   <strong>04:00 PM</strong> - Group Class (10 Students)
+                 </div>
+               </div>
+             </div>
+           </div>
+
+           <div class="notification-pop">
+             <div class="notif-icon"><i class="fas fa-rupee-sign"></i></div>
+             <div>
+               <div style="font-weight: 700; font-size: 0.9rem; color: #333;">Payment Received</div>
+               <div style="font-size: 0.8rem; color: #666;">₹2,500 from Anjali's Parent</div>
+             </div>
+           </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="problem-solution">
+       <div class="container">
+         <h2 style="text-align: center; margin-bottom: 50px;">Why Upgrade?</h2>
+         <div class="ps-grid reveal">
+            <div class="side-box">
+               <h3 style="margin-bottom: 30px; color: #e74c3c;">The Hard Way</h3>
+               <div class="problem-item">
+                 <i class="fas fa-times-circle icon-bad"></i>
+                 <div>"Are you free at 5pm?" ping-pong messages on WhatsApp.</div>
+               </div>
+               <div class="problem-item">
+                 <i class="fas fa-times-circle icon-bad"></i>
+                 <div>Awkwardly asking parents for late fees.</div>
+               </div>
+               <div class="problem-item">
+                 <i class="fas fa-times-circle icon-bad"></i>
+                 <div>Zoom links getting lost in chat history.</div>
+               </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="side-box" style="background: #fcfcfc;">
+               <h3 style="margin-bottom: 30px; color: #2ecc71;">The ERPLI Way</h3>
+               <div class="solution-item">
+                 <i class="fas fa-check-circle icon-good"></i>
+                 <div><strong>Auto-Booking:</strong> Share your link. Students pick a free slot. Done.</div>
+               </div>
+               <div class="solution-item">
+                 <i class="fas fa-check-circle icon-good"></i>
+                 <div><strong>Auto-Reminders:</strong> App sends fee reminders 3 days before due date.</div>
+               </div>
+               <div class="solution-item">
+                 <i class="fas fa-check-circle icon-good"></i>
+                 <div><strong>One-Click Join:</strong> Students just click "Join Class" in the app.</div>
+               </div>
+            </div>
+         </div>
+       </div>
+    </section>
+
+    <section style="background: var(--bg-light);">
+      <div class="container">
+        <div class="features-grid">
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-wallet"></i></div>
+            <h3>Pre-Payment</h3>
+            <p>Stop no-shows. Require students to pay the fee <i>before</i> they can book a slot on your calendar.</p>
+          </div>
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Progress Reports</h3>
+            <p>Send professional monthly reports to parents with one click. Show them the value they are paying for.</p>
+          </div>
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-globe"></i></div>
+            <h3>Your Personal Brand</h3>
+            <p>Get a website like <code>tutor-rahul.com</code>. Look like a professional institute, not a freelancer.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container reveal">
+       <div class="income-banner">
+         <div class="highlight-text">
+           Save <span>10+ Hours</span> per week on admin work.
+         </div>
+         <p style="opacity: 0.8; margin-bottom: 30px;">
+           That's 10 extra hours you can use to teach more students and increase your income.
+         </p>
+         <a href="index.html#pricing" class="btn btn-primary">Start Free Trial</a>
+       </div>
+    </section>
+
+    <footer id="main-footer"></footer>
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+
+    <script>
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anti-Piracy & Content Security - ERPLI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* --- Root Variables --- */
+      :root {
+        --primary-color: #f28482;
+        --secondary-color: #3d405b;
+        --bg-light: #fffbf5;
+        --white: #ffffff;
+        --text-dark: #3d405b;
+        --text-muted: #666;
+        --security-green: #2ecc71;
+        --danger-red: #e74c3c;
+        --font-family: "Inter", sans-serif;
+      }
+
+      /* --- Base & Reset --- */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: var(--font-family);
+        background-color: var(--white);
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* --- Common Components --- */
+      section { padding: 100px 0; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+      h1, h2, h3, h4 { font-weight: 800; line-height: 1.2; }
+      span { color: var(--primary-color); }
+
+      .btn {
+        display: inline-block;
+        padding: 16px 36px;
+        border-radius: 50px;
+        font-weight: 700;
+        transition: 0.3s;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+      }
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+        box-shadow: 0 4px 15px rgba(242, 132, 130, 0.3);
+      }
+      .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4); }
+
+      .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+      .reveal.visible { opacity: 1; transform: translateY(0); }
+      
+      .header-spacer { height: 80px; }
+
+      /* --- Hero Section --- */
+      .security-hero {
+        background-color: var(--bg-light);
+        padding: 120px 0 80px;
+        text-align: center;
+      }
+      .security-hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 25px; color: var(--secondary-color); }
+      .security-hero p { font-size: 1.15rem; color: var(--text-muted); margin: 0 auto 40px; max-width: 700px; }
+
+      /* --- Screen Recording Simulation --- */
+      .screen-simulation {
+        display: flex; gap: 40px; justify-content: center; margin-top: 60px; flex-wrap: wrap;
+      }
+      
+      .screen-box {
+        width: 350px; height: 250px; border-radius: 12px; overflow: hidden;
+        position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        border: 4px solid #333;
+      }
+      
+      .screen-header {
+        background: #333; color: white; padding: 8px 15px; font-size: 0.8rem;
+        display: flex; justify-content: space-between; align-items: center;
+      }
+      
+      /* Legit View */
+      .legit-view .content {
+        height: 100%; background: linear-gradient(45deg, #3d405b, #1a1a2e);
+        display: flex; align-items: center; justify-content: center; color: white; flex-direction: column;
+        position: relative;
+      }
+      .watermark {
+        position: absolute; color: rgba(255,255,255,0.15); font-size: 1rem; font-weight: 700;
+        top: 20%; left: 10%; transform: rotate(-15deg);
+        animation: float-wm 8s infinite linear;
+      }
+      @keyframes float-wm {
+        0% { top: 10%; left: 10%; } 50% { top: 70%; left: 60%; } 100% { top: 10%; left: 10%; }
+      }
+
+      /* Hacker View */
+      .hacker-view .content {
+        height: 100%; background: black; display: flex; align-items: center; justify-content: center; flex-direction: column;
+      }
+      .hacker-msg { color: #555; font-family: monospace; text-align: center; }
+      .rec-icon {
+        color: var(--danger-red); animation: blink 1s infinite; margin-bottom: 10px;
+      }
+      @keyframes blink { 50% { opacity: 0; } }
+
+      /* --- Security Layers (Stack) --- */
+      .layers-section { background: white; }
+      .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+      
+      .layer-stack { position: relative; height: 400px; width: 100%; max-width: 400px; margin: 0 auto; }
+      .layer-card {
+        background: white; border: 1px solid #eee; border-radius: 16px; padding: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: absolute; width: 100%;
+        transition: 0.3s; left: 0; display: flex; align-items: center; gap: 15px;
+      }
+      .layer-card:hover { transform: translateX(20px) !important; z-index: 10 !important; border-color: var(--primary-color); }
+      
+      .l-icon { width: 50px; height: 50px; background: var(--bg-light); border-radius: 10px; display: grid; place-items: center; color: var(--secondary-color); font-size: 1.2rem; }
+
+      /* --- Telegram Block --- */
+      .telegram-section { background: #3d405b; color: white; padding: 80px 0; text-align: center; }
+      .tg-visual {
+        max-width: 600px; margin: 40px auto; background: rgba(255,255,255,0.1); border-radius: 20px; padding: 30px;
+        position: relative; overflow: hidden;
+      }
+      .file-item {
+        background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; margin-bottom: 10px;
+        display: flex; align-items: center; gap: 15px; text-align: left;
+      }
+      .file-icon { color: #3498db; font-size: 1.5rem; }
+      .file-name { font-size: 0.9rem; flex: 1; }
+      .file-status { color: #e74c3c; font-weight: 700; font-size: 0.8rem; border: 1px solid #e74c3c; padding: 2px 8px; border-radius: 4px; }
+
+      /* --- Features Grid --- */
+      .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px; }
+      .feat-card {
+        padding: 30px; border-radius: 16px; background: white; border: 1px solid #eee; transition: 0.3s;
+      }
+      .feat-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
+      .feat-icon { font-size: 2rem; color: var(--primary-color); margin-bottom: 20px; }
+      .feat-card h3 { margin-bottom: 10px; color: var(--secondary-color); }
+      .feat-card p { font-size: 0.95rem; color: var(--text-muted); }
+
+      /* --- Mobile Responsive --- */
+      @media (max-width: 992px) {
+        .screen-simulation { flex-direction: column; align-items: center; }
+        .split-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+        .features-grid { grid-template-columns: 1fr; }
+        .hero-grid { text-align: center; }
+        .layer-stack { height: 350px; } /* Adjust height for mobile */
+      }
+    </style>
+  </head>
+  <body>
+
+    <header></header>
+    <script src="header.js"></script>
+    <div class="header-spacer"></div>
+
+    <section class="security-hero">
+      <div class="container">
+        <div class="reveal">
+          <span style="background: #fff0f0; padding: 6px 15px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: inline-block; margin-bottom: 20px;">
+            <i class="fas fa-shield-alt"></i> Military-Grade Protection
+          </span>
+          <h1>Stop Digital <br><span>Shoplifting.</span></h1>
+          <p>
+            Your content is your asset. Don't let pirates distribute your hard work for free on Telegram. 
+            We use Hollywood-grade DRM to lock your videos down.
+          </p>
+        </div>
+
+        <div class="screen-simulation reveal">
+           <div>
+             <div style="text-align: center; margin-bottom: 10px; font-weight: 600; color: var(--security-green);"><i class="fas fa-check-circle"></i> Paid Student View</div>
+             <div class="screen-box legit-view">
+                <div class="screen-header">
+                  <span><i class="fas fa-play"></i> Physics - Chap 1</span>
+                  <span><i class="fas fa-battery-full"></i></span>
+                </div>
+                <div class="content">
+                   <div class="watermark">+91-9876543210</div>
+                   <i class="fas fa-chalkboard-teacher" style="font-size: 3rem; margin-bottom: 10px;"></i>
+                   <div style="font-size: 0.9rem;">Crystal Clear Video</div>
+                </div>
+             </div>
+           </div>
+
+           <div>
+             <div style="text-align: center; margin-bottom: 10px; font-weight: 600; color: var(--danger-red);"><i class="fas fa-times-circle"></i> Screen Recorder View</div>
+             <div class="screen-box hacker-view" style="border-color: var(--danger-red);">
+                <div class="screen-header">
+                  <span>Recording...</span>
+                  <span class="rec-icon"><i class="fas fa-circle"></i></span>
+                </div>
+                <div class="content">
+                   <i class="fas fa-ban" style="font-size: 3rem; color: #333; margin-bottom: 15px;"></i>
+                   <div class="hacker-msg">
+                     BLACK SCREEN DETECTED<br>
+                     DRM PROTECTION ACTIVE
+                   </div>
+                </div>
+             </div>
+           </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="layers-section">
+      <div class="container split-grid">
+         <div class="reveal">
+           <h2>5 Layers of <span>Security.</span></h2>
+           <p style="color: var(--text-muted); margin-bottom: 30px;">
+             Most platforms just hide the download button. We encrypt the video stream itself. Even if someone downloads the file, it's just garbage data without the key.
+           </p>
+           <a href="index.html#pricing" class="btn btn-primary">Secure My Content</a>
+         </div>
+
+         <div class="layer-stack reveal">
+            <div class="layer-card" style="top: 0; z-index: 5;">
+               <div class="l-icon"><i class="fas fa-lock"></i></div>
+               <div>
+                 <h4>Widevine DRM</h4>
+                 <small style="color: #666;">Google's encryption used by Netflix.</small>
+               </div>
+            </div>
+            <div class="layer-card" style="top: 70px; z-index: 4; transform: scale(0.95); opacity: 0.9;">
+               <div class="l-icon"><i class="fas fa-user-secret"></i></div>
+               <div>
+                 <h4>Dynamic Watermark</h4>
+                 <small style="color: #666;">Floats user email/phone on screen.</small>
+               </div>
+            </div>
+            <div class="layer-card" style="top: 140px; z-index: 3; transform: scale(0.9); opacity: 0.8;">
+               <div class="l-icon"><i class="fas fa-desktop"></i></div>
+               <div>
+                 <h4>Device Restriction</h4>
+                 <small style="color: #666;">Login allowed on 1 Mobile + 1 Laptop only.</small>
+               </div>
+            </div>
+            <div class="layer-card" style="top: 210px; z-index: 2; transform: scale(0.85); opacity: 0.7;">
+               <div class="l-icon"><i class="fas fa-camera"></i></div>
+               <div>
+                 <h4>Screenshot Block</h4>
+                 <small style="color: #666;">Android secure flag disables screenshots.</small>
+               </div>
+            </div>
+         </div>
+      </div>
+    </section>
+
+    <section class="telegram-section">
+      <div class="container reveal">
+         <h2>Kill the <span>Telegram Groups.</span></h2>
+         <p style="opacity: 0.8; max-width: 600px; margin: 0 auto;">
+           Pirates try to download videos and upload them to Telegram channels. With ERPLI, the file is corrupted instantly upon download attempts.
+         </p>
+         
+         <div class="tg-visual">
+            <div style="position: absolute; top: 10px; right: 10px; color: rgba(255,255,255,0.2); font-size: 5rem;">
+               <i class="fab fa-telegram"></i>
+            </div>
+            <h4 style="text-align: left; margin-bottom: 20px; color: #ccc;">Telegram Channel: Leaked Course</h4>
+            
+            <div class="file-item">
+               <div class="file-icon"><i class="fas fa-file-video"></i></div>
+               <div class="file-name">Physics_Lecture_01.mp4</div>
+               <div class="file-status">CORRUPT FILE</div>
+            </div>
+            <div class="file-item">
+               <div class="file-icon"><i class="fas fa-file-video"></i></div>
+               <div class="file-name">Math_Notes_PDF.pdf</div>
+               <div class="file-status">PASSWORD LOCKED</div>
+            </div>
+            
+            <div style="margin-top: 20px; font-size: 0.8rem; color: #e74c3c;">
+               <i class="fas fa-exclamation-triangle"></i> Upload Failed: Unknown Codec
+            </div>
+         </div>
+      </div>
+    </section>
+
+    <section style="background: white;">
+      <div class="container">
+        <div class="features-grid">
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-globe"></i></div>
+            <h3>Domain Lock</h3>
+            <p>Your videos will ONLY play on <code>your-website.com</code>. If someone embeds the link elsewhere, it won't load.</p>
+          </div>
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-ban"></i></div>
+            <h3>VPN Blocker</h3>
+            <p>We detect and block suspicious VPN/Proxy connections often used by hackers to bypass restrictions.</p>
+          </div>
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Piracy Analytics</h3>
+            <p>See exactly who tried to screenshot or record your app. Ban their account with one click.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="main-footer"></footer>
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+
+    <script>
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+    </script>
+  </body>
+</html>

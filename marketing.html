@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marketing Automation & Tools - ERPLI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* --- Root Variables --- */
+      :root {
+        --primary-color: #f28482;
+        --secondary-color: #3d405b;
+        --bg-light: #fffbf5;
+        --white: #ffffff;
+        --text-dark: #3d405b;
+        --text-muted: #666;
+        --font-family: "Inter", sans-serif;
+        --sms-blue: #3498db;
+        --email-yellow: #f1c40f;
+        --whatsapp-green: #2ecc71;
+      }
+
+      /* --- Base & Reset --- */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: var(--font-family);
+        background-color: var(--white);
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* --- Common Components --- */
+      section { padding: 100px 0; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+      h1, h2, h3, h4 { font-weight: 800; line-height: 1.2; }
+      span { color: var(--primary-color); }
+
+      .btn {
+        display: inline-block;
+        padding: 16px 36px;
+        border-radius: 50px;
+        font-weight: 700;
+        transition: 0.3s;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+      }
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+        box-shadow: 0 4px 15px rgba(242, 132, 130, 0.3);
+      }
+      .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4); }
+
+      .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+      .reveal.visible { opacity: 1; transform: translateY(0); }
+      
+      .header-spacer { height: 80px; }
+
+      /* --- Hero Section --- */
+      .marketing-hero {
+        background-color: var(--bg-light);
+        padding: 120px 0 80px;
+        text-align: center;
+      }
+      .marketing-hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 25px; color: var(--secondary-color); }
+      .marketing-hero p { font-size: 1.15rem; color: var(--text-muted); margin: 0 auto 40px; max-width: 700px; }
+
+      /* --- Coupon Creator Mockup --- */
+      .coupon-mockup {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        max-width: 450px;
+        margin: 0 auto;
+        border: 1px solid #eee;
+        overflow: hidden;
+        position: relative;
+      }
+      .mock-header { background: var(--secondary-color); color: white; padding: 20px; text-align: left; }
+      .mock-body { padding: 30px; }
+      
+      .ticket-visual {
+        border: 2px dashed var(--primary-color);
+        background: #fff0f0;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 25px;
+        position: relative;
+      }
+      /* Cutout Circles for Ticket Look */
+      .ticket-visual::before, .ticket-visual::after {
+        content: ''; position: absolute; top: 50%; width: 20px; height: 20px; background: white; border-radius: 50%; transform: translateY(-50%);
+      }
+      .ticket-visual::before { left: -12px; border-right: 2px dashed var(--primary-color); }
+      .ticket-visual::after { right: -12px; border-left: 2px dashed var(--primary-color); }
+
+      .input-group { margin-bottom: 15px; text-align: left; }
+      .input-label { font-size: 0.8rem; font-weight: 700; color: #888; display: block; margin-bottom: 5px; }
+      .fake-input { background: #f9f9f9; border: 1px solid #ddd; padding: 10px; border-radius: 6px; width: 100%; color: #333; }
+
+      /* --- Campaign Dashboard --- */
+      .campaign-section { background: white; }
+      .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+      
+      .campaign-card {
+        background: white; border: 1px solid #eee; border-radius: 16px; padding: 25px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      }
+      .stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 20px; text-align: center; }
+      .stat-item h4 { font-size: 1.5rem; color: #3d405b; margin-bottom: 5px; }
+      .stat-item span { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+
+      .progress-bar { height: 6px; background: #eee; border-radius: 3px; margin-top: 15px; overflow: hidden; }
+      .progress-fill { height: 100%; background: var(--primary-color); border-radius: 3px; }
+
+      /* --- Automation Channels --- */
+      .channel-section { background: var(--bg-light); }
+      .channel-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 50px; }
+      
+      .channel-box {
+        background: white; padding: 30px; border-radius: 20px; width: 280px; text-align: center;
+        transition: 0.3s; border: 1px solid #eee;
+      }
+      .channel-box:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
+      
+      .ch-icon { 
+        width: 70px; height: 70px; border-radius: 50%; display: grid; place-items: center; 
+        font-size: 2rem; color: white; margin: 0 auto 20px;
+      }
+      .ch-sms { background: var(--sms-blue); box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3); }
+      .ch-email { background: var(--email-yellow); box-shadow: 0 10px 20px rgba(241, 196, 15, 0.3); }
+      .ch-wa { background: var(--whatsapp-green); box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3); }
+
+      /* --- Features Grid --- */
+      .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px; }
+      .feat-card {
+        padding: 30px; border-radius: 16px; background: white; border: 1px solid #eee; transition: 0.3s;
+      }
+      .feat-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
+      .feat-icon { font-size: 2rem; color: var(--primary-color); margin-bottom: 20px; }
+      .feat-card h3 { margin-bottom: 10px; color: var(--secondary-color); }
+      .feat-card p { font-size: 0.95rem; color: var(--text-muted); }
+
+      /* --- ROI Banner --- */
+      .roi-banner {
+        background: #3d405b; color: white; border-radius: 20px; padding: 60px;
+        text-align: center; margin-top: 80px;
+      }
+      .roi-num { font-size: 3rem; font-weight: 800; color: var(--primary-color); }
+
+      /* --- Mobile Responsive --- */
+      @media (max-width: 992px) {
+        .split-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+        .features-grid { grid-template-columns: 1fr; }
+        .channel-container { flex-direction: column; align-items: center; }
+        .channel-box { width: 100%; max-width: 350px; }
+        .hero-grid { text-align: center; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <header></header>
+    <script src="header.js"></script>
+    <div class="header-spacer"></div>
+
+    <section class="marketing-hero">
+      <div class="container">
+        <div class="reveal">
+          <span style="background: #e6fffa; color: #047857; padding: 6px 15px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: inline-block; margin-bottom: 20px;">
+            <i class="fas fa-bullhorn"></i> Engagement Engine
+          </span>
+          <h1>Turn Students into <br><span>Super Fans.</span></h1>
+          <p>
+            You don't need a marketing degree. Use our built-in tools to create discount coupons, send bulk SMS updates, and run email newsletters.
+          </p>
+        </div>
+
+        <div class="coupon-mockup reveal" style="margin-top: 50px;">
+          <div class="mock-header">
+             <h4 style="margin: 0;"><i class="fas fa-tags"></i> Create New Offer</h4>
+          </div>
+          <div class="mock-body">
+             <div class="ticket-visual">
+                <h2 style="color: var(--primary-color); margin: 0;">DIWALI50</h2>
+                <small style="color: #666; text-transform: uppercase; letter-spacing: 1px;">Flat 50% Off</small>
+             </div>
+             
+             <div class="input-group">
+               <span class="input-label">Coupon Code</span>
+               <div class="fake-input">DIWALI50</div>
+             </div>
+             <div class="input-group">
+               <span class="input-label">Discount Type</span>
+               <div class="fake-input">Percentage (%)</div>
+             </div>
+             <div class="input-group">
+               <span class="input-label">Valid Until</span>
+               <div class="fake-input">30 Nov 2026</div>
+             </div>
+             
+             <div style="background: var(--primary-color); color: white; padding: 12px; border-radius: 8px; text-align: center; font-weight: 700; margin-top: 20px;">
+                Launch Offer
+             </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="campaign-section">
+      <div class="container split-grid">
+         <div class="reveal">
+           <h2>Track Your <span>Success.</span></h2>
+           <p style="color: var(--text-muted); margin-bottom: 30px;">
+             Don't shoot in the dark. Know exactly how many people opened your email and how many clicked the link.
+           </p>
+           <ul style="list-style: none; margin-bottom: 30px;">
+              <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> <strong>Real-time Reports:</strong> Watch the numbers go up as soon as you hit send.</li>
+              <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> <strong>Click Tracking:</strong> See who is interested in your course.</li>
+           </ul>
+         </div>
+
+         <div class="campaign-card reveal">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+              <strong>Exam Crash Course Launch</strong>
+              <span style="background: #e6fffa; color: #047857; padding: 4px 10px; border-radius: 10px; font-size: 0.7rem; font-weight: 700;">SENT</span>
+            </div>
+            
+            <div style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">Delivered</div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 98%;"></div></div>
+            <div style="text-align: right; font-size: 0.8rem; margin-top: 5px;">98%</div>
+            
+            <div class="stat-grid">
+               <div class="stat-item">
+                 <h4>1,200</h4>
+                 <span>Sent</span>
+               </div>
+               <div class="stat-item">
+                 <h4 style="color: var(--primary-color);">45%</h4>
+                 <span>Opened</span>
+               </div>
+               <div class="stat-item">
+                 <h4 style="color: #2ecc71;">12%</h4>
+                 <span>Clicked</span>
+               </div>
+            </div>
+         </div>
+      </div>
+    </section>
+
+    <section class="channel-section">
+      <div class="container">
+        <h2 style="text-align: center;">Omnichannel <span>Reach</span></h2>
+        <p style="text-align: center; color: #666; max-width: 600px; margin: 0 auto;">Reach your students where they are. Combine channels for maximum impact.</p>
+        
+        <div class="channel-container reveal">
+           <div class="channel-box">
+             <div class="ch-icon ch-sms"><i class="fas fa-comment-alt"></i></div>
+             <h3>Bulk SMS</h3>
+             <p style="font-size: 0.9rem; color: #666;">98% Open Rate. Best for urgent updates like class cancellations or fee reminders.</p>
+           </div>
+           
+           <div class="channel-box">
+             <div class="ch-icon ch-wa"><i class="fab fa-whatsapp"></i></div>
+             <h3>WhatsApp API</h3>
+             <p style="font-size: 0.9rem; color: #666;">Send rich media, PDFs, and brochures directly to their favorite app.</p>
+           </div>
+
+           <div class="channel-box">
+             <div class="ch-icon ch-email"><i class="fas fa-envelope"></i></div>
+             <h3>Email Blasts</h3>
+             <p style="font-size: 0.9rem; color: #666;">Perfect for long-form newsletters, exam tips, and monthly updates.</p>
+           </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: white;">
+      <div class="container">
+        <div class="features-grid">
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-birthday-cake"></i></div>
+            <h3>Birthday Wishes</h3>
+            <p>Make students feel special. The system automatically sends a personalized wish + discount code on their birthday.</p>
+          </div>
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-shopping-cart"></i></div>
+            <h3>Cart Recovery</h3>
+            <p>If a student adds a course to cart but doesn't buy, we automatically nudge them after 24 hours.</p>
+          </div>
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-filter"></i></div>
+            <h3>Smart Segments</h3>
+            <p>Filter students by "Class 10" or "Fee Pending" and send targeted messages only to them.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container reveal">
+       <div class="roi-banner">
+         <h2>Marketing that pays for itself.</h2>
+         <p style="opacity: 0.8; margin-bottom: 30px;">Our data shows that using coupons increases course sales by an average of 35%.</p>
+         <div class="roi-num">35% Growth</div>
+       </div>
+    </section>
+
+    <footer id="main-footer"></footer>
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+
+    <script>
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+    </script>
+  </body>
+</html>
