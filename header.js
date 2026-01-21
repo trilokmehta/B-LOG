@@ -315,13 +315,14 @@
             <div class="menu-column">
               <div class="column-header"><i class="fas fa-graduation-cap"></i> Teach</div>
               <a href="lms.html" class="menu-item"><i class="fas fa-play-circle"></i><div class="item-text"><h4>Video LMS</h4><p>Drip content & piracy protection.</p></div></a>
-              <a href="live.html" class="menu-item"><i class="fas fa-video"></i><div class="item-text"><h4>Live Classes</h4><p>Zoom/Meet + Auto-recording.</p></div></a>
+              <a href="live.html" class="menu-item"><i class="fas fa-video"></i><div class="item-text"><h4>Live Classes</h4><p>Zoom/Meet.</p></div></a>
               <a href="exams.html" class="menu-item"><i class="fas fa-file-alt"></i><div class="item-text"><h4>Online Exams</h4><p>MCQ, Negative marking & Ranks.</p></div></a>
             </div>
             <div class="menu-column">
               <div class="column-header"><i class="fas fa-cogs"></i> Manage</div>
               <a href="erp.html" class="menu-item"><i class="fas fa-users-cog"></i><div class="item-text"><h4>Institute ERP</h4><p>Fees, Attendance, Staff Payroll.</p></div></a>
-             
+              <a href="teacher_dashboard.html" class="menu-item"><i class="fas fa-book"></i><div class="item-text"><h4>Teacher Dashboard</h4><p>Dedicated Panels for Teachers</p></div></a>
+              <a href="student_dashboard.html" class="menu-item"><i class="fas fa-filter"></i><div class="item-text"><h4>Student Dashbaord</h4><p>Dedicated Panels for Students</p></div></a>
             </div>
             <div class="menu-column">
               <div class="column-header"><i class="fas fa-chart-line"></i> Grow</div>
