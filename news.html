@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Newsroom & Press - ERPLI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* --- Root Variables (Synced) --- */
+      :root {
+        --primary-color: #f28482;
+        --secondary-color: #3d405b;
+        --bg-light: #fffbf5;
+        --white: #ffffff;
+        --text-dark: #3d405b;
+        --text-muted: #666;
+        --font-family: "Inter", sans-serif;
+      }
+
+      /* --- Base & Reset --- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: var(--font-family);
+        background-color: var(--white);
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* --- Components --- */
+      section { padding: 80px 0; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+      h1, h2, h3, h4 { font-weight: 800; line-height: 1.2; }
+      span { color: var(--primary-color); }
+      
+      .btn {
+        display: inline-block;
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: 0.3s;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+      }
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+        box-shadow: 0 4px 15px rgba(242, 132, 130, 0.3);
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4);
+      }
+      .btn-outline {
+        border: 2px solid var(--secondary-color);
+        color: var(--secondary-color);
+        background: transparent;
+      }
+      .btn-outline:hover {
+        background: var(--secondary-color);
+        color: white;
+      }
+
+      /* Animation */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: 0.8s ease-out;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .header-spacer { height: 80px; }
+
+      /* --- Hero Section --- */
+      .news-hero {
+        background-color: var(--bg-light);
+        padding: 100px 0 80px;
+        text-align: center;
+      }
+      .news-hero h1 {
+        font-size: 3.5rem;
+        color: var(--secondary-color);
+        margin-bottom: 25px;
+      }
+      .news-hero p {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* --- Featured Story --- */
+      .featured-card {
+        background: white;
+        border-radius: 30px;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        border: 1px solid #eee;
+        margin-bottom: 80px;
+      }
+      .feat-img {
+        background: #eee;
+        min-height: 400px;
+        position: relative;
+      }
+      .feat-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .feat-content {
+        padding: 60px 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .news-badge {
+        background: #fff0f0;
+        color: var(--primary-color);
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        width: max-content;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+      }
+
+      /* --- News Grid --- */
+      .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 40px;
+      }
+      .news-card {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .news-thumb {
+        height: 220px;
+        border-radius: 20px;
+        background: #f4f4f4;
+        overflow: hidden;
+      }
+      .news-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: 0.4s;
+      }
+      .news-card:hover .news-thumb img { transform: scale(1.05); }
+      
+      .news-date {
+        color: #999;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+      .news-title {
+        font-size: 1.4rem;
+        color: var(--secondary-color);
+        line-height: 1.3;
+        transition: 0.3s;
+      }
+      .news-card:hover .news-title { color: var(--primary-color); }
+      .news-excerpt {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+      }
+
+      /* --- Press Kit --- */
+      .press-kit-box {
+        background: var(--secondary-color);
+        color: white;
+        border-radius: 20px;
+        padding: 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 30px;
+      }
+
+      /* Responsive */
+      @media (max-width: 992px) {
+        .featured-card { grid-template-columns: 1fr; }
+        .feat-img { height: 300px; }
+        .feat-content { padding: 40px 30px; }
+      }
+      @media (max-width: 768px) {
+        .news-hero h1 { font-size: 2.5rem; }
+        .press-kit-box { text-align: center; justify-content: center; }
+      }
+    </style>
+  </head>
+  <body>
+    <header></header>
+    <script src="header.js"></script>
+    <div class="header-spacer"></div>
+
+    <section class="news-hero">
+      <div class="container reveal">
+        <span style="background: #e0f2f1; color: #009688; padding: 6px 15px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: inline-block; margin-bottom: 20px;">
+            <i class="far fa-newspaper"></i> Company Updates
+        </span>
+        <h1>Newsroom & <br><span>Press Releases.</span></h1>
+        <p>Keep up with the latest product launches, company announcements, and industry insights from ERPLI.</p>
+      </div>
+    </section>
+
+    <section style="padding-top: 40px;">
+      <div class="container">
+        
+        <div class="featured-card reveal">
+            <div class="feat-img">
+                <img src="https://via.placeholder.com/800x600/3d405b/ffffff?text=AI+Launch+Event" alt="AI Launch">
+            </div>
+            <div class="feat-content">
+                <div class="news-badge">Product Update</div>
+                <h2 style="font-size: 2rem; color: var(--secondary-color); margin-bottom: 20px;">Introducing ERPLI AI: The World's First Automated Doubt Solver</h2>
+                <p style="color: #666; margin-bottom: 30px;">
+                    We are revolutionizing how students learn. Our new AI module automatically answers student queries instantly, 24/7, based on your uploaded course notes.
+                </p>
+                <div style="display: flex; gap: 20px; align-items: center;">
+                    <a href="#" class="btn btn-primary">Read Announcement</a>
+                    <span style="font-size: 0.9rem; color: #888;">Oct 24, 2025</span>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="margin-bottom: 40px; font-size: 1.8rem; color: var(--secondary-color);">Latest Stories</h3>
+
+        <div class="news-grid">
+            
+            <a href="#" style="text-decoration: none;" class="reveal">
+                <div class="news-card">
+                    <div class="news-thumb">
+                        <img src="https://via.placeholder.com/600x400/f28482/ffffff?text=Award" alt="Award">
+                    </div>
+                    <div>
+                        <div class="news-date">SEPTEMBER 15, 2025</div>
+                        <h3 class="news-title">ERPLI Named "Best EdTech Startup" at Education Summit 2025</h3>
+                        <p class="news-excerpt">We are humbled to receive this recognition for our contribution to democratizing education technology for independent tutors.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" style="text-decoration: none;" class="reveal">
+                <div class="news-card">
+                    <div class="news-thumb">
+                        <img src="https://via.placeholder.com/600x400/81ecec/3d405b?text=Integration" alt="Zoom">
+                    </div>
+                    <div>
+                        <div class="news-date">AUGUST 02, 2025</div>
+                        <h3 class="news-title">New Integration: Seamlessly Sync Zoom Recordings to Your App</h3>
+                        <p class="news-excerpt">No more manual uploads. Connect your Zoom account and let your live classes auto-publish to your student app.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" style="text-decoration: none;" class="reveal">
+                <div class="news-card">
+                    <div class="news-thumb">
+                        <img src="https://via.placeholder.com/600x400/e3f2fd/2196f3?text=Funding" alt="Funding">
+                    </div>
+                    <div>
+                        <div class="news-date">JULY 10, 2025</div>
+                        <h3 class="news-title">ERPLI Crosses 50,000 Active Educators on the Platform</h3>
+                        <p class="news-excerpt">A milestone moment for our community. Read a letter from our CEO about the journey so far and what's coming next.</p>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+        <div class="container">
+            <div class="press-kit-box">
+                <div style="max-width: 600px;">
+                    <h3 style="font-size: 2rem; margin-bottom: 15px;">Writing a story about us?</h3>
+                    <p style="opacity: 0.8;">Get official brand assets, high-res logos, and executive headshots. For press inquiries, contact <a href="mailto:press@erpli.com" style="color: #f28482;">press@erpli.com</a>.</p>
+                </div>
+                <div>
+                    <button class="btn btn-primary" style="background: white; color: var(--secondary-color);">
+                        <i class="fas fa-download"></i> Download Media Kit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section><div id="newsletter-section"></div></section>
+
+    <footer id="main-footer"></footer>
+    <script src="header.js"></script>
+    <script src="newsletter.js"></script>
+    <script src="footer.js"></script>
+
+    <script>
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObserver.observe(el));
+    </script>
+  </body>
+</html>

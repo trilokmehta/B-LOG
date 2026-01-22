@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tutorials & Guides - ERPLI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* --- Root Variables (Synced) --- */
+      :root {
+        --primary-color: #f28482;
+        --secondary-color: #3d405b;
+        --bg-light: #fffbf5;
+        --white: #ffffff;
+        --text-dark: #3d405b;
+        --text-muted: #666;
+        --font-family: "Inter", sans-serif;
+      }
+
+      /* --- Base & Reset --- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: var(--font-family);
+        background-color: var(--white);
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* --- Components --- */
+      section { padding: 80px 0; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+      h1, h2, h3 { font-weight: 800; line-height: 1.2; }
+      span { color: var(--primary-color); }
+      
+      .btn {
+        display: inline-block;
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: 0.3s;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        font-size: 0.95rem;
+      }
+      .btn-sm { padding: 8px 20px; font-size: 0.85rem; }
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+        box-shadow: 0 4px 15px rgba(242, 132, 130, 0.3);
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4);
+      }
+      .btn-outline {
+        border: 2px solid #eee;
+        color: var(--text-muted);
+        background: white;
+      }
+      .btn-outline:hover {
+        border-color: var(--secondary-color);
+        color: var(--secondary-color);
+      }
+
+      /* Animation */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: 0.8s ease-out;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      .header-spacer { height: 80px; }
+
+      /* --- Hero Section --- */
+      .tut-hero {
+        background-color: var(--bg-light);
+        padding: 100px 0 120px;
+        text-align: center;
+      }
+      .tut-hero h1 {
+        font-size: 3rem;
+        color: var(--secondary-color);
+        margin-bottom: 20px;
+      }
+      .tut-hero p {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+        max-width: 600px;
+        margin: 0 auto 40px;
+      }
+      
+      /* Search Bar */
+      .search-wrapper {
+        position: relative;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .search-input {
+        width: 100%;
+        padding: 20px 25px;
+        padding-right: 60px;
+        border-radius: 50px;
+        border: 1px solid #e0e0e0;
+        font-family: inherit;
+        font-size: 1rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        outline: none;
+        transition: 0.3s;
+      }
+      .search-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 10px 30px rgba(242, 132, 130, 0.15);
+      }
+      .search-icon {
+        position: absolute;
+        right: 25px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--primary-color);
+        font-size: 1.2rem;
+      }
+
+      /* --- Categories Strip --- */
+      .cat-strip {
+        background: white;
+        border-bottom: 1px solid #eee;
+        position: sticky;
+        top: 80px; /* Adjust based on header height */
+        z-index: 90;
+        padding: 20px 0;
+        overflow-x: auto;
+      }
+      .cat-list {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        list-style: none;
+        min-width: max-content;
+      }
+      .cat-btn {
+        padding: 10px 20px;
+        border-radius: 30px;
+        background: #f8f9fa;
+        color: #666;
+        font-weight: 500;
+        cursor: pointer;
+        transition: 0.3s;
+        border: 1px solid transparent;
+      }
+      .cat-btn.active, .cat-btn:hover {
+        background: #fff0f0;
+        color: var(--primary-color);
+        border-color: #ffdada;
+      }
+
+      /* --- Tutorial Grid --- */
+      .grid-section { padding-top: 60px; }
+      .tut-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 30px;
+      }
+      
+      .tut-card {
+        background: white;
+        border-radius: 20px;
+        border: 1px solid #eee;
+        overflow: hidden;
+        transition: 0.3s;
+        display: flex;
+        flex-direction: column;
+      }
+      .tut-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        border-color: var(--primary-color);
+      }
+      
+      .card-thumb {
+        height: 200px;
+        background: #f1f2f6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--secondary-color);
+        position: relative;
+      }
+      .play-icon {
+        width: 50px;
+        height: 50px;
+        background: white;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        color: var(--primary-color);
+        font-size: 1.2rem;
+      }
+      
+      .card-body { padding: 25px; flex: 1; display: flex; flex-direction: column; }
+      .card-meta {
+        font-size: 0.75rem;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .card-title {
+        font-size: 1.25rem;
+        color: var(--secondary-color);
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+      .card-desc {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        margin-bottom: 20px;
+        flex: 1;
+      }
+      .card-footer {
+        padding-top: 20px;
+        border-top: 1px solid #f5f5f5;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .read-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+      .read-link:hover { text-decoration: underline; }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .tut-hero h1 { font-size: 2.2rem; }
+        .cat-list { padding: 0 20px; justify-content: flex-start; }
+      }
+    </style>
+  </head>
+  <body>
+    <header></header>
+    <script src="header.js"></script>
+    <div class="header-spacer"></div>
+
+    <section class="tut-hero">
+      <div class="container reveal">
+        <span style="background: #fff0f0; padding: 6px 15px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: inline-block; margin-bottom: 20px;">
+            <i class="fas fa-book-open"></i> Knowledge Base
+        </span>
+        <h1>Tutorials & <br><span>Platform Guides.</span></h1>
+        <p>Everything you need to know to manage your academy, students, and content like a pro.</p>
+        
+        <div class="search-wrapper">
+            <input type="text" class="search-input" placeholder="Search for guides (e.g. 'How to add student')...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+      </div>
+    </section>
+
+    <div class="cat-strip">
+        <ul class="cat-list">
+            <li class="cat-btn active">All Guides</li>
+            <li class="cat-btn">Getting Started</li>
+            <li class="cat-btn">Course Mgmt</li>
+            <li class="cat-btn">Students</li>
+            <li class="cat-btn">Payments</li>
+            <li class="cat-btn">Mobile App</li>
+        </ul>
+    </div>
+
+    <section class="grid-section">
+      <div class="container">
+        <div class="tut-grid">
+            
+            <div class="tut-card reveal">
+                <div class="card-thumb">
+                    <i class="fas fa-rocket" style="font-size: 4rem; opacity: 0.1; position: absolute;"></i>
+                    <div class="play-icon"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-meta">Getting Started</div>
+                    <h3 class="card-title">Setting up your Academy</h3>
+                    <p class="card-desc">A complete walkthrough of your dashboard. Learn how to upload your logo and set branding colors.</p>
+                    <div class="card-footer">
+                        <small style="color:#999"><i class="far fa-clock"></i> 5 min read</small>
+                        <a href="#" class="read-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tut-card reveal">
+                <div class="card-thumb" style="background: #e3f2fd;">
+                    <i class="fas fa-video" style="font-size: 4rem; opacity: 0.1; position: absolute; color: #2196f3;"></i>
+                    <div class="play-icon"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-meta" style="color: #2196f3;">Courses</div>
+                    <h3 class="card-title">Creating your first Course</h3>
+                    <p class="card-desc">Learn how to create chapters, upload encrypted videos, and attach PDF notes to your lectures.</p>
+                    <div class="card-footer">
+                        <small style="color:#999"><i class="far fa-clock"></i> 8 min read</small>
+                        <a href="#" class="read-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tut-card reveal">
+                <div class="card-thumb" style="background: #e8f5e9;">
+                    <i class="fas fa-users" style="font-size: 4rem; opacity: 0.1; position: absolute; color: #4caf50;"></i>
+                    <div class="play-icon"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-meta" style="color: #4caf50;">Students</div>
+                    <h3 class="card-title">Managing Students</h3>
+                    <p class="card-desc">How to bulk import students via Excel, reset passwords, and manage device restrictions.</p>
+                    <div class="card-footer">
+                        <small style="color:#999"><i class="far fa-clock"></i> 4 min read</small>
+                        <a href="#" class="read-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tut-card reveal">
+                <div class="card-thumb" style="background: #fff3e0;">
+                    <i class="fas fa-credit-card" style="font-size: 4rem; opacity: 0.1; position: absolute; color: #ff9800;"></i>
+                    <div class="play-icon"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-meta" style="color: #ff9800;">Payments</div>
+                    <h3 class="card-title">Payment Gateway Setup</h3>
+                    <p class="card-desc">Integrate Razorpay or Stripe to accept fees directly into your bank account. Zero commission.</p>
+                    <div class="card-footer">
+                        <small style="color:#999"><i class="far fa-clock"></i> 10 min read</small>
+                        <a href="#" class="read-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tut-card reveal">
+                <div class="card-thumb" style="background: #f3e5f5;">
+                    <i class="fas fa-mobile-alt" style="font-size: 4rem; opacity: 0.1; position: absolute; color: #9c27b0;"></i>
+                    <div class="play-icon"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-meta" style="color: #9c27b0;">Mobile App</div>
+                    <h3 class="card-title">Sending Push Notifications</h3>
+                    <p class="card-desc">Engage your students by sending custom alerts for new classes, offers, or exam results.</p>
+                    <div class="card-footer">
+                        <small style="color:#999"><i class="far fa-clock"></i> 3 min read</small>
+                        <a href="#" class="read-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tut-card reveal">
+                <div class="card-thumb" style="background: #e0f7fa;">
+                    <i class="fas fa-globe" style="font-size: 4rem; opacity: 0.1; position: absolute; color: #00bcd4;"></i>
+                    <div class="play-icon"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-meta" style="color: #00bcd4;">Website</div>
+                    <h3 class="card-title">Connecting Custom Domain</h3>
+                    <p class="card-desc">How to purchase a domain from GoDaddy and link it to your ERPLI white-label website.</p>
+                    <div class="card-footer">
+                        <small style="color:#999"><i class="far fa-clock"></i> 12 min read</small>
+                        <a href="#" class="read-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="reveal" style="text-align: center; margin-top: 60px;">
+            <button class="btn btn-outline">Load More Guides</button>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="reveal" style="background: var(--bg-light); margin-top: 80px;">
+        <div class="container" style="text-align: center;">
+            <i class="fas fa-headset" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+            <h2 style="margin-bottom: 15px;">Can't find what you're looking for?</h2>
+            <p style="color: #666; margin-bottom: 30px;">Our support team is available 24/7 to help you set up your academy.</p>
+            <a href="contact.html" class="btn btn-primary">Contact Support</a>
+        </div>
+    </section>
+
+    <section><div id="newsletter-section"></div></section>
+
+    <footer id="main-footer"></footer>
+    <script src="header.js"></script>
+    <script src="newsletter.js"></script>
+    <script src="footer.js"></script>
+
+    <script>
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObserver.observe(el));
+    </script>
+  </body>
+</html>

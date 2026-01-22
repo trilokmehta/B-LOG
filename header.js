@@ -373,13 +373,13 @@
             </div>
             <div class="menu-column">
               <div class="column-header"><i class="fas fa-life-ring"></i> Support</div>
-              <a href="help.html#faq" class="menu-item"><i class="fas fa-question-circle"></i><div class="item-text"><h4>FAQ</h4><p>Common questions.</p></div></a>
+              <a href="index.html#faq" class="menu-item"><i class="fas fa-question-circle"></i><div class="item-text"><h4>FAQ</h4><p>Common questions.</p></div></a>
                <a href="help.html" class="menu-item"><i class="fas fa-headset"></i><div class="item-text"><h4>Help Center</h4><p>Contact support.</p></div></a>
             </div>
           </div>
         </div>
 
-        <a href="index.html#pricing" class="nav-link">Pricing</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
         <a href="Partner.html" class="nav-link">Partner</a>
 
 

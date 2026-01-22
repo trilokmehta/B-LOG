@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ERPLI Blog - Tips, Tricks & EdTech Trends</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* --- Root Variables --- */
+      :root {
+        --primary-color: #f28482;
+        --secondary-color: #3d405b;
+        --bg-light: #fffbf5;
+        --white: #ffffff;
+        --text-dark: #3d405b;
+        --text-muted: #666;
+        --font-family: "Inter", sans-serif;
+      }
+
+      /* --- Base & Reset --- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font-family);
+        background-color: var(--white);
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* --- Common Components --- */
+      section {
+        padding: 80px 0;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 800;
+        line-height: 1.2;
+      }
+      span {
+        color: var(--primary-color);
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: 0.3s;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-weight: 700;
+        cursor: pointer;
+        border: none;
+      }
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+        box-shadow: 0 4px 15px rgba(242, 132, 130, 0.3);
+      }
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: 0.8s ease-out;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .header-spacer {
+        height: 80px;
+      }
+
+      /* --- Hero Section --- */
+      .blog-hero {
+        background-color: var(--bg-light);
+        padding: 100px 0 60px;
+        text-align: center;
+      }
+      .blog-hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        margin-bottom: 20px;
+        color: var(--secondary-color);
+      }
+      .blog-hero p {
+        font-size: 1.15rem;
+        color: var(--text-muted);
+        margin: 0 auto 30px;
+        max-width: 600px;
+      }
+
+      /* --- Category Pills --- */
+      .cat-nav {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+      }
+      .cat-btn {
+        background: white;
+        border: 1px solid #ddd;
+        padding: 8px 20px;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #555;
+        cursor: pointer;
+      }
+      .cat-btn:hover,
+      .cat-btn.active {
+        background: var(--secondary-color);
+        color: white;
+        border-color: var(--secondary-color);
+      }
+
+      /* --- Featured Article --- */
+      .featured-section {
+        padding-top: 40px;
+      }
+      .featured-card {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 40px;
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid #eee;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+      }
+      .feat-img {
+        background: #ddd;
+        height: 100%;
+        min-height: 400px;
+        background-image: url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80");
+        background-size: cover;
+        background-position: center;
+      }
+      .feat-content {
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .meta-tag {
+        background: #e6fffa;
+        color: #047857;
+        font-weight: 700;
+        font-size: 0.8rem;
+        padding: 5px 12px;
+        border-radius: 4px;
+        width: fit-content;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+      }
+      .feat-content h2 {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+        color: var(--secondary-color);
+      }
+      .feat-content p {
+        color: var(--text-muted);
+        margin-bottom: 25px;
+        font-size: 1.05rem;
+        line-height: 1.7;
+      }
+
+      .author-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: auto;
+      }
+      .avatar {
+        width: 40px;
+        height: 40px;
+        background: #eee;
+        border-radius: 50%;
+      }
+
+      /* --- Blog Grid --- */
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 20px;
+      }
+      .blog-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #eee;
+        transition: 0.3s;
+        display: flex;
+        flex-direction: column;
+      }
+      .blog-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      .card-img {
+        height: 200px;
+        background: #f0f0f0;
+        background-size: cover;
+        background-position: center;
+      }
+      .card-body {
+        padding: 25px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .card-cat {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .card-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        line-height: 1.4;
+        color: var(--secondary-color);
+      }
+      .card-excerpt {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 20px;
+        flex: 1;
+      }
+      .read-link {
+        font-weight: 700;
+        color: var(--secondary-color);
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .read-link:hover {
+        gap: 10px;
+        color: var(--primary-color);
+      }
+
+      /* --- Newsletter Section --- */
+      .newsletter-box {
+        background: var(--secondary-color);
+        color: white;
+        border-radius: 20px;
+        padding: 60px;
+        text-align: center;
+        margin-top: 80px;
+        position: relative;
+        overflow: hidden;
+      }
+      .nl-input-group {
+        display: flex;
+        max-width: 500px;
+        margin: 30px auto 0;
+      }
+      .nl-input {
+        flex: 1;
+        padding: 15px 20px;
+        border-radius: 50px 0 0 50px;
+        border: none;
+        outline: none;
+        font-size: 1rem;
+      }
+      .nl-btn {
+        padding: 15px 30px;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 0 50px 50px 0;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      /* --- Mobile Responsive --- */
+      @media (max-width: 992px) {
+        .featured-card {
+          grid-template-columns: 1fr;
+        }
+        .feat-img {
+          min-height: 250px;
+        }
+        .feat-content {
+          padding: 30px;
+        }
+        .blog-grid {
+          grid-template-columns: 1fr;
+        }
+        .nl-input-group {
+          flex-direction: column;
+          gap: 10px;
+        }
+        .nl-input,
+        .nl-btn {
+          border-radius: 50px;
+          width: 100%;
+        }
+        .hero-grid {
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header></header>
+    <script src="header.js"></script>
+    <div class="header-spacer"></div>
+
+    <section class="blog-hero">
+      <div class="container reveal">
+        <span
+          style="
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+          "
+          >The ERPLI Blog</span
+        >
+        <h1>Insights for <br /><span>Modern Educators.</span></h1>
+        <p>
+          Discover strategies to grow your institute, engage students, and
+          master the business of education.
+        </p>
+
+        <div class="cat-nav">
+          <div class="cat-btn active">All Posts</div>
+          <div class="cat-btn">Growth & Marketing</div>
+          <div class="cat-btn">Teaching Tech</div>
+          <div class="cat-btn">Business Tips</div>
+          <div class="cat-btn">Case Studies</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-section">
+      <div class="container reveal">
+        <div class="featured-card">
+          <div class="feat-img"></div>
+          <div class="feat-content">
+            <div class="meta-tag">Trending Now</div>
+            <h2>
+              How to Grow Your Coaching Institute Using Instagram Reels (2026
+              Guide)
+            </h2>
+            <p>
+              Instagram isn't just for dancing anymore. Learn how top educators
+              are using 60-second videos to attract thousands of new students
+              without spending a dime on ads.
+            </p>
+            <div class="author-row">
+              <div
+                class="avatar"
+                style="
+                  background-image: url(&quot;https://randomuser.me/api/portraits/men/32.jpg&quot;);
+                  background-size: cover;
+                "
+              ></div>
+              <div style="font-size: 0.9rem">
+                <strong>Vikram Singh</strong><br />
+                <span style="color: #888">Oct 24 • 8 min read</span>
+              </div>
+            </div>
+            <a
+              href="#"
+              class="btn btn-primary"
+              style="margin-top: 30px; width: fit-content"
+              >Read Full Article</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h3 class="reveal" style="font-size: 1.5rem; margin-bottom: 30px">
+          Latest Articles
+        </h3>
+
+        <div class="blog-grid reveal">
+          <article class="blog-card">
+            <div
+              class="card-img"
+              style="
+                background-image: url(&quot;https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80&quot;);
+              "
+            ></div>
+            <div class="card-body">
+              <div class="card-cat">Teaching Tech</div>
+              <div class="card-title">
+                <a href="#"
+                  >Hybrid Learning: Why Offline Institutes Must Go Online</a
+                >
+              </div>
+              <div class="card-excerpt">
+                The future isn't pure online or pure offline. It's hybrid. Here
+                is how to set up the perfect hybrid classroom.
+              </div>
+              <a href="#" class="read-link"
+                >Read More <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </article>
+
+          <article class="blog-card">
+            <div
+              class="card-img"
+              style="
+                background-image: url(&quot;https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=400&q=80&quot;);
+              "
+            ></div>
+            <div class="card-body">
+              <div class="card-cat">Business Tips</div>
+              <div class="card-title">
+                <a href="#">5 Mistakes That Kill Your Profit Margins</a>
+              </div>
+              <div class="card-excerpt">
+                Are you leaking money on unused software or bad ad targeting? We
+                break down the top financial leaks.
+              </div>
+              <a href="#" class="read-link"
+                >Read More <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </article>
+
+          <article class="blog-card">
+            <div
+              class="card-img"
+              style="
+                background-image: url(&quot;https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=400&q=80&quot;);
+              "
+            ></div>
+            <div class="card-body">
+              <div class="card-cat">Student Success</div>
+              <div class="card-title">
+                <a href="#">The Psychology of Gamification in Learning</a>
+              </div>
+              <div class="card-excerpt">
+                Why do students love video games but hate homework? Learn how to
+                use points and badges to motivate them.
+              </div>
+              <a href="#" class="read-link"
+                >Read More <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </article>
+
+          <article class="blog-card">
+            <div
+              class="card-img"
+              style="
+                background-image: url(&quot;https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=400&q=80&quot;);
+              "
+            ></div>
+            <div class="card-body">
+              <div class="card-cat">Growth & Marketing</div>
+              <div class="card-title">
+                <a href="#">Email Marketing Templates for Admissions</a>
+              </div>
+              <div class="card-excerpt">
+                Copy-paste these 3 email scripts to convert inquiring parents
+                into paying customers instantly.
+              </div>
+              <a href="#" class="read-link"
+                >Read More <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </article>
+
+          <article class="blog-card">
+            <div
+              class="card-img"
+              style="
+                background-image: url(&quot;https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=400&q=80&quot;);
+              "
+            ></div>
+            <div class="card-body">
+              <div class="card-cat">Teaching Tech</div>
+              <div class="card-title">
+                <a href="#">Top 5 Microphones for Online Teachers</a>
+              </div>
+              <div class="card-excerpt">
+                Audio quality matters more than video quality. Here are the best
+                budget mics for recording lectures.
+              </div>
+              <a href="#" class="read-link"
+                >Read More <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </article>
+
+          <article class="blog-card">
+            <div
+              class="card-img"
+              style="
+                background-image: url(&quot;https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=400&q=80&quot;);
+              "
+            ></div>
+            <div class="card-body">
+              <div class="card-cat">Case Studies</div>
+              <div class="card-title">
+                <a href="#">How 'MathsByRohan' Scaled to 10k Students</a>
+              </div>
+              <div class="card-excerpt">
+                A deep dive into how a single tutor used ERPLI to automate his
+                business and go national.
+              </div>
+              <a href="#" class="read-link"
+                >Read More <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="container reveal">
+      <div class="newsletter-box">
+        <i
+          class="fas fa-paper-plane"
+          style="font-size: 3rem; margin-bottom: 20px; opacity: 0.8"
+        ></i>
+        <h2>Join the <span>Inner Circle.</span></h2>
+        <p style="opacity: 0.8">
+          Get weekly tips on growing your education business delivered to your
+          inbox.
+        </p>
+
+        <div class="nl-input-group">
+          <input
+            type="email"
+            class="nl-input"
+            placeholder="Enter your email address"
+          />
+          <button class="nl-btn">Subscribe Free</button>
+        </div>
+        <small
+          style="
+            display: block;
+            margin-top: 15px;
+            opacity: 0.6;
+            font-size: 0.8rem;
+          "
+          >No spam. Unsubscribe anytime.</small
+        >
+      </div>
+    </section>
+
+    <div id="newsletter-section"></div>
+    <footer id="main-footer"></footer>
+    <script src="header.js"></script>
+    <script src="newsletter.js"></script>
+    <script src="footer.js"></script>
+
+    <script>
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObserver.observe(el));
+    </script>
+  </body>
+</html>

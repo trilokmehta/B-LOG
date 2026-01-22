@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pricing - ERPLI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+      :root {
+        --primary-color: #f28482;
+        --secondary-color: #3d405b;
+        --bg-light: #fffbf5;
+        --white: #ffffff;
+        --text-dark: #3d405b;
+        --text-muted: #666;
+        --font-family: "Inter", sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: var(--font-family); background-color: var(--white); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
+      section { padding: 80px 0; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+      h1, h2, h3 { font-weight: 800; line-height: 1.2; }
+      span { color: var(--primary-color); }
+      .btn { display: block; width: 100%; padding: 16px 20px; border-radius: 12px; font-weight: 700; text-decoration: none; cursor: pointer; border: none; text-align: center; }
+      .btn-primary { background-color: var(--primary-color); color: white; box-shadow: 0 4px 15px rgba(242, 132, 130, 0.3); }
+      .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+      .reveal.visible { opacity: 1; transform: translateY(0); }
+      .header-spacer { height: 80px; }
+
+      .price-hero { background-color: var(--bg-light); padding: 100px 0 150px; text-align: center; }
+      .price-hero h1 { font-size: 3.5rem; color: var(--secondary-color); margin-bottom: 25px; }
+
+      .pricing-wrapper { margin-top: -100px; display: flex; justify-content: center; padding-bottom: 80px; }
+      .price-card { background: white; width: 100%; max-width: 500px; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); padding: 50px; position: relative; overflow: hidden; border: 2px solid #f0f0f0; }
+      .badge-corner { position: absolute; top: 30px; right: -35px; background: var(--secondary-color); color: white; padding: 8px 40px; transform: rotate(45deg); font-weight: 700; font-size: 0.8rem; }
+      
+      .new-price { font-size: 4.5rem; color: var(--secondary-color); font-weight: 800; line-height: 1; margin: 10px 0; }
+      .features-list { list-style: none; margin-bottom: 40px; }
+      .features-list li { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; color: #555; }
+      .check-icon { color: #2ecc71; background: #eaffea; width: 25px; height: 25px; border-radius: 50%; display: grid; place-items: center; font-size: 0.8rem; flex-shrink: 0; }
+
+      /* Comparison Table */
+      .compare-section { background: white; }
+      .compare-table { width: 100%; border-collapse: collapse; margin-top: 40px; }
+      .compare-table th, .compare-table td { padding: 20px; text-align: center; border-bottom: 1px solid #eee; }
+      .compare-table th { background: #f9f9f9; color: var(--secondary-color); font-size: 1.1rem; }
+      .compare-table td:first-child, .compare-table th:first-child { text-align: left; font-weight: 600; padding-left: 30px; }
+      .fa-check { color: #2ecc71; } .fa-times { color: #ddd; }
+
+      /* FAQ */
+      .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 900px; margin: 60px auto 0; }
+    </style>
+  </head>
+  <body>
+    <header></header>
+    <script src="header.js"></script>
+    <div class="header-spacer"></div>
+
+    <section class="price-hero">
+      <div class="container reveal">
+        <h1>Simple, Transparent <br><span>Pricing.</span></h1>
+        <p style="color: #666; font-size: 1.2rem;">No hidden fees. No commissions.</p>
+      </div>
+    </section>
+
+    <div class="container pricing-wrapper">
+        <div class="price-card reveal">
+            <div class="badge-corner">LIMITED OFFER</div>
+            <div style="text-align: center; margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid #f0f0f0;">
+                <span style="background: #fff0f0; color: var(--primary-color); padding: 5px 15px; border-radius: 20px; font-weight: 700; font-size: 0.9rem;">Save 75% Today</span>
+                <div style="font-size: 1.5rem; color: #999; text-decoration: line-through; margin-top: 15px;">₹4,000</div>
+                <div class="new-price"><span style="font-size: 2rem; vertical-align: super;">₹</span>999</div>
+                <div style="color: #888;">Per Year</div>
+            </div>
+            <ul class="features-list">
+                <li><i class="fas fa-check check-icon"></i> <strong>White-Label Android App</strong></li>
+                <li><i class="fas fa-check check-icon"></i> Unlimited Students</li>
+                <li><i class="fas fa-check check-icon"></i> Unlimited Course Uploads</li>
+                <li><i class="fas fa-check check-icon"></i> DRM Video Security</li>
+                <li><i class="fas fa-check check-icon"></i> Payment Gateway</li>
+                <li><i class="fas fa-check check-icon"></i> Live Zoom Classes</li>
+            </ul>
+            <a href="#" class="btn btn-primary">Get Started Now</a>
+        </div>
+    </div>
+
+    <section class="compare-section reveal">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 20px;">Detailed Comparison</h2>
+            <div style="overflow-x: auto;">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 40%;">Feature</th>
+                            <th style="width: 30%;">Basic (Free)</th>
+                            <th style="width: 30%; color: var(--primary-color);">Pro Plan (₹999)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>White Label Android App</td><td><i class="fas fa-times"></i></td><td><i class="fas fa-check"></i></td></tr>
+                        <tr><td>Student Limit</td><td>10</td><td>Unlimited</td></tr>
+                        <tr><td>Video Encryption (DRM)</td><td><i class="fas fa-times"></i></td><td><i class="fas fa-check"></i></td></tr>
+                        <tr><td>Course Storage</td><td>0 GB</td><td>5 GB</td></tr>
+                        <tr><td>Payment Commission</td><td>5%</td><td>0%</td></tr>
+                        <tr><td>Live Classes</td><td>Zoom Only</td><td>Integrated Zoom + OBS</td></tr>
+                        <tr><td>Completion Certificates</td><td><i class="fas fa-times"></i></td><td><i class="fas fa-check"></i></td></tr>
+                        <tr><td>Priority Support</td><td>Email</td><td>WhatsApp + Call</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: var(--secondary-color); color: white; text-align: center;">
+        <div class="container reveal">
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Need an Enterprise Solution?</h2>
+            <p style="opacity: 0.8; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                For large institutes with over 10,000 students, we offer dedicated servers, iOS apps included, and custom API integrations.
+            </p>
+            <a href="#" class="btn" style="background: white; color: var(--secondary-color); width: max-content; margin: 0 auto; padding: 15px 40px;">Contact Sales Team</a>
+        </div>
+    </section>
+
+    <section class="faq-section">
+      <div class="container reveal">
+        <h2 style="text-align: center; font-size: 2rem;">Frequently Asked Questions</h2>
+        <div class="faq-grid">
+            <div class="faq-item"><h4>Is there a setup fee?</h4><p style="color:#666">No. The price you see is the price you pay.</p></div>
+            <div class="faq-item"><h4>Do you take a commission?</h4><p style="color:#666">No. You keep 100% of your course revenue.</p></div>
+            <div class="faq-item"><h4>Can I cancel anytime?</h4><p style="color:#666">Yes, cancel from your dashboard instantly.</p></div>
+            <div class="faq-item"><h4>What about iOS?</h4><p style="color:#666">iOS is available as an add-on for an extra fee.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section><div id="newsletter-section"></div></section>
+    <footer id="main-footer"></footer>
+    <script src="header.js"></script>
+    <script src="newsletter.js"></script>
+    <script src="footer.js"></script>
+    <script>
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add("visible"); });
+      }, { threshold: 0.1 });
+      document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+    </script>
+  </body>
+</html>

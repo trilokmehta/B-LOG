@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -27,8 +27,14 @@
       }
 
       /* --- Base & Reset --- */
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
       body {
         font-family: var(--font-family);
         background-color: var(--white);
@@ -38,10 +44,24 @@
       }
 
       /* --- Common Components --- */
-      section { padding: 100px 0; }
-      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-      h1, h2, h3, h4 { font-weight: 800; line-height: 1.2; }
-      span { color: var(--primary-color); }
+      section {
+        padding: 100px 0;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 800;
+        line-height: 1.2;
+      }
+      span {
+        color: var(--primary-color);
+      }
 
       .btn {
         display: inline-block;
@@ -58,12 +78,24 @@
         color: white;
         box-shadow: 0 4px 15px rgba(242, 132, 130, 0.3);
       }
-      .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4); }
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4);
+      }
 
-      .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
-      .reveal.visible { opacity: 1; transform: translateY(0); }
-      
-      .header-spacer { height: 80px; }
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: 0.8s ease-out;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .header-spacer {
+        height: 80px;
+      }
 
       /* --- Hero Section --- */
       .cms-hero {
@@ -71,14 +103,23 @@
         padding: 120px 0 80px;
         text-align: center;
       }
-      .cms-hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 20px; color: var(--secondary-color); }
-      .cms-hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 40px; }
+      .cms-hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        margin-bottom: 20px;
+        color: var(--secondary-color);
+      }
+      .cms-hero p {
+        font-size: 1.15rem;
+        color: var(--text-muted);
+        max-width: 600px;
+        margin: 0 auto 40px;
+      }
 
       /* --- Drag & Drop Interface Simulation --- */
       .builder-interface {
         background: white;
         border-radius: 20px;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
         border: 1px solid #eee;
         max-width: 900px;
         margin: 0 auto;
@@ -87,7 +128,7 @@
         text-align: left;
         position: relative;
       }
-      
+
       /* Sidebar */
       .builder-sidebar {
         width: 200px;
@@ -95,20 +136,33 @@
         border-right: 1px solid #eee;
         padding: 20px;
       }
-      .sidebar-title { font-size: 0.8rem; font-weight: 700; color: #888; text-transform: uppercase; margin-bottom: 15px; }
+      .sidebar-title {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #888;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+      }
       .widget-item {
         background: white;
         border: 1px solid #ddd;
         padding: 10px;
         border-radius: 8px;
         margin-bottom: 10px;
-        display: flex; align-items: center; gap: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
         font-size: 0.9rem;
         cursor: grab;
         transition: 0.2s;
       }
-      .widget-item:hover { border-color: var(--primary-color); transform: translateX(5px); }
-      .widget-icon { color: var(--secondary-color); }
+      .widget-item:hover {
+        border-color: var(--primary-color);
+        transform: translateX(5px);
+      }
+      .widget-icon {
+        color: var(--secondary-color);
+      }
 
       /* Canvas */
       .builder-canvas {
@@ -123,52 +177,131 @@
         position: relative;
         transition: 0.2s;
       }
-      .canvas-block:hover { border-color: var(--primary-color); }
+      .canvas-block:hover {
+        border-color: var(--primary-color);
+      }
       .canvas-block:hover::after {
         content: "Edit Block";
-        position: absolute; top: -10px; right: 10px;
-        background: var(--primary-color); color: white;
-        font-size: 0.7rem; padding: 2px 8px; border-radius: 4px;
+        position: absolute;
+        top: -10px;
+        right: 10px;
+        background: var(--primary-color);
+        color: white;
+        font-size: 0.7rem;
+        padding: 2px 8px;
+        border-radius: 4px;
       }
 
       /* Mockup Content */
-      .mock-hero { background: white; padding: 30px; text-align: center; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-      .mock-nav { background: white; height: 40px; margin-bottom: 20px; border-radius: 8px; display: flex; align-items: center; padding: 0 20px; justify-content: space-between; }
-      .mock-text { height: 10px; background: #eee; border-radius: 10px; margin: 10px auto; width: 60%; }
-      
+      .mock-hero {
+        background: white;
+        padding: 30px;
+        text-align: center;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+      .mock-nav {
+        background: white;
+        height: 40px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        justify-content: space-between;
+      }
+      .mock-text {
+        height: 10px;
+        background: #eee;
+        border-radius: 10px;
+        margin: 10px auto;
+        width: 60%;
+      }
+
       /* Cursor Animation */
       .cursor-hand {
         position: absolute;
-        width: 40px; height: 40px;
-        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="%233d405b" d="M302.18 329.13L195.05 496.5c-4.48 7-12.28 11.05-20.53 10.65-8.28-.4-15.8-5.18-19.68-12.56L103.5 385.2 19.33 349.56c-13.8-5.85-18.78-23.77-9.58-36.17L147.25 15.6c6.26-8.43 18.66-9.15 25.86-1.5l135.83 144.3c11.83 12.57 6.13 32.77-10.46 36.8l-87.16 21.17 68.67 96.93c5.44 7.68 2.19 18.3-5.81 25.83z"/></svg>') no-repeat center/contain;
-        top: 50%; left: 15%;
-        filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
+        width: 40px;
+        height: 40px;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="%233d405b" d="M302.18 329.13L195.05 496.5c-4.48 7-12.28 11.05-20.53 10.65-8.28-.4-15.8-5.18-19.68-12.56L103.5 385.2 19.33 349.56c-13.8-5.85-18.78-23.77-9.58-36.17L147.25 15.6c6.26-8.43 18.66-9.15 25.86-1.5l135.83 144.3c11.83 12.57 6.13 32.77-10.46 36.8l-87.16 21.17 68.67 96.93c5.44 7.68 2.19 18.3-5.81 25.83z"/></svg>')
+          no-repeat center/contain;
+        top: 50%;
+        left: 15%;
+        filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.2));
         animation: drag-drop 4s infinite ease-in-out;
         z-index: 10;
       }
 
       @keyframes drag-drop {
-        0% { top: 30%; left: 10%; transform: scale(1); }
-        20% { top: 30%; left: 10%; transform: scale(0.9); } /* Click */
-        50% { top: 60%; left: 50%; transform: scale(0.9); } /* Drag */
-        70% { top: 60%; left: 50%; transform: scale(1); } /* Drop */
-        100% { top: 30%; left: 10%; transform: scale(1); }
+        0% {
+          top: 30%;
+          left: 10%;
+          transform: scale(1);
+        }
+        20% {
+          top: 30%;
+          left: 10%;
+          transform: scale(0.9);
+        } /* Click */
+        50% {
+          top: 60%;
+          left: 50%;
+          transform: scale(0.9);
+        } /* Drag */
+        70% {
+          top: 60%;
+          left: 50%;
+          transform: scale(1);
+        } /* Drop */
+        100% {
+          top: 30%;
+          left: 10%;
+          transform: scale(1);
+        }
       }
 
       /* --- Features Grid --- */
-      .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px; }
-      .feat-card {
-        padding: 30px; border-radius: 16px; background: white; border: 1px solid #eee; transition: 0.3s;
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 60px;
       }
-      .feat-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
-      .feat-icon { font-size: 2rem; color: var(--primary-color); margin-bottom: 20px; }
-      .feat-card h3 { margin-bottom: 10px; color: var(--secondary-color); }
-      .feat-card p { font-size: 0.95rem; color: var(--text-muted); }
+      .feat-card {
+        padding: 30px;
+        border-radius: 16px;
+        background: white;
+        border: 1px solid #eee;
+        transition: 0.3s;
+      }
+      .feat-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary-color);
+      }
+      .feat-icon {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+      }
+      .feat-card h3 {
+        margin-bottom: 10px;
+        color: var(--secondary-color);
+      }
+      .feat-card p {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+      }
 
       /* --- Theme Showcase --- */
-      .theme-section { background: white; text-align: center; }
+      .theme-section {
+        background: white;
+        text-align: center;
+      }
       .theme-slider {
-        display: flex; gap: 30px; overflow-x: auto; padding: 40px 20px;
+        display: flex;
+        gap: 30px;
+        overflow-x: auto;
+        padding: 40px 20px;
         scroll-snap-type: x mandatory;
       }
       .theme-card {
@@ -180,45 +313,138 @@
         scroll-snap-align: center;
         transition: 0.3s;
       }
-      .theme-card:hover { transform: scale(1.05); }
-      .theme-preview { height: 200px; background: #ddd; position: relative; }
-      .theme-info { padding: 20px; }
-      .theme-tag { background: white; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; color: var(--primary-color); }
+      .theme-card:hover {
+        transform: scale(1.05);
+      }
+      .theme-preview {
+        height: 200px;
+        background: #ddd;
+        position: relative;
+      }
+      .theme-info {
+        padding: 20px;
+      }
+      .theme-tag {
+        background: white;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
 
       /* --- Blog Section --- */
-      .blog-feature { background: var(--secondary-color); color: white; border-radius: 30px; padding: 80px; margin: 80px 0; }
-      .blog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-      .blog-feature h2 { font-size: 2.5rem; margin-bottom: 20px; }
-      .blog-feature p { opacity: 0.8; margin-bottom: 30px; font-size: 1.1rem; }
-      .check-list li { margin-bottom: 15px; display: flex; gap: 10px; align-items: center; }
-      .check-list i { color: #f28482; }
+      .blog-feature {
+        background: var(--secondary-color);
+        color: white;
+        border-radius: 30px;
+        padding: 80px;
+        margin: 80px 0;
+      }
+      .blog-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+      .blog-feature h2 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+      }
+      .blog-feature p {
+        opacity: 0.8;
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+      }
+      .check-list li {
+        margin-bottom: 15px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .check-list i {
+        color: #f28482;
+      }
 
       /* --- Footer (Synced) --- */
-      .main-footer { padding: 80px 0 20px; border-top: 1px solid #eee; background: white; }
-      .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; margin-bottom: 60px; }
-      .footer-brand .logo { font-size: 1.5rem; font-weight: 900; color: #3d405b; text-decoration: none; }
-      .footer-brand span { color: #f28482; }
-      .footer-bottom { border-top: 1px solid #eee; padding-top: 30px; text-align: center; color: #888; font-size: 0.9rem; }
-      ul { list-style: none; }
-      ul li { margin-bottom: 10px; }
-      ul a { text-decoration: none; color: #666; font-size: 0.95rem; }
-      ul a:hover { color: var(--primary-color); }
+      .main-footer {
+        padding: 80px 0 20px;
+        border-top: 1px solid #eee;
+        background: white;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 50px;
+        margin-bottom: 60px;
+      }
+      .footer-brand .logo {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #3d405b;
+        text-decoration: none;
+      }
+      .footer-brand span {
+        color: #f28482;
+      }
+      .footer-bottom {
+        border-top: 1px solid #eee;
+        padding-top: 30px;
+        text-align: center;
+        color: #888;
+        font-size: 0.9rem;
+      }
+      ul {
+        list-style: none;
+      }
+      ul li {
+        margin-bottom: 10px;
+      }
+      ul a {
+        text-decoration: none;
+        color: #666;
+        font-size: 0.95rem;
+      }
+      ul a:hover {
+        color: var(--primary-color);
+      }
 
       /* --- Mobile --- */
       @media (max-width: 992px) {
-        .builder-interface { flex-direction: column; }
-        .builder-sidebar { width: 100%; display: flex; overflow-x: auto; gap: 10px; padding: 10px; }
-        .widget-item { flex-shrink: 0; }
-        .features-grid { grid-template-columns: 1fr; }
-        .blog-grid { grid-template-columns: 1fr; text-align: center; }
-        .blog-feature { padding: 40px 20px; }
-        .check-list { display: inline-block; text-align: left; }
-        .cursor-hand { display: none; } /* Hide animation on mobile */
+        .builder-interface {
+          flex-direction: column;
+        }
+        .builder-sidebar {
+          width: 100%;
+          display: flex;
+          overflow-x: auto;
+          gap: 10px;
+          padding: 10px;
+        }
+        .widget-item {
+          flex-shrink: 0;
+        }
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+        .blog-grid {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .blog-feature {
+          padding: 40px 20px;
+        }
+        .check-list {
+          display: inline-block;
+          text-align: left;
+        }
+        .cursor-hand {
+          display: none;
+        } /* Hide animation on mobile */
       }
     </style>
   </head>
   <body>
-
     <header></header>
     <script src="header.js"></script>
     <div class="header-spacer"></div>
@@ -226,65 +452,114 @@
     <section class="cms-hero">
       <div class="container">
         <div class="reveal">
-          <span style="background: #fff0f0; padding: 6px 15px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: inline-block; margin-bottom: 20px;">
+          <span
+            style="
+              background: #fff0f0;
+              padding: 6px 15px;
+              border-radius: 20px;
+              font-weight: 700;
+              font-size: 0.85rem;
+              display: inline-block;
+              margin-bottom: 20px;
+            "
+          >
             <i class="fas fa-magic"></i> No Code Required
           </span>
-          <h1>Build a Stunning <br><span>Academy Website.</span></h1>
+          <h1>Build a Stunning <br /><span>Academy Website.</span></h1>
           <p>
-            You don't need to hire a developer. Our drag-and-drop website builder lets you create a professional education website in minutes.
+            You don't need to hire a developer. Our drag-and-drop website
+            builder lets you create a professional education website in minutes.
           </p>
         </div>
 
         <div class="builder-interface reveal">
           <div class="cursor-hand"></div>
-          
+
           <div class="builder-sidebar">
             <div class="sidebar-title">Components</div>
-            <div class="widget-item"><i class="fas fa-image widget-icon"></i> Hero Image</div>
-            <div class="widget-item"><i class="fas fa-align-left widget-icon"></i> Text Block</div>
-            <div class="widget-item"><i class="fas fa-video widget-icon"></i> Video Player</div>
-            <div class="widget-item"><i class="fas fa-list widget-icon"></i> Course List</div>
-            <div class="widget-item"><i class="fas fa-envelope widget-icon"></i> Contact Form</div>
+            <div class="widget-item">
+              <i class="fas fa-image widget-icon"></i> Hero Image
+            </div>
+            <div class="widget-item">
+              <i class="fas fa-align-left widget-icon"></i> Text Block
+            </div>
+            <div class="widget-item">
+              <i class="fas fa-video widget-icon"></i> Video Player
+            </div>
+            <div class="widget-item">
+              <i class="fas fa-list widget-icon"></i> Course List
+            </div>
+            <div class="widget-item">
+              <i class="fas fa-envelope widget-icon"></i> Contact Form
+            </div>
           </div>
 
           <div class="builder-canvas">
             <div class="canvas-block">
-               <div class="mock-nav">
-                 <div style="font-weight: 700; color: #3d405b;">My Academy</div>
-                 <div style="width: 80px; height: 8px; background: #eee; border-radius: 4px;"></div>
-               </div>
+              <div class="mock-nav">
+                <div style="font-weight: 700; color: #3d405b">My Academy</div>
+                <div
+                  style="
+                    width: 80px;
+                    height: 8px;
+                    background: #eee;
+                    border-radius: 4px;
+                  "
+                ></div>
+              </div>
             </div>
             <div class="canvas-block">
-               <div class="mock-hero">
-                 <h3 style="color: #3d405b; margin-bottom: 10px;">Learn Physics Online</h3>
-                 <div class="mock-text"></div>
-                 <div class="mock-text" style="width: 40%;"></div>
-                 <button style="margin-top: 15px; background: #f28482; color: white; border: none; padding: 8px 20px; border-radius: 4px;">Join Now</button>
-               </div>
+              <div class="mock-hero">
+                <h3 style="color: #3d405b; margin-bottom: 10px">
+                  Learn Physics Online
+                </h3>
+                <div class="mock-text"></div>
+                <div class="mock-text" style="width: 40%"></div>
+                <button
+                  style="
+                    margin-top: 15px;
+                    background: #f28482;
+                    color: white;
+                    border: none;
+                    padding: 8px 20px;
+                    border-radius: 4px;
+                  "
+                >
+                  Join Now
+                </button>
+              </div>
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <section style="background: white;">
+    <section style="background: white">
       <div class="container">
         <div class="features-grid">
           <div class="feat-card reveal">
             <div class="feat-icon"><i class="fas fa-pencil-ruler"></i></div>
             <h3>Drag & Drop</h3>
-            <p>Move sections around, change colors, and upload your logo. What you see is exactly what you get (WYSIWYG).</p>
+            <p>
+              Move sections around, change colors, and upload your logo. What
+              you see is exactly what you get (WYSIWYG).
+            </p>
           </div>
           <div class="feat-card reveal">
             <div class="feat-icon"><i class="fas fa-mobile-alt"></i></div>
             <h3>Mobile Optimized</h3>
-            <p>Your website automatically adjusts to fit any screen size—phone, tablet, or desktop. No extra effort needed.</p>
+            <p>
+              Your website automatically adjusts to fit any screen size—phone,
+              tablet, or desktop. No extra effort needed.
+            </p>
           </div>
           <div class="feat-card reveal">
             <div class="feat-icon"><i class="fab fa-google"></i></div>
             <h3>SEO Ready</h3>
-            <p>Rank higher on Google. Our templates are built with clean code and fast loading speeds to help students find you.</p>
+            <p>
+              Rank higher on Google. Our templates are built with clean code and
+              fast loading speeds to help students find you.
+            </p>
           </div>
         </div>
       </div>
@@ -296,16 +571,26 @@
           <div>
             <h2>Start a <span>Blog</span></h2>
             <p>
-              Share study tips, exam updates, and success stories. A blog is the best way to build authority and attract free traffic from Google.
+              Share study tips, exam updates, and success stories. A blog is the
+              best way to build authority and attract free traffic from Google.
             </p>
             <ul class="check-list">
-              <li><i class="fas fa-check-circle"></i> Built-in rich text editor.</li>
-              <li><i class="fas fa-check-circle"></i> Auto-generated sitemaps.</li>
-              <li><i class="fas fa-check-circle"></i> Comment management system.</li>
+              <li>
+                <i class="fas fa-check-circle"></i> Built-in rich text editor.
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i> Auto-generated sitemaps.
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i> Comment management system.
+              </li>
             </ul>
           </div>
-          <div style="text-align: center;">
-            <i class="fas fa-blog" style="font-size: 8rem; opacity: 0.2; color: white;"></i>
+          <div style="text-align: center">
+            <i
+              class="fas fa-blog"
+              style="font-size: 8rem; opacity: 0.2; color: white"
+            ></i>
           </div>
         </div>
       </div>
@@ -314,48 +599,85 @@
     <section class="theme-section">
       <div class="container">
         <h2>Professional <span>Themes</span></h2>
-        <p style="color: var(--text-muted); margin-bottom: 30px;">Choose a template designed specifically for educators.</p>
-        
+        <p style="color: var(--text-muted); margin-bottom: 30px">
+          Choose a template designed specifically for educators.
+        </p>
+
         <div class="theme-slider reveal">
           <div class="theme-card">
-            <div class="theme-preview" style="background: linear-gradient(to bottom right, #f28482, #fff);"></div>
+            <div
+              class="theme-preview"
+              style="
+                background: linear-gradient(to bottom right, #f28482, #fff);
+              "
+            ></div>
             <div class="theme-info">
               <h4>Modern Tutor</h4>
-              <p style="font-size: 0.85rem; color: #888; margin: 5px 0 10px;">Clean & Minimalist</p>
+              <p style="font-size: 0.85rem; color: #888; margin: 5px 0 10px">
+                Clean & Minimalist
+              </p>
               <span class="theme-tag">Free</span>
             </div>
           </div>
           <div class="theme-card">
-            <div class="theme-preview" style="background: linear-gradient(to bottom right, #3d405b, #eee);"></div>
+            <div
+              class="theme-preview"
+              style="
+                background: linear-gradient(to bottom right, #3d405b, #eee);
+              "
+            ></div>
             <div class="theme-info">
               <h4>Institute Pro</h4>
-              <p style="font-size: 0.85rem; color: #888; margin: 5px 0 10px;">Corporate & Trust</p>
+              <p style="font-size: 0.85rem; color: #888; margin: 5px 0 10px">
+                Corporate & Trust
+              </p>
               <span class="theme-tag">Free</span>
             </div>
           </div>
           <div class="theme-card">
-            <div class="theme-preview" style="background: linear-gradient(to bottom right, #81b29a, #fff);"></div>
+            <div
+              class="theme-preview"
+              style="
+                background: linear-gradient(to bottom right, #81b29a, #fff);
+              "
+            ></div>
             <div class="theme-info">
               <h4>Creative Kids</h4>
-              <p style="font-size: 0.85rem; color: #888; margin: 5px 0 10px;">Colorful & Fun</p>
+              <p style="font-size: 0.85rem; color: #888; margin: 5px 0 10px">
+                Colorful & Fun
+              </p>
               <span class="theme-tag">Free</span>
             </div>
           </div>
         </div>
-        
-        <a href="index.html#pricing" class="btn btn-primary" style="margin-top: 40px;">Start Building for Free</a>
+
+        <a
+          href="index.html#pricing"
+          class="btn btn-primary"
+          style="margin-top: 40px"
+          >Start Building for Free</a
+        >
       </div>
     </section>
 
+    <div id="newsletter-section"></div>
     <footer id="main-footer"></footer>
+    <script src="header.js"></script>
+    <script src="newsletter.js"></script>
+    <script src="footer.js"></script>
 
     <script>
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible");
-        });
-      }, { threshold: 0.1 });
-      document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObserver.observe(el));
     </script>
     <script src="footer.js"></script>
   </body>
