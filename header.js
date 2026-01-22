@@ -383,7 +383,7 @@
         <a href="Partner.html" class="nav-link">Partner</a>
 
 
-        <a href="#login" class="btn-login">Login</a>
+        <a href="https://panel.erpli.com/login" class="btn-login">Login</a>
       </div>
     </div>
   `;

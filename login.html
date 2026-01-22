@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - ERPLI Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* --- Root Variables (Synced) --- */
+      :root {
+        --primary-color: #f28482;
+        --secondary-color: #3d405b;
+        --bg-light: #fffbf5;
+        --white: #ffffff;
+        --text-dark: #3d405b;
+        --text-muted: #666;
+        --font-family: "Inter", sans-serif;
+      }
+
+      /* --- Base & Reset --- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: var(--font-family);
+        background-color: var(--bg-light); /* Light background for entire page */
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* --- Components --- */
+      .btn {
+        display: block;
+        width: 100%;
+        padding: 14px 20px;
+        border-radius: 8px;
+        font-weight: 700;
+        transition: 0.3s;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        text-align: center;
+        font-size: 1rem;
+        font-family: inherit;
+      }
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+        box-shadow: 0 4px 15px rgba(242, 132, 130, 0.3);
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4);
+      }
+      
+      .btn-google {
+        background: white;
+        border: 1px solid #ddd;
+        color: #555;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      .btn-google:hover {
+        background: #f8f9fa;
+        border-color: #ccc;
+      }
+
+      /* Animation */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: 0.8s ease-out;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .header-spacer { height: 80px; }
+
+      /* --- Login Section --- */
+      .login-section {
+        flex: 1; /* Pushes footer down */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 80px 20px;
+      }
+
+      .login-card {
+        background: white;
+        width: 100%;
+        max-width: 450px;
+        padding: 50px 40px;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(61, 64, 91, 0.08);
+        text-align: center;
+        border: 1px solid rgba(0,0,0,0.02);
+      }
+
+      .brand-icon {
+        width: 60px;
+        height: 60px;
+        background: #fff0f0;
+        color: var(--primary-color);
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        font-size: 1.5rem;
+        margin: 0 auto 20px;
+      }
+
+      .login-header h1 {
+        font-size: 1.8rem;
+        color: var(--secondary-color);
+        margin-bottom: 10px;
+      }
+      .login-header p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-bottom: 30px;
+      }
+
+      /* --- Form Elements --- */
+      .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+      .form-label {
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: var(--secondary-color);
+      }
+      .form-input-wrapper {
+        position: relative;
+      }
+      .form-input {
+        width: 100%;
+        padding: 12px 15px;
+        padding-left: 40px; /* Space for icon */
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-family: inherit;
+        transition: 0.3s;
+        color: #333;
+      }
+      .form-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(242, 132, 130, 0.1);
+      }
+      .input-icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #aaa;
+        font-size: 0.9rem;
+      }
+      .toggle-password {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #aaa;
+        cursor: pointer;
+        font-size: 0.9rem;
+      }
+
+      .form-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.85rem;
+        margin-bottom: 30px;
+      }
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #666;
+        cursor: pointer;
+      }
+      .forgot-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .forgot-link:hover { text-decoration: underline; }
+
+      .divider {
+        margin: 25px 0;
+        position: relative;
+        text-align: center;
+      }
+      .divider::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: #eee;
+      }
+      .divider span {
+        background: white;
+        padding: 0 10px;
+        position: relative;
+        color: #999;
+        font-size: 0.85rem;
+      }
+
+      .signup-link {
+        margin-top: 20px;
+        font-size: 0.9rem;
+        color: #666;
+      }
+      .signup-link a {
+        color: var(--secondary-color);
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .signup-link a:hover {
+        color: var(--primary-color);
+        text-decoration: underline;
+      }
+
+      @media (max-width: 480px) {
+        .login-card { padding: 40px 25px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header></header>
+    <script src="header.js"></script>
+    <div class="header-spacer"></div>
+
+    <section class="login-section">
+      <div class="login-card reveal">
+        <div class="brand-icon">
+          <i class="fas fa-user-lock"></i>
+        </div>
+        
+        <div class="login-header">
+          <h1>Welcome Back</h1>
+          <p>Login to manage your academy & students.</p>
+        </div>
+
+        <form action="dashboard.html">
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <div class="form-input-wrapper">
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input type="email" class="form-input" placeholder="you@academy.com" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <div class="form-input-wrapper">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" id="passwordField" class="form-input" placeholder="••••••••" required>
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword()"></i>
+                </div>
+            </div>
+
+            <div class="form-footer">
+                <label class="checkbox-group">
+                    <input type="checkbox"> 
+                    <span>Remember me</span>
+                </label>
+                <a href="#" class="forgot-link">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Login to Dashboard</button>
+        </form>
+
+        <div class="divider">
+            <span>OR</span>
+        </div>
+
+        <button class="btn btn-google">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" alt="Google">
+            Sign in with Google
+        </button>
+
+        <div class="signup-link">
+            Don't have an account? <a href="index.html#pricing">Get Started</a>
+        </div>
+
+      </div>
+    </section>
+
+    <footer id="main-footer"></footer>
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+
+    <script>
+      // Animation Logic
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+
+      // Password Toggle Logic
+      function togglePassword() {
+          const passwordField = document.getElementById("passwordField");
+          const icon = document.querySelector(".toggle-password");
+          
+          if (passwordField.type === "password") {
+              passwordField.type = "text";
+              icon.classList.remove("fa-eye");
+              icon.classList.add("fa-eye-slash");
+          } else {
+              passwordField.type = "password";
+              icon.classList.remove("fa-eye-slash");
+              icon.classList.add("fa-eye");
+          }
+      }
+    </script>
+  </body>
+</html>
