@@ -52,6 +52,7 @@
         text-decoration: none;
         cursor: pointer;
         border: none;
+        text-align: center;
       }
       .btn-primary {
         background-color: var(--primary-color);
@@ -77,8 +78,17 @@
         gap: 60px;
         align-items: center;
       }
-      .hero-content h1 { font-size: clamp(2.5rem, 5vw, 3.8rem); margin-bottom: 25px; color: var(--secondary-color); }
-      .hero-content p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 35px; max-width: 500px; }
+      .hero-content h1 { 
+          font-size: clamp(2.5rem, 5vw, 3.8rem); 
+          margin-bottom: 25px; 
+          color: var(--secondary-color); 
+      }
+      .hero-content p { 
+          font-size: 1.15rem; 
+          color: var(--text-muted); 
+          margin-bottom: 35px; 
+          max-width: 500px; 
+      }
 
       /* --- Browser Mockup Animation --- */
       .browser-mockup {
@@ -87,6 +97,7 @@
         box-shadow: 0 20px 60px rgba(0,0,0,0.1);
         border: 1px solid #ddd;
         max-width: 500px;
+        width: 100%;
         margin: 0 auto;
         overflow: hidden;
       }
@@ -114,35 +125,37 @@
         border: 1px solid #ddd;
         position: relative;
         overflow: hidden;
+        white-space: nowrap;
       }
       
-      /* Typing Animation */
+      /* Typing Animation Logic */
       .url-text {
-        white-space: nowrap;
         overflow: hidden;
         border-right: 2px solid var(--primary-color);
         width: 0;
-        animation: typing 4s steps(30, end) infinite;
+        animation: typing 6s steps(40, end) infinite;
+        display: inline-block;
+        vertical-align: bottom;
       }
       
       @keyframes typing {
-        0% { width: 0; content: "erpli.com/u/1293"; }
-        40% { width: 100%; border-right: 2px solid var(--primary-color); } /* Shows full generic URL */
-        50% { width: 100%; border-right: transparent; } /* Blink pause */
-        55% { width: 0; border-right: transparent; opacity: 0; } /* Clear */
-        60% { width: 0; opacity: 1; border-right: 2px solid #2ecc71; color: #2ecc71; } /* Switch color */
-        100% { width: 100%; color: #3d405b; font-weight: 700; border-right: transparent; } /* Show Custom URL */
+        0% { width: 0; color: #888; }
+        5% { content: "erpli.com"; } /* Not strictly valid CSS content replacement but placeholder logic */
+        30% { width: 100%; } 
+        45% { width: 100%; border-right-color: transparent; }
+        50% { width: 0; opacity: 0; }
+        55% { width: 0; opacity: 1; color: #2ecc71; border-right-color: #2ecc71; font-weight: 700; }
+        100% { width: 100%; color: #2ecc71; font-weight: 700; border-right-color: transparent; }
       }
       
-      /* Dynamic Text Replacement via CSS pseudo-elements is tricky, so we use JS-like logic in keyframes or overlapping spans */
-      .url-text::before {
-        content: "erpli.com/users/id=922";
-        animation: text-switch 8s infinite;
+      /* Use pseudo-element for text switching */
+      .url-text::after {
+          content: "erpli.com/u/1293";
+          animation: text-swap 6s infinite;
       }
-      
-      @keyframes text-switch {
-        0%, 45% { content: "erpli.com/users/id=922"; color: #888; }
-        50%, 100% { content: "www.my-academy.com"; color: #2ecc71; font-weight: 700; }
+      @keyframes text-swap {
+          0%, 49% { content: "erpli.com/u/1293"; color: #888; font-weight: 400; }
+          50%, 100% { content: "www.my-academy.com"; color: #2ecc71; font-weight: 700; }
       }
 
       .browser-body {
@@ -152,8 +165,8 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        padding: 20px;
       }
-      .browser-body i { font-size: 5rem; color: #eee; margin-bottom: 15px; }
       .lock-icon { color: #2ecc71; font-size: 0.8rem; }
 
       /* --- DNS Steps --- */
@@ -161,6 +174,51 @@
       .step-card { flex: 1; padding: 30px; border-radius: 16px; background: white; border: 1px solid #eee; position: relative; }
       .step-num { width: 40px; height: 40px; background: var(--secondary-color); color: white; border-radius: 50%; margin: 0 auto 20px; display: grid; place-items: center; font-weight: 700; }
       .arrow-right { position: absolute; top: 50%; right: -25px; font-size: 1.5rem; color: #ddd; transform: translateY(-50%); }
+
+      /* --- NEW: White Label Explainer --- */
+      .white-label-section {
+          background: white;
+          border-bottom: 1px solid #eee;
+      }
+      .wl-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 50px;
+          align-items: center;
+      }
+      .wl-img-box {
+          background: #f8f9fa;
+          padding: 40px;
+          border-radius: 20px;
+          text-align: center;
+      }
+
+      /* --- NEW: Search Domain Simulation --- */
+      .domain-search-box {
+          background: white;
+          border-radius: 50px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          padding: 10px 10px 10px 30px;
+          display: flex;
+          max-width: 600px;
+          margin: 40px auto 0;
+          border: 1px solid #eee;
+      }
+      .domain-input {
+          flex: 1;
+          border: none;
+          outline: none;
+          font-size: 1.1rem;
+          color: #333;
+      }
+      .search-btn {
+          background: var(--secondary-color);
+          color: white;
+          padding: 12px 30px;
+          border-radius: 40px;
+          font-weight: 600;
+          cursor: default; /* Just visual */
+      }
 
       /* --- SSL Badge --- */
       .ssl-badge {
@@ -176,12 +234,50 @@
         margin-top: 15px;
       }
 
-      /* --- Mobile Responsive --- */
+      /* --- NEW: FAQ Section --- */
+      .faq-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-top: 40px;
+      }
+      .faq-item {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 15px;
+      }
+      .faq-item h4 {
+        margin-bottom: 10px;
+        color: var(--secondary-color);
+      }
+
+      /* --- Mobile Responsive Rules --- */
       @media (max-width: 992px) {
-        .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+        section { padding: 60px 0; }
+        
+        .hero-grid, .wl-grid, .faq-grid { 
+            grid-template-columns: 1fr; 
+            text-align: center; 
+            gap: 40px; 
+        }
+        
+        /* DNS Steps Stacking */
         .dns-steps { flex-direction: column; gap: 20px; }
-        .arrow-right { display: none; }
+        .arrow-right { display: none; } /* Hide arrows on mobile stack */
+        
         .browser-mockup { width: 100%; }
+        
+        .domain-search-box {
+            flex-direction: column;
+            padding: 20px;
+            border-radius: 20px;
+            gap: 15px;
+        }
+        .domain-input { text-align: center; width: 100%; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .search-btn { width: 100%; }
+        
+        .btn { width: 100%; margin-bottom: 10px; }
+        .ssl-badge { width: 100%; justify-content: center; }
       }
     </style>
   </head>
@@ -231,12 +327,32 @@
       </div>
     </section>
 
+    <section class="white-label-section">
+        <div class="container wl-grid">
+            <div class="wl-img-box reveal">
+                <i class="fas fa-tag" style="font-size: 6rem; color: var(--primary-color); opacity: 0.2;"></i>
+                <h3 style="margin-top: 20px; color: var(--secondary-color);">No "ERPLI" Branding</h3>
+            </div>
+            <div class="reveal">
+                <h2>What is <span>White-Labeling?</span></h2>
+                <p style="color: var(--text-muted); margin: 20px 0;">
+                    It means we remove our logo and put yours everywhere. When students visit your website or login to their dashboard, they only see <strong>your Academy's name</strong>.
+                </p>
+                <ul style="list-style: none; gap: 10px; display: flex; flex-direction: column;">
+                    <li><i class="fas fa-check" style="color: #2ecc71; margin-right: 10px;"></i> Your Logo in Header</li>
+                    <li><i class="fas fa-check" style="color: #2ecc71; margin-right: 10px;"></i> Your Domain in Browser</li>
+                    <li><i class="fas fa-check" style="color: #2ecc71; margin-right: 10px;"></i> Your Favicon</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
     <section style="background: white;">
       <div class="container">
         <div style="text-align: center; max-width: 800px; margin: 0 auto 60px;">
           <h2>Instant <span>Credibility.</span></h2>
           <p style="color: var(--text-muted); margin-top: 15px;">
-            Parents and students trust websites that look professional. A custom domain tells the world you are a serious institute, not just a hobbyist.
+            Parents and students trust websites that look professional. A custom domain tells the world you are a serious institute.
           </p>
         </div>
 
@@ -244,7 +360,7 @@
           <div class="step-card reveal">
             <div class="feat-icon" style="font-size: 2rem; color: #e74c3c; margin-bottom: 15px;"><i class="fas fa-times-circle"></i></div>
             <h4>Without Custom Domain</h4>
-            <p style="color: #666; font-family: monospace; background: #f5f5f5; padding: 10px; margin: 15px 0; border-radius: 5px;">
+            <p style="color: #666; font-family: monospace; background: #f5f5f5; padding: 10px; margin: 15px 0; border-radius: 5px; word-break: break-all;">
               erpli.com/institutes/view?id=882
             </p>
             <ul style="list-style: none; font-size: 0.9rem; color: #666;">
@@ -257,7 +373,7 @@
           <div class="step-card reveal" style="border-color: #2ecc71; box-shadow: 0 10px 30px rgba(46, 204, 113, 0.1);">
             <div class="feat-icon" style="font-size: 2rem; color: #2ecc71; margin-bottom: 15px;"><i class="fas fa-check-circle"></i></div>
             <h4>With Custom Domain</h4>
-            <p style="color: #3d405b; font-family: monospace; background: #e6fffa; padding: 10px; margin: 15px 0; border-radius: 5px; font-weight: 700;">
+            <p style="color: #3d405b; font-family: monospace; background: #e6fffa; padding: 10px; margin: 15px 0; border-radius: 5px; font-weight: 700; word-break: break-all;">
               www.toppers-academy.com
             </p>
             <ul style="list-style: none; font-size: 0.9rem; color: #666;">
@@ -268,6 +384,21 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <section style="background: #fdfdfd; padding: 80px 0;">
+        <div class="container reveal" style="text-align: center;">
+            <h2 style="margin-bottom: 10px;">Already have a name in mind?</h2>
+            <p style="color: var(--text-muted);">Visualize how your new URL will look.</p>
+            
+            <div class="domain-search-box">
+                <span style="align-self: center; font-weight: bold; color: #888; margin-right: 5px;">www.</span>
+                <input type="text" class="domain-input" placeholder="your-academy-name" value="physics-master-class">
+                <span style="align-self: center; font-weight: bold; color: #888; margin-left: 5px; margin-right: 15px;">.com</span>
+                <div class="search-btn">Looks Great!</div>
+            </div>
+            <p style="font-size: 0.8rem; margin-top: 15px; color: #999;">*You will need to purchase this domain separately from a provider.</p>
+        </div>
     </section>
 
     <section style="background: var(--bg-light);">
@@ -296,6 +427,38 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <section style="background: white;">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 20px;">Common Questions</h2>
+            <div class="faq-grid reveal">
+                <div class="faq-item">
+                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Do you sell domains?</h4>
+                    <p style="font-size: 0.9rem; color: #666;">No, we don't sell domains directly. You buy it from any registrar (GoDaddy, etc.) and we simply connect it to your site.</p>
+                </div>
+                <div class="faq-item">
+                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Is the SSL certificate free?</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Yes! We automatically provision a secure HTTPS certificate for your custom domain at no extra cost.</p>
+                </div>
+                <div class="faq-item">
+                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Can I use a subdomain?</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Yes, you can use something like <code>courses.myschool.com</code> if you already have a main website.</p>
+                </div>
+                <div class="faq-item">
+                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> How long does it take?</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Once you add the CNAME record, it usually propagates worldwide within 10 to 30 minutes.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 60px;">
+                <a
+                  href="index.html#pricing"
+                  class="btn btn-primary"
+                  >Get Started Now</a
+                >
+            </div>
+        </div>
     </section>
 
     <div id="newsletter-section"></div>

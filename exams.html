@@ -54,6 +54,7 @@
         text-decoration: none;
         cursor: pointer;
         border: none;
+        text-align: center;
       }
       .btn-primary {
         background-color: var(--primary-color);
@@ -80,10 +81,19 @@
         padding: 120px 0 80px;
         text-align: center;
       }
-      .exam-hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 25px; color: var(--secondary-color); }
-      .exam-hero p { font-size: 1.15rem; color: var(--text-muted); margin: 0 auto 40px; max-width: 700px; }
+      .exam-hero h1 { 
+          font-size: clamp(2.5rem, 5vw, 4rem); 
+          margin-bottom: 25px; 
+          color: var(--secondary-color); 
+      }
+      .exam-hero p { 
+          font-size: 1.15rem; 
+          color: var(--text-muted); 
+          margin: 0 auto 40px; 
+          max-width: 700px; 
+      }
 
-      /* --- CBT Interface Mockup (The "Real Exam" Look) --- */
+      /* --- CBT Interface Mockup --- */
       .cbt-mockup {
         background: #fff;
         border: 1px solid #ddd;
@@ -93,13 +103,13 @@
         margin: 0 auto;
         display: flex;
         overflow: hidden;
-        height: 500px;
+        min-height: 500px; /* Changed height to min-height for mobile scaling */
         text-align: left;
       }
       
       /* Left Side: Question Area */
-      .cbt-question-area { flex: 3; padding: 30px; border-right: 1px solid #eee; overflow-y: auto; }
-      .cbt-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+      .cbt-question-area { flex: 3; padding: 30px; border-right: 1px solid #eee; }
+      .cbt-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
       .timer { background: #3d405b; color: white; padding: 5px 15px; border-radius: 4px; font-family: monospace; }
       
       .q-text { font-size: 1.1rem; font-weight: 600; margin-bottom: 20px; }
@@ -110,7 +120,7 @@
       .q-option.selected { border-color: var(--primary-color); background: #fff0f0; }
       
       /* Right Side: Palette */
-      .cbt-palette { flex: 1; background: #f8f9fa; padding: 20px; display: flex; flex-direction: column; }
+      .cbt-palette { flex: 1; background: #f8f9fa; padding: 20px; display: flex; flex-direction: column; min-width: 250px; }
       .student-info { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #ddd; }
       .student-avatar { width: 40px; height: 40px; background: #ddd; border-radius: 50%; }
       
@@ -134,8 +144,20 @@
       .feat-card h3 { margin-bottom: 10px; color: var(--secondary-color); }
       .feat-card p { font-size: 0.95rem; color: var(--text-muted); }
 
+      /* --- NEW: Exam Types --- */
+      .exam-types-section { background: white; }
+      .types-grid {
+          display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px;
+      }
+      .type-box {
+          text-align: center; padding: 25px; border: 1px solid #eee; border-radius: 12px;
+          transition: 0.3s; cursor: default;
+      }
+      .type-box:hover { border-color: var(--primary-color); background: #fffbf5; }
+      .type-icon { font-size: 2rem; margin-bottom: 15px; color: var(--secondary-color); }
+
       /* --- Analytics Dashboard Visual --- */
-      .analytics-section { background: white; }
+      .analytics-section { background: var(--bg-light); }
       .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
       
       .result-card {
@@ -153,13 +175,6 @@
       .stat-label { color: #666; font-size: 0.95rem; }
       .stat-val { font-weight: 700; color: #3d405b; }
 
-      /* --- Comparison / Types Section --- */
-      .exam-types { display: flex; gap: 20px; margin-top: 40px; flex-wrap: wrap; }
-      .type-badge {
-        background: var(--bg-light); padding: 10px 20px; border-radius: 30px; 
-        font-weight: 600; color: var(--secondary-color); display: flex; align-items: center; gap: 10px;
-      }
-
       /* --- Proctoring Section --- */
       .proctor-section { background: var(--secondary-color); color: white; padding: 80px 0; }
       .proctor-content h2 { margin-bottom: 20px; font-size: 2.2rem; }
@@ -171,12 +186,56 @@
         display: flex; align-items: center; gap: 15px; max-width: 600px;
       }
 
+      /* --- NEW: Workflow Steps --- */
+      .workflow-section { background: white; text-align: center; }
+      .step-row {
+          display: flex; justify-content: center; gap: 40px; margin-top: 50px; flex-wrap: wrap;
+      }
+      .work-step {
+          width: 250px; padding: 20px; position: relative;
+      }
+      .step-num {
+          width: 40px; height: 40px; background: var(--primary-color); color: white;
+          border-radius: 50%; display: grid; place-items: center; font-weight: 700; margin: 0 auto 15px;
+      }
+
+      /* --- NEW: FAQ Section --- */
+      .faq-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-top: 40px;
+      }
+      .faq-item {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 15px;
+      }
+      .faq-item h4 {
+        margin-bottom: 10px;
+        color: var(--secondary-color);
+      }
+
       /* --- Mobile Responsive --- */
       @media (max-width: 992px) {
+        section { padding: 60px 0; }
+        
         .cbt-mockup { flex-direction: column; height: auto; }
-        .cbt-palette { display: none; } /* Hide palette on small mobile view for mockups */
-        .features-grid, .split-grid { grid-template-columns: 1fr; }
-        .hero-grid { text-align: center; }
+        .cbt-palette { 
+            order: 2; /* Move palette to bottom on mobile */
+            border-top: 1px solid #eee;
+        }
+        
+        .features-grid, .split-grid, .types-grid, .faq-grid { 
+            grid-template-columns: 1fr; 
+        }
+        
+        .hero-grid, .workflow-section { text-align: center; }
+        
+        .cbt-header { justify-content: center; }
+        
+        .btn { width: 100%; margin-bottom: 10px; }
+        .alert-box { flex-direction: column; text-align: center; }
       }
     </style>
   </head>
@@ -197,7 +256,7 @@
             Create real exam environments with negative marking, timers, and automatic ranking. 
             Give your students the practice they need to crack competitive exams.
           </p>
-          <div style="display: flex; justify-content: center; gap: 15px;">
+          <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
             <a href="index.html#pricing" class="btn btn-primary">Create Exam</a>
             <a href="#proctoring" class="btn btn-outline">Anti-Cheating</a>
           </div>
@@ -261,6 +320,31 @@
       </div>
     </section>
 
+    <section class="workflow-section">
+        <div class="container">
+            <h2>Easy <span>3-Step Process</span></h2>
+            <p style="color: var(--text-muted);">You don't need to be tech-savvy to run an exam.</p>
+            
+            <div class="step-row reveal">
+                <div class="work-step">
+                    <div class="step-num">1</div>
+                    <h4>Create</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Upload questions via Word/Excel or choose from our question bank.</p>
+                </div>
+                <div class="work-step">
+                    <div class="step-num">2</div>
+                    <h4>Assign</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Select the batch and set the date/time for the test window.</p>
+                </div>
+                <div class="work-step">
+                    <div class="step-num">3</div>
+                    <h4>Analyze</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Get instant results and rank lists as soon as the test ends.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section>
       <div class="container">
         <div class="features-grid">
@@ -280,14 +364,35 @@
             <p>Students can download the test paper when they have internet, attempt it offline, and sync results later.</p>
           </div>
         </div>
-        
-        <div class="exam-types justify-content-center" style="justify-content: center;">
-          <div class="type-badge"><i class="fas fa-check"></i> JEE Mains/Adv</div>
-          <div class="type-badge"><i class="fas fa-check"></i> NEET</div>
-          <div class="type-badge"><i class="fas fa-check"></i> UPSC Prelims</div>
-          <div class="type-badge"><i class="fas fa-check"></i> SSC / Banking</div>
-        </div>
       </div>
+    </section>
+
+    <section class="exam-types-section">
+        <div class="container" style="text-align: center;">
+            <h2>Supported <span>Exam Formats</span></h2>
+            <div class="types-grid reveal">
+                <div class="type-box">
+                    <div class="type-icon"><i class="fas fa-check-square"></i></div>
+                    <h4>MCQ</h4>
+                    <small>Single Correct</small>
+                </div>
+                <div class="type-box">
+                    <div class="type-icon"><i class="fas fa-list-ol"></i></div>
+                    <h4>Multiple</h4>
+                    <small>Multi-Correct options</small>
+                </div>
+                <div class="type-box">
+                    <div class="type-icon"><i class="fas fa-pen-alt"></i></div>
+                    <h4>Integer</h4>
+                    <small>Numeric Value Type</small>
+                </div>
+                <div class="type-box">
+                    <div class="type-icon"><i class="fas fa-file-upload"></i></div>
+                    <h4>Subjective</h4>
+                    <small>Upload Photo Answers</small>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="analytics-section">
@@ -367,6 +472,38 @@
            </div>
         </div>
       </div>
+    </section>
+
+    <section style="background: white;">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 20px;">Common Questions</h2>
+            <div class="faq-grid reveal">
+                <div class="faq-item">
+                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> How do I add questions?</h4>
+                    <p style="font-size: 0.9rem; color: #666;">You can bulk upload questions using our Word/Excel template, or add them manually one by one. We also support mathematical equations.</p>
+                </div>
+                <div class="faq-item">
+                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Can students cheat?</h4>
+                    <p style="font-size: 0.9rem; color: #666;">We have window locking (tab switch detection) and random question ordering to minimize cheating.</p>
+                </div>
+                <div class="faq-item">
+                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Does it work on mobile?</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Yes, the exam interface is 100% responsive. Students can take tests on their phones via your App or Chrome.</p>
+                </div>
+                <div class="faq-item">
+                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Can I conduct offline exams?</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Yes, students can download the test paper in the app, attempt it without internet, and sync results when online.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 60px;">
+                <a
+                  href="index.html#pricing"
+                  class="btn btn-primary"
+                  >Create Free Exam</a
+                >
+            </div>
+        </div>
     </section>
 
     <div id="newsletter-section"></div>

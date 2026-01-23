@@ -15,7 +15,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <style>
-      /* --- Root Variables (Synced with Index) --- */
+      /* --- Root Variables --- */
       :root {
         --primary-color: #f28482;
         --secondary-color: #3d405b;
@@ -52,10 +52,7 @@
         margin: 0 auto;
         padding: 0 20px;
       }
-      h1,
-      h2,
-      h3,
-      h4 {
+      h1, h2, h3, h4 {
         font-weight: 800;
         line-height: 1.2;
       }
@@ -72,6 +69,7 @@
         text-decoration: none;
         cursor: pointer;
         border: none;
+        text-align: center;
       }
       .btn-primary {
         background-color: var(--primary-color);
@@ -82,7 +80,6 @@
         transform: translateY(-3px);
         box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4);
       }
-
       .btn-outline {
         border: 2px solid var(--secondary-color);
         color: var(--secondary-color);
@@ -93,6 +90,7 @@
         color: white;
       }
 
+      /* Animation Classes */
       .reveal {
         opacity: 0;
         transform: translateY(30px);
@@ -103,12 +101,11 @@
         transform: translateY(0);
       }
 
-      /* --- Header Spacer (To prevent overlap) --- */
       .header-spacer {
         height: 80px;
       }
 
-      /* --- Hero Section Specifics --- */
+      /* --- Hero Section --- */
       .app-hero {
         background-color: var(--bg-light);
         padding: 120px 0 80px;
@@ -121,7 +118,7 @@
         align-items: center;
       }
       .hero-content h1 {
-        font-size: clamp(2.5rem, 5vw, 3.8rem);
+        font-size: clamp(2.2rem, 5vw, 3.8rem);
         margin-bottom: 25px;
         color: var(--secondary-color);
       }
@@ -131,11 +128,11 @@
         margin-bottom: 35px;
         max-width: 500px;
       }
-
       .store-badges {
         display: flex;
         gap: 15px;
         margin-top: 30px;
+        flex-wrap: wrap;
       }
       .store-btn {
         background: #000;
@@ -147,6 +144,7 @@
         gap: 10px;
         text-decoration: none;
         transition: 0.3s;
+        min-width: 160px;
       }
       .store-btn:hover {
         transform: translateY(-2px);
@@ -157,14 +155,10 @@
         flex-direction: column;
         line-height: 1.1;
       }
-      .store-text small {
-        font-size: 0.7rem;
-      }
-      .store-text strong {
-        font-size: 1rem;
-      }
+      .store-text small { font-size: 0.7rem; }
+      .store-text strong { font-size: 1rem; }
 
-      /* --- 3D Phone Animation (Reused & Tweaked) --- */
+      /* --- 3D Phone --- */
       .phone-wrapper {
         perspective: 1000px;
         display: flex;
@@ -189,7 +183,6 @@
         overflow: hidden;
         position: relative;
       }
-      /* Fake App UI */
       .app-header {
         background: var(--secondary-color);
         height: 160px;
@@ -221,21 +214,12 @@
         border-radius: 4px;
         margin-bottom: 8px;
       }
-
       @keyframes float-rotate {
-        0%,
-        100% {
-          transform: rotateY(-10deg) rotateX(5deg) translateY(0);
-        }
-        50% {
-          transform: rotateY(10deg) rotateX(-5deg) translateY(-20px);
-        }
+        0%, 100% { transform: rotateY(-10deg) rotateX(5deg) translateY(0); }
+        50% { transform: rotateY(10deg) rotateX(-5deg) translateY(-20px); }
       }
 
       /* --- Features Grid --- */
-      .app-features {
-        background: white;
-      }
       .feature-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -248,8 +232,6 @@
         background: var(--white);
         border: 1px solid #f0f0f0;
         transition: 0.3s;
-        position: relative;
-        overflow: hidden;
       }
       .app-feat-card:hover {
         border-color: var(--primary-color);
@@ -267,37 +249,40 @@
         font-size: 1.5rem;
         margin-bottom: 25px;
       }
-      .app-feat-card h3 {
-        font-size: 1.3rem;
-        margin-bottom: 15px;
-        color: var(--secondary-color);
-      }
-      .app-feat-card p {
-        color: var(--text-muted);
-        font-size: 0.95rem;
-      }
 
-      /* --- Split Section (Deep Dive) --- */
-      .split-section {
-        padding: 80px 0;
+      /* --- NEW: Comparison Table --- */
+      .comparison-table-wrapper {
+        overflow-x: auto;
+        margin-top: 50px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
       }
+      .comp-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        min-width: 600px; /* Forces scroll on very small screens */
+      }
+      .comp-table th, .comp-table td {
+        padding: 20px;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+      }
+      .comp-table th {
+        background: #f8f9fa;
+        color: var(--secondary-color);
+        font-size: 1.1rem;
+      }
+      .comp-table td i.fa-check { color: #2ecc71; }
+      .comp-table td i.fa-times { color: #e74c3c; opacity: 0.3; }
+
+      /* --- Security Split --- */
       .split-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 80px;
         align-items: center;
       }
-      .split-text h2 {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-        color: var(--secondary-color);
-      }
-      .split-text p {
-        font-size: 1.1rem;
-        color: var(--text-muted);
-        margin-bottom: 30px;
-      }
-
       .mockup-flat {
         background: #f8f9fa;
         border-radius: 30px;
@@ -319,76 +304,93 @@
         animation: float-badge 4s infinite ease-in-out;
       }
       @keyframes float-badge {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-10px);
-        }
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
       }
 
-      /* --- Footer (Synced) --- */
-      .main-footer {
-        padding: 80px 0 20px;
-        border-top: 1px solid #eee;
-        background: white;
-      }
-      .footer-grid {
+      /* --- NEW: How It Works (Timeline) --- */
+      .process-steps {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 50px;
-        margin-bottom: 60px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        margin-top: 60px;
+        counter-reset: step-counter;
       }
-      .footer-brand .logo {
-        font-size: 1.5rem;
-        font-weight: 900;
-        color: #3d405b;
-        text-decoration: none;
-      }
-      .footer-brand span {
-        color: #f28482;
-      }
-      .footer-bottom {
-        border-top: 1px solid #eee;
-        padding-top: 30px;
+      .process-card {
         text-align: center;
-        color: #888;
-        font-size: 0.9rem;
+        position: relative;
       }
-      .footer-brand p {
-        margin: 15px 0;
-        font-size: 0.9rem;
-        color: #666;
+      .process-card::before {
+        counter-increment: step-counter;
+        content: counter(step-counter);
+        width: 50px;
+        height: 50px;
+        background: var(--secondary-color);
+        color: white;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin: 0 auto 20px;
       }
-      ul {
-        list-style: none;
-      }
-      ul li {
-        margin-bottom: 10px;
-      }
-      ul a {
-        text-decoration: none;
-        color: #666;
-        font-size: 0.95rem;
-      }
-      ul a:hover {
-        color: var(--primary-color);
+      /* Connector Line (Desktop Only) */
+      .process-card:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 25px;
+        left: 60%;
+        width: 80%;
+        height: 2px;
+        background: #eee;
+        z-index: -1;
       }
 
-      /* --- Mobile Responsive --- */
+      /* --- NEW: FAQ --- */
+      .faq-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-top: 40px;
+      }
+      .faq-item {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 15px;
+      }
+      .faq-item h4 {
+        margin-bottom: 10px;
+        color: var(--secondary-color);
+      }
+
+      /* --- Mobile Responsive Rules --- */
       @media (max-width: 992px) {
+        section {
+            padding: 60px 0; /* Reduced padding */
+        }
         .hero-grid,
         .split-container {
           grid-template-columns: 1fr;
           text-align: center;
-          gap: 50px;
+          gap: 40px;
         }
-        .feature-grid {
-          grid-template-columns: 1fr;
+        .hero-content h1 {
+            font-size: 2.5rem;
         }
+        .feature-grid, .process-steps, .faq-grid {
+          grid-template-columns: 1fr; /* Stack everything */
+        }
+        
+        /* Mobile Process Steps cleanup */
+        .process-steps { gap: 60px; }
+        .process-card:not(:last-child)::after { display: none; } /* Hide line */
+
         .phone-wrapper {
-          margin-top: 30px;
+          margin-top: 20px;
+        }
+        .phone-3d {
+            width: 240px; /* Smaller phone for mobile */
+            height: 480px;
         }
         .store-badges {
           justify-content: center;
@@ -398,6 +400,19 @@
           left: 0;
           margin: 0 auto;
           width: max-content;
+        }
+        /* Button Tweaks */
+        .btn {
+            width: 100%;
+            margin-bottom: 10px;
+            margin-left: 0 !important;
+        }
+        .split-text ul {
+            text-align: left; /* Keep list aligned left even if centered */
+            display: inline-block;
+        }
+        .split-text li {
+            justify-content: flex-start;
         }
       }
     </style>
@@ -427,7 +442,6 @@
           <p>
             Stop asking students to "open the browser." Give them a premium,
             distraction-free learning experience with your own white-label app.
-            Your Logo. Your Name. Your Brand.
           </p>
 
           <div class="store-badges">
@@ -554,6 +568,54 @@
       </div>
     </section>
 
+    <section style="background: #fdfdfd; border-top: 1px solid #eee;">
+      <div class="container">
+        <div style="text-align: center;">
+            <h2>App vs. <span>Standard Website</span></h2>
+            <p style="color: var(--text-muted); margin-top: 10px;">Why the top creators switch to mobile.</p>
+        </div>
+        
+        <div class="comparison-table-wrapper reveal">
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th style="text-align: left;">Feature</th>
+                        <th>Standard Website</th>
+                        <th style="color: var(--primary-color); background: #fff0f0;">Your App</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: left; font-weight: 600;">Push Notifications</td>
+                        <td><i class="fas fa-times"></i></td>
+                        <td><i class="fas fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left; font-weight: 600;">Offline Downloads</td>
+                        <td><i class="fas fa-times"></i></td>
+                        <td><i class="fas fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left; font-weight: 600;">Screen Recording Block</td>
+                        <td><i class="fas fa-times"></i> (Easily bypassed)</td>
+                        <td><i class="fas fa-check"></i> (Hardware Level)</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left; font-weight: 600;">One-Click Login</td>
+                        <td><i class="fas fa-times"></i></td>
+                        <td><i class="fas fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left; font-weight: 600;">Brand Recall</td>
+                        <td>Low</td>
+                        <td><strong style="color:var(--secondary-color)">High</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </section>
+
     <section class="split-section" style="background: var(--bg-light)">
       <div class="container split-container">
         <div class="mockup-flat reveal">
@@ -619,6 +681,58 @@
       </div>
     </section>
 
+    <section style="background: white;">
+        <div class="container">
+            <div style="text-align: center;">
+                <h2>Go Live in <span style="color: var(--secondary-color)">3 Simple Steps</span></h2>
+            </div>
+            <div class="process-steps reveal">
+                <div class="process-card">
+                    <h3>1. Send Assets</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">
+                        Provide us your Logo, App Name, and Brand Colors. We prepare the build.
+                    </p>
+                </div>
+                <div class="process-card">
+                    <h3>2. We Build</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">
+                        Our team compiles the code, integrates security, and tests on devices.
+                    </p>
+                </div>
+                <div class="process-card">
+                    <h3>3. Launch</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">
+                        We submit to Google Play & Apple App Store. You go live in 7 days!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: var(--bg-light);">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 20px;">Frequently Asked Questions</h2>
+            <div class="faq-grid reveal">
+                <div class="faq-item">
+                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Do I need a Developer Account?</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Yes. You need your own Google Play Console and Apple Developer account so the app remains YOUR property forever. We help you set this up.</p>
+                </div>
+                <div class="faq-item">
+                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> What about updates?</h4>
+                    <p style="font-size: 0.9rem; color: #666;">We handle maintenance updates for compatibility with new Android/iOS versions as part of your annual plan.</p>
+                </div>
+                <div class="faq-item">
+                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Does Apple take 30%?</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Not necessarily. We integrate web-based payment gateways within the backend, bypassing the mandatory 30% IAP tax for many use cases.</p>
+                </div>
+                <div class="faq-item">
+                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Can I send push notifications?</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Absolutely. You get a dedicated admin panel to send unlimited notifications to all your students instantly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section style="background: #fff">
       <div class="container">
         <div
@@ -644,26 +758,28 @@
             You provide the Logo and App Name. We handle the coding, submission,
             and updates.
           </p>
-          <a
-            href="index.html#pricing"
-            class="btn btn-primary"
-            style="background: #f28482; color: white"
-            >Check Pricing</a
-          >
-          <a
-            href="help.html"
-            class="btn btn-outline"
-            style="
-              border-color: rgba(255, 255, 255, 0.3);
-              color: white;
-              margin-left: 10px;
-            "
-            >Talk to Sales</a
-          >
+          <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+              <a
+                href="index.html#pricing"
+                class="btn btn-primary"
+                style="background: #f28482; color: white"
+                >Check Pricing</a
+              >
+              <a
+                href="help.html"
+                class="btn btn-outline"
+                style="
+                  border-color: rgba(255, 255, 255, 0.3);
+                  color: white;
+                "
+                >Talk to Sales</a
+              >
+          </div>
         </div>
       </div>
     </section>
-<section><div id="newsletter-section"></div></section>
+
+    <section><div id="newsletter-section"></div></section>
     <footer id="main-footer"></footer>
     <script src="header.js"></script>
     <script src="newsletter.js"></script>

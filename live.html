@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -27,8 +27,14 @@
       }
 
       /* --- Base & Reset --- */
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
       body {
         font-family: var(--font-family);
         background-color: var(--white);
@@ -38,10 +44,24 @@
       }
 
       /* --- Common Components --- */
-      section { padding: 100px 0; }
-      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-      h1, h2, h3, h4 { font-weight: 800; line-height: 1.2; }
-      span { color: var(--primary-color); }
+      section {
+        padding: 100px 0;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 800;
+        line-height: 1.2;
+      }
+      span {
+        color: var(--primary-color);
+      }
 
       .btn {
         display: inline-block;
@@ -52,18 +72,48 @@
         text-decoration: none;
         cursor: pointer;
         border: none;
+        text-align: center;
       }
       .btn-primary {
         background-color: var(--primary-color);
         color: white;
         box-shadow: 0 4px 15px rgba(242, 132, 130, 0.3);
       }
-      .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4); }
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4);
+      }
+      /* Add this new class */
+      .btn-outline {
+        background: white;
+        color: var(--secondary-color); /* Matches your theme text */
+        border: 2px solid #e5e7eb; /* Thicker, subtle gray border */
+        display: inline-flex; /* Keeps icon and text perfectly centered */
+        align-items: center;
+        justify-content: center;
+        gap: 10px; /* Spacing between icon and text */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Minimal shadow for depth */
+      }
 
-      .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
-      .reveal.visible { opacity: 1; transform: translateY(0); }
-      
-      .header-spacer { height: 80px; }
+      /* The hover effect makes it feel "premium" */
+      .btn-outline:hover {
+        border-color: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: 0.8s ease-out;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .header-spacer {
+        height: 80px;
+      }
 
       /* --- Hero Section --- */
       .live-hero {
@@ -77,14 +127,23 @@
         gap: 60px;
         align-items: center;
       }
-      .hero-content h1 { font-size: clamp(2.5rem, 5vw, 3.8rem); margin-bottom: 25px; color: var(--secondary-color); }
-      .hero-content p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 35px; max-width: 500px; }
+      .hero-content h1 {
+        font-size: clamp(2.5rem, 5vw, 3.8rem);
+        margin-bottom: 25px;
+        color: var(--secondary-color);
+      }
+      .hero-content p {
+        font-size: 1.15rem;
+        color: var(--text-muted);
+        margin-bottom: 35px;
+        max-width: 500px;
+      }
 
       /* --- Meeting Interface Mockup --- */
       .meeting-mockup {
         background: #202124;
         border-radius: 16px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
         padding: 15px;
         max-width: 500px;
         margin: 0 auto;
@@ -92,88 +151,328 @@
         overflow: hidden;
       }
       .meeting-grid {
-        display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 15px;
       }
       .participant {
-        background: #3c4043; height: 100px; border-radius: 8px; position: relative;
-        display: flex; align-items: center; justify-content: center; color: #888;
+        background: #3c4043;
+        height: 100px;
+        border-radius: 8px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #888;
       }
-      .participant.active { border: 2px solid var(--primary-color); background: url('https://via.placeholder.com/200/3d405b/ffffff?text=Teacher') center/cover; }
-      
+      .participant.active {
+        border: 2px solid var(--primary-color);
+        background: url("https://via.placeholder.com/200/3d405b/ffffff?text=Teacher")
+          center/cover;
+      }
+
       .mic-status {
-        position: absolute; bottom: 8px; left: 8px;
-        background: rgba(0,0,0,0.5); padding: 4px; border-radius: 50%; color: white; font-size: 0.7rem;
+        position: absolute;
+        bottom: 8px;
+        left: 8px;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 4px;
+        border-radius: 50%;
+        color: white;
+        font-size: 0.7rem;
       }
       .controls-bar {
-        display: flex; justify-content: center; gap: 15px; padding-top: 10px; border-top: 1px solid #3c4043;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        padding-top: 10px;
+        border-top: 1px solid #3c4043;
       }
       .control-btn {
-        width: 40px; height: 40px; border-radius: 50%; background: #3c4043;
-        display: grid; place-items: center; color: white; cursor: pointer;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #3c4043;
+        display: grid;
+        place-items: center;
+        color: white;
+        cursor: pointer;
       }
-      .control-btn.end { background: #ea4335; width: 60px; border-radius: 30px; }
+      .control-btn.end {
+        background: #ea4335;
+        width: 60px;
+        border-radius: 30px;
+      }
 
       /* Floating Elements */
       .integration-bubble {
         position: absolute;
-        background: white; padding: 10px 20px; border-radius: 50px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1); font-weight: 700;
-        display: flex; align-items: center; gap: 10px; font-size: 0.9rem;
+        background: white;
+        padding: 10px 20px;
+        border-radius: 50px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.9rem;
         animation: float 6s infinite ease-in-out;
+        z-index: 100;
       }
-      .zoom-bubble { top: 20px; right: -20px; color: #2D8CFF; }
-      .meet-bubble { bottom: 80px; left: -30px; color: #00897B; }
-      
+      .zoom-bubble {
+        top: 30px;
+        right: -12px;
+        color: #2d8cff;
+      }
+      .meet-bubble {
+        bottom: 80px;
+        left: -3px;
+        color: #00897b;
+      }
+
       @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-15px); }
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+
+      /* --- Comparison Table (WhatsApp vs App) --- */
+      .comparison-section {
+        background: white;
+      }
+      .comp-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-top: 40px;
+      }
+      .comp-card {
+        padding: 30px;
+        border-radius: 12px;
+        border: 1px solid #eee;
+      }
+      .comp-bad {
+        background: #fff5f5;
+        border-color: #ffcccc;
+      }
+      .comp-good {
+        background: #f6ffed;
+        border-color: #b7eb8f;
       }
 
       /* --- Features Grid --- */
-      .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px; }
-      .feat-card {
-        padding: 30px; border-radius: 16px; background: white; border: 1px solid #eee; transition: 0.3s;
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 60px;
       }
-      .feat-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
-      .feat-icon { font-size: 2rem; color: var(--primary-color); margin-bottom: 20px; }
-      .feat-card h3 { margin-bottom: 10px; color: var(--secondary-color); }
-      .feat-card p { font-size: 0.95rem; color: var(--text-muted); }
+      .feat-card {
+        padding: 30px;
+        border-radius: 16px;
+        background: white;
+        border: 1px solid #eee;
+        transition: 0.3s;
+      }
+      .feat-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary-color);
+      }
+      .feat-icon {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+      }
+      .feat-card h3 {
+        margin-bottom: 10px;
+        color: var(--secondary-color);
+      }
+      .feat-card p {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+      }
 
       /* --- Automation Flow --- */
-      .flow-section { background: white; text-align: center; }
-      .flow-container { display: flex; justify-content: center; align-items: center; gap: 30px; margin-top: 60px; flex-wrap: wrap; }
+      .flow-section {
+        background: var(--bg-light);
+        text-align: center;
+      }
+      .flow-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        margin-top: 60px;
+        flex-wrap: wrap;
+      }
       .flow-step {
-        width: 180px; padding: 20px; border: 1px solid #eee; border-radius: 15px; position: relative;
+        width: 180px;
+        padding: 20px;
+        border: 1px solid #eee;
+        border-radius: 15px;
+        position: relative;
+        background: white;
       }
-      .flow-icon { 
-        width: 60px; height: 60px; background: var(--bg-light); 
-        border-radius: 50%; display: grid; place-items: center; 
-        margin: 0 auto 15px; font-size: 1.5rem; color: var(--secondary-color);
+      .flow-icon {
+        width: 60px;
+        height: 60px;
+        background: var(--bg-light);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        margin: 0 auto 15px;
+        font-size: 1.5rem;
+        color: var(--secondary-color);
       }
-      .flow-arrow { font-size: 1.5rem; color: #ddd; }
+      .flow-arrow {
+        font-size: 1.5rem;
+        color: #ddd;
+      }
+
+      /* --- Student View Mockup --- */
+      .student-view-box {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        max-width: 400px;
+        margin: 0 auto;
+        border: 1px solid #eee;
+      }
+      .live-indicator {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #ffebeb;
+        color: #e74c3c;
+        padding: 10px 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        font-weight: 700;
+      }
+      .pulse-dot {
+        width: 10px;
+        height: 10px;
+        background: #e74c3c;
+        border-radius: 50%;
+        animation: pulse 1.5s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(231, 76, 60, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+        }
+      }
 
       /* --- Attendance Table Mockup --- */
       .attendance-mockup {
-        background: white; border-radius: 12px; border: 1px solid #eee;
-        overflow: hidden; margin-top: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        background: white;
+        border-radius: 12px;
+        border: 1px solid #eee;
+        overflow: hidden;
+        margin-top: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
       }
-      .att-row { display: grid; grid-template-columns: 2fr 1fr 1fr; padding: 15px 20px; border-bottom: 1px solid #f9f9f9; align-items: center; }
-      .att-head { background: #f8f9fa; font-weight: 700; color: #888; font-size: 0.85rem; text-transform: uppercase; }
-      .status-p { color: #27ae60; background: #e8f8f5; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; display: inline-block;}
-      .status-a { color: #c0392b; background: #fdedec; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; display: inline-block;}
+      .att-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        padding: 15px 20px;
+        border-bottom: 1px solid #f9f9f9;
+        align-items: center;
+      }
+      .att-head {
+        background: #f8f9fa;
+        font-weight: 700;
+        color: #888;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+      }
+      .status-p {
+        color: #27ae60;
+        background: #e8f8f5;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        display: inline-block;
+      }
+      .status-a {
+        color: #c0392b;
+        background: #fdedec;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        display: inline-block;
+      }
+
+      /* --- NEW: FAQ Section --- */
+      .faq-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-top: 40px;
+      }
+      .faq-item {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 15px;
+      }
+      .faq-item h4 {
+        margin-bottom: 10px;
+        color: var(--secondary-color);
+      }
 
       /* --- Mobile Responsive --- */
       @media (max-width: 992px) {
-        .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 50px; }
-        .features-grid { grid-template-columns: 1fr; }
-        .flow-container { flex-direction: column; }
-        .flow-arrow { transform: rotate(90deg); margin: 10px 0; }
-        .integration-bubble { display: none; } /* Hide floating bubbles on mobile */
+        section {
+          padding: 60px 0;
+        }
+        .hero-grid,
+        .comp-grid,
+        .faq-grid {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 40px;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .flow-container {
+          flex-direction: column;
+        }
+        .flow-arrow {
+          transform: rotate(90deg);
+          margin: 10px 0;
+        }
+
+        .integration-bubble {
+          display: none;
+        } /* Hide floating bubbles on mobile */
+
+        .student-view-box {
+          margin-top: 30px;
+        }
+        .btn {
+          width: 100%;
+          margin-bottom: 10px;
+        }
       }
     </style>
   </head>
   <body>
-
     <header></header>
     <script src="header.js"></script>
     <div class="header-spacer"></div>
@@ -181,26 +480,48 @@
     <section class="live-hero">
       <div class="container hero-grid">
         <div class="hero-content reveal">
-          <span style="background: #e3f2fd; color: #1565c0; padding: 6px 15px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: inline-block; margin-bottom: 20px;">
+          <span
+            style="
+              background: #e3f2fd;
+              color: #1565c0;
+              padding: 6px 15px;
+              border-radius: 20px;
+              font-weight: 700;
+              font-size: 0.85rem;
+              display: inline-block;
+              margin-bottom: 20px;
+            "
+          >
             <i class="fas fa-video"></i> Integrated Video Platform
           </span>
-          <h1>Stop Sharing <br><span>Zoom Links.</span></h1>
+          <h1>Stop Sharing <br /><span>Zoom Links.</span></h1>
           <p>
-            No more pasting links in WhatsApp groups. Students simply open your app, click "Join Class", and they are in. Seamless integration with Zoom and Google Meet.
+            No more pasting links in WhatsApp groups. Students simply open your
+            app, click "Join Class", and they are in. Seamless integration with
+            Zoom and Google Meet.
           </p>
-          <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-             <a href="index.html#pricing" class="btn btn-primary">Connect Zoom</a>
-             <a href="https://zoom.us" target="_blank" class="btn" style="background: white; border: 1px solid #eee; display: flex; align-items: center; gap: 10px;"><i class="fas fa-external-link-alt"></i> How it works</a>
+          <div style="display: flex; gap: 15px; flex-wrap: wrap">
+            <a href="index.html#pricing" class="btn btn-primary"
+              >Connect Zoom</a
+            >
+            <a href="https://zoom.us" target="_blank" class="btn btn-outline">
+              <i class="fas fa-external-link-alt"></i>
+              How it works
+            </a>
           </div>
         </div>
 
         <div class="meeting-mockup reveal">
-          <div class="integration-bubble zoom-bubble"><i class="fas fa-video"></i> Zoom</div>
-          <div class="integration-bubble meet-bubble"><i class="fas fa-handshake"></i> Meet</div>
-          
+          <div class="integration-bubble zoom-bubble">
+            <i class="fas fa-video"></i> Zoom
+          </div>
+          <div class="integration-bubble meet-bubble">
+            <i class="fas fa-handshake"></i> Meet
+          </div>
+
           <div class="meeting-grid">
             <div class="participant active">
-              <span style="font-size: 0.8rem; color: white;">You (Host)</span>
+              <span style="font-size: 0.8rem; color: white">You (Host)</span>
               <div class="mic-status"><i class="fas fa-microphone"></i></div>
             </div>
             <div class="participant"><i class="fas fa-user"></i></div>
@@ -208,93 +529,241 @@
             <div class="participant"><i class="fas fa-user"></i></div>
           </div>
           <div class="controls-bar">
-             <div class="control-btn"><i class="fas fa-microphone-slash"></i></div>
-             <div class="control-btn"><i class="fas fa-video"></i></div>
-             <div class="control-btn"><i class="fas fa-desktop"></i></div>
-             <div class="control-btn end"><i class="fas fa-phone-slash"></i></div>
+            <div class="control-btn">
+              <i class="fas fa-microphone-slash"></i>
+            </div>
+            <div class="control-btn"><i class="fas fa-video"></i></div>
+            <div class="control-btn"><i class="fas fa-desktop"></i></div>
+            <div class="control-btn end">
+              <i class="fas fa-phone-slash"></i>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section>
+    <section class="comparison-section">
       <div class="container">
-        <div style="text-align: center; max-width: 700px; margin: 0 auto;">
-          <h2>Professional <span>Live Classes</span></h2>
-          <p style="color: var(--text-muted); margin-top: 15px;">We wrap your favorite video tools with an education layer.</p>
+        <div style="text-align: center">
+          <h2>Why Switch from <span>WhatsApp?</span></h2>
+          <p style="color: var(--text-muted)">
+            The difference between a hobby and a professional academy.
+          </p>
+        </div>
+        <div class="comp-grid reveal">
+          <div class="comp-card comp-bad">
+            <h4 style="color: #c0392b; margin-bottom: 15px">
+              <i class="fas fa-times-circle"></i> The Old Way (WhatsApp)
+            </h4>
+            <ul
+              style="
+                list-style: none;
+                color: #555;
+                text-align: left;
+                padding-left: 20px;
+              "
+            >
+              <li style="margin-bottom: 10px">
+                &bull; Manually pasting links daily
+              </li>
+              <li style="margin-bottom: 10px">
+                &bull; Unauthorized students joining
+              </li>
+              <li style="margin-bottom: 10px">
+                &bull; "Sir, link not working" messages
+              </li>
+              <li>&bull; Recordings lost in chat history</li>
+            </ul>
+          </div>
+          <div class="comp-card comp-good">
+            <h4 style="color: #27ae60; margin-bottom: 15px">
+              <i class="fas fa-check-circle"></i> The ERPLI Way
+            </h4>
+            <ul
+              style="
+                list-style: none;
+                color: #555;
+                text-align: left;
+                padding-left: 20px;
+              "
+            >
+              <li style="margin-bottom: 10px">
+                &bull; One-click Join from App
+              </li>
+              <li style="margin-bottom: 10px">
+                &bull; Only paid students get access
+              </li>
+              <li style="margin-bottom: 10px">
+                &bull; Automatic Attendance Tracking
+              </li>
+              <li>&bull; Auto-upload of Recordings</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: var(--bg-light)">
+      <div class="container hero-grid">
+        <div class="student-view-box reveal">
+          <div class="live-indicator">
+            <div class="pulse-dot"></div>
+            LIVE NOW: Physics Class
+          </div>
+          <h4 style="margin-bottom: 10px">Chapter 3: Thermodynamics</h4>
+          <p style="font-size: 0.9rem; color: #666; margin-bottom: 20px">
+            Started 5 mins ago &bull; 42 Students watching
+          </p>
+          <button class="btn btn-primary" style="width: 100%; font-size: 1rem">
+            Join Class
+          </button>
+        </div>
+        <div class="reveal">
+          <h2>What Students <span>See.</span></h2>
+          <p style="color: var(--text-muted); margin-bottom: 20px">
+            Simplicity is key. Your students don't need to hunt for links. They
+            open your app, see the big red "LIVE" button, and join instantly.
+          </p>
+          <ul style="list-style: none">
+            <li style="margin-bottom: 10px">
+              <i
+                class="fas fa-check"
+                style="color: var(--primary-color); margin-right: 10px"
+              ></i>
+              Push Notification when you go live
+            </li>
+            <li style="margin-bottom: 10px">
+              <i
+                class="fas fa-check"
+                style="color: var(--primary-color); margin-right: 10px"
+              ></i>
+              No Meeting ID/Password required
+            </li>
+            <li>
+              <i
+                class="fas fa-check"
+                style="color: var(--primary-color); margin-right: 10px"
+              ></i>
+              Works on low bandwidth
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: white">
+      <div class="container">
+        <div style="text-align: center; max-width: 700px; margin: 0 auto">
+          <h2>Powerful <span>Admin Features</span></h2>
+          <p style="color: var(--text-muted); margin-top: 15px">
+            We wrap your favorite video tools with an education layer.
+          </p>
         </div>
 
         <div class="features-grid">
           <div class="feat-card reveal">
             <div class="feat-icon"><i class="fas fa-user-check"></i></div>
             <h3>Auto-Attendance</h3>
-            <p>We track exactly when a student joins and leaves. Get a detailed report after every class. No more manual roll calls.</p>
+            <p>
+              We track exactly when a student joins and leaves. Get a detailed
+              report after every class. No more manual roll calls.
+            </p>
           </div>
           <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-link"></i></div>
-            <h3>One-Click Join</h3>
-            <p>Students see a "Live Now" button in their app. No waiting for links, no "Invalid Meeting ID" errors.</p>
+            <div class="feat-icon"><i class="fas fa-comments"></i></div>
+            <h3>Polls & Chat</h3>
+            <p>
+              Keep engagement high. Launch quick polls during the class or chat
+              with students without leaving the interface.
+            </p>
           </div>
           <div class="feat-card reveal">
             <div class="feat-icon"><i class="fas fa-cloud-upload-alt"></i></div>
             <h3>Auto-Upload</h3>
-            <p>Recorded sessions are automatically processed and uploaded to the batch. Students who missed the class can watch it instantly.</p>
+            <p>
+              Recorded sessions are automatically processed and uploaded to the
+              batch. Students who missed the class can watch it instantly.
+            </p>
           </div>
         </div>
 
         <div class="attendance-mockup reveal">
-           <div class="att-row att-head">
-             <div>Student Name</div>
-             <div>Duration</div>
-             <div>Status</div>
-           </div>
-           <div class="att-row">
-             <div style="display: flex; gap: 10px; align-items: center;">
-               <div style="width: 30px; height: 30px; background: #eee; border-radius: 50%;"></div>
-               Rahul Sharma
-             </div>
-             <div>55 mins</div>
-             <div><span class="status-p">Present</span></div>
-           </div>
-           <div class="att-row">
-             <div style="display: flex; gap: 10px; align-items: center;">
-               <div style="width: 30px; height: 30px; background: #eee; border-radius: 50%;"></div>
-               Sneha Gupta
-             </div>
-             <div>10 mins</div>
-             <div><span class="status-a">Late</span></div>
-           </div>
-           <div class="att-row">
-             <div style="display: flex; gap: 10px; align-items: center;">
-               <div style="width: 30px; height: 30px; background: #eee; border-radius: 50%;"></div>
-               Amit Kumar
-             </div>
-             <div>0 mins</div>
-             <div><span class="status-a">Absent</span></div>
-           </div>
+          <div class="att-row att-head">
+            <div>Student Name</div>
+            <div>Duration</div>
+            <div>Status</div>
+          </div>
+          <div class="att-row">
+            <div style="display: flex; gap: 10px; align-items: center">
+              <div
+                style="
+                  width: 30px;
+                  height: 30px;
+                  background: #eee;
+                  border-radius: 50%;
+                "
+              ></div>
+              Rahul Sharma
+            </div>
+            <div>55 mins</div>
+            <div><span class="status-p">Present</span></div>
+          </div>
+          <div class="att-row">
+            <div style="display: flex; gap: 10px; align-items: center">
+              <div
+                style="
+                  width: 30px;
+                  height: 30px;
+                  background: #eee;
+                  border-radius: 50%;
+                "
+              ></div>
+              Sneha Gupta
+            </div>
+            <div>10 mins</div>
+            <div><span class="status-a">Late</span></div>
+          </div>
+          <div class="att-row">
+            <div style="display: flex; gap: 10px; align-items: center">
+              <div
+                style="
+                  width: 30px;
+                  height: 30px;
+                  background: #eee;
+                  border-radius: 50%;
+                "
+              ></div>
+              Amit Kumar
+            </div>
+            <div>0 mins</div>
+            <div><span class="status-a">Absent</span></div>
+          </div>
         </div>
-
       </div>
     </section>
 
-    <section class="flow-section" style="background: var(--bg-light);">
+    <section class="flow-section">
       <div class="container">
         <h2>The <span>"Class Ended"</span> Workflow</h2>
-        <p style="color: #666;">What happens after you click "End Meeting"?</p>
-        
+        <p style="color: #666">What happens after you click "End Meeting"?</p>
+
         <div class="flow-container reveal">
           <div class="flow-step">
             <div class="flow-icon"><i class="fas fa-stop-circle"></i></div>
             <h4>1. Finish Class</h4>
-            <p style="font-size: 0.85rem; color: #777;">You end the Zoom/Meet call as usual.</p>
+            <p style="font-size: 0.85rem; color: #777">
+              You end the Zoom/Meet call as usual.
+            </p>
           </div>
-          
+
           <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
 
           <div class="flow-step">
             <div class="flow-icon"><i class="fas fa-server"></i></div>
             <h4>2. Processing</h4>
-            <p style="font-size: 0.85rem; color: #777;">We fetch the recording from the cloud.</p>
+            <p style="font-size: 0.85rem; color: #777">
+              We fetch the recording from the cloud.
+            </p>
           </div>
 
           <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
@@ -302,8 +771,78 @@
           <div class="flow-step">
             <div class="flow-icon"><i class="fas fa-mobile-alt"></i></div>
             <h4>3. Published</h4>
-            <p style="font-size: 0.85rem; color: #777;">Video appears in the student app automatically.</p>
+            <p style="font-size: 0.85rem; color: #777">
+              Video appears in the student app automatically.
+            </p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: white">
+      <div class="container">
+        <h2 style="text-align: center; margin-bottom: 20px">
+          Common Questions
+        </h2>
+        <div class="faq-grid reveal">
+          <div class="faq-item">
+            <h4>
+              <i
+                class="fas fa-question-circle"
+                style="color: var(--primary-color); margin-right: 8px"
+              ></i>
+              Do I need a Zoom License?
+            </h4>
+            <p style="font-size: 0.9rem; color: #666">
+              Yes, you need your own Zoom Pro account to host classes longer
+              than 40 minutes. We simply integrate it.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>
+              <i
+                class="fas fa-question-circle"
+                style="color: var(--primary-color); margin-right: 8px"
+              ></i>
+              Does it work with the Free Plan?
+            </h4>
+            <p style="font-size: 0.9rem; color: #666">
+              You can use Google Meet (free) or Zoom Free (40 min limit) with
+              our platform seamlessly.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>
+              <i
+                class="fas fa-question-circle"
+                style="color: var(--primary-color); margin-right: 8px"
+              ></i>
+              Where are recordings stored?
+            </h4>
+            <p style="font-size: 0.9rem; color: #666">
+              Recordings are moved from Zoom Cloud to ERPLI's secure storage
+              automatically, saving you Zoom storage fees.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>
+              <i
+                class="fas fa-question-circle"
+                style="color: var(--primary-color); margin-right: 8px"
+              ></i>
+              Can I restrict access?
+            </h4>
+            <p style="font-size: 0.9rem; color: #666">
+              Absolutely. Only students enrolled in that specific batch can see
+              the "Join" button.
+            </p>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 60px">
+          <a href="index.html#pricing" class="btn btn-primary"
+            >Get Started Now</a
+          >
         </div>
       </div>
     </section>
@@ -315,12 +854,17 @@
     <script src="footer.js"></script>
 
     <script>
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible");
-        });
-      }, { threshold: 0.1 });
-      document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObserver.observe(el));
     </script>
   </body>
 </html>
