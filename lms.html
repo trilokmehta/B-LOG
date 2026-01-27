@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -27,8 +27,14 @@
       }
 
       /* --- Base & Reset --- */
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
       body {
         font-family: var(--font-family);
         background-color: var(--white);
@@ -38,10 +44,24 @@
       }
 
       /* --- Common Components --- */
-      section { padding: 100px 0; }
-      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-      h1, h2, h3, h4 { font-weight: 800; line-height: 1.2; }
-      span { color: var(--primary-color); }
+      section {
+        padding: 100px 0;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 800;
+        line-height: 1.2;
+      }
+      span {
+        color: var(--primary-color);
+      }
 
       .btn {
         display: inline-block;
@@ -59,12 +79,24 @@
         color: white;
         box-shadow: 0 4px 15px rgba(242, 132, 130, 0.3);
       }
-      .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4); }
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4);
+      }
 
-      .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
-      .reveal.visible { opacity: 1; transform: translateY(0); }
-      
-      .header-spacer { height: 80px; }
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: 0.8s ease-out;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .header-spacer {
+        height: 80px;
+      }
 
       /* --- Hero Section --- */
       .lms-hero {
@@ -78,23 +110,23 @@
         gap: 60px;
         align-items: center;
       }
-      .hero-content h1 { 
-          font-size: clamp(2.5rem, 5vw, 3.8rem); 
-          margin-bottom: 25px; 
-          color: var(--secondary-color); 
+      .hero-content h1 {
+        font-size: clamp(2.5rem, 5vw, 3.8rem);
+        margin-bottom: 25px;
+        color: var(--secondary-color);
       }
-      .hero-content p { 
-          font-size: 1.15rem; 
-          color: var(--text-muted); 
-          margin-bottom: 35px; 
-          max-width: 500px; 
+      .hero-content p {
+        font-size: 1.15rem;
+        color: var(--text-muted);
+        margin-bottom: 35px;
+        max-width: 500px;
       }
 
       /* --- Secure Player Mockup --- */
       .player-wrapper {
         position: relative;
         border-radius: 20px;
-        box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
         background: #000;
         border: 4px solid #333;
         overflow: hidden;
@@ -102,21 +134,34 @@
       .video-screen {
         height: 300px;
         background: linear-gradient(45deg, #1a1a1a, #2c3e50);
-        display: flex; align-items: center; justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: relative;
       }
       .play-btn {
-        width: 70px; height: 70px; background: rgba(255,255,255,0.2);
-        border-radius: 50%; display: grid; place-items: center;
-        backdrop-filter: blur(5px); color: white; font-size: 1.5rem;
-        cursor: pointer; transition: 0.3s;
+        width: 70px;
+        height: 70px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        backdrop-filter: blur(5px);
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: 0.3s;
       }
-      .play-btn:hover { background: var(--primary-color); transform: scale(1.1); }
-      
+      .play-btn:hover {
+        background: var(--primary-color);
+        transform: scale(1.1);
+      }
+
       /* Dynamic Watermark Animation */
       .watermark {
         position: absolute;
-        top: 20%; left: 20%;
+        top: 20%;
+        left: 20%;
         color: rgba(255, 255, 255, 0.014);
         font-size: 1.2rem;
         font-weight: 700;
@@ -125,107 +170,206 @@
         pointer-events: none;
       }
       @keyframes float-watermark {
-        0% { top: 10%; left: 10%; }
-        25% { top: 60%; left: 80%; }
-        50% { top: 80%; left: 20%; }
-        75% { top: 20%; left: 60%; }
-        100% { top: 10%; left: 10%; }
+        0% {
+          top: 10%;
+          left: 10%;
+        }
+        25% {
+          top: 60%;
+          left: 80%;
+        }
+        50% {
+          top: 80%;
+          left: 20%;
+        }
+        75% {
+          top: 20%;
+          left: 60%;
+        }
+        100% {
+          top: 10%;
+          left: 10%;
+        }
       }
 
       .player-controls {
         padding: 15px 20px;
         background: #222;
-        display: flex; align-items: center; gap: 15px; color: #aaa;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        color: #aaa;
       }
-      .progress-bar { height: 4px; background: #555; flex: 1; border-radius: 4px; overflow: hidden; }
-      .progress-fill { width: 40%; height: 100%; background: var(--primary-color); }
+      .progress-bar {
+        height: 4px;
+        background: #555;
+        flex: 1;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        width: 40%;
+        height: 100%;
+        background: var(--primary-color);
+      }
 
       /* --- Security Features Grid --- */
       .security-badge {
-        display: inline-flex; align-items: center; gap: 10px;
-        background: #e6fffa; color: #047857; padding: 8px 16px; border-radius: 50px;
-        font-weight: 700; font-size: 0.85rem; margin-bottom: 20px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: #e6fffa;
+        color: #047857;
+        padding: 8px 16px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        margin-bottom: 20px;
       }
 
       /* --- Drip Content Timeline --- */
-      .drip-section { background: white; }
+      .drip-section {
+        background: white;
+      }
       .drip-container {
-        display: flex; flex-direction: column; gap: 20px;
-        position: relative; max-width: 600px; margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        position: relative;
+        max-width: 600px;
+        margin: 0 auto;
       }
       /* Vertical Line */
       .drip-container::before {
-        content: ''; position: absolute; left: 24px; top: 0; bottom: 0;
-        width: 2px; background: #eee;
+        content: "";
+        position: absolute;
+        left: 24px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: #eee;
       }
-      
+
       .drip-item {
-        display: flex; gap: 20px; align-items: center;
-        padding: 20px; border-radius: 12px; border: 1px solid #eee;
-        background: white; position: relative; z-index: 2;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #eee;
+        background: white;
+        position: relative;
+        z-index: 2;
         transition: 0.3s;
       }
-      .drip-item:hover { border-color: var(--primary-color); transform: translateX(10px); }
-      
+      .drip-item:hover {
+        border-color: var(--primary-color);
+        transform: translateX(10px);
+      }
+
       .drip-icon {
-        width: 50px; height: 50px; border-radius: 50%;
-        display: grid; place-items: center; font-size: 1.2rem;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 1.2rem;
         flex-shrink: 0;
       }
-      .drip-unlocked { background: #e6fffa; color: #047857; border: 2px solid white; box-shadow: 0 0 0 4px #e6fffa; }
-      .drip-locked { background: #fff0f0; color: #f28482; border: 2px solid white; box-shadow: 0 0 0 4px #fff0f0; }
-      
-      .drip-text h4 { margin-bottom: 5px; color: var(--secondary-color); }
-      .drip-text p { font-size: 0.85rem; color: #888; }
+      .drip-unlocked {
+        background: #e6fffa;
+        color: #047857;
+        border: 2px solid white;
+        box-shadow: 0 0 0 4px #e6fffa;
+      }
+      .drip-locked {
+        background: #fff0f0;
+        color: #f28482;
+        border: 2px solid white;
+        box-shadow: 0 0 0 4px #fff0f0;
+      }
+
+      .drip-text h4 {
+        margin-bottom: 5px;
+        color: var(--secondary-color);
+      }
+      .drip-text p {
+        font-size: 0.85rem;
+        color: #888;
+      }
 
       /* --- Feature Cards --- */
-      .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px; }
-      .feat-card {
-        padding: 30px; border-radius: 16px; background: white; border: 1px solid #eee; transition: 0.3s;
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 60px;
       }
-      .feat-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
-      .feat-icon { font-size: 2rem; color: var(--primary-color); margin-bottom: 20px; }
-      
+      .feat-card {
+        padding: 30px;
+        border-radius: 16px;
+        background: white;
+        border: 1px solid #eee;
+        transition: 0.3s;
+      }
+      .feat-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary-color);
+      }
+      .feat-icon {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+      }
+
       /* --- NEW: Analytics Dashboard Mockup --- */
       .analytics-dashboard {
-          background: white;
-          border-radius: 15px;
-          box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-          padding: 30px;
-          border: 1px solid #eee;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        padding: 30px;
+        border: 1px solid #eee;
       }
       .stat-row {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 15px;
-          padding-bottom: 15px;
-          border-bottom: 1px solid #f9f9f9;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #f9f9f9;
       }
       .progress-bar-sm {
-          height: 6px;
-          background: #eee;
-          border-radius: 10px;
-          width: 100%;
-          margin-top: 5px;
+        height: 6px;
+        background: #eee;
+        border-radius: 10px;
+        width: 100%;
+        margin-top: 5px;
       }
-      .fill-green { background: #2ecc71; height: 100%; border-radius: 10px; }
-      .fill-orange { background: #f39c12; height: 100%; border-radius: 10px; }
+      .fill-green {
+        background: #2ecc71;
+        height: 100%;
+        border-radius: 10px;
+      }
+      .fill-orange {
+        background: #f39c12;
+        height: 100%;
+        border-radius: 10px;
+      }
 
       /* --- NEW: Quality Badges --- */
       .quality-grid {
-          display: flex;
-          gap: 15px;
-          justify-content: center;
-          margin-top: 30px;
-          flex-wrap: wrap;
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 30px;
+        flex-wrap: wrap;
       }
       .quality-badge {
-          background: #333;
-          color: white;
-          padding: 8px 15px;
-          border-radius: 5px;
-          font-weight: 700;
-          font-family: monospace;
+        background: #333;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-weight: 700;
+        font-family: monospace;
       }
 
       /* --- NEW: FAQ Section --- */
@@ -247,49 +391,65 @@
 
       /* --- Mobile Responsive --- */
       @media (max-width: 992px) {
-        section { padding: 60px 0; }
-        
-        .hero-grid, .faq-grid { 
-            grid-template-columns: 1fr; 
-            text-align: center; 
-            gap: 40px; 
+        section {
+          padding: 60px 0;
         }
-        
-        .features-grid { grid-template-columns: 1fr; }
-        
-        .drip-item { padding: 15px; }
-        
+
+        .hero-grid,
+        .faq-grid {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 40px;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .drip-item {
+          padding: 15px;
+        }
+
         /* Center analytics on mobile */
-        .analytics-dashboard { text-align: left; }
-        
-        .compare-grid {
-            grid-template-columns: 1fr !important; /* Force stack for comparison */
+        .analytics-dashboard {
+          text-align: left;
         }
-        
-        .btn { width: 100%; }
+
+        .compare-grid {
+          grid-template-columns: 1fr !important; /* Force stack for comparison */
+        }
+
+        .btn {
+          width: 100%;
+        }
       }
     </style>
   </head>
   <body>
-
     <header></header>
     <script src="header.js"></script>
-    <div class="header-spacer"></div>
 
     <section class="lms-hero">
       <div class="container hero-grid">
         <div class="hero-content reveal">
-          <div class="security-badge"><i class="fas fa-shield-alt"></i> DRM Protected Content</div>
-          <h1>Host Courses. <br><span>Stop Pirates.</span></h1>
+          <div class="security-badge">
+            <i class="fas fa-shield-alt"></i> DRM Protected Content
+          </div>
+          <h1>Host Courses. <br /><span>Stop Pirates.</span></h1>
           <p>
-            Your content is your asset. We use Hollywood-grade encryption (Widevine DRM) to ensure your videos cannot be downloaded, screen-recorded, or shared on Telegram.
+            Your content is your asset. We use Hollywood-grade encryption
+            (Widevine DRM) to ensure your videos cannot be downloaded,
+            screen-recorded, or shared on Telegram.
           </p>
-          <a href="index.html#pricing" class="btn btn-primary">Start Secure Hosting</a>
+          <a href="index.html#pricing" class="btn btn-primary"
+            >Start Secure Hosting</a
+          >
         </div>
 
         <div class="player-wrapper reveal">
           <div class="video-screen">
-            <div class="watermark">User_ID_9921</div> <div class="play-btn"><i class="fas fa-play"></i></div>
+            <div class="watermark">User_ID_9921</div>
+            <div class="play-btn"><i class="fas fa-play"></i></div>
           </div>
           <div class="player-controls">
             <i class="fas fa-play"></i>
@@ -297,185 +457,380 @@
             <i class="fas fa-cog"></i>
             <i class="fas fa-expand"></i>
           </div>
-          <div style="background: #333; padding: 10px 20px; display: flex; justify-content: space-between; font-size: 0.75rem; color: #888;">
-             <span><i class="fas fa-lock" style="color: #2ecc71;"></i> Widevine DRM Active</span>
-             <span><i class="fas fa-user-check"></i> Dynamic Watermark On</span>
-          </div>
         </div>
       </div>
     </section>
 
-    <section style="background: var(--bg-light);">
+    <section style="background: var(--bg-light)">
       <div class="container">
         <div class="features-grid">
           <div class="feat-card reveal">
             <div class="feat-icon"><i class="fas fa-user-secret"></i></div>
             <h3>Dynamic Watermark</h3>
-            <p>We overlay the student's phone number and email on the video player. If they record the screen on another phone, their identity is captured.</p>
+            <p>
+              We overlay the student's phone number and email on the video
+              player. If they record the screen on another phone, their identity
+              is captured.
+            </p>
           </div>
           <div class="feat-card reveal">
             <div class="feat-icon"><i class="fas fa-ban"></i></div>
             <h3>Device Restriction</h3>
-            <p>Limit login to 1 Mobile + 1 Laptop. Stop students from sharing their paid account password with 10 other friends.</p>
+            <p>
+              Limit login to 1 Mobile + 1 Laptop. Stop students from sharing
+              their paid account password with 10 other friends.
+            </p>
           </div>
           <div class="feat-card reveal">
             <div class="feat-icon"><i class="fas fa-tachometer-alt"></i></div>
             <h3>Adaptive Bitrate</h3>
-            <p>Like YouTube, our player automatically adjusts video quality based on the student's internet speed.</p>
+            <p>
+              Like YouTube, our player automatically adjusts video quality based
+              on the student's internet speed.
+            </p>
           </div>
         </div>
-        
+
         <div class="quality-grid reveal">
-            <div class="quality-badge" style="background:#ddd; color:#555;">144p</div>
-            <div class="quality-badge" style="background:#bbb; color:#444;">360p</div>
-            <div class="quality-badge" style="background:#999;">480p</div>
-            <div class="quality-badge" style="background:#777;">720p</div>
-            <div class="quality-badge" style="background:var(--primary-color);">1080p HD</div>
+          <div class="quality-badge" style="background: #ddd; color: #555">
+            144p
+          </div>
+          <div class="quality-badge" style="background: #bbb; color: #444">
+            360p
+          </div>
+          <div class="quality-badge" style="background: #999">480p</div>
+          <div class="quality-badge" style="background: #777">720p</div>
+          <div class="quality-badge" style="background: var(--primary-color)">
+            1080p HD
+          </div>
         </div>
-        <p style="text-align: center; font-size: 0.8rem; margin-top: 10px; color: #888;">*Auto-switching ensures zero buffering even on 3G networks.</p>
+        <p
+          style="
+            text-align: center;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            color: #888;
+          "
+        >
+          *Auto-switching ensures zero buffering even on 3G networks.
+        </p>
       </div>
     </section>
 
     <section class="drip-section">
       <div class="container">
-        <div style="text-align: center; max-width: 700px; margin: 0 auto 60px;">
+        <div style="text-align: center; max-width: 700px; margin: 0 auto 60px">
           <h2>Automate with <span>Drip Content</span></h2>
-          <p style="color: var(--text-muted); margin-top: 15px;">
-            Don't overwhelm your students. Release content module-by-module to keep them engaged and prevent binge-watching refunds.
+          <p style="color: var(--text-muted); margin-top: 15px">
+            Don't overwhelm your students. Release content module-by-module to
+            keep them engaged and prevent binge-watching refunds.
           </p>
         </div>
 
         <div class="drip-container reveal">
           <div class="drip-item">
-            <div class="drip-icon drip-unlocked"><i class="fas fa-check"></i></div>
+            <div class="drip-icon drip-unlocked">
+              <i class="fas fa-check"></i>
+            </div>
             <div class="drip-text">
               <h4>Module 1: Introduction</h4>
-              <p style="color: #047857; font-weight: 600;">Available Immediately</p>
+              <p style="color: #047857; font-weight: 600">
+                Available Immediately
+              </p>
             </div>
           </div>
 
           <div class="drip-item">
-            <div class="drip-icon drip-locked"><i class="fas fa-clock"></i></div>
+            <div class="drip-icon drip-locked">
+              <i class="fas fa-clock"></i>
+            </div>
             <div class="drip-text">
               <h4>Module 2: Advanced Concepts</h4>
               <p>Unlocks after <strong>3 Days</strong></p>
             </div>
-            <div style="margin-left: auto; font-size: 0.8rem; color: #f28482; background: #fff0f0; padding: 5px 10px; border-radius: 4px;">Locked</div>
+            <div
+              style="
+                margin-left: auto;
+                font-size: 0.8rem;
+                color: #f28482;
+                background: #fff0f0;
+                padding: 5px 10px;
+                border-radius: 4px;
+              "
+            >
+              Locked
+            </div>
           </div>
 
           <div class="drip-item">
-            <div class="drip-icon drip-locked"><i class="fas fa-clock"></i></div>
+            <div class="drip-icon drip-locked">
+              <i class="fas fa-clock"></i>
+            </div>
             <div class="drip-text">
               <h4>Module 3: Final Exam</h4>
               <p>Unlocks after <strong>7 Days</strong></p>
             </div>
-            <div style="margin-left: auto; font-size: 0.8rem; color: #f28482; background: #fff0f0; padding: 5px 10px; border-radius: 4px;">Locked</div>
+            <div
+              style="
+                margin-left: auto;
+                font-size: 0.8rem;
+                color: #f28482;
+                background: #fff0f0;
+                padding: 5px 10px;
+                border-radius: 4px;
+              "
+            >
+              Locked
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: var(--bg-light)">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <h2>Track Every <span>Second.</span></h2>
+          <p style="color: var(--text-muted); margin-bottom: 20px">
+            Know exactly how your students are performing. Our detailed
+            analytics show you who is watching, where they drop off, and who
+            skipped the class.
+          </p>
+          <ul
+            style="
+              list-style: none;
+              gap: 10px;
+              display: flex;
+              flex-direction: column;
+            "
+          >
+            <li>
+              <i
+                class="fas fa-check"
+                style="color: var(--primary-color); margin-right: 10px"
+              ></i>
+              Watch Time Reports
+            </li>
+            <li>
+              <i
+                class="fas fa-check"
+                style="color: var(--primary-color); margin-right: 10px"
+              ></i>
+              Student Completion Rates
+            </li>
+            <li>
+              <i
+                class="fas fa-check"
+                style="color: var(--primary-color); margin-right: 10px"
+              ></i>
+              Popular Content Identification
+            </li>
+          </ul>
+        </div>
+
+        <div class="analytics-dashboard reveal">
+          <h4 style="margin-bottom: 20px; color: #333">
+            Student Progress: Rahul Kumar
+          </h4>
+          <div class="stat-row">
+            <div>
+              <small style="color: #888">Physics Ch.1</small>
+              <div style="font-weight: 700">Completed</div>
+            </div>
+            <div style="width: 50%; text-align: right">
+              <span style="color: #2ecc71; font-weight: 700">100%</span>
+              <div class="progress-bar-sm">
+                <div class="fill-green" style="width: 100%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-row">
+            <div>
+              <small style="color: #888">Math Calculus</small>
+              <div style="font-weight: 700">Watching</div>
+            </div>
+            <div style="width: 50%; text-align: right">
+              <span style="color: #f39c12; font-weight: 700">45%</span>
+              <div class="progress-bar-sm">
+                <div class="fill-orange" style="width: 45%"></div>
+              </div>
+            </div>
+          </div>
+          <div
+            style="
+              text-align: center;
+              margin-top: 10px;
+              font-size: 0.8rem;
+              color: var(--primary-color);
+              font-weight: 600;
+            "
+          >
+            View Full Report <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: white">
+      <div class="container" style="text-align: center">
+        <h2>Stop Using <span>Google Drive</span></h2>
+        <p style="margin-bottom: 50px; color: #666">
+          Google Drive is for files, not for teaching.
+        </p>
+
+        <div
+          class="compare-grid"
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+          "
+        >
+          <div
+            style="
+              padding: 30px;
+              border: 1px solid #ffcccc;
+              background: #fff5f5;
+              border-radius: 12px;
+            "
+          >
+            <h4 style="color: #c0392b; margin-bottom: 15px">
+              <i class="fas fa-times-circle"></i> Google Drive / YouTube
+            </h4>
+            <ul style="list-style: none; color: #555; line-height: 2">
+              <li>
+                <i
+                  class="fas fa-times"
+                  style="color: #c0392b; margin-right: 10px"
+                ></i>
+                Easy to download & share
+              </li>
+              <li>
+                <i
+                  class="fas fa-times"
+                  style="color: #c0392b; margin-right: 10px"
+                ></i>
+                No student analytics
+              </li>
+              <li>
+                <i
+                  class="fas fa-times"
+                  style="color: #c0392b; margin-right: 10px"
+                ></i>
+                Clunky, unprofessional look
+              </li>
+            </ul>
+          </div>
+
+          <div
+            style="
+              padding: 30px;
+              border: 1px solid #b7eb8f;
+              background: #f6ffed;
+              border-radius: 12px;
+            "
+          >
+            <h4 style="color: #389e0d; margin-bottom: 15px">
+              <i class="fas fa-check-circle"></i> ERPLI LMS
+            </h4>
+            <ul style="list-style: none; color: #555; line-height: 2">
+              <li>
+                <i
+                  class="fas fa-check"
+                  style="color: #389e0d; margin-right: 10px"
+                ></i>
+                Encrypted Stream (HLS)
+              </li>
+              <li>
+                <i
+                  class="fas fa-check"
+                  style="color: #389e0d; margin-right: 10px"
+                ></i>
+                Track "Who Watched What"
+              </li>
+              <li>
+                <i
+                  class="fas fa-check"
+                  style="color: #389e0d; margin-right: 10px"
+                ></i>
+                Unlimited Storage Included
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: var(--bg-light)">
+      <div class="container">
+        <h2 style="text-align: center; margin-bottom: 20px">
+          Common Questions
+        </h2>
+        <div class="faq-grid reveal">
+          <div class="faq-item">
+            <h4>
+              <i
+                class="fas fa-question-circle"
+                style="color: var(--primary-color); margin-right: 8px"
+              ></i>
+              Is there a storage limit?
+            </h4>
+            <p style="font-size: 0.9rem; color: #666">
+              No! Unlike other platforms that charge per GB, ERPLI provides
+              <strong>Unlimited Video Storage</strong> on all premium plans.
+              Upload as much as you want.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>
+              <i
+                class="fas fa-question-circle"
+                style="color: var(--primary-color); margin-right: 8px"
+              ></i>
+              Can students record the screen?
+            </h4>
+            <p style="font-size: 0.9rem; color: #666">
+              On Android Apps, screen recording is blocked at the hardware level
+              (Black Screen). On web, watermarks deter piracy.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>
+              <i
+                class="fas fa-question-circle"
+                style="color: var(--primary-color); margin-right: 8px"
+              ></i>
+              Does it support Live Classes?
+            </h4>
+            <p style="font-size: 0.9rem; color: #666">
+              Yes, we integrate seamlessly with Zoom and YouTube Live, allowing
+              you to manage recorded and live sessions in one place.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>
+              <i
+                class="fas fa-question-circle"
+                style="color: var(--primary-color); margin-right: 8px"
+              ></i>
+              Is my content backed up?
+            </h4>
+            <p style="font-size: 0.9rem; color: #666">
+              Yes, we maintain daily backups of all your course data across
+              multiple server locations for maximum safety.
+            </p>
           </div>
         </div>
 
-      </div>
-    </section>
-
-    <section style="background: var(--bg-light);">
-        <div class="container hero-grid">
-            <div class="reveal">
-                <h2>Track Every <span>Second.</span></h2>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">
-                    Know exactly how your students are performing. Our detailed analytics show you who is watching, where they drop off, and who skipped the class.
-                </p>
-                <ul style="list-style: none; gap: 10px; display: flex; flex-direction: column;">
-                    <li><i class="fas fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Watch Time Reports</li>
-                    <li><i class="fas fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Student Completion Rates</li>
-                    <li><i class="fas fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Popular Content Identification</li>
-                </ul>
-            </div>
-            
-            <div class="analytics-dashboard reveal">
-                <h4 style="margin-bottom: 20px; color: #333;">Student Progress: Rahul Kumar</h4>
-                <div class="stat-row">
-                    <div>
-                        <small style="color: #888;">Physics Ch.1</small>
-                        <div style="font-weight: 700;">Completed</div>
-                    </div>
-                    <div style="width: 50%; text-align: right;">
-                        <span style="color: #2ecc71; font-weight: 700;">100%</span>
-                        <div class="progress-bar-sm"><div class="fill-green" style="width: 100%"></div></div>
-                    </div>
-                </div>
-                <div class="stat-row">
-                    <div>
-                        <small style="color: #888;">Math Calculus</small>
-                        <div style="font-weight: 700;">Watching</div>
-                    </div>
-                    <div style="width: 50%; text-align: right;">
-                        <span style="color: #f39c12; font-weight: 700;">45%</span>
-                        <div class="progress-bar-sm"><div class="fill-orange" style="width: 45%"></div></div>
-                    </div>
-                </div>
-                <div style="text-align: center; margin-top: 10px; font-size: 0.8rem; color: var(--primary-color); font-weight: 600;">
-                    View Full Report <i class="fas fa-arrow-right"></i>
-                </div>
-            </div>
+        <div style="text-align: center; margin-top: 60px">
+          <a href="index.html#pricing" class="btn btn-primary"
+            >Start Free Trial</a
+          >
         </div>
-    </section>
-
-    <section style="background: white;">
-      <div class="container" style="text-align: center;">
-         <h2>Stop Using <span>Google Drive</span></h2>
-         <p style="margin-bottom: 50px; color: #666;">Google Drive is for files, not for teaching.</p>
-         
-         <div class="compare-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left; max-width: 800px; margin: 0 auto;">
-            <div style="padding: 30px; border: 1px solid #ffcccc; background: #fff5f5; border-radius: 12px;">
-              <h4 style="color: #c0392b; margin-bottom: 15px;"><i class="fas fa-times-circle"></i> Google Drive / YouTube</h4>
-              <ul style="list-style: none; color: #555; line-height: 2;">
-                <li><i class="fas fa-times" style="color: #c0392b; margin-right: 10px;"></i> Easy to download & share</li>
-                <li><i class="fas fa-times" style="color: #c0392b; margin-right: 10px;"></i> No student analytics</li>
-                <li><i class="fas fa-times" style="color: #c0392b; margin-right: 10px;"></i> Clunky, unprofessional look</li>
-              </ul>
-            </div>
-            
-            <div style="padding: 30px; border: 1px solid #b7eb8f; background: #f6ffed; border-radius: 12px;">
-              <h4 style="color: #389e0d; margin-bottom: 15px;"><i class="fas fa-check-circle"></i> ERPLI LMS</h4>
-              <ul style="list-style: none; color: #555; line-height: 2;">
-                <li><i class="fas fa-check" style="color: #389e0d; margin-right: 10px;"></i> Encrypted Stream (HLS)</li>
-                <li><i class="fas fa-check" style="color: #389e0d; margin-right: 10px;"></i> Track "Who Watched What"</li>
-                <li><i class="fas fa-check" style="color: #389e0d; margin-right: 10px;"></i> Unlimited Storage Included</li>
-              </ul>
-            </div>
-         </div>
       </div>
-    </section>
-
-    <section style="background: var(--bg-light);">
-        <div class="container">
-            <h2 style="text-align: center; margin-bottom: 20px;">Common Questions</h2>
-            <div class="faq-grid reveal">
-                <div class="faq-item">
-                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Is there a storage limit?</h4>
-                    <p style="font-size: 0.9rem; color: #666;">No! Unlike other platforms that charge per GB, ERPLI provides <strong>Unlimited Video Storage</strong> on all premium plans. Upload as much as you want.</p>
-                </div>
-                <div class="faq-item">
-                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Can students record the screen?</h4>
-                    <p style="font-size: 0.9rem; color: #666;">On Android Apps, screen recording is blocked at the hardware level (Black Screen). On web, watermarks deter piracy.</p>
-                </div>
-                <div class="faq-item">
-                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Does it support Live Classes?</h4>
-                    <p style="font-size: 0.9rem; color: #666;">Yes, we integrate seamlessly with Zoom and YouTube Live, allowing you to manage recorded and live sessions in one place.</p>
-                </div>
-                <div class="faq-item">
-                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Is my content backed up?</h4>
-                    <p style="font-size: 0.9rem; color: #666;">Yes, we maintain daily backups of all your course data across multiple server locations for maximum safety.</p>
-                </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 60px;">
-                <a
-                  href="index.html#pricing"
-                  class="btn btn-primary"
-                  >Start Free Trial</a
-                >
-            </div>
-        </div>
     </section>
 
     <div id="newsletter-section"></div>
@@ -485,12 +840,17 @@
     <script src="footer.js"></script>
 
     <script>
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible");
-        });
-      }, { threshold: 0.1 });
-      document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObserver.observe(el));
     </script>
   </body>
 </html>

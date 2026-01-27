@@ -470,12 +470,256 @@
           margin-bottom: 10px;
         }
       }
+
+      /* --- UNIVERSAL PLATFORM SECTION --- */
+      .platform-section {
+        background: white;
+        text-align: center;
+      }
+
+      .platform-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 50px;
+      }
+
+      .plat-card {
+        width: 160px;
+        padding: 25px 15px;
+        border: 1px solid #eee;
+        border-radius: 16px;
+        background: white;
+        transition: 0.3s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+      }
+
+      .plat-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary-color);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      }
+
+      .plat-icon {
+        font-size: 2.5rem;
+      }
+
+      .custom-link-box {
+        background: var(--bg-light);
+        border: 2px dashed #ccc;
+      }
+      /* --- TEACHING MODES SECTIONS --- */
+      /* --- ENHANCED TEACHING MODES UI --- */
+
+      /* Section Spacing & Layout */
+      .mode-section {
+        padding: 100px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .mode-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+
+      /* Typography */
+      .sub-label {
+        color: var(--primary-color);
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 15px;
+      }
+
+      .mode-content h3 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: var(--secondary-color);
+        line-height: 1.1;
+      }
+
+      /* Feature List */
+      .mode-list {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .mode-list li {
+        background: white;
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        transition: 0.3s;
+        border: 1px solid transparent;
+      }
+
+      .mode-list li:hover {
+        border-color: #eee;
+        transform: translateX(10px);
+      }
+
+      .check-icon {
+        width: 35px;
+        height: 35px;
+        background: #e6fffa;
+        color: #047857;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+      }
+
+      /* --- VISUAL 1: GROUP CLASS MOCKUP --- */
+      .group-mockup {
+        background: #202124;
+        border-radius: 20px;
+        padding: 15px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        position: relative;
+      }
+
+      .live-badge-small {
+        background: #ea4335;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .teacher-screen {
+        background: #3c4043;
+        height: 140px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .student-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      .student-tile {
+        background: #3c4043;
+        height: 60px;
+        border-radius: 6px;
+        position: relative;
+      }
+
+      .student-tile.hand-raised {
+        border: 2px solid #fbbc04; /* Yellow for hand raise */
+      }
+
+      .hand-icon {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #fbbc04;
+        color: #202124;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        font-size: 0.7rem;
+        display: grid;
+        place-items: center;
+      }
+
+      /* --- VISUAL 2: 1-ON-1 CARD --- */
+      .private-card {
+        background: white;
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        position: relative;
+        border: 1px solid #f0f0f0;
+      }
+
+      .avatar-stack {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 25px;
+      }
+
+      .avatar-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 4px solid white;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .avatar-1 {
+        background: #ddd url("https://i.pravatar.cc/150?img=3") center/cover;
+        z-index: 1;
+      }
+      .avatar-2 {
+        background: #3d405b url("https://i.pravatar.cc/150?img=5") center/cover;
+        margin-left: -20px;
+        z-index: 2;
+      }
+
+      .secure-badge {
+        background: #f3f4f6;
+        color: #4b5563;
+        padding: 6px 16px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+
+      .time-slot {
+        background: #fdf2f8; /* Pinkish bg */
+        color: #be185d;
+        font-weight: 700;
+        padding: 10px;
+        border-radius: 8px;
+        margin: 15px 0;
+        border: 1px dashed #fbcfe8;
+      }
+
+      @media (max-width: 992px) {
+        .mode-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .mode-visual {
+          order: -1;
+        }
+      }
     </style>
   </head>
   <body>
     <header></header>
     <script src="header.js"></script>
-    <div class="header-spacer"></div>
 
     <section class="live-hero">
       <div class="container hero-grid">
@@ -518,6 +762,17 @@
           <div class="integration-bubble meet-bubble">
             <i class="fas fa-handshake"></i> Meet
           </div>
+          <div
+            class="integration-bubble youtube-bubble"
+            style="
+              top: 120px;
+              right: -20px;
+              color: #ff0000;
+              animation-delay: 1s;
+            "
+          >
+            <i class="fab fa-youtube"></i> YouTube
+          </div>
 
           <div class="meeting-grid">
             <div class="participant active">
@@ -542,7 +797,7 @@
       </div>
     </section>
 
-    <section class="comparison-section">
+    <!-- <section class="comparison-section">
       <div class="container">
         <div style="text-align: center">
           <h2>Why Switch from <span>WhatsApp?</span></h2>
@@ -601,6 +856,244 @@
           </div>
         </div>
       </div>
+    </section> -->
+    <section class="platform-section">
+      <div class="container reveal">
+        <div style="max-width: 700px; margin: 0 auto">
+          <h2>
+            Works with
+            <span style="color: var(--primary-color)">Any Platform.</span>
+          </h2>
+          <p style="color: var(--text-muted); margin-top: 15px">
+            Not using Zoom? No problem. Simply paste your class link, and we
+            handle the rest.
+          </p>
+        </div>
+
+        <div class="platform-grid">
+          <div class="plat-card">
+            <i class="fab fa-youtube plat-icon" style="color: #ff0000"></i>
+            <h4 style="font-size: 1rem">YouTube Live</h4>
+          </div>
+
+          <div class="plat-card">
+            <i class="fab fa-microsoft plat-icon" style="color: #464eb8"></i>
+            <h4 style="font-size: 1rem">MS Teams</h4>
+          </div>
+
+          <div class="plat-card">
+            <i class="fab fa-google plat-icon" style="color: #0f9d58"></i>
+            <h4 style="font-size: 1rem">Google Meet</h4>
+          </div>
+
+          <div class="plat-card">
+            <i class="fas fa-globe plat-icon" style="color: #00bceb"></i>
+            <h4 style="font-size: 1rem">Webex</h4>
+          </div>
+
+          <div class="plat-card custom-link-box">
+            <i class="fas fa-link plat-icon" style="color: #666"></i>
+            <h4 style="font-size: 1rem">Any Link</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mode-section" style="background: white">
+      <div class="container mode-grid reveal">
+        <div class="mode-content">
+          <span class="sub-label">For Large Classes</span>
+          <h3>
+            Interactive <br /><span style="color: var(--primary-color)"
+              >Group Batches</span
+            >
+          </h3>
+
+          <p>
+            Teach hundreds of students at once without losing control. Our
+            "Lecture Mode" ensures students can see you, but can't disturb the
+            class unless you allow them.
+          </p>
+          <br />
+          <p>*It's depends on your service provider</p>
+
+          <ul class="mode-list">
+            <li>
+              <div class="check-icon"><i class="fas fa-hand-paper"></i></div>
+              <div>
+                <strong>Hand Raise Feature</strong>
+                <div style="font-size: 0.85rem; color: #666">
+                  Students queue up to ask doubts.
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="check-icon"><i class="fas fa-chalkboard"></i></div>
+              <div>
+                <strong>Interactive Whiteboard</strong>
+                <div style="font-size: 0.85rem; color: #666">
+                  Draw diagrams and solve equations live.
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="check-icon"><i class="fas fa-volume-mute"></i></div>
+              <div>
+                <strong>Global Mute Control</strong>
+                <div style="font-size: 0.85rem; color: #666">
+                  Silence the whole class with one click.
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mode-visual">
+          <div class="group-mockup">
+            <div class="teacher-screen">
+              <div
+                class="live-badge-small"
+                style="position: absolute; top: 10px; left: 10px"
+              >
+                <div
+                  style="
+                    width: 6px;
+                    height: 6px;
+                    background: white;
+                    border-radius: 50%;
+                  "
+                ></div>
+                LIVE
+              </div>
+              <i
+                class="fas fa-chalkboard-teacher"
+                style="color: #9aa0a6; font-size: 3rem"
+              ></i>
+            </div>
+
+            <div class="student-grid">
+              <div class="student-tile"></div>
+              <div class="student-tile"></div>
+              <div class="student-tile hand-raised">
+                <div class="hand-icon"><i class="fas fa-hand-paper"></i></div>
+              </div>
+              <div class="student-tile"></div>
+              <div class="student-tile"></div>
+              <div
+                class="student-tile"
+                style="
+                  background: #202124;
+                  display: grid;
+                  place-items: center;
+                  color: #9aa0a6;
+                  font-size: 0.8rem;
+                "
+              >
+                +42
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mode-section" style="background: var(--bg-light)">
+      <div class="container mode-grid reveal">
+        <div class="mode-visual">
+          <div class="private-card">
+            <div class="secure-badge">
+              <i class="fas fa-lock" style="color: var(--primary-color)"></i>
+              End-to-End Encrypted
+            </div>
+
+            <div class="avatar-stack">
+              <div class="avatar-circle avatar-1"></div>
+              <div class="avatar-circle avatar-2"></div>
+            </div>
+
+            <h3 style="font-size: 1.5rem; margin-bottom: 5px">
+              Doubt Clearing Session
+            </h3>
+            <p style="color: #666">Student: <strong>Rahul Sharma</strong></p>
+
+            <div class="time-slot">
+              <i class="far fa-clock"></i> Today, 5:00 PM - 5:30 PM
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 20px">
+              <button
+                style="
+                  flex: 1;
+                  padding: 12px;
+                  border-radius: 8px;
+                  background: var(--secondary-color);
+                  color: white;
+                  border: none;
+                  font-weight: 600;
+                  cursor: pointer;
+                "
+              >
+                Start Session
+              </button>
+              <button
+                style="
+                  padding: 12px;
+                  border-radius: 8px;
+                  background: #fff;
+                  border: 1px solid #ddd;
+                  color: #333;
+                  cursor: pointer;
+                "
+              >
+                <i class="fas fa-ellipsis-h"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mode-content">
+          <span class="sub-label">For Premium Coaching</span>
+          <h3>
+            1-on-1 <br /><span style="color: var(--primary-color)"
+              >Personal Mentorship</span
+            >
+          </h3>
+          <p>
+            Monetize your time by offering private slots. Ideal for doubt
+            clearing, parent-teacher meetings, or premium coaching tiers.
+          </p>
+
+          <ul class="mode-list">
+            <li>
+              <div class="check-icon"><i class="fas fa-calendar-alt"></i></div>
+              <div>
+                <strong>Automated Booking</strong>
+                <div style="font-size: 0.85rem; color: #666">
+                  Students pick a slot from your calendar.
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="check-icon"><i class="fas fa-user-shield"></i></div>
+              <div>
+                <strong>Private Rooms</strong>
+                <div style="font-size: 0.85rem; color: #666">
+                  Unique link generated for every session.
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="check-icon"><i class="fas fa-rupee-sign"></i></div>
+              <div>
+                <strong>Upsell Opportunity</strong>
+                <div style="font-size: 0.85rem; color: #666">
+                  Charge premium fees for 1-on-1 time.
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <section style="background: var(--bg-light)">
@@ -647,134 +1140,6 @@
               Works on low bandwidth
             </li>
           </ul>
-        </div>
-      </div>
-    </section>
-
-    <section style="background: white">
-      <div class="container">
-        <div style="text-align: center; max-width: 700px; margin: 0 auto">
-          <h2>Powerful <span>Admin Features</span></h2>
-          <p style="color: var(--text-muted); margin-top: 15px">
-            We wrap your favorite video tools with an education layer.
-          </p>
-        </div>
-
-        <div class="features-grid">
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-user-check"></i></div>
-            <h3>Auto-Attendance</h3>
-            <p>
-              We track exactly when a student joins and leaves. Get a detailed
-              report after every class. No more manual roll calls.
-            </p>
-          </div>
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-comments"></i></div>
-            <h3>Polls & Chat</h3>
-            <p>
-              Keep engagement high. Launch quick polls during the class or chat
-              with students without leaving the interface.
-            </p>
-          </div>
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-            <h3>Auto-Upload</h3>
-            <p>
-              Recorded sessions are automatically processed and uploaded to the
-              batch. Students who missed the class can watch it instantly.
-            </p>
-          </div>
-        </div>
-
-        <div class="attendance-mockup reveal">
-          <div class="att-row att-head">
-            <div>Student Name</div>
-            <div>Duration</div>
-            <div>Status</div>
-          </div>
-          <div class="att-row">
-            <div style="display: flex; gap: 10px; align-items: center">
-              <div
-                style="
-                  width: 30px;
-                  height: 30px;
-                  background: #eee;
-                  border-radius: 50%;
-                "
-              ></div>
-              Rahul Sharma
-            </div>
-            <div>55 mins</div>
-            <div><span class="status-p">Present</span></div>
-          </div>
-          <div class="att-row">
-            <div style="display: flex; gap: 10px; align-items: center">
-              <div
-                style="
-                  width: 30px;
-                  height: 30px;
-                  background: #eee;
-                  border-radius: 50%;
-                "
-              ></div>
-              Sneha Gupta
-            </div>
-            <div>10 mins</div>
-            <div><span class="status-a">Late</span></div>
-          </div>
-          <div class="att-row">
-            <div style="display: flex; gap: 10px; align-items: center">
-              <div
-                style="
-                  width: 30px;
-                  height: 30px;
-                  background: #eee;
-                  border-radius: 50%;
-                "
-              ></div>
-              Amit Kumar
-            </div>
-            <div>0 mins</div>
-            <div><span class="status-a">Absent</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="flow-section">
-      <div class="container">
-        <h2>The <span>"Class Ended"</span> Workflow</h2>
-        <p style="color: #666">What happens after you click "End Meeting"?</p>
-
-        <div class="flow-container reveal">
-          <div class="flow-step">
-            <div class="flow-icon"><i class="fas fa-stop-circle"></i></div>
-            <h4>1. Finish Class</h4>
-            <p style="font-size: 0.85rem; color: #777">
-              You end the Zoom/Meet call as usual.
-            </p>
-          </div>
-
-          <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
-
-          <div class="flow-step">
-            <div class="flow-icon"><i class="fas fa-server"></i></div>
-            <h4>2. Processing</h4>
-            <p style="font-size: 0.85rem; color: #777">
-              We fetch the recording from the cloud.
-            </p>
-          </div>
-
-          <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
-
-          <div class="flow-step">
-            <div class="flow-icon"><i class="fas fa-mobile-alt"></i></div>
-            <h4>3. Published</h4>
-            <p style="font-size: 0.85rem; color: #777">
-              Video appears in the student app automatically.
-            </p>
-          </div>
         </div>
       </div>
     </section>

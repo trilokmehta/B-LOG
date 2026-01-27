@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -27,8 +27,14 @@
       }
 
       /* --- Base & Reset --- */
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
       body {
         font-family: var(--font-family);
         background-color: var(--white);
@@ -38,10 +44,24 @@
       }
 
       /* --- Common Components --- */
-      section { padding: 100px 0; }
-      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-      h1, h2, h3, h4 { font-weight: 800; line-height: 1.2; }
-      span { color: var(--primary-color); }
+      section {
+        padding: 100px 0;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 800;
+        line-height: 1.2;
+      }
+      span {
+        color: var(--primary-color);
+      }
 
       .btn {
         display: inline-block;
@@ -58,12 +78,24 @@
         color: white;
         box-shadow: 0 4px 15px rgba(242, 132, 130, 0.3);
       }
-      .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4); }
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4);
+      }
 
-      .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
-      .reveal.visible { opacity: 1; transform: translateY(0); }
-      
-      .header-spacer { height: 80px; }
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: 0.8s ease-out;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .header-spacer {
+        height: 80px;
+      }
 
       /* --- Hero Section --- */
       .teacher-hero {
@@ -71,129 +103,336 @@
         padding: 120px 0 80px;
         text-align: center;
       }
-      .teacher-hero h1 { 
-          font-size: clamp(2.5rem, 5vw, 4rem); 
-          margin-bottom: 25px; 
-          color: var(--secondary-color); 
+      .teacher-hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        margin-bottom: 25px;
+        color: var(--secondary-color);
       }
-      .teacher-hero p { 
-          font-size: 1.15rem; 
-          color: var(--text-muted); 
-          margin: 0 auto 40px; 
-          max-width: 700px; 
+      .teacher-hero p {
+        font-size: 1.15rem;
+        color: var(--text-muted);
+        margin: 0 auto 40px;
+        max-width: 700px;
       }
 
       /* --- Laptop Mockup (CSS Only) --- */
       .laptop-wrapper {
         margin-top: 60px;
         perspective: 2000px;
-        display: flex; justify-content: center;
+        display: flex;
+        justify-content: center;
       }
-      
+
       .laptop-screen {
-        width: 800px; height: 480px;
+        width: 800px;
+        height: 480px;
         background: #1a1a1a;
         border-radius: 20px 20px 0 0;
         border: 15px solid #333;
         border-bottom: none;
         position: relative;
         transform: rotateX(10deg);
-        box-shadow: 0 50px 100px rgba(0,0,0,0.2);
+        box-shadow: 0 50px 100px rgba(0, 0, 0, 0.2);
         overflow: hidden;
       }
-      
+
       .laptop-base {
-        width: 960px; height: 30px;
+        width: 960px;
+        height: 30px;
         background: #e0e0e0;
         border-radius: 0 0 20px 20px;
         margin: 0 auto;
         position: relative;
         transform: translateY(-10px) rotateX(10deg);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
       }
       .laptop-base::before {
-        content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-        width: 150px; height: 10px; background: #ccc; border-radius: 0 0 10px 10px;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 10px;
+        background: #ccc;
+        border-radius: 0 0 10px 10px;
       }
 
       /* Mockup Interface */
-      .mock-ui { height: 100%; background: #f4f6f8; display: grid; grid-template-columns: 200px 1fr; }
-      .mock-sidebar { background: #3d405b; padding: 20px; }
-      .mock-nav-line { height: 10px; background: rgba(255,255,255,0.2); margin-bottom: 15px; border-radius: 5px; }
-      
-      .mock-content { padding: 30px; }
-      .mock-header { display: flex; justify-content: space-between; margin-bottom: 30px; }
-      .mock-title { width: 150px; height: 20px; background: #ddd; border-radius: 5px; }
-      
-      .mock-stats { display: flex; gap: 20px; margin-bottom: 30px; }
-      .mock-card { flex: 1; height: 100px; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); padding: 15px; }
-      .mock-circle { width: 40px; height: 40px; border-radius: 50%; background: #e6fffa; margin-bottom: 10px; }
-      .mock-line { height: 8px; width: 60%; background: #eee; border-radius: 4px; }
-      
-      .mock-list { background: white; border-radius: 10px; height: 150px; padding: 20px; }
+      .mock-ui {
+        height: 100%;
+        background: #f4f6f8;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+      }
+      .mock-sidebar {
+        background: #3d405b;
+        padding: 20px;
+      }
+      .mock-nav-line {
+        height: 10px;
+        background: rgba(255, 255, 255, 0.2);
+        margin-bottom: 15px;
+        border-radius: 5px;
+      }
+
+      .mock-content {
+        padding: 30px;
+      }
+      .mock-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+      }
+      .mock-title {
+        width: 150px;
+        height: 20px;
+        background: #ddd;
+        border-radius: 5px;
+      }
+
+      .mock-stats {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      .mock-card {
+        flex: 1;
+        height: 100px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        padding: 15px;
+      }
+      .mock-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #e6fffa;
+        margin-bottom: 10px;
+      }
+      .mock-line {
+        height: 8px;
+        width: 60%;
+        background: #eee;
+        border-radius: 4px;
+      }
+
+      .mock-list {
+        background: white;
+        border-radius: 10px;
+        height: 150px;
+        padding: 20px;
+      }
 
       /* --- Features Grid --- */
-      .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px; }
-      .feat-card {
-        padding: 30px; border-radius: 16px; background: white; border: 1px solid #eee; transition: 0.3s;
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 60px;
       }
-      .feat-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
-      .feat-icon { font-size: 2rem; color: var(--primary-color); margin-bottom: 20px; }
-      .feat-card h3 { margin-bottom: 10px; color: var(--secondary-color); }
-      .feat-card p { font-size: 0.95rem; color: var(--text-muted); }
+      .feat-card {
+        padding: 30px;
+        border-radius: 16px;
+        background: white;
+        border: 1px solid #eee;
+        transition: 0.3s;
+      }
+      .feat-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary-color);
+      }
+      .feat-icon {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+      }
+      .feat-card h3 {
+        margin-bottom: 10px;
+        color: var(--secondary-color);
+      }
+      .feat-card p {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+      }
 
       /* --- NEW: Calendar/Schedule Mockup --- */
-      .schedule-section { background: white; }
+      .schedule-section {
+        background: white;
+      }
       .schedule-mockup {
-          background: white; border-radius: 15px; border: 1px solid #eee; padding: 20px;
-          box-shadow: 0 10px 40px rgba(0,0,0,0.05); max-width: 800px; margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        border: 1px solid #eee;
+        padding: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        max-width: 800px;
+        margin: 0 auto;
       }
-      .cal-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
-      .cal-time { width: 80px; font-size: 0.8rem; color: #888; font-weight: 600; text-align: right; }
-      .cal-event { 
-          flex: 1; padding: 10px 15px; border-radius: 8px; font-size: 0.9rem; font-weight: 500;
-          display: flex; justify-content: space-between; align-items: center;
+      .cal-row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+        align-items: center;
       }
-      .event-blue { background: #e3f2fd; color: #1565c0; border-left: 4px solid #1565c0; }
-      .event-green { background: #e6fffa; color: #047857; border-left: 4px solid #047857; }
-      .event-purple { background: #f3e5f5; color: #7b1fa2; border-left: 4px solid #7b1fa2; }
+      .cal-time {
+        width: 80px;
+        font-size: 0.8rem;
+        color: #888;
+        font-weight: 600;
+        text-align: right;
+      }
+      .cal-event {
+        flex: 1;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .event-blue {
+        background: #e3f2fd;
+        color: #1565c0;
+        border-left: 4px solid #1565c0;
+      }
+      .event-green {
+        background: #e6fffa;
+        color: #047857;
+        border-left: 4px solid #047857;
+      }
+      .event-purple {
+        background: #f3e5f5;
+        color: #7b1fa2;
+        border-left: 4px solid #7b1fa2;
+      }
 
       /* --- Doubt Solving Visual --- */
-      .doubt-section { background: var(--bg-light); }
-      .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-      
-      .chat-interface {
-        background: white; border: 1px solid #eee; border-radius: 20px; overflow: hidden;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.05); max-width: 400px; margin: 0 auto;
+      .doubt-section {
+        background: var(--bg-light);
       }
-      .chat-top { background: var(--secondary-color); color: white; padding: 15px; display: flex; align-items: center; gap: 10px; }
-      .chat-msg { padding: 20px; display: flex; flex-direction: column; gap: 15px; }
-      .bubble { padding: 10px 15px; border-radius: 10px; font-size: 0.9rem; max-width: 80%; }
-      .b-student { background: #f0f0f0; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
-      .b-teacher { background: #e3f2fd; color: #1565c0; align-self: flex-end; border-bottom-right-radius: 2px; }
+      .split-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+
+      .chat-interface {
+        background: white;
+        border: 1px solid #eee;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .chat-top {
+        background: var(--secondary-color);
+        color: white;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .chat-msg {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .bubble {
+        padding: 10px 15px;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        max-width: 80%;
+      }
+      .b-student {
+        background: #f0f0f0;
+        color: #333;
+        align-self: flex-start;
+        border-bottom-left-radius: 2px;
+      }
+      .b-teacher {
+        background: #e3f2fd;
+        color: #1565c0;
+        align-self: flex-end;
+        border-bottom-right-radius: 2px;
+      }
 
       /* --- Assignment Workflow --- */
-      .work-section { background: white; padding: 80px 0; }
-      .step-row { display: flex; justify-content: center; gap: 40px; margin-top: 50px; flex-wrap: wrap; }
-      .step-box { text-align: center; width: 220px; position: relative; }
-      .step-num { 
-        width: 40px; height: 40px; background: var(--primary-color); color: white; 
-        border-radius: 50%; margin: 0 auto 15px; font-weight: 700; display: grid; place-items: center;
+      .work-section {
+        background: white;
+        padding: 80px 0;
+      }
+      .step-row {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 50px;
+        flex-wrap: wrap;
+      }
+      .step-box {
+        text-align: center;
+        width: 220px;
+        position: relative;
+      }
+      .step-num {
+        width: 40px;
+        height: 40px;
+        background: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        margin: 0 auto 15px;
+        font-weight: 700;
+        display: grid;
+        place-items: center;
       }
       .connector {
-        position: absolute; top: 20px; right: -30px; width: 40px; height: 2px; background: #ddd;
+        position: absolute;
+        top: 20px;
+        right: -30px;
+        width: 40px;
+        height: 2px;
+        background: #ddd;
       }
-      .step-box:last-child .connector { display: none; }
+      .step-box:last-child .connector {
+        display: none;
+      }
 
       /* --- NEW: Analytics Section --- */
-      .analytics-section { background: var(--bg-light); }
-      .analytics-card {
-          background: white; padding: 30px; border-radius: 15px; border: 1px solid #eee;
+      .analytics-section {
+        background: var(--bg-light);
       }
-      .stat-bar { margin-bottom: 20px; }
-      .stat-header { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.9rem; font-weight: 600; }
-      .bar-bg { height: 8px; background: #eee; border-radius: 10px; overflow: hidden; }
-      .bar-fill { height: 100%; border-radius: 10px; background: var(--secondary-color); }
+      .analytics-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        border: 1px solid #eee;
+      }
+      .stat-bar {
+        margin-bottom: 20px;
+      }
+      .stat-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+      .bar-bg {
+        height: 8px;
+        background: #eee;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .bar-fill {
+        height: 100%;
+        border-radius: 10px;
+        background: var(--secondary-color);
+      }
 
       /* --- NEW: FAQ Section --- */
       .faq-grid {
@@ -214,140 +453,1088 @@
 
       /* --- Mobile Responsive --- */
       @media (max-width: 992px) {
-        .laptop-screen { width: 100%; height: 300px; border-width: 10px; }
-        .laptop-base { width: 100%; }
-        .mock-ui { grid-template-columns: 50px 1fr; }
-        
-        .split-grid, .faq-grid, .features-grid { 
-            grid-template-columns: 1fr; 
-            text-align: center; 
-            gap: 40px; 
+        .laptop-screen {
+          width: 100%;
+          height: 300px;
+          border-width: 10px;
         }
-        
-        .hero-grid { text-align: center; }
-        .step-row { flex-direction: column; align-items: center; gap: 30px; }
-        .connector { display: none; }
-        
-        .cal-row { flex-direction: column; align-items: flex-start; gap: 5px; margin-bottom: 15px; }
-        .cal-time { text-align: left; width: 100%; }
-        .cal-event { width: 100%; }
+        .laptop-base {
+          width: 100%;
+        }
+        .mock-ui {
+          grid-template-columns: 50px 1fr;
+        }
+
+        .split-grid,
+        .faq-grid,
+        .features-grid {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 40px;
+        }
+
+        .hero-grid {
+          text-align: center;
+        }
+        .step-row {
+          flex-direction: column;
+          align-items: center;
+          gap: 30px;
+        }
+        .connector {
+          display: none;
+        }
+
+        .cal-row {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 5px;
+          margin-bottom: 15px;
+        }
+        .cal-time {
+          text-align: left;
+          width: 100%;
+        }
+        .cal-event {
+          width: 100%;
+        }
       }
+
+      /* --- NEW: Access Control Section --- */
+      .access-section {
+        background: white;
+        padding: 100px 0;
+      }
+
+      .permission-card {
+        background: white;
+        border: 1px solid #eee;
+        border-radius: 16px;
+        padding: 0;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        max-width: 450px;
+        margin: 0 auto;
+        overflow: hidden;
+      }
+
+      .perm-header {
+        background: #f8f9fa;
+        padding: 20px 25px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .perm-avatar {
+        width: 45px;
+        height: 45px;
+        background: var(--secondary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+      }
+
+      .perm-list {
+        padding: 10px 25px 25px;
+      }
+
+      .perm-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .perm-row:last-child {
+        border-bottom: none;
+      }
+
+      .perm-label {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #333;
+      }
+      .perm-desc {
+        font-size: 0.75rem;
+        color: #888;
+        margin-top: 2px;
+      }
+
+      /* Custom Toggle Switch */
+      .toggle-switch {
+        width: 46px;
+        height: 24px;
+        background: #e0e0e0;
+        border-radius: 20px;
+        position: relative;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .toggle-switch.active {
+        background: #2ecc71; /* Green for active */
+      }
+      .toggle-switch.locked {
+        background: #e0e0e0;
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .toggle-knob {
+        width: 18px;
+        height: 18px;
+        background: white;
+        border-radius: 50%;
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        transition: 0.3s;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+      .toggle-switch.active .toggle-knob {
+        left: 25px;
+      }
+
+      /* --- NEW: Interactive Hero Animations --- */
+
+      /* 1. Floating Background Icons */
+      .hero-bg-icons {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0; /* Behind content */
+        pointer-events: none;
+      }
+
+      .float-icon {
+        position: absolute;
+        color: var(--secondary-color);
+        opacity: 0.05; /* Very subtle */
+        font-size: 3rem;
+        animation: float-anim 6s ease-in-out infinite;
+      }
+
+      /* Individual positions and speeds */
+      .i-1 {
+        top: 15%;
+        left: 10%;
+        animation-duration: 6s;
+      }
+      .i-2 {
+        top: 25%;
+        right: 15%;
+        animation-duration: 8s;
+        font-size: 4rem;
+      }
+      .i-3 {
+        bottom: 20%;
+        left: 20%;
+        animation-duration: 7s;
+      }
+      .i-4 {
+        bottom: 30%;
+        right: 5%;
+        animation-duration: 9s;
+        font-size: 2.5rem;
+      }
+
+      @keyframes float-anim {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(5deg);
+        }
+      }
+
+      /* 2. Typing Text Effect */
+      .typing-cursor {
+        display: inline-block;
+        color: var(--primary-color);
+      }
+      .cursor-line {
+        display: inline-block;
+        width: 3px;
+        height: 1em;
+        background-color: var(--primary-color);
+        margin-left: 5px;
+        vertical-align: middle;
+        animation: blink 0.8s infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* Ensure hero content sits on top of floating icons */
+      .teacher-hero .container {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* --- Real Dashboard Inside Laptop --- */
+      .rd-container {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        height: 100%;
+        background: #f4f6f8;
+        font-family: "Inter", sans-serif;
+        text-align: left; /* Reset alignment */
+      }
+
+      /* Sidebar */
+      .rd-sidebar {
+        background: #2c3e50;
+        padding: 25px 20px;
+        color: white;
+        display: flex;
+        flex-direction: column;
+      }
+      .rd-logo {
+        font-weight: 800;
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .rd-menu-item {
+        padding: 12px 0;
+        color: #bdc3c7;
+        font-size: 0.9rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        transition: 0.2s;
+      }
+      .rd-menu-item:hover,
+      .rd-menu-item.active {
+        color: white;
+      }
+      .rd-menu-item.active {
+        font-weight: 600;
+      }
+
+      /* Main Content */
+      .rd-content {
+        padding: 30px;
+        overflow: hidden;
+      }
+      .rd-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+      }
+      .rd-welcome h3 {
+        font-size: 1.2rem;
+        color: #2c3e50;
+        margin-bottom: 2px;
+      }
+      .rd-welcome p {
+        font-size: 0.8rem;
+        color: #7f8c8d;
+      }
+
+      .rd-avatar {
+        width: 35px;
+        height: 35px;
+        background: #3498db;
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+      }
+
+      /* Stats Cards */
+      .rd-stats-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+      .rd-card {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+        border: 1px solid #eee;
+      }
+      .rd-card-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+      }
+      .rd-card h4 {
+        font-size: 0.7rem;
+        color: #95a5a6;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        font-weight: 700;
+      }
+      .rd-card .value {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #2c3e50;
+      }
+      .rd-card .sub {
+        font-size: 0.7rem;
+        color: #27ae60;
+        font-weight: 600;
+        margin-top: 3px;
+      }
+
+      /* Recent List */
+      .rd-list-box {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        border: 1px solid #eee;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+      }
+      .rd-list-header {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+      }
+      .rd-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #f9f9f9;
+        font-size: 0.85rem;
+      }
+      .rd-row:last-child {
+        border: none;
+      }
+      .rd-status {
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: 600;
+      }
+      .st-submitted {
+        background: #e6fffa;
+        color: #047857;
+      }
+      .st-pending {
+        background: #fff0f0;
+        color: #c0392b;
+      }
+
+      /* --- Interactive Tab Styles --- */
+      .rd-view {
+        display: none; /* Hidden by default */
+        animation: fadeIn 0.4s ease-out;
+      }
+
+      .rd-view.active-view {
+        display: block; /* Show only the active one */
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Table Styles for the 'Students' view */
+      .rd-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+      }
+      .rd-table th {
+        text-align: left;
+        color: #95a5a6;
+        font-size: 0.75rem;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+      }
+      .rd-table td {
+        padding: 12px 10px;
+        font-size: 0.85rem;
+        color: #2c3e50;
+        border-bottom: 1px solid #f9f9f9;
+      }
+      .rd-badge {
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+      }
+
+      /* --- NEW: Smart Schedule Section --- */
+.schedule-section-new {
+  background: #fffbf5; /* Warm background to alternate with white */
+  padding: 100px 0;
+}
+
+.timeline-card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+  border: 1px solid #eee;
+  max-width: 420px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.t-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 15px;
+}
+
+.t-day-selector { display: flex; gap: 8px; }
+.t-day {
+  width: 30px; height: 30px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700; color: #888; cursor: pointer;
+  background: #f4f6f8;
+}
+.t-day.active { background: var(--secondary-color); color: white; }
+
+.time-row {
+  display: flex; gap: 15px; margin-bottom: 15px; position: relative;
+}
+.time-col {
+  width: 50px; font-size: 0.75rem; color: #999; text-align: right; padding-top: 10px;
+}
+
+/* Class Blocks */
+.class-card {
+  flex: 1;
+  padding: 12px 15px;
+  border-radius: 10px;
+  position: relative;
+  transition: 0.3s;
+  border-left: 4px solid;
+  cursor: pointer;
+}
+.class-card:hover { transform: translateX(5px); }
+
+.c-physics { background: #e3f2fd; border-color: #1565c0; color: #1565c0; }
+.c-math { background: #e6fffa; border-color: #047857; color: #047857; }
+.c-conflict { background: #fff0f0; border-color: #c0392b; color: #c0392b; }
+
+/* The "Conflict Detected" red dashed box */
+.conflict-box {
+  flex: 1;
+  display: flex; flex-direction: column; gap: 10px;
+  position: relative;
+  border: 2px dashed #ffcccb;
+  padding: 10px;
+  border-radius: 10px;
+  background: #fffafa;
+}
+
+.conflict-badge {
+  position: absolute; top: -12px; right: -10px;
+  background: #e74c3c; color: white; font-size: 0.7rem;
+  padding: 4px 10px; border-radius: 20px; font-weight: 700;
+  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+  animation: pulse-alert 2s infinite;
+  z-index: 2;
+}
+
+@keyframes pulse-alert {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Animation for locked buttons */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(4px); }
+  50% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+  100% { transform: translateX(0); }
+}
+
+.shake-anim {
+  animation: shake 0.3s ease-in-out;
+}
     </style>
   </head>
   <body>
-
     <header></header>
     <script src="header.js"></script>
-    <div class="header-spacer"></div>
 
-    <section class="teacher-hero">
+    <section class="teacher-hero" style="position: relative">
+      <div class="hero-bg-icons">
+        <i class="fas fa-book float-icon i-1"></i>
+        <i class="fas fa-lightbulb float-icon i-2"></i>
+        <i class="fas fa-pencil-alt float-icon i-3"></i>
+        <i class="fas fa-clock float-icon i-4"></i>
+      </div>
+
       <div class="container">
         <div class="reveal">
-          <span style="background: #e6fffa; color: #047857; padding: 6px 15px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: inline-block; margin-bottom: 20px;">
+          <span
+            style="
+              background: #e6fffa;
+              color: #047857;
+              padding: 6px 15px;
+              border-radius: 20px;
+              font-weight: 700;
+              font-size: 0.85rem;
+              display: inline-block;
+              margin-bottom: 20px;
+            "
+          >
             <i class="fas fa-chalkboard-teacher"></i> For Educators
           </span>
-          <h1>Give Your Teachers <br><span>Superpowers.</span></h1>
+
+          <h1>
+            Give Your Teachers <br />
+            <span class="typing-cursor">Superpowers</span
+            ><span class="cursor-line"></span>
+          </h1>
+
           <p>
-            A dedicated command center for your faculty. Let them manage classes, solve doubts, and grade assignments without the administrative headache.
+            A dedicated command center for your faculty. Let them manage
+            classes, solve doubts, and grade assignments without the
+            administrative headache.
           </p>
           <a href="index.html#pricing" class="btn btn-primary">View Features</a>
         </div>
 
         <div class="laptop-wrapper reveal">
-           <div class="laptop-screen">
-              <div class="mock-ui">
-                 <div class="mock-sidebar">
-                    <div class="mock-nav-line" style="width: 80%;"></div>
-                    <div class="mock-nav-line" style="width: 60%;"></div>
-                    <div class="mock-nav-line" style="width: 70%;"></div>
-                    <div class="mock-nav-line" style="width: 50%;"></div>
-                 </div>
-                 <div class="mock-content">
-                    <div class="mock-header">
-                       <div class="mock-title"></div>
-                       <div class="mock-circle" style="background: #ccc;"></div>
-                    </div>
-                    <div class="mock-stats">
-                       <div class="mock-card">
-                          <div class="mock-circle"></div>
-                          <div class="mock-line"></div>
-                       </div>
-                       <div class="mock-card">
-                          <div class="mock-circle" style="background: #fff0f0;"></div>
-                          <div class="mock-line"></div>
-                       </div>
-                       <div class="mock-card">
-                          <div class="mock-circle" style="background: #e3f2fd;"></div>
-                          <div class="mock-line"></div>
-                       </div>
-                    </div>
-                    <div class="mock-list">
-                       <div class="mock-line" style="width: 40%; margin-bottom: 10px;"></div>
-                       <div class="mock-line" style="width: 90%; height: 6px; margin-bottom: 20px;"></div>
-                       <div class="mock-line" style="width: 40%; margin-bottom: 10px;"></div>
-                       <div class="mock-line" style="width: 90%; height: 6px;"></div>
-                    </div>
-                 </div>
+          <div class="laptop-screen">
+            <div class="rd-container">
+              <div class="rd-sidebar">
+                <div class="rd-logo">
+                  <i class="fas fa-leaf" style="color: #ea4335"></i> ERPLI
+                </div>
+                <div
+                  class="rd-menu-item active"
+                  onclick="switchTab('dashboard', this)"
+                >
+                  <i class="fas fa-th-large" style="width: 20px"></i> Dashboard
+                </div>
+                <div class="rd-menu-item" onclick="switchTab('students', this)">
+                  <i class="fas fa-user-graduate" style="width: 20px"></i> My
+                  Students
+                </div>
+                <div
+                  class="rd-menu-item"
+                  onclick="switchTab('assignments', this)"
+                >
+                  <i class="fas fa-book" style="width: 20px"></i> Assignments
+                </div>
+                <div class="rd-menu-item" onclick="switchTab('schedule', this)">
+                  <i class="fas fa-calendar-alt" style="width: 20px"></i>
+                  Schedule
+                </div>
               </div>
-           </div>
+
+              <div class="rd-content">
+                <div class="rd-header">
+                  <div class="rd-welcome">
+                    <h3>Welcome, Amit Sir</h3>
+                    <p>Physics Faculty • Senior Staff</p>
+                  </div>
+                  <div class="rd-avatar">AS</div>
+                </div>
+
+                <div id="view-dashboard" class="rd-view active-view">
+                  <div class="rd-stats-row">
+                    <div class="rd-card">
+                      <div
+                        class="rd-card-icon"
+                        style="background: #e3f2fd; color: #1565c0"
+                      >
+                        <i class="fas fa-video"></i>
+                      </div>
+                      <h4>Next Class</h4>
+                      <div class="value">Physics (11-A)</div>
+                      <div class="sub" style="color: #e67e22">
+                        Starts in 15 mins
+                      </div>
+                    </div>
+                    <div class="rd-card">
+                      <div
+                        class="rd-card-icon"
+                        style="background: #e6fffa; color: #047857"
+                      >
+                        <i class="fas fa-check-circle"></i>
+                      </div>
+                      <h4>Attendance</h4>
+                      <div class="value">92% Present</div>
+                      <div class="sub">Higher than avg</div>
+                    </div>
+                    <div class="rd-card">
+                      <div
+                        class="rd-card-icon"
+                        style="background: #fff0f0; color: #c0392b"
+                      >
+                        <i class="fas fa-question-circle"></i>
+                      </div>
+                      <h4>Doubts</h4>
+                      <div class="value">5 New</div>
+                      <div class="sub" style="color: #c0392b">
+                        Requires action
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="rd-list-box">
+                    <div class="rd-list-header">Recent Activity</div>
+                    <div class="rd-row">
+                      <div
+                        style="display: flex; align-items: center; gap: 10px"
+                      >
+                        <div
+                          style="
+                            width: 24px;
+                            height: 24px;
+                            background: #eee;
+                            border-radius: 50%;
+                            font-size: 10px;
+                            display: grid;
+                            place-items: center;
+                          "
+                        >
+                          R
+                        </div>
+                        <span>Rahul submitted "Kinematics L1"</span>
+                      </div>
+                      <span class="rd-status st-submitted">Just now</span>
+                    </div>
+                    <div class="rd-row">
+                      <div
+                        style="display: flex; align-items: center; gap: 10px"
+                      >
+                        <div
+                          style="
+                            width: 24px;
+                            height: 24px;
+                            background: #eee;
+                            border-radius: 50%;
+                            font-size: 10px;
+                            display: grid;
+                            place-items: center;
+                          "
+                        >
+                          P
+                        </div>
+                        <span>Priya raised a doubt in Physics</span>
+                      </div>
+                      <span class="rd-status st-pending">5m ago</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="view-students" class="rd-view">
+                  <div class="rd-list-box" style="height: 100%">
+                    <div class="rd-list-header">Class 11-A Students</div>
+                    <table class="rd-table">
+                      <thead>
+                        <tr>
+                          <th>Roll</th>
+                          <th>Name</th>
+                          <th>Attendance</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>01</td>
+                          <td>Aarav Singh</td>
+                          <td>95%</td>
+                          <td>
+                            <span
+                              class="rd-badge"
+                              style="background: #e6fffa; color: #047857"
+                              >Active</span
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>02</td>
+                          <td>Bhavya K.</td>
+                          <td>82%</td>
+                          <td>
+                            <span
+                              class="rd-badge"
+                              style="background: #e6fffa; color: #047857"
+                              >Active</span
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>03</td>
+                          <td>Chirag M.</td>
+                          <td>40%</td>
+                          <td>
+                            <span
+                              class="rd-badge"
+                              style="background: #fff0f0; color: #c0392b"
+                              >At Risk</span
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>04</td>
+                          <td>Diya Sharma</td>
+                          <td>98%</td>
+                          <td>
+                            <span
+                              class="rd-badge"
+                              style="background: #e6fffa; color: #047857"
+                              >Topper</span
+                            >
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div id="view-assignments" class="rd-view">
+                  <div class="rd-list-box">
+                    <div class="rd-list-header">Active Assignments</div>
+                    <div class="rd-row" style="padding: 15px 0">
+                      <div>
+                        <div style="font-weight: 600">
+                          Thermodynamics - Sheet 1
+                        </div>
+                        <div style="font-size: 0.7rem; color: #888">
+                          Due: Tomorrow, 5 PM
+                        </div>
+                      </div>
+                      <div style="text-align: right">
+                        <div style="font-weight: 700">24/30</div>
+                        <div style="font-size: 0.7rem; color: #888">
+                          Submitted
+                        </div>
+                      </div>
+                    </div>
+                    <div class="rd-row" style="padding: 15px 0">
+                      <div>
+                        <div style="font-weight: 600">Vector Algebra Test</div>
+                        <div style="font-size: 0.7rem; color: #888">
+                          Due: Jan 30
+                        </div>
+                      </div>
+                      <div style="text-align: right">
+                        <div style="font-weight: 700">05/30</div>
+                        <div style="font-size: 0.7rem; color: #888">
+                          Submitted
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="view-schedule" class="rd-view">
+                  <div class="rd-list-box">
+                    <div class="rd-list-header">Today's Timeline</div>
+                    <div
+                      style="
+                        display: flex;
+                        gap: 15px;
+                        padding: 15px 0;
+                        border-bottom: 1px solid #f9f9f9;
+                      "
+                    >
+                      <div style="font-weight: 700; color: #555; width: 60px">
+                        09:00
+                      </div>
+                      <div>
+                        <div style="font-weight: 600">Physics (11-A)</div>
+                        <div style="font-size: 0.8rem; color: #888">
+                          Live Lecture • Room 1
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      style="
+                        display: flex;
+                        gap: 15px;
+                        padding: 15px 0;
+                        border-bottom: 1px solid #f9f9f9;
+                      "
+                    >
+                      <div style="font-weight: 700; color: #555; width: 60px">
+                        11:30
+                      </div>
+                      <div>
+                        <div style="font-weight: 600">
+                          Doubt Session (Batch B)
+                        </div>
+                        <div style="font-size: 0.8rem; color: #888">
+                          Offline • Lab 2
+                        </div>
+                      </div>
+                    </div>
+                    <div style="display: flex; gap: 15px; padding: 15px 0">
+                      <div style="font-weight: 700; color: #555; width: 60px">
+                        02:00
+                      </div>
+                      <div>
+                        <div style="font-weight: 600">Faculty Meeting</div>
+                        <div style="font-size: 0.8rem; color: #888">
+                          Conference Hall
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="laptop-base"></div>
-
       </div>
     </section>
 
-    <section class="schedule-section">
-        <div class="container">
-            <div style="text-align: center; max-width: 700px; margin: 0 auto 50px;">
-                <h2>Smart <span>Schedule</span></h2>
-                <p style="color: var(--text-muted); margin-top: 15px;">
-                    Teachers get their daily timetable auto-synced. No more confusion about "Which class is next?".
-                </p>
-            </div>
-            
-            <div class="schedule-mockup reveal">
-                <div class="cal-row">
-                    <div class="cal-time">09:00 AM</div>
-                    <div class="cal-event event-blue">
-                        <span><i class="fas fa-video"></i> Physics - Class 11A</span>
-                        <span>Live</span>
-                    </div>
-                </div>
-                <div class="cal-row">
-                    <div class="cal-time">11:30 AM</div>
-                    <div class="cal-event event-green">
-                        <span><i class="fas fa-chalkboard"></i> Doubt Session - Batch B</span>
-                        <span>Offline</span>
-                    </div>
-                </div>
-                <div class="cal-row">
-                    <div class="cal-time">02:00 PM</div>
-                    <div class="cal-event event-purple">
-                        <span><i class="fas fa-file-alt"></i> Test Review - NEET</span>
-                        <span>Lab 2</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section style="background: var(--bg-light);">
-      <div class="container">
-        <div class="features-grid">
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-video"></i></div>
-            <h3>One-Click Live</h3>
-            <p>Teachers don't need to create Zoom links. They just log in, click "Start Class," and the system handles the rest.</p>
-          </div>
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-clipboard-list"></i></div>
-            <h3>Smart Attendance</h3>
-            <p>No more calling out names. The system auto-marks attendance based on how long a student stayed in the live class.</p>
-          </div>
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-poll"></i></div>
-            <h3>In-Class Polls</h3>
-            <p>Keep students engaged. Teachers can launch a poll or quiz instantly during the live lecture to check understanding.</p>
+    <section class="schedule-section-new">
+  <div class="container split-grid">
+    
+    <div class="reveal">
+      <h2>Smart Scheduling, <br><span>Zero Conflicts.</span></h2>
+      <p style="color: var(--text-muted); margin-bottom: 30px;">
+        Stop using spreadsheets. Our intelligent timetable engine automatically detects overlapping classes and suggests the best available slots for your teachers.
+      </p>
+      
+      <ul style="list-style: none; margin-bottom: 30px;">
+         <li style="display: flex; gap: 15px; margin-bottom: 20px;">
+            <div style="width: 40px; height: 40px; background: #e6fffa; border-radius: 50%; display: grid; place-items: center; color: #047857; flex-shrink: 0;">
+              <i class="fas fa-magic"></i>
+            </div>
+            <div>
+              <h4 style="font-size: 1rem; margin-bottom: 5px;">Auto-Conflict Detection</h4>
+              <p style="font-size: 0.9rem; color: #666; margin: 0;">Instantly warns you if a teacher or room is double-booked.</p>
+            </div>
+         </li>
+         
+         <li style="display: flex; gap: 15px;">
+            <div style="width: 40px; height: 40px; background: #fff0f0; border-radius: 50%; display: grid; place-items: center; color: #c0392b; flex-shrink: 0;">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div>
+              <h4 style="font-size: 1rem; margin-bottom: 5px;">Drag & Drop Builder</h4>
+              <p style="font-size: 0.9rem; color: #666; margin: 0;">Easily reschedule classes by dragging them to a new time slot.</p>
+            </div>
+         </li>
+      </ul>
+      
+      <a href="#" class="btn btn-primary" style="padding: 12px 30px; font-size: 0.9rem;">Try Auto-Scheduler</a>
+    </div>
+
+    <div class="reveal">
+      <div class="timeline-card">
+        
+        <div class="t-header">
+           <div style="font-weight: 700; color: #333; font-size: 1.1rem;">Monday Schedule</div>
+           <div class="t-day-selector">
+              <div class="t-day active">M</div>
+              <div class="t-day">T</div>
+              <div class="t-day">W</div>
+           </div>
+        </div>
+
+        <div class="time-row">
+           <div class="time-col">09:00</div>
+           <div class="class-card c-physics">
+              <div style="font-weight: 700; font-size: 0.9rem;">Physics (12-PCM)</div>
+              <div style="font-size: 0.75rem;">Room 101 • Live Lecture</div>
+           </div>
+        </div>
+
+        <div class="time-row">
+           <div class="time-col">10:30</div>
+           <div class="conflict-box">
+              
+              <div class="conflict-badge"><i class="fas fa-exclamation-triangle"></i> Conflict!</div>
+              
+              <div class="class-card c-math" style="opacity: 0.6;">
+                 <div style="font-weight: 700; font-size: 0.9rem;">Math (11-A)</div>
+                 <div style="font-size: 0.75rem;">Room 102</div>
+              </div>
+              <div class="class-card c-conflict">
+                 <div style="font-weight: 700; font-size: 0.9rem;">Chemistry (10-B)</div>
+                 <div style="font-size: 0.75rem;">Room 102 (Double Booked)</div>
+              </div>
+
+           </div>
+        </div>
+
+        <div class="time-row">
+           <div class="time-col">12:00</div>
+           <div class="class-card" style="background: #f8f9fa; color: #888; border-color: #ddd; border-style: dashed;">
+              <div style="font-weight: 600; font-size: 0.9rem;">Lunch Break</div>
+           </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+    <section class="access-section">
+      <div class="container split-grid">
+        <div class="reveal">
+          <div class="permission-card">
+  <div class="perm-header">
+    <div class="perm-avatar">JS</div>
+    <div>
+      <div style="font-weight: 700; color: #333;">Staff Role</div>
+      <div style="font-size: 0.8rem; color: #666;">Apply to: 4 Teachers</div>
+    </div>
+    <i class="fas fa-cog" style="margin-left: auto; color: #ccc;"></i>
+  </div>
+
+  <div class="perm-list">
+    <div class="perm-row">
+      <div>
+        <div class="perm-label">Mark Attendance</div>
+        <div class="perm-desc">Can edit student attendance</div>
+      </div>
+      <div class="toggle-switch active" onclick="toggleSwitch(this)">
+        <div class="toggle-knob"></div>
+      </div>
+    </div>
+
+    <div class="perm-row">
+      <div>
+        <div class="perm-label">Upload Content</div>
+        <div class="perm-desc">Add notes/videos to library</div>
+      </div>
+      <div class="toggle-switch active" onclick="toggleSwitch(this)">
+        <div class="toggle-knob"></div>
+      </div>
+    </div>
+
+    <div class="perm-row">
+      <div>
+        <div class="perm-label">View Fee Data</div>
+        <div class="perm-desc">See student payment history</div>
+      </div>
+      <div class="toggle-switch" id="fee-switch" onclick="toggleSwitch(this)">
+        <div class="toggle-knob"></div>
+      </div>
+    </div>
+
+    <div class="perm-row">
+      <div>
+        <div class="perm-label">Delete Students</div>
+        <div class="perm-desc">Remove records from database</div>
+      </div>
+      <div class="toggle-switch locked" onclick="toggleSwitch(this)">
+        <div class="toggle-knob"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="perm-footer" style="background: #fffbf5; padding: 12px; text-align: center; border-top: 1px solid #eee; font-size: 0.8rem; color: #f28482; font-weight: 600; transition: 0.3s;">
+    <i class="fas fa-lock"></i> Fee & Deletion Access Restricted
+  </div>
+</div>
+        </div>
+
+        <div class="reveal">
+          <h2>Give Power, <br /><span>Keep Control.</span></h2>
+          <p style="color: var(--text-muted); margin-bottom: 30px">
+            Not every teacher needs to see your financial records. Our granular
+            access control lets you define exactly what each staff member can
+            view or edit.
+          </p>
+
+          <div style="display: flex; gap: 20px; flex-direction: column">
+            <div style="display: flex; gap: 15px">
+              <div
+                style="
+                  background: #e3f2fd;
+                  width: 50px;
+                  height: 50px;
+                  border-radius: 12px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: #1565c0;
+                  flex-shrink: 0;
+                "
+              >
+                <i class="fas fa-user-shield" style="font-size: 1.2rem"></i>
+              </div>
+              <div>
+                <h4 style="font-size: 1rem; margin-bottom: 5px">
+                  Role-Based Access
+                </h4>
+                <p style="font-size: 0.9rem; color: #666; margin: 0">
+                  Create roles like "Senior Teacher", "Junior Staff", or "Guest"
+                  and assign permissions in bulk.
+                </p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 15px">
+              <div
+                style="
+                  background: #fff0f0;
+                  width: 50px;
+                  height: 50px;
+                  border-radius: 12px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: #c0392b;
+                  flex-shrink: 0;
+                "
+              >
+                <i class="fas fa-eye-slash" style="font-size: 1.2rem"></i>
+              </div>
+              <div>
+                <h4 style="font-size: 1rem; margin-bottom: 5px">
+                  Hide Sensitive Data
+                </h4>
+                <p style="font-size: 0.9rem; color: #666; margin: 0">
+                  Keep your revenue, expense reports, and student phone numbers
+                  hidden from temporary staff.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -355,159 +1542,140 @@
 
     <section class="doubt-section">
       <div class="container split-grid">
-         <div class="reveal">
-           <h2>Centralized <span>Doubt Hub.</span></h2>
-           <p style="color: var(--text-muted); margin-bottom: 30px;">
-             WhatsApp is messy. Our dedicated Doubt Portal lets teachers see questions from all batches in one place and reply with voice notes or images.
-           </p>
-           <ul style="list-style: none; margin-bottom: 30px;">
-              <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> <strong>Image Support:</strong> Students can snap a photo of a math problem.</li>
-              <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> <strong>Threaded Replies:</strong> Keep the conversation organized.</li>
-              <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> <strong>Voice Notes:</strong> Explain complex concepts quickly.</li>
-           </ul>
-         </div>
+        <div class="reveal">
+          <h2>Centralized <span>Doubt Hub.</span></h2>
+          <p style="color: var(--text-muted); margin-bottom: 30px">
+            WhatsApp is messy. Our dedicated Doubt Portal lets teachers see
+            questions from all batches in one place and reply with voice notes
+            or images.
+          </p>
+          <ul style="list-style: none; margin-bottom: 30px">
+            <li style="margin-bottom: 15px">
+              <i
+                class="fas fa-check-circle"
+                style="color: var(--primary-color)"
+              ></i>
+              <strong>Image Support:</strong> Students can snap a photo of a
+              math problem.
+            </li>
+            <li style="margin-bottom: 15px">
+              <i
+                class="fas fa-check-circle"
+                style="color: var(--primary-color)"
+              ></i>
+              <strong>Threaded Replies:</strong> Keep the conversation
+              organized.
+            </li>
+            <li style="margin-bottom: 15px">
+              <i
+                class="fas fa-check-circle"
+                style="color: var(--primary-color)"
+              ></i>
+              <strong>Voice Notes:</strong> Explain complex concepts quickly.
+            </li>
+          </ul>
+        </div>
 
-         <div class="chat-interface reveal">
-            <div class="chat-top">
-               <div style="width: 30px; height: 30px; background: rgba(255,255,255,0.2); border-radius: 50%;"></div>
-               <div>
-                  <div style="font-weight: 600; font-size: 0.9rem;">Doubt: Physics (Ch 2)</div>
-                  <div style="font-size: 0.7rem; opacity: 0.8;">Rahul • Class 11-A</div>
-               </div>
+        <div class="chat-interface reveal">
+          <div class="chat-top">
+            <div
+              style="
+                width: 30px;
+                height: 30px;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 50%;
+              "
+            ></div>
+            <div>
+              <div style="font-weight: 600; font-size: 0.9rem">
+                Doubt: Physics (Ch 2)
+              </div>
+              <div style="font-size: 0.7rem; opacity: 0.8">
+                Rahul • Class 11-A
+              </div>
             </div>
-            <div class="chat-msg">
-               <div class="bubble b-student">
-                  Sir, I don't understand the projectile motion formula. Can you explain?
-               </div>
-               <div class="bubble b-teacher">
-                  Sure Rahul. Think of it as two separate motions: vertical (gravity) and horizontal (constant velocity).
-               </div>
-               <div class="bubble b-teacher">
-                  <i class="fas fa-microphone"></i> Audio_Explainer.mp3 (0:45)
-               </div>
+          </div>
+          <div class="chat-msg">
+            <div class="bubble b-student">
+              Sir, I don't understand the projectile motion formula. Can you
+              explain?
             </div>
-         </div>
+            <div class="bubble b-teacher">
+              Sure Rahul. Think of it as two separate motions: vertical
+              (gravity) and horizontal (constant velocity).
+            </div>
+            <div class="bubble b-teacher">
+              <i class="fas fa-microphone"></i> Audio_Explainer.mp3 (0:45)
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="analytics-section">
-        <div class="container split-grid">
-            <div class="reveal">
-                <h2>Data-Driven <span>Teaching</span></h2>
-                <p style="color: var(--text-muted); margin-bottom: 30px;">
-                    Teachers get actionable insights. Identify weak students early and track syllabus coverage efficiently.
-                </p>
-                <div class="analytics-card">
-                    <div class="stat-bar">
-                        <div class="stat-header"><span>Syllabus Completed</span> <span>75%</span></div>
-                        <div class="bar-bg"><div class="bar-fill" style="width: 75%; background: #2ecc71;"></div></div>
-                    </div>
-                    <div class="stat-bar">
-                        <div class="stat-header"><span>Class Average</span> <span>68%</span></div>
-                        <div class="bar-bg"><div class="bar-fill" style="width: 68%; background: #f1c40f;"></div></div>
-                    </div>
-                    <div class="stat-bar">
-                        <div class="stat-header"><span>Assignment Submission</span> <span>92%</span></div>
-                        <div class="bar-bg"><div class="bar-fill" style="width: 92%; background: #3498db;"></div></div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="reveal">
-                 <div style="text-align: center; margin-bottom: 30px;">
-                     <i class="fas fa-folder-open" style="font-size: 4rem; color: var(--secondary-color); opacity: 0.2;"></i>
-                 </div>
-                 <h3>Content <span>Library</span></h3>
-                 <p style="color: var(--text-muted);">
-                     A personal digital locker for every teacher. Upload and organize:
-                 </p>
-                 <div class="features-grid" style="grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px;">
-                     <div class="feat-card" style="padding: 20px;">
-                         <i class="fas fa-file-pdf" style="font-size: 1.5rem; color: #e74c3c;"></i>
-                         <h5 style="margin-top: 10px;">Notes</h5>
-                     </div>
-                     <div class="feat-card" style="padding: 20px;">
-                         <i class="fas fa-video" style="font-size: 1.5rem; color: #3498db;"></i>
-                         <h5 style="margin-top: 10px;">Videos</h5>
-                     </div>
-                     <div class="feat-card" style="padding: 20px;">
-                         <i class="fas fa-flask" style="font-size: 1.5rem; color: #9b59b6;"></i>
-                         <h5 style="margin-top: 10px;">Q-Banks</h5>
-                     </div>
-                     <div class="feat-card" style="padding: 20px;">
-                         <i class="fas fa-link" style="font-size: 1.5rem; color: #2ecc71;"></i>
-                         <h5 style="margin-top: 10px;">Links</h5>
-                     </div>
-                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="work-section">
+    <section style="background: white">
       <div class="container">
-        <h2 style="text-align: center; margin-bottom: 50px;">Paperless <span>Assignments</span></h2>
-        
-        <div class="step-row reveal">
-           <div class="step-box">
-             <div class="step-num">1</div>
-             <div class="connector"></div>
-             <h4>Upload</h4>
-             <p style="font-size: 0.85rem; color: #666;">Teacher uploads the worksheet (PDF).</p>
-           </div>
-           
-           <div class="step-box">
-             <div class="step-num">2</div>
-             <div class="connector"></div>
-             <h4>Submit</h4>
-             <p style="font-size: 0.85rem; color: #666;">Student writes answers, scans, and uploads.</p>
-           </div>
+        <h2 style="text-align: center; margin-bottom: 20px">
+          Common Questions
+        </h2>
+        <div class="faq-grid reveal">
+          <div class="faq-item">
+            <h4>
+              <i
+                class="fas fa-question-circle"
+                style="color: var(--primary-color); margin-right: 8px"
+              ></i>
+              Can I restrict access?
+            </h4>
+            <p style="font-size: 0.9rem; color: #666">
+              Yes. You can control which teacher sees which batch's data. A
+              Chemistry teacher won't see Physics records.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>
+              <i
+                class="fas fa-question-circle"
+                style="color: var(--primary-color); margin-right: 8px"
+              ></i>
+              Does it work on Mobile?
+            </h4>
+            <p style="font-size: 0.9rem; color: #666">
+              Absolutely. We have a dedicated Teacher App (Android/iOS) for
+              managing everything on the go.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>
+              <i
+                class="fas fa-question-circle"
+                style="color: var(--primary-color); margin-right: 8px"
+              ></i>
+              Is there a storage limit?
+            </h4>
+            <p style="font-size: 0.9rem; color: #666">
+              No. Teachers can upload unlimited study material, assignments, and
+              recorded lectures.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>
+              <i
+                class="fas fa-question-circle"
+                style="color: var(--primary-color); margin-right: 8px"
+              ></i>
+              Can I track teacher attendance?
+            </h4>
+            <p style="font-size: 0.9rem; color: #666">
+              Yes, the Admin Dashboard allows you to track staff login times and
+              class durations.
+            </p>
+          </div>
+        </div>
 
-           <div class="step-box">
-             <div class="step-num">3</div>
-             <div class="connector"></div>
-             <h4>Annotate</h4>
-             <p style="font-size: 0.85rem; color: #666;">Teacher uses digital red pen to correct & grade.</p>
-           </div>
-
-           <div class="step-box">
-             <div class="step-num">4</div>
-             <h4>Notify</h4>
-             <p style="font-size: 0.85rem; color: #666;">Student gets notification with marks.</p>
-           </div>
+        <div style="text-align: center; margin-top: 60px">
+          <a href="index.html#pricing" class="btn btn-primary">Get Started</a>
         </div>
       </div>
-    </section>
-
-    <section style="background: white;">
-        <div class="container">
-            <h2 style="text-align: center; margin-bottom: 20px;">Common Questions</h2>
-            <div class="faq-grid reveal">
-                <div class="faq-item">
-                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Can I restrict access?</h4>
-                    <p style="font-size: 0.9rem; color: #666;">Yes. You can control which teacher sees which batch's data. A Chemistry teacher won't see Physics records.</p>
-                </div>
-                <div class="faq-item">
-                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Does it work on Mobile?</h4>
-                    <p style="font-size: 0.9rem; color: #666;">Absolutely. We have a dedicated Teacher App (Android/iOS) for managing everything on the go.</p>
-                </div>
-                <div class="faq-item">
-                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Is there a storage limit?</h4>
-                    <p style="font-size: 0.9rem; color: #666;">No. Teachers can upload unlimited study material, assignments, and recorded lectures.</p>
-                </div>
-                <div class="faq-item">
-                    <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Can I track teacher attendance?</h4>
-                    <p style="font-size: 0.9rem; color: #666;">Yes, the Admin Dashboard allows you to track staff login times and class durations.</p>
-                </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 60px;">
-                <a
-                  href="index.html#pricing"
-                  class="btn btn-primary"
-                  >Get Started</a
-                >
-            </div>
-        </div>
     </section>
 
     <div id="newsletter-section"></div>
@@ -517,12 +1685,113 @@
     <script src="footer.js"></script>
 
     <script>
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible");
-        });
-      }, { threshold: 0.1 });
-      document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObserver.observe(el));
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // --- Typing Effect Logic ---
+        const textElement = document.querySelector(".typing-cursor");
+        const words = ["Superpowers.", "Clarity.", "Efficiency.", "Control."];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 100;
+
+        function type() {
+          const currentWord = words[wordIndex];
+
+          if (isDeleting) {
+            // Remove a character
+            textElement.textContent = currentWord.substring(0, charIndex - 1);
+            charIndex--;
+            typeSpeed = 50; // Deleting is faster
+          } else {
+            // Add a character
+            textElement.textContent = currentWord.substring(0, charIndex + 1);
+            charIndex++;
+            typeSpeed = 100; // Typing speed
+          }
+
+          if (!isDeleting && charIndex === currentWord.length) {
+            // Finished typing word, pause before deleting
+            isDeleting = true;
+            typeSpeed = 2000;
+          } else if (isDeleting && charIndex === 0) {
+            // Finished deleting, switch to next word
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+            typeSpeed = 500;
+          }
+
+          setTimeout(type, typeSpeed);
+        }
+
+        // Start the typing effect
+        type();
+      });
     </script>
+    <script>
+      function switchTab(viewId, element) {
+        // 1. Hide all content views
+        const views = document.querySelectorAll(".rd-view");
+        views.forEach((view) => {
+          view.classList.remove("active-view");
+        });
+
+        // 2. Show the specific view that was clicked
+        const targetView = document.getElementById("view-" + viewId);
+        if (targetView) {
+          targetView.classList.add("active-view");
+        }
+
+        // 3. Update the sidebar "Active" styling
+        const menuItems = document.querySelectorAll(".rd-menu-item");
+        menuItems.forEach((item) => {
+          item.classList.remove("active");
+        });
+        element.classList.add("active");
+      }
+    </script>
+    <script>
+  function toggleSwitch(element) {
+    // 1. Handle Locked Buttons
+    if (element.classList.contains('locked')) {
+      // Add shake animation class
+      element.classList.add('shake-anim');
+      // Remove it after 300ms so it can trigger again
+      setTimeout(() => {
+        element.classList.remove('shake-anim');
+      }, 300);
+      return; // Stop here
+    }
+
+    // 2. Toggle Active State for normal buttons
+    element.classList.toggle('active');
+
+    // 3. Optional: Update Footer Text logic (Dynamic Feedback)
+    const feeSwitch = document.getElementById('fee-switch');
+    const footer = document.getElementById('perm-footer');
+    
+    // Check if "View Fee Data" is now active
+    if (feeSwitch && feeSwitch.classList.contains('active')) {
+      footer.style.backgroundColor = '#fff0f0';
+      footer.style.color = '#c0392b';
+      footer.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Warning: Sensitive Financial Data Exposed';
+    } else {
+      footer.style.backgroundColor = '#fffbf5';
+      footer.style.color = '#f28482';
+      footer.innerHTML = '<i class="fas fa-lock"></i> Fee & Deletion Access Restricted';
+    }
+  }
+</script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -29,8 +29,14 @@
       }
 
       /* --- Base & Reset --- */
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
       body {
         font-family: var(--font-family);
         background-color: var(--white);
@@ -40,10 +46,24 @@
       }
 
       /* --- Common Components --- */
-      section { padding: 100px 0; }
-      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-      h1, h2, h3, h4 { font-weight: 800; line-height: 1.2; }
-      span { color: var(--primary-color); }
+      section {
+        padding: 100px 0;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 800;
+        line-height: 1.2;
+      }
+      span {
+        color: var(--primary-color);
+      }
 
       .btn {
         display: inline-block;
@@ -60,12 +80,24 @@
         color: white;
         box-shadow: 0 4px 15px rgba(242, 132, 130, 0.3);
       }
-      .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4); }
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4);
+      }
 
-      .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
-      .reveal.visible { opacity: 1; transform: translateY(0); }
-      
-      .header-spacer { height: 80px; }
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: 0.8s ease-out;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .header-spacer {
+        height: 80px;
+      }
 
       /* --- Hero Section --- */
       .creator-hero {
@@ -73,198 +105,586 @@
         padding: 120px 0 80px;
         text-align: center;
       }
-      .creator-hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 25px; color: var(--secondary-color); }
-      .creator-hero p { font-size: 1.15rem; color: var(--text-muted); margin: 0 auto 40px; max-width: 700px; }
+      .creator-hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        margin-bottom: 25px;
+        color: var(--secondary-color);
+      }
+      .creator-hero p {
+        font-size: 1.15rem;
+        color: var(--text-muted);
+        margin: 0 auto 40px;
+        max-width: 700px;
+      }
 
       /* --- Comparison Visual (The "Trap") --- */
       .trap-container {
-        display: flex; gap: 30px; justify-content: center; margin-top: 60px; flex-wrap: wrap;
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        margin-top: 60px;
+        flex-wrap: wrap;
       }
-      
-      .trap-card {
-        background: white; border-radius: 20px; padding: 40px; width: 350px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.05); border: 1px solid #eee; position: relative;
-        text-align: left; transition: 0.3s;
-      }
-      .trap-card:hover { transform: translateY(-10px); }
-      
-      .platform-icon {
-        width: 60px; height: 60px; border-radius: 12px; display: grid; place-items: center;
-        font-size: 2rem; margin-bottom: 20px;
-      }
-      .icon-yt { background: #ffe6e6; color: var(--youtube-red); }
-      .icon-own { background: #e6fffa; color: var(--money-green); }
 
-      .stat-highlight { font-size: 2.5rem; font-weight: 800; margin: 15px 0 5px; }
-      .stat-sub { font-size: 0.9rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-      
+      .trap-card {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        width: 350px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+        border: 1px solid #eee;
+        position: relative;
+        text-align: left;
+        transition: 0.3s;
+      }
+      .trap-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .platform-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+      .icon-yt {
+        background: #ffe6e6;
+        color: var(--youtube-red);
+      }
+      .icon-own {
+        background: #e6fffa;
+        color: var(--money-green);
+      }
+
+      .stat-highlight {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin: 15px 0 5px;
+      }
+      .stat-sub {
+        font-size: 0.9rem;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+
       .arrow-connector {
-        display: flex; align-items: center; font-size: 2rem; color: #ccc;
+        display: flex;
+        align-items: center;
+        font-size: 2rem;
+        color: #ccc;
       }
 
       /* --- Freedom Grid --- */
-      .freedom-section { background: white; }
-      .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-      
+      .freedom-section {
+        background: white;
+      }
+      .split-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+
       .algorithm-visual {
-        background: #3d405b; border-radius: 20px; padding: 40px; color: white;
-        position: relative; overflow: hidden;
+        background: #3d405b;
+        border-radius: 20px;
+        padding: 40px;
+        color: white;
+        position: relative;
+        overflow: hidden;
       }
       .algo-graph {
-        display: flex; align-items: flex-end; gap: 10px; height: 150px; margin-top: 30px;
+        display: flex;
+        align-items: flex-end;
+        gap: 10px;
+        height: 150px;
+        margin-top: 30px;
       }
-      .bar { width: 100%; background: rgba(255,255,255,0.2); border-radius: 4px; animation: bounce 2s infinite; }
-      .bar:nth-child(2) { height: 40%; }
-      .bar:nth-child(3) { height: 80%; background: var(--primary-color); }
-      .bar:nth-child(4) { height: 30%; }
-      
-      @keyframes bounce { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.1); } }
+      .bar {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        animation: bounce 2s infinite;
+      }
+      .bar:nth-child(2) {
+        height: 40%;
+      }
+      .bar:nth-child(3) {
+        height: 80%;
+        background: var(--primary-color);
+      }
+      .bar:nth-child(4) {
+        height: 30%;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: scaleY(1);
+        }
+        50% {
+          transform: scaleY(1.1);
+        }
+      }
 
       /* --- Features Grid --- */
-      .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px; }
-      .feat-card {
-        padding: 30px; border-radius: 16px; background: white; border: 1px solid #eee; transition: 0.3s;
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 60px;
       }
-      .feat-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
-      .feat-icon { font-size: 2rem; color: var(--primary-color); margin-bottom: 20px; }
-      .feat-card h3 { margin-bottom: 10px; color: var(--secondary-color); }
-      .feat-card p { font-size: 0.95rem; color: var(--text-muted); }
+      .feat-card {
+        padding: 30px;
+        border-radius: 16px;
+        background: white;
+        border: 1px solid #eee;
+        transition: 0.3s;
+      }
+      .feat-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary-color);
+      }
+      .feat-icon {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+      }
+      .feat-card h3 {
+        margin-bottom: 10px;
+        color: var(--secondary-color);
+      }
+      .feat-card p {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+      }
 
       /* --- Social Proof Mockup --- */
-      .social-proof-section { background: var(--bg-light); text-align: center; }
+      .social-proof-section {
+        background: var(--bg-light);
+        text-align: center;
+      }
       .tweet-mockup {
-        background: white; padding: 30px; border-radius: 16px; text-align: left;
-        max-width: 600px; margin: 40px auto 0; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        text-align: left;
+        max-width: 600px;
+        margin: 40px auto 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         border: 1px solid #eee;
       }
-      .user-row { display: flex; gap: 15px; margin-bottom: 15px; }
-      .avatar { width: 50px; height: 50px; background: #ddd; border-radius: 50%; }
-      
+      .user-row {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+      .avatar {
+        width: 50px;
+        height: 50px;
+        background: #ddd;
+        border-radius: 50%;
+      }
+
       /* --- Mobile Responsive --- */
       @media (max-width: 992px) {
-        .trap-container { flex-direction: column; align-items: center; }
-        .arrow-connector { transform: rotate(90deg); margin: 20px 0; }
-        .split-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
-        .features-grid { grid-template-columns: 1fr; }
-        .hero-grid { text-align: center; }
+        .trap-container {
+          flex-direction: column;
+          align-items: center;
+        }
+        .arrow-connector {
+          transform: rotate(90deg);
+          margin: 20px 0;
+        }
+        .split-grid {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 40px;
+        }
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-grid {
+          text-align: center;
+        }
       }
+
+
+      /* Update grid to support 4 columns */
+.features-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Tablet: 2 rows of 2 */
+@media (max-width: 1100px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: Single column */
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* --- NEW: Income Stack Section --- */
+.income-section { background: white; }
+
+.income-box {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  border: 1px solid #eee;
+  position: relative;
+}
+/* The visual "stack" effect behind the box */
+.income-box::before {
+  content: ''; position: absolute; top: -10px; left: 20px; right: 20px; bottom: 10px;
+  background: #f0f0f0; border-radius: 20px; z-index: -1;
+}
+.income-box::after {
+  content: ''; position: absolute; top: -20px; left: 40px; right: 40px; bottom: 20px;
+  background: #e0e0e0; border-radius: 20px; z-index: -2;
+}
+
+.stack-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 15px 0; border-bottom: 1px dashed #ddd; font-size: 1.1rem;
+}
+.stack-row:last-child {
+  border-bottom: none;
+  border-top: 3px solid #3d405b;
+  padding-top: 20px;
+  margin-top: 10px;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--money-green);
+}
+.stack-label i { width: 30px; color: var(--primary-color); }
+.stack-val { font-weight: 600; color: #3d405b; }
+
+
+/* --- NEW: Launch Timeline --- */
+.launch-section { background: var(--bg-light); text-align: center; }
+
+.launch-steps {
+  display: flex; justify-content: center; gap: 30px; margin-top: 50px; flex-wrap: wrap;
+}
+.step-card {
+  background: white; padding: 30px 25px; border-radius: 16px; width: 300px;
+  text-align: center; position: relative; border: 1px solid #eee;
+  transition: 0.3s;
+}
+.step-card:hover { transform: translateY(-10px); border-color: var(--primary-color); }
+
+.step-badge {
+  background: var(--secondary-color); color: white;
+  width: 50px; height: 50px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 700; font-size: 1.2rem;
+  margin: 0 auto 20px; box-shadow: 0 5px 15px rgba(61, 64, 91, 0.3);
+}
+
+
+/* --- NEW: FAQ Section --- */
+.faq-section { background: white; }
+.faq-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px;
+}
+.faq-item {
+  background: #f8f9fa; padding: 25px; border-radius: 15px; border: 1px solid #eee;
+}
+.faq-item h4 { margin-bottom: 10px; color: var(--secondary-color); }
+
+/* Mobile Fix */
+@media (max-width: 768px) {
+  .faq-grid { grid-template-columns: 1fr; }
+  .launch-steps { flex-direction: column; align-items: center; }
+}
     </style>
   </head>
   <body>
-
     <header></header>
     <script src="header.js"></script>
-    <div class="header-spacer"></div>
 
     <section class="creator-hero">
       <div class="container">
         <div class="reveal">
-          <span style="background: #fff0f0; padding: 6px 15px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: inline-block; margin-bottom: 20px;">
+          <span
+            style="
+              background: #fff0f0;
+              padding: 6px 15px;
+              border-radius: 20px;
+              font-weight: 700;
+              font-size: 0.85rem;
+              display: inline-block;
+              margin-bottom: 20px;
+            "
+          >
             <i class="fas fa-video"></i> For Creators & Influencers
           </span>
-          <h1>Stop Renting <br><span>Your Audience.</span></h1>
+          <h1>Stop Renting <br /><span>Your Audience.</span></h1>
           <p>
-            YouTube and Instagram own your followers. The Algorithm controls your income. 
-            Take back control by launching your own platform where <strong>you make the rules.</strong>
+            YouTube and Instagram own your followers. The Algorithm controls
+            your income. Take back control by launching your own platform where
+            <strong>you make the rules.</strong>
           </p>
         </div>
 
         <div class="trap-container reveal">
-           <div class="trap-card">
-              <div class="platform-icon icon-yt"><i class="fab fa-youtube"></i></div>
-              <h3>Ad Revenue</h3>
-              <div class="stat-highlight" style="color: #666;">$500</div>
-              <div class="stat-sub">From 1 Million Views</div>
-              <p style="font-size: 0.9rem; margin-top: 15px; color: #888;">Requires massive viral luck. Unstable monthly income.</p>
-           </div>
-           
-           <div class="arrow-connector"><i class="fas fa-angle-right"></i></div>
+          <div class="trap-card">
+            <div class="platform-icon icon-yt">
+              <i class="fab fa-youtube"></i>
+            </div>
+            <h3>Ad Revenue</h3>
+            <div class="stat-highlight" style="color: #666">$500</div>
+            <div class="stat-sub">From 1 Million Views</div>
+            <p style="font-size: 0.9rem; margin-top: 15px; color: #888">
+              Requires massive viral luck. Unstable monthly income.
+            </p>
+          </div>
 
-           <div class="trap-card" style="border-color: var(--money-green);">
-              <div class="platform-icon icon-own"><i class="fas fa-university"></i></div>
-              <h3>Your Course</h3>
-              <div class="stat-highlight" style="color: var(--money-green);">$50,000</div>
-              <div class="stat-sub">From 1,000 Students</div>
-              <p style="font-size: 0.9rem; margin-top: 15px; color: #888;">Requires only 1% of your audience to buy a $50 course.</p>
-           </div>
+          <div class="arrow-connector"><i class="fas fa-angle-right"></i></div>
+
+          <div class="trap-card" style="border-color: var(--money-green)">
+            <div class="platform-icon icon-own">
+              <i class="fas fa-university"></i>
+            </div>
+            <h3>Your Course</h3>
+            <div class="stat-highlight" style="color: var(--money-green)">
+              $50,000
+            </div>
+            <div class="stat-sub">From 1,000 Students</div>
+            <p style="font-size: 0.9rem; margin-top: 15px; color: #888">
+              Requires only 1% of your audience to buy a $50 course.
+            </p>
+          </div>
         </div>
-
       </div>
     </section>
 
     <section class="freedom-section">
       <div class="container split-grid">
-         <div class="reveal">
-           <h2>Algorithm <span>Proof.</span></h2>
-           <p style="color: var(--text-muted); margin-bottom: 30px;">
-             One bad month on YouTube can kill your income. When you own the platform, you own the email list and phone numbers. Reach 100% of your audience, every time.
-           </p>
-           <ul style="list-style: none; margin-bottom: 30px;">
-              <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> <strong>Direct Access:</strong> Send push notifications directly to their pockets.</li>
-              <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> <strong>No Demonetization:</strong> You decide what content is safe for your brand.</li>
-           </ul>
-           <a href="index.html#pricing" class="btn btn-primary">Build My Platform</a>
-         </div>
+        <div class="reveal">
+          <h2>Algorithm <span>Proof.</span></h2>
+          <p style="color: var(--text-muted); margin-bottom: 30px">
+            One bad month on YouTube can kill your income. When you own the
+            platform, you own the email list and phone numbers. Reach 100% of
+            your audience, every time.
+          </p>
+          <ul style="list-style: none; margin-bottom: 30px">
+            <li style="margin-bottom: 15px">
+              <i
+                class="fas fa-check-circle"
+                style="color: var(--primary-color)"
+              ></i>
+              <strong>Direct Access:</strong> Send push notifications directly
+              to their pockets.
+            </li>
+            <li style="margin-bottom: 15px">
+              <i
+                class="fas fa-check-circle"
+                style="color: var(--primary-color)"
+              ></i>
+              <strong>No Demonetization:</strong> You decide what content is
+              safe for your brand.
+            </li>
+          </ul>
+          <a href="index.html#pricing" class="btn btn-primary"
+            >Build My Platform</a
+          >
+        </div>
 
-         <div class="algorithm-visual reveal">
-            <h3 style="color: white; margin-bottom: 5px;">Your Monthly Revenue</h3>
-            <small style="opacity: 0.7;">Consistent Recurring Income</small>
-            
-            <div class="algo-graph">
-               <div class="bar" style="height: 30%;"></div>
-               <div class="bar" style="height: 45%;"></div>
-               <div class="bar" style="height: 60%;"></div>
-               <div class="bar" style="height: 50%;"></div>
-               <div class="bar" style="height: 75%; background: var(--money-green);"></div>
-               <div class="bar" style="height: 85%; background: var(--money-green);"></div>
-               <div class="bar" style="height: 95%; background: var(--money-green);"></div>
-            </div>
-         </div>
-      </div>
-    </section>
+        <div class="algorithm-visual reveal">
+          <h3 style="color: white; margin-bottom: 5px">Your Monthly Revenue</h3>
+          <small style="opacity: 0.7">Consistent Recurring Income</small>
 
-    <section style="background: var(--bg-light);">
-      <div class="container">
-        <div class="features-grid">
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-users"></i></div>
-            <h3>Community</h3>
-            <p>Create a private space for your superfans. Host exclusive Q&A sessions and member-only chats away from the trolls.</p>
-          </div>
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-file-download"></i></div>
-            <h3>Digital Products</h3>
-            <p>Sell more than just video courses. Sell eBooks, presets, templates, and merchandise with 0% commission.</p>
-          </div>
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-fingerprint"></i></div>
-            <h3>White-Label</h3>
-            <p>Your Logo. Your Colors. Your Domain. Remove all ERPLI branding so your fans only see YOU.</p>
+          <div class="algo-graph">
+            <div class="bar" style="height: 30%"></div>
+            <div class="bar" style="height: 45%"></div>
+            <div class="bar" style="height: 60%"></div>
+            <div class="bar" style="height: 50%"></div>
+            <div
+              class="bar"
+              style="height: 75%; background: var(--money-green)"
+            ></div>
+            <div
+              class="bar"
+              style="height: 85%; background: var(--money-green)"
+            ></div>
+            <div
+              class="bar"
+              style="height: 95%; background: var(--money-green)"
+            ></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="social-proof-section">
+
+    
+    <section style="background: var(--bg-light)">
       <div class="container">
-         <h2 class="reveal">Creators love <span>ERPLI</span></h2>
-         
-         <div class="tweet-mockup reveal">
-            <div class="user-row">
-               <div class="avatar"></div>
-               <div>
-                  <div style="font-weight: 700; color: #333;">Tech With Rahul</div>
-                  <div style="font-size: 0.9rem; color: #888;">@techrahul • 1.2M Subs</div>
-               </div>
-               <div style="margin-left: auto; color: #1da1f2;"><i class="fab fa-twitter"></i></div>
-            </div>
-            <p style="font-size: 1.1rem; color: #333; line-height: 1.5;">
-               Finally launched my own app using ERPLI! 🚀 The best part? I made more in one week of selling my Python course than I made in 2 years of YouTube AdSense. Ownership is everything. #CreatorEconomy
+        <div class="features-grid">
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-users"></i></div>
+            <h3>Community</h3>
+            <p>
+              Create a private space for your superfans. Host exclusive Q&A
+              sessions and member-only chats away from the trolls.
             </p>
-            <div style="margin-top: 15px; font-size: 0.9rem; color: #888;">
-               10:24 AM • 12 Jan 2026
+          </div>
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-file-download"></i></div>
+            <h3>Digital Products</h3>
+            <p>
+              Sell more than just video courses. Sell eBooks, presets,
+              templates, and merchandise with 0% commission.
+            </p>
+          </div>
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-fingerprint"></i></div>
+            <h3>White-Label</h3>
+            <p>
+              Your Logo. Your Colors. Your Domain. Remove all ERPLI branding so
+              your fans only see YOU.
+            </p>
+          </div>
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-tshirt"></i></div>
+            <h3>Branded Merchandise</h3>
+            <p>Turn your brand into physical products. Design and sell custom hoodies, mugs, and notebooks directly from your portal. No inventory needed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="income-section">
+      <div class="container split-grid">
+         
+         <div class="reveal">
+            <h2>The Income <span>Stack.</span></h2>
+            <p style="color: var(--text-muted); margin-bottom: 25px;">
+              Why rely on just one paycheck? With ERPLI, you can stack multiple revenue streams on a single platform. A small loyal audience pays more than a large passive one.
+            </p>
+            <ul style="list-style: none;">
+               <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--money-green); margin-right: 10px;"></i> <strong>Zero Platform Fees:</strong> We don't take a % of your sales.</li>
+               <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--money-green); margin-right: 10px;"></i> <strong>Instant Payouts:</strong> Money goes directly to your Stripe/PayPal.</li>
+            </ul>
+         </div>
+
+         <div class="reveal">
+            <div class="income-box">
+               <div style="text-align: center; margin-bottom: 20px; font-weight: 700; color: #888; text-transform: uppercase; font-size: 0.8rem;">Monthly Earnings Snapshot</div>
+               
+               <div class="stack-row">
+                  <div class="stack-label"><i class="fas fa-play-circle"></i> Course Sales</div>
+                  <div class="stack-val">$4,500</div>
+               </div>
+               <div class="stack-row">
+                  <div class="stack-label"><i class="fas fa-file-pdf"></i> E-Books & PDF</div>
+                  <div class="stack-val">$1,200</div>
+               </div>
+               <div class="stack-row">
+                  <div class="stack-label"><i class="fas fa-users"></i> Paid Community</div>
+                  <div class="stack-val">$2,800</div>
+               </div>
+               <div class="stack-row">
+                  <div class="stack-label"><i class="fas fa-tshirt"></i> Merchandise</div>
+                  <div class="stack-val">$850</div>
+               </div>
+               
+               <div class="stack-row">
+                  <div class="stack-label">TOTAL REVENUE</div>
+                  <div class="stack-val">$9,350</div>
+               </div>
             </div>
          </div>
+
+      </div>
+    </section>
+
+    <section class="launch-section">
+       <div class="container reveal">
+          <h2>Launch in <span>3 Days.</span></h2>
+          <p style="max-width: 600px; margin: 0 auto; color: var(--text-muted);">
+            You don't need a dev team. Our drag-and-drop builder is designed for creators who want to move fast.
+          </p>
+          
+          <div class="launch-steps">
+             <div class="step-card">
+                <div class="step-badge">1</div>
+                <h4>Day 1: Brand It</h4>
+                <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
+                   Connect your custom domain, upload your logo, and choose your theme colors.
+                </p>
+             </div>
+
+             <div class="step-card">
+                <div class="step-badge">2</div>
+                <h4>Day 2: Upload</h4>
+                <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
+                   Bulk upload your video files, PDFs, or digital assets. Set your prices.
+                </p>
+             </div>
+
+             <div class="step-card">
+                <div class="step-badge">3</div>
+                <h4>Day 3: Launch</h4>
+                <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
+                   Share the link on your Social Media and watch the sales roll in.
+                </p>
+             </div>
+          </div>
+       </div>
+    </section>
+
+    <section class="faq-section">
+      <div class="container">
+        <h2 style="text-align: center; margin-bottom: 20px;">Common Questions</h2>
+        <div class="faq-grid reveal">
+          
+          <div class="faq-item">
+            <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Who owns the audience data?</h4>
+            <p style="font-size: 0.9rem; color: #666;">
+              <strong>You do.</strong> Unlike YouTube/Instagram, you get the email, phone number, and name of every student. You can export this data anytime.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Can I integrate with YouTube?</h4>
+            <p style="font-size: 0.9rem; color: #666;">
+              Yes. You can embed YouTube live streams (Unlisted) directly into your secure courses for member-only viewing.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> How do payouts work?</h4>
+            <p style="font-size: 0.9rem; color: #666;">
+              We integrate with Stripe and PayPal. Payments go directly to your bank account instantly or weekly, depending on your settings.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h4><i class="fas fa-question-circle" style="color: var(--primary-color); margin-right: 8px;"></i> Is video hosting included?</h4>
+            <p style="font-size: 0.9rem; color: #666;">
+              Yes! We provide unlimited high-speed video hosting with piracy protection (preventing downloads).
+            </p>
+          </div>
+
+        </div>
+        
+        <div style="text-align: center; margin-top: 60px;">
+           <a href="index.html#pricing" class="btn btn-primary">Start Your Platform</a>
+        </div>
       </div>
     </section>
 
@@ -275,12 +695,17 @@
     <script src="footer.js"></script>
 
     <script>
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible");
-        });
-      }, { threshold: 0.1 });
-      document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObserver.observe(el));
     </script>
   </body>
 </html>

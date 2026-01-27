@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -27,8 +27,14 @@
       }
 
       /* --- Base & Reset --- */
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
       body {
         font-family: var(--font-family);
         background-color: var(--white);
@@ -36,10 +42,16 @@
         line-height: 1.6;
       }
 
-      .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-      
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
       /* --- Header Spacer --- */
-      .header-spacer { height: 80px; }
+      .header-spacer {
+        height: 80px;
+      }
 
       /* --- Hero Search Section --- */
       .help-hero {
@@ -48,8 +60,17 @@
         text-align: center;
         border-bottom: 1px solid #eee;
       }
-      .help-hero h1 { font-size: 2.5rem; margin-bottom: 15px; color: var(--secondary-color); font-weight: 800; }
-      .help-hero p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 40px; }
+      .help-hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        color: var(--secondary-color);
+        font-weight: 800;
+      }
+      .help-hero p {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        margin-bottom: 40px;
+      }
 
       /* Search Bar */
       .search-wrapper {
@@ -66,7 +87,7 @@
         outline: none;
         transition: 0.3s;
         font-family: inherit;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
       }
       .search-wrapper input:focus {
         border-color: var(--primary-color);
@@ -98,24 +119,44 @@
         border-radius: 20px;
         text-align: center;
         border: 1px solid #eee;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
         transition: 0.3s;
       }
-      .support-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
-      
+      .support-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary-color);
+      }
+
       .support-icon {
-        width: 70px; height: 70px;
+        width: 70px;
+        height: 70px;
         background: var(--bg-light);
         color: var(--primary-color);
         border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 1.8rem;
         margin: 0 auto 20px;
       }
-      .support-card h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--secondary-color); }
-      .support-card p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px; }
-      .support-link { color: var(--primary-color); font-weight: 700; text-decoration: none; }
-      .support-link:hover { text-decoration: underline; }
+      .support-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: var(--secondary-color);
+      }
+      .support-card p {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        margin-bottom: 20px;
+      }
+      .support-link {
+        color: var(--primary-color);
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .support-link:hover {
+        text-decoration: underline;
+      }
 
       /* --- Contact Form Section --- */
       .contact-section {
@@ -129,9 +170,16 @@
         align-items: start;
       }
 
-      .contact-info h2 { font-size: 2.2rem; margin-bottom: 20px; color: var(--secondary-color); }
-      .contact-info p { margin-bottom: 30px; color: var(--text-muted); }
-      
+      .contact-info h2 {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+        color: var(--secondary-color);
+      }
+      .contact-info p {
+        margin-bottom: 30px;
+        color: var(--text-muted);
+      }
+
       .contact-detail-item {
         display: flex;
         gap: 15px;
@@ -139,10 +187,13 @@
         align-items: center;
       }
       .contact-detail-icon {
-        width: 40px; height: 40px;
+        width: 40px;
+        height: 40px;
         background: #f0f0f0;
         border-radius: 8px;
-        display: flex; align-items: center; justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: var(--secondary-color);
       }
 
@@ -153,8 +204,15 @@
         border-radius: 24px;
         border: 1px solid #eee;
       }
-      .form-group { margin-bottom: 20px; }
-      .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
       .form-control {
         width: 100%;
         padding: 12px 15px;
@@ -164,9 +222,14 @@
         font-size: 1rem;
         outline: none;
       }
-      .form-control:focus { border-color: var(--primary-color); }
-      
-      textarea.form-control { resize: vertical; min-height: 120px; }
+      .form-control:focus {
+        border-color: var(--primary-color);
+      }
+
+      textarea.form-control {
+        resize: vertical;
+        min-height: 120px;
+      }
 
       .btn-submit {
         background: var(--secondary-color);
@@ -180,33 +243,51 @@
         font-size: 1rem;
         transition: 0.3s;
       }
-      .btn-submit:hover { background: #2a2d45; transform: translateY(-2px); }
+      .btn-submit:hover {
+        background: #2a2d45;
+        transform: translateY(-2px);
+      }
 
       /* Footer */
-      .main-footer { padding: 40px 0; text-align: center; border-top: 1px solid #eee; color: #666; font-size: 0.9rem; }
+      .main-footer {
+        padding: 40px 0;
+        text-align: center;
+        border-top: 1px solid #eee;
+        color: #666;
+        font-size: 0.9rem;
+      }
 
       /* Mobile */
       @media (max-width: 900px) {
-        .support-grid { grid-template-columns: 1fr; margin-top: 40px; }
-        .split-layout { grid-template-columns: 1fr; gap: 40px; }
-        .help-hero h1 { font-size: 2rem; }
+        .support-grid {
+          grid-template-columns: 1fr;
+          margin-top: 40px;
+        }
+        .split-layout {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .help-hero h1 {
+          font-size: 2rem;
+        }
       }
     </style>
   </head>
   <body>
-
     <header></header>
     <script src="header.js"></script>
-    <div class="header-spacer"></div>
 
     <section class="help-hero">
       <div class="container">
         <h1>How can we help you?</h1>
         <p>Search our knowledge base or get in touch with our team.</p>
-        
+
         <div class="search-wrapper">
           <i class="fas fa-search search-icon"></i>
-          <input type="text" placeholder="Type a question (e.g., 'How to reset password')" />
+          <input
+            type="text"
+            placeholder="Type a question (e.g., 'How to reset password')"
+          />
         </div>
       </div>
     </section>
@@ -216,7 +297,10 @@
         <div class="support-card">
           <div class="support-icon"><i class="fas fa-book"></i></div>
           <h3>Documentation</h3>
-          <p>Browse step-by-step guides on how to use the ERPLI platform effectively.</p>
+          <p>
+            Browse step-by-step guides on how to use the ERPLI platform
+            effectively.
+          </p>
           <a href="#" class="support-link">View Guides &rarr;</a>
         </div>
 
@@ -228,53 +312,96 @@
         </div>
 
         <div class="support-card">
-          <div class="support-icon"><i class="fas fa-envelope-open-text"></i></div>
+          <div class="support-icon">
+            <i class="fas fa-envelope-open-text"></i>
+          </div>
           <h3>Email Support</h3>
-          <p>Prefer email? Send us a detailed message and we'll reply within 24 hours.</p>
-          <a href="mailto:support@erpli.com" class="support-link">support@erpli.com</a>
+          <p>
+            Prefer email? Send us a detailed message and we'll reply within 24
+            hours.
+          </p>
+          <a href="mailto:support@erpli.com" class="support-link"
+            >support@erpli.com</a
+          >
         </div>
       </div>
     </div>
 
     <section class="contact-section">
       <div class="container split-layout">
-        
         <div class="contact-info">
-          <h2>Still stuck? <br><span>Send a ticket.</span></h2>
-          <p>If you couldn't find the answer in our documentation, fill out the form and our technical team will look into it.</p>
-          
+          <h2>Still stuck? <br /><span>Send a ticket.</span></h2>
+          <p>
+            If you couldn't find the answer in our documentation, fill out the
+            form and our technical team will look into it.
+          </p>
+
           <div class="contact-detail-item">
-            <div class="contact-detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="contact-detail-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
             <div>
-              <strong>Headquarters</strong><br>
-              <span style="font-size: 0.9rem; color: #666;">Sector 62, Noida, India</span>
+              <strong>Headquarters</strong><br />
+              <span style="font-size: 0.9rem; color: #666"
+                >Sector 62, Noida, India</span
+              >
             </div>
           </div>
 
           <div class="contact-detail-item">
-            <div class="contact-detail-icon"><i class="fas fa-phone-alt"></i></div>
+            <div class="contact-detail-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
             <div>
-              <strong>Phone Support</strong><br>
-              <span style="font-size: 0.9rem; color: #666;">+91 987 654 3210</span>
+              <strong>Phone Support</strong><br />
+              <span style="font-size: 0.9rem; color: #666"
+                >+91 987 654 3210</span
+              >
             </div>
           </div>
 
-          <div style="margin-top: 30px; padding: 20px; background: #fff0f0; border-radius: 12px; border-left: 4px solid #f28482;">
+          <div
+            style="
+              margin-top: 30px;
+              padding: 20px;
+              background: #fff0f0;
+              border-radius: 12px;
+              border-left: 4px solid #f28482;
+            "
+          >
             <strong><i class="fas fa-info-circle"></i> Note:</strong>
-            <p style="margin: 5px 0 0; font-size: 0.85rem; color: #555;">Existing customers, please include your Institute ID in the subject for faster resolution.</p>
+            <p style="margin: 5px 0 0; font-size: 0.85rem; color: #555">
+              Existing customers, please include your Institute ID in the
+              subject for faster resolution.
+            </p>
           </div>
         </div>
 
         <div class="form-box">
-          <form onsubmit="alert('Message sent! We will contact you shortly.'); return false;">
+          <form
+            onsubmit="
+              alert('Message sent! We will contact you shortly.');
+              return false;
+            "
+          >
             <div class="form-group">
               <label>Your Name</label>
-              <input type="text" class="form-control" placeholder="John Doe" required>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="John Doe"
+                required
+              />
             </div>
-            
+
             <div class="form-group">
               <label>Email Address</label>
-              <input type="email" class="form-control" placeholder="john@academy.com" required>
+              <input
+                type="email"
+                class="form-control"
+                placeholder="john@academy.com"
+                required
+              />
             </div>
 
             <div class="form-group">
@@ -289,13 +416,16 @@
 
             <div class="form-group">
               <label>Message</label>
-              <textarea class="form-control" placeholder="Describe your issue in detail..." required></textarea>
+              <textarea
+                class="form-control"
+                placeholder="Describe your issue in detail..."
+                required
+              ></textarea>
             </div>
 
             <button type="submit" class="btn-submit">Send Message</button>
           </form>
         </div>
-
       </div>
     </section>
     <div id="newsletter-section"></div>

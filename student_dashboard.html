@@ -226,13 +226,127 @@
         .hero-grid { text-align: center; }
         .gamification-grid { grid-template-columns: 1fr; }
       }
+      /* --- Interactive Student Views --- */
+.stu-view {
+  display: none; /* Hidden by default */
+  animation: fadeIn 0.4s ease-out;
+  height: 100%;
+}
+.stu-view.active-view {
+  display: block; /* Show active */
+}
+
+/* Course Card Style */
+.course-card {
+  background: white; border: 1px solid #eee; padding: 15px; 
+  border-radius: 12px; margin-bottom: 12px; 
+  display: flex; align-items: center; gap: 15px;
+  transition: 0.2s; cursor: pointer;
+}
+.course-card:hover { border-color: var(--primary-color); transform: translateX(3px); }
+
+.course-icon { 
+  width: 45px; height: 45px; border-radius: 10px; 
+  display: grid; place-items: center; font-size: 1.1rem; 
+}
+
+/* Result Row Style */
+.result-row { 
+  display: flex; justify-content: space-between; padding: 15px; 
+  background: white; border: 1px solid #eee; border-radius: 10px; 
+  margin-bottom: 10px; align-items: center; 
+}
+/* Update .tablet-device to allow smooth movement */
+.tablet-device {
+    /* ... keep your existing properties ... */
+    
+    /* Add these lines: */
+    transition: transform 0.1s ease-out; /* Smooths the mouse follow */
+    will-change: transform; /* Optimizes performance */
+    transform-style: preserve-3d; /* Improves 3D depth */
+}
+
+/* Optional: Add depth to the internal UI */
+.stu-ui {
+    transform: translateZ(20px); /* Pushes screen content forward slightly */
+}
+
+/* --- NEW: Student Store Section --- */
+.store-section { background: white; }
+
+.product-card {
+  background: white; border: 1px solid #eee; border-radius: 16px;
+  overflow: hidden; transition: 0.3s; position: relative;
+}
+.product-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+
+.prod-img-box {
+  height: 180px; background: #f8f9fa; display: grid; place-items: center;
+  font-size: 3rem; color: #ddd; position: relative;
+}
+.prod-details { padding: 20px; }
+.prod-price { font-size: 1.2rem; font-weight: 800; color: #3d405b; margin-top: 10px; }
+.prod-tag {
+  position: absolute; top: 15px; left: 15px;
+  background: white; padding: 4px 10px; border-radius: 20px;
+  font-size: 0.75rem; font-weight: 700; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.btn-sm {
+  padding: 8px 20px; font-size: 0.85rem; border-radius: 30px;
+  background: var(--bg-light); color: var(--secondary-color);
+  font-weight: 600; text-decoration: none; display: inline-block; margin-top: 15px;
+  transition: 0.2s;
+}
+.product-card:hover .btn-sm { background: var(--secondary-color); color: white; }
+
+
+/* --- NEW: Live Class & Mentorship Visuals --- */
+.live-mentor-section { background: var(--bg-light); }
+
+/* Live Class Mockup */
+.live-mockup {
+  background: #222; border-radius: 12px; overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15); position: relative;
+  aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;
+}
+.live-badge {
+  position: absolute; top: 15px; left: 15px;
+  background: #e74c3c; color: white; padding: 5px 12px;
+  border-radius: 4px; font-weight: 700; font-size: 0.8rem;
+  display: flex; align-items: center; gap: 6px;
+  animation: pulse-red 1.5s infinite;
+}
+@keyframes pulse-red {
+  0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; }
+}
+
+/* Mentorship Card */
+.mentor-card {
+  background: white; padding: 25px; border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.05); border: 1px solid #eee;
+  text-align: center; max-width: 350px; margin: 0 auto;
+}
+.m-avatar {
+  width: 80px; height: 80px; margin: 0 auto 15px;
+  background: #e3f2fd; border-radius: 50%;
+  display: grid; place-items: center; font-size: 1.5rem; color: #1565c0;
+}
+.slot-pill {
+  display: inline-block; padding: 6px 12px; border-radius: 8px;
+  border: 1px solid #eee; font-size: 0.8rem; color: #666; margin: 5px;
+  cursor: pointer; transition: 0.2s;
+}
+.slot-pill:hover, .slot-pill.selected {
+  background: var(--secondary-color); color: white; border-color: var(--secondary-color);
+}
     </style>
   </head>
   <body>
 
     <header></header>
     <script src="header.js"></script>
-    <div class="header-spacer"></div>
+    
 
     <section class="student-hero">
       <div class="container">
@@ -248,107 +362,289 @@
         </div>
 
         <div class="tablet-wrapper reveal">
-           <div class="tablet-device">
-             <div class="tablet-camera"></div>
-             <div class="stu-ui">
-                <div class="stu-sidebar">
-                   <div style="font-weight: 800; font-size: 1.1rem; color: #3d405b; margin-bottom: 30px;">ERPLI</div>
-                   <div class="stu-nav-item active"><i class="fas fa-home"></i> <span>Home</span></div>
-                   <div class="stu-nav-item"><i class="fas fa-book"></i> <span>Courses</span></div>
-                   <div class="stu-nav-item"><i class="fas fa-clock"></i> <span>Schedule</span></div>
-                   <div class="stu-nav-item"><i class="fas fa-chart-bar"></i> <span>Results</span></div>
+  <div class="tablet-device">
+    <div class="tablet-camera"></div>
+    <div class="stu-ui">
+      
+      <div class="stu-sidebar">
+          <div style="font-weight: 800; font-size: 1.1rem; color: #3d405b; margin-bottom: 30px;">ERPLI</div>
+          <div class="stu-nav-item active" onclick="switchStudentTab('home', this)">
+            <i class="fas fa-home"></i> <span>Home</span>
+          </div>
+          <div class="stu-nav-item" onclick="switchStudentTab('courses', this)">
+            <i class="fas fa-book"></i> <span>Courses</span>
+          </div>
+          <div class="stu-nav-item" onclick="switchStudentTab('schedule', this)">
+            <i class="fas fa-clock"></i> <span>Schedule</span>
+          </div>
+          <div class="stu-nav-item" onclick="switchStudentTab('results', this)">
+            <i class="fas fa-chart-bar"></i> <span>Results</span>
+          </div>
+      </div>
+
+      <div class="stu-content">
+          
+          <div id="stu-view-home" class="stu-view active-view">
+              <div class="welcome-banner">
+                <div>
+                  <h4 style="margin: 0;">Hello, Rahul! 👋</h4>
+                  <small style="opacity: 0.8;">You have 2 classes today.</small>
                 </div>
-                <div class="stu-content">
-                   <div class="welcome-banner">
-                      <div>
-                        <h4 style="margin: 0;">Hello, Rahul! 👋</h4>
-                        <small style="opacity: 0.8;">You have 2 classes today.</small>
-                      </div>
-                      <div style="background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 8px; font-size: 0.8rem;">
-                        <i class="fas fa-star"></i> Rank #4
-                      </div>
-                   </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 8px; font-size: 0.8rem;">
+                  <i class="fas fa-star"></i> Rank #4
+                </div>
+              </div>
 
-                   <h5 style="color: #666; margin-bottom: 10px;">Continue Learning</h5>
-                   <div class="continue-watching">
-                      <div class="thumb-ph"><i class="fas fa-play"></i></div>
-                      <div style="flex: 1;">
-                        <div style="font-weight: 600; font-size: 0.9rem;">Physics: Thermodynamics</div>
-                        <div style="height: 4px; background: #eee; width: 100%; margin-top: 5px; border-radius: 2px;">
-                           <div style="height: 100%; width: 45%; background: #f28482; border-radius: 2px;"></div>
-                        </div>
-                        <div style="font-size: 0.7rem; color: #999; margin-top: 3px;">12m left • Lecture 04</div>
-                      </div>
-                   </div>
+              <h5 style="color: #666; margin-bottom: 10px;">Continue Learning</h5>
+              <div class="continue-watching">
+                <div class="thumb-ph"><i class="fas fa-play"></i></div>
+                <div style="flex: 1;">
+                  <div style="font-weight: 600; font-size: 0.9rem;">Physics: Thermodynamics</div>
+                  <div style="height: 4px; background: #eee; width: 100%; margin-top: 5px; border-radius: 2px;">
+                      <div style="height: 100%; width: 45%; background: #f28482; border-radius: 2px;"></div>
+                  </div>
+                  <div style="font-size: 0.7rem; color: #999; margin-top: 3px;">12m left • Lecture 04</div>
+                </div>
+              </div>
 
-                   <div style="display: flex; gap: 15px;">
-                      <div style="flex: 1; background: white; padding: 15px; border-radius: 12px; border: 1px solid #eee;">
-                         <div style="font-size: 0.8rem; color: #666;">Next Live Class</div>
-                         <div style="font-weight: 700; color: #3d405b;">Math @ 4 PM</div>
-                         <div style="font-size: 0.7rem; color: #3498db; margin-top: 5px;">Join Now &rarr;</div>
-                      </div>
-                      <div style="flex: 1; background: white; padding: 15px; border-radius: 12px; border: 1px solid #eee;">
-                         <div style="font-size: 0.8rem; color: #666;">Pending Task</div>
-                         <div style="font-weight: 700; color: #3d405b;">Quiz: Algebra</div>
-                         <div style="font-size: 0.7rem; color: #e74c3c; margin-top: 5px;">Due Tonight</div>
-                      </div>
-                   </div>
+              <div style="display: flex; gap: 15px;">
+                <div style="flex: 1; background: white; padding: 15px; border-radius: 12px; border: 1px solid #eee;">
+                    <div style="font-size: 0.8rem; color: #666;">Next Live Class</div>
+                    <div style="font-weight: 700; color: #3d405b;">Math @ 4 PM</div>
+                    <div style="font-size: 0.7rem; color: #3498db; margin-top: 5px;">Join Now &rarr;</div>
+                </div>
+                <div style="flex: 1; background: white; padding: 15px; border-radius: 12px; border: 1px solid #eee;">
+                    <div style="font-size: 0.8rem; color: #666;">Pending Task</div>
+                    <div style="font-weight: 700; color: #3d405b;">Quiz: Algebra</div>
+                    <div style="font-size: 0.7rem; color: #e74c3c; margin-top: 5px;">Due Tonight</div>
+                </div>
+              </div>
+          </div>
+
+          <div id="stu-view-courses" class="stu-view">
+             <h4 style="margin-bottom: 15px; color: #3d405b;">My Enrolled Courses</h4>
+             
+             <div class="course-card">
+               <div class="course-icon" style="background: #fff0f0; color: #e74c3c;"><i class="fas fa-atom"></i></div>
+               <div style="flex: 1;">
+                 <div style="font-weight: 600; font-size: 0.9rem;">Physics (Class 12)</div>
+                 <div style="height: 6px; background: #eee; border-radius: 3px; margin-top: 5px; overflow: hidden;">
+                    <div style="width: 65%; height: 100%; background: #e74c3c;"></div>
+                 </div>
+               </div>
+               <div style="font-weight: 700; font-size: 0.8rem; color: #666;">65%</div>
+             </div>
+
+             <div class="course-card">
+               <div class="course-icon" style="background: #e3f2fd; color: #1565c0;"><i class="fas fa-square-root-alt"></i></div>
+               <div style="flex: 1;">
+                 <div style="font-weight: 600; font-size: 0.9rem;">Mathematics</div>
+                 <div style="height: 6px; background: #eee; border-radius: 3px; margin-top: 5px; overflow: hidden;">
+                    <div style="width: 40%; height: 100%; background: #1565c0;"></div>
+                 </div>
+               </div>
+               <div style="font-weight: 700; font-size: 0.8rem; color: #666;">40%</div>
+             </div>
+
+             <div class="course-card">
+               <div class="course-icon" style="background: #e6fffa; color: #047857;"><i class="fas fa-flask"></i></div>
+               <div style="flex: 1;">
+                 <div style="font-weight: 600; font-size: 0.9rem;">Chemistry</div>
+                 <div style="height: 6px; background: #eee; border-radius: 3px; margin-top: 5px; overflow: hidden;">
+                    <div style="width: 20%; height: 100%; background: #047857;"></div>
+                 </div>
+               </div>
+               <div style="font-weight: 700; font-size: 0.8rem; color: #666;">20%</div>
+             </div>
+          </div>
+
+          <div id="stu-view-schedule" class="stu-view">
+              <h4 style="margin-bottom: 20px; color: #3d405b;">Today's Classes</h4>
+              <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                  <div style="display: flex; gap: 20px; border-bottom: 1px solid #f9f9f9; padding-bottom: 15px; margin-bottom: 15px;">
+                    <div style="font-weight: 700; color: #333; width: 60px;">09:00</div>
+                    <div>
+                        <div style="font-weight: 600; color: #1565c0;">Physics Live</div>
+                        <div style="font-size: 0.8rem; color: #888;">Thermodynamics • Lec 4</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; gap: 20px;">
+                    <div style="font-weight: 700; color: #333; width: 60px;">16:00</div>
+                    <div>
+                        <div style="font-weight: 600; color: #e74c3c;">Math Live</div>
+                        <div style="font-size: 0.8rem; color: #888;">Algebra • Quiz</div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+
+          <div id="stu-view-results" class="stu-view">
+              <h4 style="margin-bottom: 20px; color: #3d405b;">Recent Performance</h4>
+              
+              <div class="result-row">
+                  <div>
+                    <div style="font-weight: 600; font-size: 0.9rem;">Weekly Mock Test 4</div>
+                    <div style="font-size: 0.75rem; color: #888;">Jan 24, 2026</div>
+                  </div>
+                  <div style="text-align: right;">
+                    <div style="font-weight: 700; color: #2ecc71;">240/300</div>
+                    <div style="font-size: 0.7rem; color: #888;">Rank #4</div>
+                  </div>
+              </div>
+
+              <div class="result-row">
+                  <div>
+                    <div style="font-weight: 600; font-size: 0.9rem;">Physics Quiz 2</div>
+                    <div style="font-size: 0.75rem; color: #888;">Jan 20, 2026</div>
+                  </div>
+                  <div style="text-align: right;">
+                    <div style="font-weight: 700; color: #f1c40f;">18/20</div>
+                    <div style="font-size: 0.7rem; color: #888;">Top 10%</div>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+    </section>
+
+    
+    <section class="store-section">
+      <div class="container">
+        <div style="text-align: center; max-width: 700px; margin: 0 auto 50px;" class="reveal">
+          <h2>Student <span>Store</span></h2>
+          <p style="color: var(--text-muted);">
+            Need resources? Purchase mock test series, physical textbooks, or institute merchandise directly from your dashboard.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="product-card reveal">
+            <div class="prod-img-box">
+              <i class="fas fa-laptop-code" style="color: #f28482;"></i>
+              <div class="prod-tag">Digital</div>
+            </div>
+            <div class="prod-details">
+              <h4 style="margin-bottom: 5px;">JEE Mains Full Test Series</h4>
+              <p style="font-size: 0.85rem; color: #888;">15 Full Length Tests + Analysis</p>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="prod-price">₹999</div>
+                <a href="#" class="btn-sm">Buy Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal">
+            <div class="prod-img-box">
+              <i class="fas fa-book" style="color: #3d405b;"></i>
+              <div class="prod-tag">Physical Item</div>
+            </div>
+            <div class="prod-details">
+              <h4 style="margin-bottom: 5px;">H.C. Verma Physics (Vol 1)</h4>
+              <p style="font-size: 0.85rem; color: #888;">Hardcover • Delivered in 3 days</p>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="prod-price">₹999</div>
+                <a href="#" class="btn-sm">Order</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal">
+            <div class="prod-img-box">
+              <i class="fas fa-tshirt" style="color: #f1c40f;"></i>
+              <div class="prod-tag">Merch</div>
+            </div>
+            <div class="prod-details">
+              <h4 style="margin-bottom: 5px;">Institute Hoodie</h4>
+              <p style="font-size: 0.85rem; color: #888;">Cotton blend • Navy Blue</p>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="prod-price">₹999</div>
+                <a href="#" class="btn-sm">Order</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal">
+            <div class="prod-img-box">
+              <i class="fas fa-video" style="color: #e74c3c;"></i>
+              <div class="prod-tag" style="color: #c0392b; background: #fff0f0;">Live Session</div>
+            </div>
+            <div class="prod-details">
+              <h4 style="margin-bottom: 5px;">Sunday Doubt Clearing</h4>
+              <p style="font-size: 0.85rem; color: #888;">2-Hour Interactive Physics QA</p>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="prod-price">₹999</div>
+                <a href="#" class="btn-sm">Book Seat</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="live-mentor-section">
+      <div class="container">
+        
+        <div class="split-grid" style="margin-bottom: 100px;">
+          <div class="reveal">
+             <div class="live-mockup">
+                <div class="live-badge"><i class="fas fa-circle" style="font-size: 0.6rem;"></i> LIVE</div>
+                <i class="fas fa-play-circle" style="font-size: 4rem; color: rgba(255,255,255,0.8);"></i>
+                <div style="position: absolute; bottom: 15px; left: 15px; color: white; text-align: left;">
+                   <div style="font-weight: 700;">Organic Chemistry: Reactions</div>
+                   <div style="font-size: 0.8rem; opacity: 0.8;">Amit Sir • 450 Watching</div>
                 </div>
              </div>
-           </div>
+          </div>
+          <div class="reveal">
+            <h2>Interactive <span>Live Classes.</span></h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">
+              Attend classes from the comfort of your home. Raise your hand, ask doubts in the chat, and participate in live polls.
+            </p>
+            <ul style="list-style: none; color: #555;">
+              <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> HD Quality Streaming</li>
+              <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Automatic Recording for Revision</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="split-grid">
+          <div class="reveal">
+            <h2>1-to-1 <span>Mentorship.</span></h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">
+              Feeling stuck? Book a personal session with our top faculties or alumni mentors to discuss strategy, doubts, or career paths.
+            </p>
+            <a href="#" class="btn btn-primary">Find a Mentor</a>
+          </div>
+          
+          <div class="reveal">
+             <div class="mentor-card">
+                <div class="m-avatar"><i class="fas fa-user-tie"></i></div>
+                <h4 style="margin-bottom: 5px;">Sandeep Bhaiya</h4>
+                <div style="font-size: 0.85rem; color: var(--primary-color); font-weight: 600;">Senior Mentor • IIT Delhi</div>
+                <p style="font-size: 0.85rem; color: #888; margin: 15px 0;">
+                  "Expert in Physics strategy and stress management for JEE aspirants."
+                </p>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 12px;">
+                   <div style="font-size: 0.75rem; font-weight: 700; color: #aaa; margin-bottom: 10px; text-transform: uppercase;">Available Slots (Today)</div>
+                   <div>
+                      <span class="slot-pill">4:00 PM</span>
+                      <span class="slot-pill selected">5:30 PM</span>
+                      <span class="slot-pill">8:00 PM</span>
+                   </div>
+                   <button class="btn btn-primary" style="width: 100%; margin-top: 15px; padding: 10px; font-size: 0.9rem;">Confirm Booking</button>
+                </div>
+             </div>
+          </div>
         </div>
 
       </div>
     </section>
-
-    <section>
-      <div class="container">
-        <div class="features-grid">
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-download"></i></div>
-            <h3>Offline Downloads</h3>
-            <p>Internet issues? Download your video lectures securely inside the app and watch them offline without buffering.</p>
-          </div>
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-history"></i></div>
-            <h3>Recorded Backups</h3>
-            <p>Missed a live class? No problem. The recording is automatically uploaded to your dashboard within 1 hour.</p>
-          </div>
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-question-circle"></i></div>
-            <h3>24/7 Doubt Solving</h3>
-            <p>Stuck on a problem at midnight? Post a photo of your question and get answers from teachers or peers.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <section class="gamification-section">
-        <div class="container">
-            <div style="text-align: center; max-width: 700px; margin: 0 auto 50px;">
-                <h2>Stay <span>Motivated.</span></h2>
-                <p style="color: var(--text-muted);">Learning is a marathon, not a sprint. We make consistency fun.</p>
-            </div>
-            
-            <div class="features-grid gamification-grid reveal">
-                <div class="streak-card">
-                    <div class="fire-icon"><i class="fas fa-fire"></i></div>
-                    <h3>Day Streak</h3>
-                    <p style="font-size: 0.9rem; color: #666;">Log in every day to keep your fire burning. Earn extra points for 7-day streaks!</p>
-                </div>
-                <div class="streak-card" style="border-color: #f1c40f;">
-                    <div class="fire-icon" style="color: #f1c40f; animation: none;"><i class="fas fa-medal"></i></div>
-                    <h3>Earn Badges</h3>
-                    <p style="font-size: 0.9rem; color: #666;">Unlock badges like "Homework Hero" and "Quiz Master" as you complete tasks.</p>
-                </div>
-                <div class="streak-card" style="border-color: #3498db;">
-                    <div class="fire-icon" style="color: #3498db; animation: none;"><i class="fas fa-trophy"></i></div>
-                    <h3>Leaderboard</h3>
-                    <p style="font-size: 0.9rem; color: #666;">Compete with your batchmates. Top 3 students get featured on the dashboard.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+   
 
     <section class="performance-section">
       <div class="container split-grid">
@@ -357,10 +653,7 @@
            <p style="color: var(--text-muted); margin-bottom: 30px;">
              Don't wait for the final exam to know your weaknesses. Get detailed analysis after every mock test.
            </p>
-           <ul style="list-style: none; margin-bottom: 30px;">
-              <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> <strong>Topic-wise Strength:</strong> "You are strong in Algebra but weak in Geometry."</li>
-              <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> <strong>Time Management:</strong> See how much time you spent per question vs the topper.</li>
-           </ul>
+           
          </div>
 
          <div class="report-card-mockup reveal">
@@ -395,34 +688,7 @@
       </div>
     </section>
     
-    <section class="community-section">
-        <div class="container split-grid">
-            <div class="reveal">
-                <h2>Learn Together <br><span>Community.</span></h2>
-                <p style="color: var(--text-muted);">
-                    You are not alone. Join the batch discussion forum to share notes, ask doubts, and help your peers.
-                </p>
-            </div>
-            <div class="forum-mockup reveal">
-                <div class="forum-post">
-                    <div class="user-pill">
-                        <div class="avatar" style="background: #a8d5e2;"></div>
-                        <strong>Sneha G.</strong> <span style="font-size: 0.7rem; color: #888;">2h ago</span>
-                    </div>
-                    <p style="font-size: 0.9rem; margin-bottom: 5px;">Does anyone have the notes for yesterday's Thermodynamics lecture?</p>
-                    <div style="font-size: 0.8rem; color: var(--primary-color);"><i class="fas fa-reply"></i> 3 Replies</div>
-                </div>
-                <div class="forum-post">
-                    <div class="user-pill">
-                        <div class="avatar" style="background: #f28482;"></div>
-                        <strong>Arjun K.</strong> <span style="font-size: 0.7rem; color: #888;">5h ago</span>
-                    </div>
-                    <p style="font-size: 0.9rem; margin-bottom: 5px;">I found a great trick to solve Integration by parts!</p>
-                    <div style="font-size: 0.8rem; color: var(--primary-color);"><i class="fas fa-heart"></i> 12 Likes</div>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 
     <section class="exam-section">
       <div class="container reveal">
@@ -504,5 +770,68 @@
       }, { threshold: 0.1 });
       document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
     </script>
+    <script>
+  function switchStudentTab(viewId, element) {
+    // 1. Hide all content views
+    const views = document.querySelectorAll('.stu-view');
+    views.forEach(view => {
+      view.classList.remove('active-view');
+    });
+
+    // 2. Show the specific view that was clicked
+    const targetView = document.getElementById('stu-view-' + viewId);
+    if (targetView) {
+      targetView.classList.add('active-view');
+    }
+
+    // 3. Update Sidebar Active State
+    const navItems = document.querySelectorAll('.stu-nav-item');
+    navItems.forEach(item => {
+      item.classList.remove('active');
+    });
+    element.classList.add('active');
+  }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const heroSection = document.querySelector('.student-hero');
+        const tablet = document.querySelector('.tablet-device');
+
+        if (heroSection && tablet) {
+            heroSection.addEventListener('mousemove', (e) => {
+                // 1. Get dimensions of the hero section
+                const rect = heroSection.getBoundingClientRect();
+                
+                // 2. Calculate mouse position relative to the center of the section
+                // (e.clientX is the mouse X position on screen)
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 6;
+                const centerY = rect.height / 6;
+
+                // 3. Calculate rotation degrees (Adjust '25' to control sensitivity)
+                // Higher number = less movement, Lower number = more movement
+                const rotateY = (x - centerX) / 80; 
+                const rotateX = -(y - centerY) / 80; 
+
+                // 4. Apply the transform
+                // We add '5' to rotateX to maintain the original slight backward tilt
+                tablet.style.transform = `rotateX(${5 + rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            // 5. Reset position when mouse leaves the section
+            heroSection.addEventListener('mouseleave', () => {
+                tablet.style.transition = 'transform 0.5s ease'; // Slow, smooth reset
+                tablet.style.transform = `rotateX(5deg) rotateY(0deg)`;
+            });
+
+            // 6. Make movement snappy again when mouse enters
+            heroSection.addEventListener('mouseenter', () => {
+                tablet.style.transition = 'transform 0.1s ease-out';
+            });
+        }
+    });
+</script>
   </body>
 </html>

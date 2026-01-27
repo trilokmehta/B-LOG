@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -28,8 +28,14 @@
       }
 
       /* --- Base & Reset --- */
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
       body {
         font-family: var(--font-family);
         background-color: var(--white);
@@ -39,10 +45,24 @@
       }
 
       /* --- Common Components --- */
-      section { padding: 100px 0; }
-      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-      h1, h2, h3, h4 { font-weight: 800; line-height: 1.2; }
-      span { color: var(--primary-color); }
+      section {
+        padding: 100px 0;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 800;
+        line-height: 1.2;
+      }
+      span {
+        color: var(--primary-color);
+      }
 
       .btn {
         display: inline-block;
@@ -59,12 +79,24 @@
         color: white;
         box-shadow: 0 4px 15px rgba(242, 132, 130, 0.3);
       }
-      .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4); }
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(242, 132, 130, 0.4);
+      }
 
-      .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
-      .reveal.visible { opacity: 1; transform: translateY(0); }
-      
-      .header-spacer { height: 80px; }
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: 0.8s ease-out;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .header-spacer {
+        height: 80px;
+      }
 
       /* --- Hero Section --- */
       .money-hero {
@@ -72,14 +104,23 @@
         padding: 120px 0 80px;
         text-align: center;
       }
-      .money-hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 25px; color: var(--secondary-color); }
-      .money-hero p { font-size: 1.15rem; color: var(--text-muted); margin: 0 auto 40px; max-width: 700px; }
+      .money-hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        margin-bottom: 25px;
+        color: var(--secondary-color);
+      }
+      .money-hero p {
+        font-size: 1.15rem;
+        color: var(--text-muted);
+        margin: 0 auto 40px;
+        max-width: 700px;
+      }
 
       /* --- Revenue Dashboard Mockup --- */
       .dashboard-mockup {
         background: white;
         border-radius: 20px;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
         max-width: 800px;
         margin: 0 auto;
         border: 1px solid #eee;
@@ -87,218 +128,430 @@
         text-align: left;
         position: relative;
       }
-      .dash-top { padding: 25px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
-      .dash-body { padding: 30px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
-      
-      .big-stat { margin-bottom: 20px; }
-      .stat-val { font-size: 2.5rem; font-weight: 800; color: var(--secondary-color); }
-      .stat-label { color: #888; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
-      
-      .graph-visual {
-        height: 150px; display: flex; align-items: flex-end; gap: 10px; margin-top: 20px;
+      .dash-top {
+        padding: 25px;
+        border-bottom: 1px solid #f0f0f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
-      .g-bar { background: #f0f0f0; border-radius: 4px; flex: 1; transition: 0.5s; }
-      .g-bar.active { background: var(--money-green); }
+      .dash-body {
+        padding: 30px;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 30px;
+      }
+
+      .big-stat {
+        margin-bottom: 20px;
+      }
+      .stat-val {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--secondary-color);
+      }
+      .stat-label {
+        color: #888;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .graph-visual {
+        height: 150px;
+        display: flex;
+        align-items: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .g-bar {
+        background: #f0f0f0;
+        border-radius: 4px;
+        flex: 1;
+        transition: 0.5s;
+      }
+      .g-bar.active {
+        background: var(--money-green);
+      }
 
       .payout-card {
-        background: #f8f9fa; padding: 20px; border-radius: 12px; border: 1px solid #eee;
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #eee;
       }
-      .p-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.9rem; }
-      .status-paid { background: #e6fffa; color: #047857; padding: 4px 8px; border-radius: 4px; font-weight: 700; font-size: 0.8rem; }
+      .p-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+      }
+      .status-paid {
+        background: #e6fffa;
+        color: #047857;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 0.8rem;
+      }
 
       /* Floating Notification */
       .float-notif {
-        position: absolute; top: 20px; right: -20px;
-        background: #3d405b; color: white; padding: 15px 20px; border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        display: flex; gap: 15px; align-items: center;
+        position: absolute;
+        top: 20px;
+        right: -20px;
+        background: #3d405b;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        display: flex;
+        gap: 15px;
+        align-items: center;
         animation: float 4s infinite ease-in-out;
       }
-      .notif-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: grid; place-items: center; color: var(--money-green); }
-      
-      @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+      .notif-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        color: var(--money-green);
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
 
       /* --- Payment Gateways --- */
-      .gateway-section { background: white; }
-      .gateway-logos { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 40px; opacity: 0.7; }
-      .gw-logo { font-size: 2.5rem; color: #ccc; transition: 0.3s; }
-      .gw-logo:hover { color: var(--secondary-color); transform: scale(1.1); }
+      .gateway-section {
+        background: white;
+      }
+      .gateway-logos {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin-top: 40px;
+        opacity: 0.7;
+      }
+      .gw-logo {
+        font-size: 2.5rem;
+        color: #ccc;
+        transition: 0.3s;
+      }
+      .gw-logo:hover {
+        color: var(--secondary-color);
+        transform: scale(1.1);
+      }
 
       /* --- Strategy Grid --- */
-      .strategy-section { background: var(--bg-light); }
-      .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-      
+      .strategy-section {
+        background: var(--bg-light);
+      }
+      .split-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+
       .pricing-card-visual {
-        background: white; padding: 40px; border-radius: 20px; text-align: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        position: relative;
         border: 2px solid var(--primary-color);
       }
       .tag-popular {
-        position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-        background: var(--primary-color); color: white; padding: 5px 15px; border-radius: 20px;
-        font-size: 0.8rem; font-weight: 700;
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary-color);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
       }
-      .price-strike { text-decoration: line-through; color: #999; font-size: 1.1rem; }
-      .price-final { font-size: 2.5rem; font-weight: 800; color: #333; }
+      .price-strike {
+        text-decoration: line-through;
+        color: #999;
+        font-size: 1.1rem;
+      }
+      .price-final {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #333;
+      }
 
       /* --- Features Grid --- */
-      .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px; }
-      .feat-card {
-        padding: 30px; border-radius: 16px; background: white; border: 1px solid #eee; transition: 0.3s;
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 60px;
       }
-      .feat-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
-      .feat-icon { font-size: 2rem; color: var(--primary-color); margin-bottom: 20px; }
-      .feat-card h3 { margin-bottom: 10px; color: var(--secondary-color); }
-      .feat-card p { font-size: 0.95rem; color: var(--text-muted); }
+      .feat-card {
+        padding: 30px;
+        border-radius: 16px;
+        background: white;
+        border: 1px solid #eee;
+        transition: 0.3s;
+      }
+      .feat-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary-color);
+      }
+      .feat-icon {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+      }
+      .feat-card h3 {
+        margin-bottom: 10px;
+        color: var(--secondary-color);
+      }
+      .feat-card p {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+      }
 
       /* --- Mobile Responsive --- */
       @media (max-width: 992px) {
-        .dash-body { grid-template-columns: 1fr; }
-        .float-notif { position: relative; top: 0; right: 0; margin-bottom: 20px; transform: none !important; }
-        .split-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
-        .features-grid { grid-template-columns: 1fr; }
-        .hero-grid { text-align: center; }
+        .dash-body {
+          grid-template-columns: 1fr;
+        }
+        .float-notif {
+          position: relative;
+          top: 0;
+          right: 0;
+          margin-bottom: 20px;
+          transform: none !important;
+        }
+        .split-grid {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 40px;
+        }
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-grid {
+          text-align: center;
+        }
       }
     </style>
   </head>
   <body>
-
     <header></header>
     <script src="header.js"></script>
-    <div class="header-spacer"></div>
 
     <section class="money-hero">
       <div class="container">
         <div class="reveal">
-          <span style="background: #e6fffa; color: #047857; padding: 6px 15px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: inline-block; margin-bottom: 20px;">
+          <span
+            style="
+              background: #e6fffa;
+              color: #047857;
+              padding: 6px 15px;
+              border-radius: 20px;
+              font-weight: 700;
+              font-size: 0.85rem;
+              display: inline-block;
+              margin-bottom: 20px;
+            "
+          >
             <i class="fas fa-chart-line"></i> Passive Income
           </span>
-          <h1>Turn Your Knowledge <br><span>Into Revenue.</span></h1>
+          <h1>Turn Your Knowledge <br /><span>Into Revenue.</span></h1>
           <p>
-            Record once, sell forever. We provide the payment gateways, landing pages, and automated delivery system so you can focus on teaching.
+            Record once, sell forever. We provide the payment gateways, landing
+            pages, and automated delivery system so you can focus on teaching.
           </p>
         </div>
 
-        <div class="dashboard-mockup reveal" style="margin-top: 50px;">
-           <div class="float-notif">
-              <div class="notif-icon"><i class="fas fa-bell"></i></div>
-              <div>
-                <div style="font-size: 0.9rem; font-weight: 700;">New Sale!</div>
-                <div style="font-size: 0.8rem; opacity: 0.8;">+ ₹1,999 from Rahul</div>
+        <div class="dashboard-mockup reveal" style="margin-top: 50px">
+          <div class="float-notif">
+            <div class="notif-icon"><i class="fas fa-bell"></i></div>
+            <div>
+              <div style="font-size: 0.9rem; font-weight: 700">New Sale!</div>
+              <div style="font-size: 0.8rem; opacity: 0.8">
+                + ₹1,999 from Rahul
               </div>
-           </div>
+            </div>
+          </div>
 
-           <div class="dash-top">
-             <strong><i class="fas fa-wallet" style="color: #666;"></i> Overview</strong>
-             <div style="font-size: 0.9rem; color: #666;">Last 30 Days</div>
-           </div>
-           
-           <div class="dash-body">
-              <div>
-                 <div class="stat-label">Total Revenue</div>
-                 <div class="stat-val">₹ 1,42,500</div>
-                 <div style="color: var(--money-green); font-size: 0.9rem; margin-top: 5px;">
-                   <i class="fas fa-arrow-up"></i> 24% vs last month
-                 </div>
-                 
-                 <div class="graph-visual">
-                    <div class="g-bar" style="height: 40%;"></div>
-                    <div class="g-bar" style="height: 60%;"></div>
-                    <div class="g-bar" style="height: 30%;"></div>
-                    <div class="g-bar" style="height: 70%;"></div>
-                    <div class="g-bar" style="height: 50%;"></div>
-                    <div class="g-bar active" style="height: 90%;"></div>
-                    <div class="g-bar active" style="height: 80%;"></div>
-                 </div>
+          <div class="dash-top">
+            <strong
+              ><i class="fas fa-wallet" style="color: #666"></i>
+              Overview</strong
+            >
+            <div style="font-size: 0.9rem; color: #666">Last 30 Days</div>
+          </div>
+
+          <div class="dash-body">
+            <div>
+              <div class="stat-label">Total Revenue</div>
+              <div class="stat-val">₹ 1,42,500</div>
+              <div
+                style="
+                  color: var(--money-green);
+                  font-size: 0.9rem;
+                  margin-top: 5px;
+                "
+              >
+                <i class="fas fa-arrow-up"></i> 24% vs last month
               </div>
-              
-              <div class="payout-card">
-                 <h5 style="margin-bottom: 15px; color: #333;">Recent Payouts</h5>
-                 <div class="p-row">
-                   <span>24 Oct</span>
-                   <span class="status-paid">₹ 45,000</span>
-                 </div>
-                 <div class="p-row">
-                   <span>17 Oct</span>
-                   <span class="status-paid">₹ 32,000</span>
-                 </div>
-                 <div class="p-row">
-                   <span>10 Oct</span>
-                   <span class="status-paid">₹ 28,500</span>
-                 </div>
-                 <div style="text-align: center; margin-top: 15px; font-size: 0.8rem; color: #666;">
-                   <i class="fas fa-check-circle"></i> Settled to Bank
-                 </div>
+
+              <div class="graph-visual">
+                <div class="g-bar" style="height: 40%"></div>
+                <div class="g-bar" style="height: 60%"></div>
+                <div class="g-bar" style="height: 30%"></div>
+                <div class="g-bar" style="height: 70%"></div>
+                <div class="g-bar" style="height: 50%"></div>
+                <div class="g-bar active" style="height: 90%"></div>
+                <div class="g-bar active" style="height: 80%"></div>
               </div>
-           </div>
+            </div>
+
+            <div class="payout-card">
+              <h5 style="margin-bottom: 15px; color: #333">Recent Payouts</h5>
+              <div class="p-row">
+                <span>24 Oct</span>
+                <span class="status-paid">₹ 45,000</span>
+              </div>
+              <div class="p-row">
+                <span>17 Oct</span>
+                <span class="status-paid">₹ 32,000</span>
+              </div>
+              <div class="p-row">
+                <span>10 Oct</span>
+                <span class="status-paid">₹ 28,500</span>
+              </div>
+              <div
+                style="
+                  text-align: center;
+                  margin-top: 15px;
+                  font-size: 0.8rem;
+                  color: #666;
+                "
+              >
+                <i class="fas fa-check-circle"></i> Settled to Bank
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="gateway-section">
-      <div class="container" style="text-align: center;">
-         <h3>Accept Payments <span>Globally</span></h3>
-         <p style="color: #666;">Students can pay via UPI, Credit Card, or Net Banking. Funds settle directly to your bank account.</p>
-         
-         <div class="gateway-logos reveal">
-            <div class="gw-logo"><i class="fab fa-cc-visa"></i></div>
-            <div class="gw-logo"><i class="fab fa-cc-mastercard"></i></div>
-            <div class="gw-logo"><i class="fab fa-paypal"></i></div>
-            <div class="gw-logo"><i class="fab fa-stripe"></i></div>
-            <div class="gw-logo"><i class="fas fa-rupee-sign"></i></div>
-         </div>
+      <div class="container" style="text-align: center">
+        <h3>Accept Payments <span>Globally</span></h3>
+        <p style="color: #666">
+          Students can pay via UPI, Credit Card, or Net Banking. Funds settle
+          directly to your bank account.
+        </p>
+
+        <div class="gateway-logos reveal">
+          <div class="gw-logo"><i class="fab fa-cc-visa"></i></div>
+          <div class="gw-logo"><i class="fab fa-cc-mastercard"></i></div>
+          <div class="gw-logo"><i class="fab fa-paypal"></i></div>
+          <div class="gw-logo"><i class="fab fa-stripe"></i></div>
+          <div class="gw-logo"><i class="fas fa-rupee-sign"></i></div>
+        </div>
       </div>
     </section>
 
     <section class="strategy-section">
       <div class="container split-grid">
-         <div class="reveal">
-           <h2>Smart <span>Pricing Tools.</span></h2>
-           <p style="color: var(--text-muted); margin-bottom: 30px;">
-             Don't just sell a course. Build a sales funnel. Use our tools to increase the "Average Order Value" per student.
-           </p>
-           <ul style="list-style: none; margin-bottom: 30px;">
-              <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> <strong>Bundles:</strong> "Buy Physics + Math and save 20%".</li>
-              <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> <strong>Validity:</strong> Sell 6-month or 1-year access plans.</li>
-              <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> <strong>Coupons:</strong> Create "Flash Sale" codes.</li>
-           </ul>
-         </div>
+        <div class="reveal">
+          <h2>Smart <span>Pricing Tools.</span></h2>
+          <p style="color: var(--text-muted); margin-bottom: 30px">
+            Don't just sell a course. Build a sales funnel. Use our tools to
+            increase the "Average Order Value" per student.
+          </p>
+          <ul style="list-style: none; margin-bottom: 30px">
+            <li style="margin-bottom: 15px">
+              <i
+                class="fas fa-check-circle"
+                style="color: var(--primary-color)"
+              ></i>
+              <strong>Bundles:</strong> "Buy Physics + Math and save 20%".
+            </li>
+            <li style="margin-bottom: 15px">
+              <i
+                class="fas fa-check-circle"
+                style="color: var(--primary-color)"
+              ></i>
+              <strong>Validity:</strong> Sell 6-month or 1-year access plans.
+            </li>
+            <li style="margin-bottom: 15px">
+              <i
+                class="fas fa-check-circle"
+                style="color: var(--primary-color)"
+              ></i>
+              <strong>Coupons:</strong> Create "Flash Sale" codes.
+            </li>
+          </ul>
+        </div>
 
-         <div class="pricing-card-visual reveal">
-            <div class="tag-popular">BEST SELLER</div>
-            <h3 style="margin-bottom: 10px;">Masterclass Bundle</h3>
-            <p style="font-size: 0.9rem; color: #666; margin-bottom: 20px;">Complete Physics + Chemistry + Math</p>
-            
-            <div style="margin-bottom: 20px;">
-              <span class="price-strike">₹5,999</span>
-              <div class="price-final">₹2,999</div>
-            </div>
-            
-            <a href="#" class="btn btn-primary" style="width: 100%;">Buy Bundle</a>
-            <div style="margin-top: 15px; font-size: 0.8rem; color: #2ecc71;">
-              <i class="fas fa-clock"></i> Offer ends in 2 hours
-            </div>
-         </div>
+        <div class="pricing-card-visual reveal">
+          <div class="tag-popular">BEST SELLER</div>
+          <h3 style="margin-bottom: 10px">Masterclass Bundle</h3>
+          <p style="font-size: 0.9rem; color: #666; margin-bottom: 20px">
+            Complete Physics + Chemistry + Math
+          </p>
+
+          <div style="margin-bottom: 20px">
+            <span class="price-strike">₹5,999</span>
+            <div class="price-final">₹2,999</div>
+          </div>
+
+          <a href="#" class="btn btn-primary" style="width: 100%">Buy Bundle</a>
+          <div style="margin-top: 15px; font-size: 0.8rem; color: #2ecc71">
+            <i class="fas fa-clock"></i> Offer ends in 2 hours
+          </div>
+        </div>
       </div>
     </section>
 
-    <section style="background: white;">
+    <section style="background: white">
       <div class="container">
         <div class="features-grid">
           <div class="feat-card reveal">
             <div class="feat-icon"><i class="fas fa-bolt"></i></div>
             <h3>Instant Settlement</h3>
-            <p>Why wait 30 days? Get your money in your bank account within T+2 days of the transaction.</p>
+            <p>
+              Why wait 30 days? Get your money in your bank account within T+2
+              days of the transaction.
+            </p>
           </div>
           <div class="feat-card reveal">
             <div class="feat-icon"><i class="fas fa-file-invoice"></i></div>
             <h3>Automated GST</h3>
-            <p>We automatically generate GST-compliant invoices for every student and email it to them.</p>
+            <p>
+              We automatically generate GST-compliant invoices for every student
+              and email it to them.
+            </p>
           </div>
           <div class="feat-card reveal">
             <div class="feat-icon"><i class="fas fa-handshake"></i></div>
             <h3>Affiliate System</h3>
-            <p>Let your students sell for you. Give them a unique link and pay them a commission for every referral.</p>
+            <p>
+              Let your students sell for you. Give them a unique link and pay
+              them a commission for every referral.
+            </p>
           </div>
         </div>
       </div>
@@ -311,12 +564,17 @@
     <script src="footer.js"></script>
 
     <script>
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible");
-        });
-      }, { threshold: 0.1 });
-      document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObserver.observe(el));
     </script>
   </body>
 </html>

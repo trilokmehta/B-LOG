@@ -382,12 +382,86 @@
           font-size: 1.5rem;
         }
       }
+
+      /* --- NEW: Design Studio Section --- */
+.design-section { background: white; }
+
+.design-interface {
+  background: #f8f9fa;
+  border-radius: 16px;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  display: grid;
+  grid-template-columns: 250px 1fr;
+}
+
+.design-sidebar {
+  background: white; border-right: 1px solid #eee; padding: 20px;
+}
+.tool-btn {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px; border-radius: 8px; cursor: pointer;
+  color: #555; font-size: 0.9rem; margin-bottom: 5px;
+  transition: 0.2s;
+}
+.tool-btn:hover { background: #f0f0f0; color: #333; }
+.tool-btn.active { background: #e3f2fd; color: #1565c0; font-weight: 600; }
+
+.design-canvas {
+  padding: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background-image: radial-gradient(#ddd 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.upload-zone {
+  width: 100%; max-width: 400px; height: 250px;
+  border: 2px dashed #bbb; border-radius: 12px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  color: #888; background: rgba(255,255,255,0.8);
+  transition: 0.3s; cursor: pointer;
+}
+.upload-zone:hover { border-color: var(--primary-color); color: var(--primary-color); background: white; }
+
+
+/* --- NEW: Bulk Generation Section --- */
+.bulk-section { background: var(--bg-light); }
+
+.process-row {
+  display: flex; justify-content: center; align-items: center;
+  gap: 30px; margin-top: 40px;
+}
+
+.process-step {
+  text-align: center;
+  width: 160px;
+  position: relative;
+}
+.p-icon {
+  width: 80px; height: 80px; margin: 0 auto 15px;
+  background: white; border-radius: 50%;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  display: grid; place-items: center; font-size: 2rem;
+  color: var(--secondary-color); border: 1px solid #eee;
+}
+.p-arrow {
+  font-size: 1.5rem; color: #ccc;
+}
+
+/* Mobile Fix */
+@media (max-width: 768px) {
+  .design-interface { grid-template-columns: 1fr; }
+  .design-sidebar { display: flex; overflow-x: auto; padding: 10px; }
+  .tool-btn { white-space: nowrap; }
+  .process-row { flex-direction: column; gap: 40px; }
+  .p-arrow { transform: rotate(90deg); }
+}
     </style>
   </head>
   <body>
     <header></header>
     <script src="header.js"></script>
-    <div class="header-spacer"></div>
 
     <section class="cert-hero">
       <div class="container">
@@ -503,24 +577,97 @@
       </div>
     </section>
 
+
+    <section class="design-section">
+      <div class="container">
+        <div style="text-align: center; max-width: 700px; margin: 0 auto 50px;" class="reveal">
+          <h2>Your Brand, <span>Your Design.</span></h2>
+          <p style="color: var(--text-muted);">
+            Don't like generic templates? Upload your own background image, place your logo, and drag-and-drop the text exactly where you want it.
+          </p>
+        </div>
+
+        <div class="design-interface reveal">
+           <div class="design-sidebar">
+              <div style="font-size: 0.8rem; font-weight: 700; color: #999; margin-bottom: 10px; text-transform: uppercase;">Tools</div>
+              <div class="tool-btn active"><i class="fas fa-image"></i> Background Image</div>
+              <div class="tool-btn"><i class="fas fa-font"></i> Add Text Field</div>
+              <div class="tool-btn"><i class="fas fa-signature"></i> Upload Signature</div>
+              <div class="tool-btn"><i class="fas fa-qrcode"></i> Add QR Code</div>
+              
+              <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
+                 <button class="btn btn-primary" style="width: 100%; padding: 10px; font-size: 0.9rem;">Save Template</button>
+              </div>
+           </div>
+
+           <div class="design-canvas">
+              <div class="upload-zone">
+                 <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                 <div style="font-weight: 600;">Drop your Certificate Image here</div>
+                 <div style="font-size: 0.8rem; margin-top: 5px;">Supports JPG, PNG (Max 5MB)</div>
+                 <button style="margin-top: 15px; padding: 8px 20px; background: #eee; border: none; border-radius: 4px; cursor: pointer;">Browse Files</button>
+              </div>
+           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bulk-section">
+      <div class="container">
+        <div class="split-grid">
+           
+           <div class="reveal">
+              <h2>Learn, Pass, <span>Get Certified.</span></h2>
+              <p style="color: var(--text-muted); margin-bottom: 25px;">
+                Students don't have to wait. Once they complete all course modules and pass the final assessment, their verifiable certificate is unlocked instantly.
+              </p>
+              <ul style="list-style: none; margin-bottom: 30px;">
+                 <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: #2ecc71; margin-right: 10px;"></i> <strong>Instant Reward:</strong> No manual approval needed.</li>
+                 <li style="margin-bottom: 15px;"><i class="fas fa-share-alt" style="color: var(--primary-color); margin-right: 10px;"></i> <strong>Social Ready:</strong> Students can share directly to LinkedIn.</li>
+              </ul>
+           </div>
+
+           <div class="reveal">
+              <div class="process-row">
+                 <div class="process-step">
+                    <div class="p-icon" style="color: #2ecc71;"><i class="fas fa-graduation-cap"></i></div>
+                    <h4 style="font-size: 1rem;">1. Finish Course</h4>
+                    <p style="font-size: 0.8rem; color: #666;">Watch lectures & pass exam</p>
+                 </div>
+                 
+                 <div class="p-arrow"><i class="fas fa-chevron-right"></i></div>
+                 
+                 <div class="process-step">
+                    <div class="p-icon" style="color: var(--secondary-color);"><i class="fas fa-cog fa-spin"></i></div>
+                    <h4 style="font-size: 1rem;">2. Processing</h4>
+                    <p style="font-size: 0.8rem; color: #666;">System verifies & generates</p>
+                 </div>
+
+                 <div class="p-arrow"><i class="fas fa-chevron-right"></i></div>
+                 
+                 <div class="process-step">
+                    <div class="p-icon" style="color: var(--primary-color);"><i class="fas fa-download"></i></div>
+                    <h4 style="font-size: 1rem;">3. Download</h4>
+                    <p style="font-size: 0.8rem; color: #666;">Get PDF instantly</p>
+                 </div>
+              </div>
+           </div>
+
+        </div>
+      </div>
+    </section>
+
+
     <section class="verify-section">
       <div class="container split-grid">
         <div class="reveal">
           <h2>Stop <span>Fake Certificates.</span></h2>
           <p style="color: var(--text-muted); margin-bottom: 30px">
             Fake certificates damage your institute's reputation. Our system
-            generates a unique QR code and ID for every certificate. Recruiters
-            can instantly verify authenticity.
+            generates a ID for every certificate. Recruiters can instantly
+            verify authenticity.
           </p>
           <ul style="list-style: none; margin-bottom: 30px">
-            <li style="margin-bottom: 15px">
-              <i
-                class="fas fa-check-circle"
-                style="color: var(--primary-color)"
-              ></i>
-              <strong>QR Code Validation:</strong> Scan to see the original
-              record.
-            </li>
             <li style="margin-bottom: 15px">
               <i
                 class="fas fa-check-circle"
@@ -560,39 +707,6 @@
               <div>Verified: Aditya Sharma</div>
               <small style="font-weight: 400">Issued on: 21 Jan 2026</small>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section style="background: var(--bg-light)">
-      <div class="container">
-        <div class="features-grid">
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-magic"></i></div>
-            <h3>Bulk Generation</h3>
-            <p>
-              Upload a CSV list of 100 students, and generate 100 PDF
-              certificates in 10 seconds. No manual typing.
-            </p>
-          </div>
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-paint-brush"></i></div>
-            <h3>Custom Templates</h3>
-            <p>
-              Choose from 50+ professional templates or upload your own
-              background design to match your brand colors.
-            </p>
-          </div>
-          <div class="feat-card reveal">
-            <div class="feat-icon">
-              <i class="fas fa-envelope-open-text"></i>
-            </div>
-            <h3>Auto-Email</h3>
-            <p>
-              Once generated, the system automatically emails the PDF to the
-              student. Saves you hours of distribution time.
-            </p>
           </div>
         </div>
       </div>

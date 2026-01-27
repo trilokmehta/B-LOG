@@ -1,6 +1,11 @@
 (function () {
   const newsletterStyles = `
     /* --- NEWSLETTER COMPONENT STYLES --- */
+    newsletter-box, 
+    .newsletter-box * {
+        box-sizing: border-box;
+    }
+
     .newsletter-section-wrapper {
         padding: 60px 0;
     }
@@ -62,9 +67,11 @@
 
     /* Mobile Responsiveness */
     @media (max-width: 768px) {
-      .newsletter-box { padding: 40px 20px; }
+      .newsletter-box { padding: 40px 20px; } /* Ensure this is even (20px left/right) */
       .newsletter-box h2 { font-size: 1.8rem; }
       .nl-input-group { flex-direction: column; gap: 10px; }
+      
+      /* The box-sizing above fixes the 100% width issue here */
       .nl-input, .nl-btn { border-radius: 50px; width: 100%; }
     }
   `;
