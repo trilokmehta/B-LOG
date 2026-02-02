@@ -119,6 +119,7 @@
       /* --- Revenue Dashboard Mockup --- */
       .dashboard-mockup {
         background: white;
+       
         border-radius: 20px;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
         max-width: 800px;
@@ -199,7 +200,7 @@
       .float-notif {
         position: absolute;
         top: 20px;
-        right: -20px;
+        right: 10px;
         background: #3d405b;
         color: white;
         padding: 15px 20px;
@@ -351,6 +352,344 @@
           text-align: center;
         }
       }
+
+      .razorpay-highlight {
+        background: #f8fbff;
+        border: 1px solid #e7f0ff;
+        padding: 20px;
+        border-radius: 15px;
+        display: inline-flex;
+        align-items: center;
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      .secured-badge {
+        background: #3d405b;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+      /* --- Strategy Section Specifics --- */
+.strategy-section {
+    background: linear-gradient(to bottom, #fffbf5, #fff);
+    overflow: hidden; /* Prevents floating elements from causing scrollbars */
+}
+
+/* Feature List Styling */
+.strategy-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.strategy-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    transition: 0.3s;
+}
+
+.strategy-item:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transform: translateX(10px);
+}
+
+.s-icon {
+    background: #fff0f0;
+    color: var(--primary-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+/* The "Ultimate Bundle" Card Visual */
+.bundle-wrapper {
+    position: relative;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.bundle-card {
+    background: white;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+    border: 1px solid #f0f0f0;
+    position: relative;
+    z-index: 2;
+}
+
+.bundle-header {
+    text-align: center;
+    border-bottom: 2px dashed #eee;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.course-stack {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.stack-item {
+    background: var(--secondary-color);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    margin: 0 -5px;
+    border: 2px solid white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Floating Coupon Element */
+.floating-coupon {
+    position: absolute;
+    top: 15%;
+    right: -100px; 
+    transform: rotate(15deg);
+    
+    background: #2ecc71;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(46, 204, 113, 0.4);
+    z-index: 3;
+    
+    /* Flexbox for alignment */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    /* Animation */
+    animation: float 3s infinite ease-in-out;
+}
+
+/* Define the Floating Animation */
+@keyframes float {
+    0%, 100% { transform: rotate(15deg) translateY(0); }
+    50% { transform: rotate(15deg) translateY(-10px); }
+}
+
+/* --- How It Works Section --- */
+.steps-section {
+    background: #fff;
+    position: relative;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 50px;
+    position: relative;
+}
+
+/* Connecting Line */
+.steps-grid::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: #f0f0f0;
+    z-index: 1;
+}
+
+.step-card {
+    background: white;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.step-number {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0 auto 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* --- Testimonial Section --- */
+.success-section {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.testimonial-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+
+.quote-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    opacity: 0.3;
+    margin-bottom: 20px;
+}
+
+.creator-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.creator-avatar {
+    width: 60px;
+    height: 60px;
+    background: #ddd;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Mobile Fixes */
+@media (max-width: 992px) {
+    .steps-grid { grid-template-columns: 1fr; gap: 60px; }
+    .steps-grid::before { display: none; } /* Hide line on mobile */
+}
+
+/* IMPORTANT: Mobile Fix */
+/* On phones, move the coupon inside so it doesn't cut off */
+@media (max-width: 992px) {
+    .floating-coupon {
+        right: 0;
+        top: -20px;
+        transform: rotate(5deg);
+        width: auto;
+        justify-content: center;
+        left: 0;
+        margin: 0 auto;
+        max-width: 200px;
+    }
+    
+    /* Adjust animation for mobile (less rotation) */
+    @keyframes float {
+        0%, 100% { transform: rotate(5deg) translateY(0); }
+        50% { transform: rotate(5deg) translateY(-5px); }
+    }
+}
+
+/* --- Security Section --- */
+.security-section {
+    background: #1a1c2c; /* Deep dark blue/black */
+    color: white;
+    padding: 80px 0;
+    overflow: hidden;
+}
+
+.security-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.security-visual {
+    position: relative;
+    height: 400px;
+    background: radial-gradient(circle at center, #2c3e50 0%, #1a1c2c 70%);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* The "Blocked" Screen Effect */
+.phone-frame {
+    width: 200px;
+    height: 400px;
+    border: 8px solid #000;
+    border-radius: 30px;
+    background: #000;
+    position: relative;
+    box-shadow: 0 0 50px rgba(242, 132, 130, 0.2);
+    overflow: hidden;
+    z-index: 2;
+}
+
+.screen-content {
+    width: 100%;
+    height: 100%;
+    background: #222;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #555;
+}
+
+.blocked-message {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    width: 80%;
+    animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+    0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(231, 76, 60, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+}
+
+.security-feature {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.sec-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(46, 204, 113, 0.1);
+    color: #2ecc71;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+/* Mobile Fix */
+@media (max-width: 992px) {
+    .security-grid { grid-template-columns: 1fr; }
+    .security-visual { height: 300px; order: -1; } /* Visual on top */
+}
     </style>
   </head>
   <body>
@@ -457,105 +796,242 @@
 
     <section class="gateway-section">
       <div class="container" style="text-align: center">
-        <h3>Accept Payments <span>Globally</span></h3>
-        <p style="color: #666">
-          Students can pay via UPI, Credit Card, or Net Banking. Funds settle
-          directly to your bank account.
+        <h3>Secured & Powered by <span>Razorpay</span></h3>
+        <p style="color: #666; max-width: 600px; margin: 0 auto">
+          Experience lightning-fast checkouts. Students can pay via UPI,
+          Credit/Debit Cards, or Net Banking. Funds settle securely into your
+          bank account via India's leading payment gateway.
         </p>
 
-        <div class="gateway-logos reveal">
-          <div class="gw-logo"><i class="fab fa-cc-visa"></i></div>
-          <div class="gw-logo"><i class="fab fa-cc-mastercard"></i></div>
-          <div class="gw-logo"><i class="fab fa-paypal"></i></div>
-          <div class="gw-logo"><i class="fab fa-stripe"></i></div>
-          <div class="gw-logo"><i class="fas fa-rupee-sign"></i></div>
+        <div class="reveal">
+          <div class="razorpay-highlight">
+            <span class="secured-badge">OFFICIAL PARTNER</span>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/8/89/Razorpay_logo.svg"
+              alt="Razorpay"
+              style="height: 25px"
+            />
+          </div>
+        </div>
+
+        <div class="gateway-logos reveal" style="margin-top: 50px">
+          <div class="gw-logo" title="UPI Payments">
+            <i class="fas fa-mobile-alt"></i>
+            <span style="font-size: 1rem; display: block">UPI</span>
+          </div>
+          <div class="gw-logo" title="Visa/Mastercard">
+            <i class="fab fa-cc-visa"></i>
+            <span style="font-size: 1rem; display: block">Cards</span>
+          </div>
+          <div class="gw-logo" title="Net Banking">
+            <i class="fas fa-university"></i>
+            <span style="font-size: 1rem; display: block">Net Banking</span>
+          </div>
+          <div class="gw-logo" title="Wallets">
+            <i class="fas fa-wallet"></i>
+            <span style="font-size: 1rem; display: block">Wallets</span>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="strategy-section">
-      <div class="container split-grid">
+    <div class="container split-grid">
+        
         <div class="reveal">
-          <h2>Smart <span>Pricing Tools.</span></h2>
-          <p style="color: var(--text-muted); margin-bottom: 30px">
-            Don't just sell a course. Build a sales funnel. Use our tools to
-            increase the "Average Order Value" per student.
-          </p>
-          <ul style="list-style: none; margin-bottom: 30px">
-            <li style="margin-bottom: 15px">
-              <i
-                class="fas fa-check-circle"
-                style="color: var(--primary-color)"
-              ></i>
-              <strong>Bundles:</strong> "Buy Physics + Math and save 20%".
-            </li>
-            <li style="margin-bottom: 15px">
-              <i
-                class="fas fa-check-circle"
-                style="color: var(--primary-color)"
-              ></i>
-              <strong>Validity:</strong> Sell 6-month or 1-year access plans.
-            </li>
-            <li style="margin-bottom: 15px">
-              <i
-                class="fas fa-check-circle"
-                style="color: var(--primary-color)"
-              ></i>
-              <strong>Coupons:</strong> Create "Flash Sale" codes.
-            </li>
-          </ul>
+            <h2>Don't Just Sell Courses.<br><span>Build Sales Funnels.</span></h2>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">
+                Use e-commerce psychology to increase your "Average Order Value" (AOV). 
+                Our tools turn a single student into a loyal subscriber.
+            </p>
+
+            <div class="strategy-list">
+                <div class="strategy-item">
+                    <div class="s-icon"><i class="fas fa-layer-group"></i></div>
+                    <div>
+                        <h4 style="margin-bottom: 5px;">Smart Bundles</h4>
+                        <p style="font-size: 0.9rem; color: #666; margin: 0;">
+                            Combine Physics + Math for a 20% discount. Push higher value deals instantly.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="strategy-item">
+                    <div class="s-icon"><i class="fas fa-hourglass-half"></i></div>
+                    <div>
+                        <h4 style="margin-bottom: 5px;">Validity Plans</h4>
+                        <p style="font-size: 0.9rem; color: #666; margin: 0;">
+                            Sell 6-month, 1-year, or "Until Exam" access. Let students choose their duration.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="strategy-item">
+                    <div class="s-icon"><i class="fas fa-ticket-alt"></i></div>
+                    <div>
+                        <h4 style="margin-bottom: 5px;">Coupon Engine</h4>
+                        <p style="font-size: 0.9rem; color: #666; margin: 0;">
+                            Create "FLASH50" or "EARLYBIRD" codes with auto-expiry timers to drive urgency.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="pricing-card-visual reveal">
-          <div class="tag-popular">BEST SELLER</div>
-          <h3 style="margin-bottom: 10px">Masterclass Bundle</h3>
-          <p style="font-size: 0.9rem; color: #666; margin-bottom: 20px">
-            Complete Physics + Chemistry + Math
-          </p>
+        <div class="reveal">
+            <div class="bundle-wrapper">
+                
+                <div class="floating-coupon">
+                    <i class="fas fa-check-circle"></i>
+                    <div>
+                        <div style="font-size: 0.7rem; opacity: 0.9;">CODE APPLIED</div>
+                        <div style="font-weight: 700; font-size: 0.9rem;">DIWALI20 (-20%)</div>
+                    </div>
+                </div>
 
-          <div style="margin-bottom: 20px">
-            <span class="price-strike">₹5,999</span>
-            <div class="price-final">₹2,999</div>
-          </div>
+                <div class="bundle-card">
+                    <div class="tag-popular" style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--primary-color); color: white; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; box-shadow: 0 5px 15px rgba(242, 132, 130, 0.4);">
+                        <i class="fas fa-fire"></i> TRENDING
+                    </div>
 
-          <a href="#" class="btn btn-primary" style="width: 100%">Buy Bundle</a>
-          <div style="margin-top: 15px; font-size: 0.8rem; color: #2ecc71">
-            <i class="fas fa-clock"></i> Offer ends in 2 hours
-          </div>
+                    <div class="bundle-header">
+                        <div class="course-stack">
+                            <span class="stack-item">Physics</span>
+                            <span class="stack-item" style="background: #2b2d42; z-index: 2; transform: translateY(-5px);">Maths</span>
+                            <span class="stack-item">Chem</span>
+                        </div>
+                        <h3 style="margin-bottom: 5px;">IIT-JEE Mains Bundle</h3>
+                        <p style="font-size: 0.85rem; color: #888;">Complete Syllabus • 1 Year Access</p>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                        <div style="text-align: left;">
+                            <div style="font-size: 0.9rem; color: #999; text-decoration: line-through;">₹5,999</div>
+                            <div style="font-size: 2rem; font-weight: 800; color: #333; line-height: 1;">₹2,999</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="background: #e6fffa; color: #047857; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 700;">
+                                SAVE 50%
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#" class="btn btn-primary" style="width: 100%; box-shadow: none; margin-bottom: 15px;">
+                        Unlock Bundle Now
+                    </a>
+
+                    <div style="text-align: center; font-size: 0.8rem; color: #e74c3c; font-weight: 600;">
+                        <i class="fas fa-clock"></i> Price rises in 02:14:55
+                    </div>
+                </div>
+                
+                <div style="position: absolute; top: 20px; left: 20px; width: 100%; height: 100%; background: var(--secondary-color); border-radius: 24px; opacity: 0.05; z-index: 1; transform: rotate(-3deg);"></div>
+            </div>
         </div>
-      </div>
-    </section>
 
-    <section style="background: white">
-      <div class="container">
-        <div class="features-grid">
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-bolt"></i></div>
-            <h3>Instant Settlement</h3>
-            <p>
-              Why wait 30 days? Get your money in your bank account within T+2
-              days of the transaction.
+    </div>
+</section>
+
+<section class="steps-section">
+    <div class="container">
+        <div class="reveal" style="text-align: center;">
+            <h2>Launch Your Academy in <span>Minutes.</span></h2>
+            <p style="color: #666; max-width: 600px; margin: 0 auto;">
+                No coding required. If you can upload a file, you can sell a course.
             </p>
-          </div>
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-file-invoice"></i></div>
-            <h3>Automated GST</h3>
-            <p>
-              We automatically generate GST-compliant invoices for every student
-              and email it to them.
-            </p>
-          </div>
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-handshake"></i></div>
-            <h3>Affiliate System</h3>
-            <p>
-              Let your students sell for you. Give them a unique link and pay
-              them a commission for every referral.
-            </p>
-          </div>
         </div>
-      </div>
-    </section>
+
+        <div class="steps-grid reveal">
+            <div class="step-card">
+                <div class="step-number">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <h3>1. Upload</h3>
+                <p style="font-size: 0.9rem; color: #666;">
+                    Upload your recorded videos, PDFs, or notes. We host everything securely on the cloud.
+                </p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">
+                    <i class="fas fa-tag"></i>
+                </div>
+                <h3>2. Set Price</h3>
+                <p style="font-size: 0.9rem; color: #666;">
+                    Set a fixed price (e.g., ₹999) or create a subscription. Add discount coupons instantly.
+                </p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">
+                    <i class="fas fa-share-alt"></i>
+                </div>
+                <h3>3. Share Link</h3>
+                <p style="font-size: 0.9rem; color: #666;">
+                    Get your branded link (e.g., <em>store.yourname.com</em>) and share it on WhatsApp/Instagram.
+                </p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 60px;">
+            <a href="#" class="btn btn-primary">Start Uploading Now</a>
+        </div>
+    </div>
+</section>
+
+<section class="security-section">
+    <div class="container">
+        <div class="security-grid">
+            
+            <div class="reveal">
+                <span style="color: #f28482; font-weight: 700; letter-spacing: 1px; font-size: 0.9rem;">
+                    <i class="fas fa-shield-alt"></i> DRM PROTECTION
+                </span>
+                <h2 style="margin-top: 10px; margin-bottom: 20px;">Stop Piracy.<br><span>Before It Starts.</span></h2>
+                <p style="opacity: 0.7; margin-bottom: 40px;">
+                    Don't let your hard work circulate for free on Telegram. We use Hollywood-grade encryption to protect your revenue.
+                </p>
+
+                <div class="security-feature">
+                    <div class="sec-icon"><i class="fas fa-video-slash"></i></div>
+                    <div>
+                        <h4 style="margin-bottom: 5px;">Screen Recording Blocked</h4>
+                        <p style="font-size: 0.9rem; opacity: 0.6; margin: 0;">
+                            If a student tries to screen record on Android or iOS, the video turns black instantly.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="security-feature">
+                    <div class="sec-icon" style="color: #f28482; background: rgba(242, 132, 130, 0.1);"><i class="fas fa-user-lock"></i></div>
+                    <div>
+                        <h4 style="margin-bottom: 5px;">Device Login Limit</h4>
+                        <p style="font-size: 0.9rem; opacity: 0.6; margin: 0;">
+                            Restrict access to 1 mobile + 1 laptop. Automatically log out users if they share credentials.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="security-visual reveal">
+                <i class="fas fa-lock" style="position: absolute; top: 20%; left: 10%; font-size: 3rem; color: white; opacity: 0.05;"></i>
+                <i class="fas fa-key" style="position: absolute; bottom: 20%; right: 10%; font-size: 4rem; color: white; opacity: 0.05;"></i>
+                
+                <div class="phone-frame">
+                    <div class="screen-content">
+                        <i class="fas fa-video-slash" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.3;"></i>
+                        <div class="blocked-message">
+                            <div style="font-size: 1.5rem; margin-bottom: 5px;"><i class="fas fa-exclamation-triangle" style="color: #e74c3c;"></i></div>
+                            <div style="font-weight: 700; font-size: 0.9rem;">Security Alert</div>
+                            <div style="font-size: 0.7rem; margin-top: 5px;">Screen Recording is not allowed in this app.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 
     <div id="newsletter-section"></div>
     <footer id="main-footer"></footer>

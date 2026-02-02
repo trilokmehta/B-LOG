@@ -381,7 +381,68 @@
           margin-top: 30px;
         }
       }
-      
+
+      /* --- Chat/Communication Visuals --- */
+      .chat-container {
+        background: #f0f2f5;
+        border-radius: 20px;
+        padding: 30px;
+        max-width: 350px;
+        margin: 0 auto;
+        border: 8px solid #333;
+      }
+      .chat-bubble {
+        background: white;
+        padding: 15px;
+        border-radius: 0 15px 15px 15px;
+        margin-bottom: 15px;
+        font-size: 0.85rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        position: relative;
+      }
+      .chat-bubble.sent {
+        background: #dcf8c6; /* WhatsApp Green */
+        border-radius: 15px 0 15px 15px;
+        margin-left: auto;
+      }
+
+      /* --- Dark Security Section --- */
+      .security-section {
+        background: #1a1c2c;
+        color: white;
+        padding: 80px 0;
+      }
+      .lock-icon-box {
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin: 0 auto 20px;
+      }
+
+      /* --- Stats/Numbers Grid --- */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        text-align: center;
+        margin-top: 40px;
+      }
+      .stat-box {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #eee;
+      }
+      .stat-number {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--secondary-color);
+      }
     </style>
   </head>
   <body>
@@ -414,10 +475,11 @@
 
         <div class="sync-diagram reveal">
           <div class="sync-box">
-            <div class="sync-icon"><i class="fas fa-fingerprint"></i></div>
-            <div class="sync-title">Offline Class</div>
+            <div class="sync-icon"><i class="fas fa-user-check"></i></div>
+            <div class="sync-title">1. Digital Enrollment</div>
             <div class="sync-desc">
-              Student punches biometric machine at 9:00 AM.
+              Onboard students instantly. Capture details and documents
+              digitally without a single sheet of paper.
             </div>
           </div>
 
@@ -426,10 +488,11 @@
           </div>
 
           <div class="sync-box">
-            <div class="sync-icon"><i class="fas fa-cloud"></i></div>
-            <div class="sync-title">Cloud Sync</div>
+            <div class="sync-icon"><i class="fas fa-university"></i></div>
+            <div class="sync-title">2. Direct Collections</div>
             <div class="sync-desc">
-              Data processed instantly via IoT integration.
+              We don't touch your money. Fees settle
+              <strong>directly</strong> to your bank account via UPI or Gateway.
             </div>
           </div>
 
@@ -438,53 +501,246 @@
           </div>
 
           <div class="sync-box">
-            <div class="sync-icon"><i class="fas fa-mobile-alt"></i></div>
-            <div class="sync-title">Parent App</div>
+            <div class="sync-icon"><i class="fas fa-rocket"></i></div>
+            <div class="sync-title">3. Focus on Growth</div>
             <div class="sync-desc">
-              Parent gets notification: "Rahul reached class."
+              We handle the operational chaos. The only thing you have left to
+              do is scale your institute.
             </div>
           </div>
         </div>
       </div>
     </section>
 
+    <section class="security-section">
+      <div class="container reveal" style="text-align: center">
+        <div class="lock-icon-box">
+          <i class="fas fa-server"></i>
+        </div>
+        <h2>Centralized <span>Cloud Hub.</span></h2>
+        <p style="opacity: 0.8; max-width: 600px; margin: 0 auto 40px">
+          Stop losing data in loose papers and registers. We organize your
+          entire institute's data in one accessible cloud platform so you can
+          manage branches from anywhere.
+        </p>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-number">24/7</div>
+            <div style="font-size: 0.9rem; color: #666">Remote Access</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">Live</div>
+            <div style="font-size: 0.9rem; color: #666">Data Sync</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">Admin</div>
+            <div style="font-size: 0.9rem; color: #666">Role Control</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: #f8f9fa">
+      <div class="container split-grid">
+        <div class="reveal" style="order: 2">
+          <div
+            style="
+              background: white;
+              padding: 30px;
+              border-radius: 20px;
+              box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+              border: 1px solid #eee;
+            "
+          >
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+              "
+            >
+              <h4 style="margin: 0">JEE Mains Mock Test</h4>
+              <span
+                style="
+                  background: #e6fffa;
+                  color: #047857;
+                  padding: 4px 10px;
+                  border-radius: 10px;
+                  font-size: 0.8rem;
+                  font-weight: 700;
+                "
+                >Live Now</span
+              >
+            </div>
+            <div
+              style="
+                height: 10px;
+                background: #eee;
+                border-radius: 5px;
+                width: 100%;
+                margin-bottom: 10px;
+              "
+            >
+              <div
+                style="
+                  height: 100%;
+                  background: var(--primary-color);
+                  width: 65%;
+                  border-radius: 5px;
+                "
+              ></div>
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                font-size: 0.8rem;
+                color: #666;
+              "
+            >
+              <span>Q. 14 of 90</span>
+              <span>Time: 01:12:40</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <h2>Go Hybrid: <span>Online Tests.</span></h2>
+          <p style="color: #666; margin-bottom: 20px">
+            Don't just teach offline. Give your students the edge of Computer
+            Based Testing (CBT).
+          </p>
+          <p style="color: #666">
+            Upload your question papers or use our question bank. Students can
+            take tests from home on their laptops or phones, and you get
+            detailed analytics instantly.
+          </p>
+          <a href="#" class="btn btn-primary" style="margin-top: 20px"
+            >See Exam Features</a
+          >
+        </div>
+      </div>
+    </section>
+
+
+
     <section style="background: var(--bg-light)">
       <div class="container">
+        <div class="reveal" style="text-align: center; margin-bottom: 50px">
+          <h2>Complete <span>Offline Control.</span></h2>
+          <p style="color: #666">
+            Replace 10 different excel sheets with one dashboard.
+          </p>
+        </div>
+
         <div class="features-grid">
           <div class="feat-card reveal">
             <div class="feat-icon"><i class="fas fa-users-cog"></i></div>
-            <h3>Staff Management</h3>
+            <h3>Staff Payroll</h3>
             <p>
-              Track teacher attendance, calculate payroll based on lecture
-              hours, and assign substitute teachers in one click.
-            </p>
-          </div>
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-rupee-sign"></i></div>
-            <h3>Fee Installments</h3>
-            <p>
-              Managing partial payments is a headache. We automate it. Track due
-              dates, PDC cheques, and send auto-reminders.
-            </p>
-          </div>
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-user-plus"></i></div>
-            <h3>Admission CRM</h3>
-            <p>
-              Capture leads from walk-ins and phone calls. Assign follow-ups to
-              counselors and track conversions effectively.
+              Track teacher attendance and calculate monthly salaries instantly.
+              Manage advances and deductions without a calculator.
             </p>
           </div>
 
           <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-book"></i></div>
-            <h3>Library Manager</h3>
+            <div class="feat-icon">
+              <i class="fas fa-file-invoice-dollar"></i>
+            </div>
+            <h3>Fee Installments</h3>
             <p>
-              Manage book inventory with barcode scanning. Track issues,
-              returns, and automatically calculate late fines.
+              Managing cash/cheque partial payments is tricky. We automate it.
+              Track pending balances and upcoming due dates per batch.
+            </p>
+          </div>
+
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-calendar-alt"></i></div>
+            <h3>Smart Timetable</h3>
+            <p>
+              Organize multiple batch schedules. Assign faculties to specific
+              rooms and prevent class clashes automatically.
+            </p>
+          </div>
+
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-id-card"></i></div>
+            <h3>Instant ID Cards</h3>
+            <p>
+              No designer needed. Auto-generate professional student ID cards
+              with photos and batch details instantly upon admission.
             </p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section
+      style="
+        background: linear-gradient(to bottom, #ffffff, #fffbf5);
+        text-align: center;
+        padding: 100px 0;
+      "
+    >
+      <div class="container reveal">
+        <h2
+          style="
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+          "
+        >
+          Ready to Upgrade Your Institute?
+        </h2>
+
+        <p
+          style="
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 1.1rem;
+          "
+        >
+          Move from chaotic spreadsheets to organized growth.
+        </p>
+
+        <div
+          style="
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+          "
+        >
+          <a href="#signup" class="btn btn-primary" style="min-width: 160px"
+            >Start Now</a
+          >
+          <a
+            href="#demo"
+            class="btn"
+            style="
+              background: white;
+              color: #333;
+              border: 1px solid #ddd;
+              min-width: 160px;
+            "
+            >Book a Demo</a
+          >
+        </div>
+
+        <p
+          style="
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 30px;
+            letter-spacing: 0.5px;
+          "
+        >
+          Waiting For Your
+          <span style="color: var(--primary-color); font-weight: 800">YES</span>
+        </p>
       </div>
     </section>
 

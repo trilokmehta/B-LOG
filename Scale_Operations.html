@@ -118,8 +118,8 @@
 
       /* --- Growth Graph Visual --- */
       .graph-container {
-        max-width: 800px;
-        height: 400px;
+        max-width: 400px;
+        height: 1000px;
         margin: 50px auto 0;
         position: relative;
         display: flex;
@@ -153,7 +153,7 @@
       }
       .graph-bar:hover::before {
         opacity: 1;
-        top: -40px;
+        top: -400px;
       }
 
       .bar-1 {
@@ -190,7 +190,7 @@
       }
       .solution-point {
         position: absolute;
-        top: 10%;
+        top: 5%;
         right: 5%;
         background: var(--growth-green);
         color: white;
@@ -231,6 +231,18 @@
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         position: relative;
       }
+
+      .stack-card.messy-stack {
+    max-width: 300px;
+    margin-bottom: -60px; /* Creates the overlap effect naturally */
+    position: relative;
+    z-index: 1;
+}
+
+.stack-card:last-child {
+    z-index: 2;
+    margin-left: 40px; /* Offsets the clean dashboard */
+}
       .messy-stack {
         transform: rotate(-2deg);
         margin-bottom: 20px;
@@ -275,22 +287,26 @@
       }
 
       .flow-box {
-        background: white;
-        padding: 20px;
-        border-radius: 12px;
-        text-align: center;
-        position: relative;
-        border: 1px solid #eee;
-      }
-      .flow-arrow {
-        position: absolute;
-        top: 50%;
-        right: -25px;
-        transform: translateY(-50%);
-        font-size: 1.5rem;
-        color: #ccc;
-        z-index: 2;
-      }
+    background: white;
+    padding: 30px 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    transition: transform 0.3s ease;
+}
+
+.flow-box:hover {
+    transform: translateY(-5px);
+}
+
+/* Better mobile arrows */
+@media (max-width: 992px) {
+    .flow-arrow {
+        display: none; /* Hide arrows on mobile to reduce clutter */
+    }
+    .flow-box {
+        margin-bottom: 20px;
+    }
+}
       .flow-box:last-child .flow-arrow {
         display: none;
       }
@@ -393,6 +409,127 @@
           text-align: center;
         }
       }
+
+
+      /* Container for the side-by-side comparison */
+.scaling-visual-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 60px;
+}
+
+/* The "Manual" Side - Use a subtle "warning" aesthetic */
+.manual-card {
+    background: #fffafa;
+    border: 2px dashed #f28482;
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* The "Automated" Side - Use a "growth" aesthetic */
+.automated-card {
+    background: #f0fff4;
+    border: 2px solid #2ecc71;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(46, 204, 113, 0.1);
+}
+
+/* Redesigned Growth Graph */
+.mini-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    height: 150px;
+    margin-top: 30px;
+}
+
+.chart-bar {
+    flex: 1;
+    background: #cbd5e0;
+    border-radius: 6px 6px 0 0;
+    transition: all 0.6s ease;
+}
+
+.chart-bar.active {
+    background: var(--growth-green);
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+/* Container styling */
+.map-section {
+    background: linear-gradient(135deg, #3d405b 0%, #2b2d42 100%);
+    overflow: hidden;
+}
+
+/* The "Pocket/Phone" Container */
+.pocket-control {
+    position: relative;
+    width: 280px;
+    height: 500px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.05);
+    border: 8px solid #1a1c2c;
+    border-radius: 40px;
+    box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/* Floating Branch Cards */
+.floating-location {
+    background: white;
+    color: #333;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: floatIn 1s ease-out forwards;
+    opacity: 0;
+}
+
+.floating-location i { color: var(--primary-color); }
+
+.location-status {
+    width: 8px;
+    height: 8px;
+    background: var(--growth-green);
+    border-radius: 50%;
+    margin-left: auto;
+}
+
+@keyframes floatIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Add this to your style tag */
+.trust-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-left: 4px solid var(--secondary-color);
+}
+
     </style>
   </head>
   <body>
@@ -400,59 +537,47 @@
     <script src="header.js"></script>
 
     <section class="scale-hero">
-      <div class="container">
+    <div class="container">
         <div class="reveal">
-          <span
-            style="
-              background: #e6fffa;
-              color: #047857;
-              padding: 6px 15px;
-              border-radius: 20px;
-              font-weight: 700;
-              font-size: 0.85rem;
-              display: inline-block;
-              margin-bottom: 20px;
-            "
-          >
-            <i class="fas fa-chart-line"></i> For Growing Institutes
-          </span>
-          <h1>Scale Your Institute, <br /><span>Not Your Workload.</span></h1>
-          <p>
-            Adding students shouldn't mean adding chaos. Automate your fees,
-            admissions, and operations so you can grow from 100 to 10,000
-            students effortlessly.
-          </p>
+            <h1>Scale Your Institute, <br /><span>Not Your Workload.</span></h1>
+            <p>From enrollment to collection, ERPLI removes the friction of growth.</p>
         </div>
 
-        <div class="graph-container reveal">
-          <div class="pain-point">
-            <i class="fas fa-exclamation-triangle"></i> Manual Chaos
-            <div style="font-size: 0.7rem; font-weight: 400">
-              Spreadsheets break here
+        <div class="scaling-visual-wrapper reveal">
+            <div class="manual-card">
+                <span class="status-badge" style="background: #fee2e2; color: #991b1b;">Manual Method</span>
+                <h3>The "Spreadsheet" Ceiling</h3>
+                <p style="font-size: 0.9rem;">Hard to track, easy to lose. 500+ students becomes a nightmare of missed fees and human error.</p>
+                
+                <div class="mini-chart">
+                    <div class="chart-bar" style="height: 30%"></div>
+                    <div class="chart-bar" style="height: 50%"></div>
+                    <div class="chart-bar" style="height: 65%; background: #f28482;"></div>
+                    <div style="position: absolute; right: 20px; bottom: 60px; color: #f28482; font-weight: 800;">
+                        <i class="fas fa-bolt"></i> 
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="solution-point">
-            <i class="fas fa-rocket"></i> ERPLI Autopilot
-            <div style="font-size: 0.7rem; font-weight: 400">
-              Unlimited Growth
-            </div>
-          </div>
 
-          <div class="graph-bar bar-1" data-students="50 Students"></div>
-          <div class="graph-bar bar-2" data-students="100 Students"></div>
-          <div class="graph-bar bar-3" data-students="300 Students"></div>
-          <div class="graph-bar bar-4" data-students="500 Students"></div>
-          <div class="graph-bar bar-5" data-students="1000+ Students"></div>
+            <div class="automated-card">
+                <span class="status-badge" style="background: #dcfce7; color: #166534;">ERPLI Autopilot</span>
+                <h3>Seamless Expansion</h3>
+                <p style="font-size: 0.9rem;">Automated invoices, WhatsApp reminders, and real-time dashboards for 10,000+ students.</p>
+                
+                <div class="mini-chart">
+                    <div class="chart-bar active" style="height: 40%"></div>
+                    <div class="chart-bar active" style="height: 60%"></div>
+                    <div class="chart-bar active" style="height: 80%"></div>
+                    <div class="chart-bar active" style="height: 100%"></div>
+                </div>
+            </div>
         </div>
-
-        <p style="margin-top: 20px; font-size: 0.9rem; color: #888">
-          Student Count Growth
-        </p>
-      </div>
-    </section>
+    </div>
+</section>
 
     <section class="comparison-section">
-      <div class="container split-grid">
+      <div class="container split-grid" style="align-items: center; gap: 100px;">
+   
         <div class="reveal">
           <h2>The <span>Scaling Trap.</span></h2>
           <p style="color: var(--text-muted); margin-bottom: 30px">
@@ -554,133 +679,129 @@
       </div>
     </section>
 
-    <section class="workflow-section">
-      <div class="container">
-        <h2 style="text-align: center">
-          Put Operations on <span>Autopilot</span>
-        </h2>
-
-        <div class="flow-grid reveal">
-          <div class="flow-box">
-            <i class="fas fa-chevron-right flow-arrow"></i>
-            <div class="flow-icon"><i class="fas fa-user-plus"></i></div>
-            <h4>1. Admission</h4>
-            <p style="font-size: 0.85rem; color: #777">
-              Student fills online form. Data saved to cloud instantly.
-            </p>
-          </div>
-
-          <div class="flow-box">
-            <i class="fas fa-chevron-right flow-arrow"></i>
-            <div class="flow-icon"><i class="fas fa-id-card"></i></div>
-            <h4>2. Onboarding</h4>
-            <p style="font-size: 0.85rem; color: #777">
-              System auto-generates ID Card, Batch, and Roll No.
-            </p>
-          </div>
-
-          <div class="flow-box">
-            <i class="fas fa-chevron-right flow-arrow"></i>
-            <div class="flow-icon">
-              <i class="fas fa-file-invoice-dollar"></i>
-            </div>
-            <h4>3. Fee Plan</h4>
-            <p style="font-size: 0.85rem; color: #777">
-              Payment schedule created. Installment dates locked.
-            </p>
-          </div>
-
-          <div class="flow-box">
-            <div class="flow-icon"><i class="fas fa-bell"></i></div>
-            <h4>4. Auto-Remind</h4>
-            <p style="font-size: 0.85rem; color: #777">
-              System sends WhatsApp reminders 3 days before due date.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    
     <section class="map-section">
-      <div class="container reveal">
-        <h2>Multi-Branch <span>Ready</span></h2>
-        <p style="opacity: 0.8">
-          Running multiple centers? Control them all from one super-admin panel.
+    <div class="container reveal">
+        <h2>Your Entire Network, <br><span>In Your Pocket.</span></h2>
+        <p style="opacity: 0.8; max-width: 600px; margin: 0 auto;">
+            Whether you're at home or on the go, manage every branch, staff member, and rupee from a single mobile dashboard.
         </p>
 
-        <div class="map-visual">
-          <div class="branch-pin" style="top: 30%; left: 20%">
-            <i class="fas fa-map-marker-alt"></i>
-          </div>
-          <div
-            class="branch-pin"
-            style="top: 50%; left: 50%; animation-delay: 0.5s"
-          >
-            <i class="fas fa-map-marker-alt"></i>
-          </div>
-          <div
-            class="branch-pin"
-            style="top: 20%; left: 70%; animation-delay: 1s"
-          >
-            <i class="fas fa-map-marker-alt"></i>
-          </div>
+        <div class="pocket-control">
+            <div style="display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 20px; opacity: 0.5;">
+                <span>9:41</span>
+                <span><i class="fas fa-signal"></i> <i class="fas fa-battery-full"></i></span>
+            </div>
+
+            <div class="floating-location" style="animation-delay: 0.2s">
+                <i class="fas fa-map-marker-alt"></i>
+                <div style="text-align: left;">
+                    <div style="font-size: 12px; font-weight: 700;">Downtown Branch</div>
+                    <div style="font-size: 10px; opacity: 0.6;">42 New Admissions Today</div>
+                </div>
+                <div class="location-status"></div>
+            </div>
+
+            <div class="floating-location" style="animation-delay: 0.4s">
+                <i class="fas fa-map-marker-alt"></i>
+                <div style="text-align: left;">
+                    <div style="font-size: 12px; font-weight: 700;">Eastside Center</div>
+                    <div style="font-size: 10px; opacity: 0.6;">Staff Attendance: 100%</div>
+                </div>
+                <div class="location-status"></div>
+            </div>
+
+            <div style="margin-top: auto; padding: 15px; background: rgba(242, 132, 130, 0.1); border-radius: 15px; border: 1px solid var(--primary-color);">
+                <div style="font-size: 10px; color: var(--primary-color);">Total Network Revenue</div>
+                <div style="font-size: 18px; font-weight: 800;">₹4.2M</div>
+            </div>
         </div>
 
-        <div
-          style="
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-          "
-        >
-          <div>
-            <h3><i class="fas fa-eye"></i></h3>
-            <p style="font-size: 0.9rem">Central View</p>
-          </div>
-          <div>
-            <h3><i class="fas fa-exchange-alt"></i></h3>
-            <p style="font-size: 0.9rem">Transfer Staff/Students</p>
-          </div>
-          <div>
-            <h3><i class="fas fa-chart-pie"></i></h3>
-            <p style="font-size: 0.9rem">Branch-wise Profit</p>
-          </div>
-        </div>
-      </div>
-    </section>
+        <div class="mobile-remote-grid">
+             </div>
+    </div>
+</section>
 
-    <section style="background: white">
-      <div class="container">
-        <div class="features-grid">
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-fingerprint"></i></div>
-            <h3>Staff Payroll</h3>
-            <p>
-              Link biometric machines to payroll. Auto-deduct salary for late
-              arrivals or unapproved leaves.
-            </p>
-          </div>
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-box-open"></i></div>
-            <h3>Inventory</h3>
-            <p>
-              Manage books, uniforms, and study material stock across multiple
-              branches. Get low-stock alerts.
-            </p>
-          </div>
-          <div class="feat-card reveal">
-            <div class="feat-icon"><i class="fas fa-bullhorn"></i></div>
-            <h3>Bulk Communication</h3>
-            <p>
-              Send "Class Cancelled" or "Happy Diwali" messages to 10,000
-              students in one click via App Notification.
-            </p>
-          </div>
+    <section style="background: var(--bg-light); padding: 80px 0;">
+    <div class="container">
+        <div class="reveal" style="text-align: center; margin-bottom: 50px;">
+            <h2>The <span>ERPLI</span> Impact</h2>
+            <p>What happens when you put your institute on autopilot?</p>
         </div>
-      </div>
-    </section>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center;">
+            <div class="reveal">
+                <h2 style="color: var(--primary-color); font-size: 3rem;">30%</h2>
+                <p style="font-weight: 700;">Increase in Fee Collection</p>
+                <p style="font-size: 0.85rem; color: #666;">Automated WhatsApp reminders ensure you never miss a due date.</p>
+            </div>
+            <div class="reveal" style="transition-delay: 0.1s;">
+                <h2 style="color: var(--primary-color); font-size: 3rem;">20hrs</h2>
+                <p style="font-weight: 700;">Saved Per Week/Branch</p>
+                <p style="font-size: 0.85rem; color: #666;">Eliminate manual entry for attendance, payroll, and receipts.</p>
+            </div>
+            <div class="reveal" style="transition-delay: 0.2s;">
+                <h2 style="color: var(--primary-color); font-size: 3rem;">Zero</h2>
+                <p style="font-weight: 700;">Data Leakage</p>
+                <p style="font-size: 0.85rem; color: #666;">Secure cloud storage means no more lost registers or "missing" files.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
+<section style="background: white; padding: 100px 0;">
+    <div class="container split-grid" style="align-items: center;">
+        <div class="reveal">
+            <h2>The <span>Parent-Student</span> Experience</h2>
+            <p style="color: var(--text-muted); margin-bottom: 25px;">
+                Happy parents lead to more referrals. Give them a world-class mobile app to stay connected with their child's progress.
+            </p>
+            <ul style="list-style: none;">
+                <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--growth-green); margin-right: 10px;"></i> <strong>Online Fee Payments:</strong> No more queues at the office.</li>
+                <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--growth-green); margin-right: 10px;"></i> <strong>Daily Attendance:</strong> Instant push notifications when the student arrives.</li>
+                <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--growth-green); margin-right: 10px;"></i> <strong>Exam Reports:</strong> Digital marksheets accessible 24/7.</li>
+            </ul>
+        </div>
+        
+        <div class="reveal" style="display: flex; justify-content: center;">
+            <div style="width: 250px; height: 500px; background: #3d405b; border: 8px solid #1a1c2c; border-radius: 35px; position: relative; padding: 15px; box-shadow: 20px 20px 60px rgba(0,0,0,0.1);">
+                <div style="width: 50px; height: 4px; background: #1a1c2c; margin: 0 auto 15px; border-radius: 10px;"></div>
+                <div style="background: white; height: 90%; border-radius: 15px; padding: 10px;">
+                    <div style="height: 15px; background: #eee; width: 60%; margin-bottom: 15px;"></div>
+                    <div style="height: 100px; background: #f2848220; border-radius: 10px; border: 1px dashed var(--primary-color); margin-bottom: 15px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--primary-color); text-align: center;">Next Class: <br>Mathematics @ 10:00 AM</div>
+                    <div style="height: 10px; background: #f5f5f5; width: 100%; margin-bottom: 8px;"></div>
+                    <div style="height: 10px; background: #f5f5f5; width: 80%; margin-bottom: 8px;"></div>
+                    <div style="height: 10px; background: #f5f5f5; width: 90%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="background: #3d405b; color: white; padding: 80px 0;">
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <h2>Bank-Grade <span>Security.</span></h2>
+            <p>Your data is private, encrypted, and backed up every hour.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+            <div class="trust-card" style="background: rgba(255,255,255,0.05); border-left: 4px solid var(--growth-green);">
+                <i class="fas fa-lock" style="font-size: 1.5rem; color: var(--growth-green);"></i>
+                <div>
+                    <h4 style="margin: 0;">End-to-End Encryption</h4>
+                    <p style="font-size: 0.8rem; margin: 5px 0 0; opacity: 0.7;">Only authorized staff can access sensitive records.</p>
+                </div>
+            </div>
+            <div class="trust-card" style="background: rgba(255,255,255,0.05); border-left: 4px solid var(--growth-green);">
+                <i class="fas fa-cloud-upload-alt" style="font-size: 1.5rem; color: var(--growth-green);"></i>
+                <div>
+                    <h4 style="margin: 0;">99.9% Uptime</h4>
+                    <p style="font-size: 0.8rem; margin: 5px 0 0; opacity: 0.7;">Reliable cloud infrastructure that never goes offline.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
     <div id="newsletter-section"></div>
     <footer id="main-footer"></footer>
     <script src="header.js"></script>
