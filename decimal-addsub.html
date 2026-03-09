@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -12,7 +12,7 @@
     <title>Decimal Add & Sub | BrainiacGym</title>
     <style>
       :root {
-        --primary: #f58220;
+        --primary: #20e7f5;
         --secondary: #2d3436;
         --bg-color: #f4f7f6;
         --card-bg: #ffffff;
@@ -55,9 +55,14 @@
         z-index: 1000;
       }
 
-      .logo { height: 40px; }
+      .logo {
+        height: 40px;
+      }
 
-      .nav-links { display: flex; gap: 20px; }
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
 
       .nav-links a {
         text-decoration: none;
@@ -67,7 +72,9 @@
         transition: color 0.2s;
       }
 
-      .nav-links a:hover { color: var(--primary); }
+      .nav-links a:hover {
+        color: var(--primary);
+      }
 
       /* --- CONTAINERS --- */
       .container {
@@ -101,7 +108,9 @@
         text-align: left;
       }
 
-      .full-width { grid-column: span 2; }
+      .full-width {
+        grid-column: span 2;
+      }
 
       label {
         display: block;
@@ -124,7 +133,9 @@
         transition: border-color 0.2s;
       }
 
-      input[type="number"]:focus { border-color: var(--primary); }
+      input[type="number"]:focus {
+        border-color: var(--primary);
+      }
 
       /* --- SETTINGS AREA --- */
       .settings-box {
@@ -185,8 +196,12 @@
         color: white;
       }
 
-      .badge-green { background-color: var(--success-color); }
-      .badge-red { background-color: var(--error-color); }
+      .badge-green {
+        background-color: var(--success-color);
+      }
+      .badge-red {
+        background-color: var(--error-color);
+      }
 
       #flash-display {
         font-size: 5rem;
@@ -252,7 +267,9 @@
         font-size: 0.85rem;
       }
 
-      .btn-stop:hover { background: #e2e4e9; }
+      .btn-stop:hover {
+        background: #e2e4e9;
+      }
 
       .back-refresh-btn {
         position: fixed;
@@ -271,27 +288,45 @@
       }
 
       /* --- ANIMATION --- */
-      .screen { display: none; }
+      .screen {
+        display: none;
+      }
       .screen.active {
         display: block;
         animation: fadeIn 0.4s ease-out;
       }
 
       @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       @media (max-width: 480px) {
-        .input-grid { grid-template-columns: 1fr; }
-        .full-width { grid-column: span 1; }
-        #flash-display { font-size: 3.5rem; }
+        .input-grid {
+          grid-template-columns: 1fr;
+        }
+        .full-width {
+          grid-column: span 1;
+        }
+        #flash-display {
+          font-size: 3.5rem;
+        }
       }
     </style>
   </head>
   <body>
     <header>
-      <img src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png" alt="Logo" class="logo" />
+      <img
+        src="https://brainiacgym.com/wp-content/uploads/2023/10/Brainiacgym-Final-1.png"
+        alt="Logo"
+        class="logo"
+      />
       <nav class="nav-links">
         <a href="#">Home</a>
         <a href="#">About</a>
@@ -303,7 +338,7 @@
       <div id="setup-screen" class="screen active">
         <div class="card">
           <h2>Decimal Add/Sub</h2>
-          
+
           <div class="input-grid">
             <div>
               <label>Digits</label>
@@ -324,7 +359,7 @@
               <input type="checkbox" id="flashMode" onchange="toggleAuto()" />
               <span>Flash Mode (Mental Math)</span>
             </label>
-            
+
             <div id="auto-options">
               <label class="checkbox-row">
                 <input type="checkbox" id="autoLoop" />
@@ -337,41 +372,60 @@
             </div>
           </div>
 
-          <button class="btn btn-check" onclick="startApp()">Start Practice</button>
+          <button class="btn btn-check" onclick="startApp()">
+            Start Practice
+          </button>
         </div>
       </div>
 
       <div id="game-screen" class="screen">
-        <button class="back-refresh-btn" onclick="location.reload()">← BACK</button>
+        <button class="back-refresh-btn" onclick="location.reload()">
+          ← BACK
+        </button>
         <div class="card">
           <div class="stats-bar">
             <span>Practice Mode</span>
             <span>BrainiacGym</span>
           </div>
-          
+
           <div class="score-badges">
-            <div class="badge badge-green">Right: <span id="right-count">0</span></div>
-            <div class="badge badge-red">Wrong: <span id="wrong-count">0</span></div>
+            <div class="badge badge-green">
+              Right: <span id="right-count">0</span>
+            </div>
+            <div class="badge badge-red">
+              Wrong: <span id="wrong-count">0</span>
+            </div>
           </div>
 
           <div id="flash-display">---</div>
           <div id="result-bubble" class="result-bubble"></div>
-          
+
           <div id="feedback"></div>
 
-          <div id="input-area" style="margin-bottom: 30px;">
+          <div id="input-area" style="margin-bottom: 30px">
             <label>What was the total?</label>
             <input type="number" id="user-ans" step="0.1" placeholder="?" />
           </div>
 
-          <button id="action-btn" class="btn btn-check" onclick="checkAns()">Check Answer</button>
-          <button class="btn btn-stop" onclick="location.reload()">Stop Practice</button>
+          <button id="action-btn" class="btn btn-check" onclick="checkAns()">
+            Check Answer
+          </button>
+          <button class="btn btn-stop" onclick="location.reload()">
+            Stop Practice
+          </button>
         </div>
       </div>
     </div>
 
     <script>
-      const settingsFields = ["digits", "rows", "speed", "flashMode", "autoLoop", "autoDelay"];
+      const settingsFields = [
+        "digits",
+        "rows",
+        "speed",
+        "flashMode",
+        "autoLoop",
+        "autoDelay",
+      ];
 
       function saveSettings() {
         settingsFields.forEach((field) => {
@@ -406,15 +460,25 @@
           document.getElementById("flashMode").checked ? "block" : "none";
       }
 
-      let rightCount = 0, wrongCount = 0, currentSum = 1, correctAnswer = 0, speed = 0;
-      let sequence = [], isFlash = false, isAuto = false, autoDelay = 0, autoTimeout, countdownInterval;
+      let rightCount = 0,
+        wrongCount = 0,
+        currentSum = 1,
+        correctAnswer = 0,
+        speed = 0;
+      let sequence = [],
+        isFlash = false,
+        isAuto = false,
+        autoDelay = 0,
+        autoTimeout,
+        countdownInterval;
 
       function startApp() {
         saveSettings();
         speed = parseFloat(document.getElementById("speed").value) * 1000;
         isFlash = document.getElementById("flashMode").checked;
         isAuto = document.getElementById("autoLoop").checked;
-        autoDelay = parseFloat(document.getElementById("autoDelay").value) * 1000;
+        autoDelay =
+          parseFloat(document.getElementById("autoDelay").value) * 1000;
 
         rightCount = 0;
         wrongCount = 0;
@@ -425,11 +489,13 @@
 
       function generateSequence() {
         const d = parseInt(document.getElementById("digits").value),
-              r = parseInt(document.getElementById("rows").value);
+          r = parseInt(document.getElementById("rows").value);
         correctAnswer = 0;
         sequence = [];
         for (let i = 0; i < r; i++) {
-          let n = parseFloat((Math.random() * (Math.pow(10, d) - 1) + 1).toFixed(1));
+          let n = parseFloat(
+            (Math.random() * (Math.pow(10, d) - 1) + 1).toFixed(1),
+          );
           if (i > 0 && Math.random() > 0.5 && correctAnswer - n >= 0) {
             sequence.push(-n);
             correctAnswer = parseFloat((correctAnswer - n).toFixed(1));
@@ -447,7 +513,8 @@
         const interval = setInterval(() => {
           if (i < sequence.length) {
             let val = sequence[i];
-            document.getElementById("flash-display").innerText = i > 0 && val > 0 ? "+" + val : val;
+            document.getElementById("flash-display").innerText =
+              i > 0 && val > 0 ? "+" + val : val;
             i++;
           } else {
             clearInterval(interval);
@@ -540,7 +607,9 @@
       }
 
       function showScreen(id) {
-        document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
+        document
+          .querySelectorAll(".screen")
+          .forEach((s) => s.classList.remove("active"));
         document.getElementById(id).classList.add("active");
       }
     </script>

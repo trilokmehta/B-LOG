@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,7 +6,10 @@
     <title>Negative +/- Practice</title>
     <style>
       body {
-        font-family: system-ui, -apple-system, sans-serif;
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
         background: #f4f7f6;
         margin: 0;
         padding: 0;
@@ -46,7 +49,7 @@
         transition: color 0.2s;
       }
       .nav-links a:hover {
-        color: #f58220;
+        color: #20e7f5;
       }
 
       .container {
@@ -60,7 +63,7 @@
         padding: 40px;
         border-radius: 16px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        border-top: 5px solid #f58220;
+        border-top: 5px solid #20e7f5;
         text-align: center;
       }
 
@@ -96,7 +99,7 @@
         box-sizing: border-box;
       }
       input[type="number"]:focus {
-        border-color: #f58220;
+        border-color: #20e7f5;
       }
 
       .settings-area {
@@ -118,7 +121,7 @@
         width: 20px;
         height: 20px;
         cursor: pointer;
-        accent-color: #f58220;
+        accent-color: #20e7f5;
       }
 
       #auto-options {
@@ -143,15 +146,15 @@
         transform: scale(0.98);
       }
       .btn-start {
-        background: #f58220;
+        background: #20e7f5;
         box-shadow: 0 5px 15px rgba(245, 130, 32, 0.3);
       }
       .btn-check {
-        background: #f58220;
+        background: #20e7f5;
         margin-bottom: 15px;
       }
       .btn-next {
-        background: #f58220;
+        background: #20e7f5;
         margin-bottom: 10px;
       }
       .btn-stop {
@@ -176,7 +179,7 @@
       }
 
       .result-bubble {
-        background: #f58220;
+        background: #20e7f5;
         color: white;
         padding: 20px 40px;
         border-radius: 50px;
@@ -222,11 +225,7 @@
   </head>
   <body>
     <header>
-      <img
-        src=""
-        alt="Logo"
-        class="logo"
-      />
+      <img src="" alt="Logo" class="logo" />
       <nav class="nav-links">
         <a href="index.html">Home</a>
         <a href="#">About</a>
@@ -343,47 +342,65 @@
 
     <script>
       // --- UNIVERSAL CACHE LOGIC ---
-// Use the Page Title as a unique key prefix to prevent data mixing between different practice types
-const PAGE_ID = document.title.split('|')[0].trim().replace(/\s+/g, '_').toLowerCase();
+      // Use the Page Title as a unique key prefix to prevent data mixing between different practice types
+      const PAGE_ID = document.title
+        .split("|")[0]
+        .trim()
+        .replace(/\s+/g, "_")
+        .toLowerCase();
 
-// List of all possible setup IDs across all your files
-const ALL_SETTING_IDS = [
-  "lowNo", "highNo", "low1", "high1", "low2", "high2", "minAns", "maxAns", 
-  "minDiv", "maxDiv", "tableOf", "totalSums", "totalTime", 
-  "flashMode", "autoLoop", "autoDelay", "speed"
-];
+      // List of all possible setup IDs across all your files
+      const ALL_SETTING_IDS = [
+        "lowNo",
+        "highNo",
+        "low1",
+        "high1",
+        "low2",
+        "high2",
+        "minAns",
+        "maxAns",
+        "minDiv",
+        "maxDiv",
+        "tableOf",
+        "totalSums",
+        "totalTime",
+        "flashMode",
+        "autoLoop",
+        "autoDelay",
+        "speed",
+      ];
 
-function saveSettings() {
-  ALL_SETTING_IDS.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      const value = (el.type === "checkbox") ? el.checked : el.value;
-      localStorage.setItem(`${PAGE_ID}_${id}`, value);
-    }
-  });
-}
-
-function loadSettings() {
-  ALL_SETTING_IDS.forEach(id => {
-    const el = document.getElementById(id);
-    const savedValue = localStorage.getItem(`${PAGE_ID}_${id}`);
-    
-    if (el && savedValue !== null) {
-      if (el.type === "checkbox") {
-        el.checked = (savedValue === "true");
-      } else {
-        el.value = savedValue;
+      function saveSettings() {
+        ALL_SETTING_IDS.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) {
+            const value = el.type === "checkbox" ? el.checked : el.value;
+            localStorage.setItem(`${PAGE_ID}_${id}`, value);
+          }
+        });
       }
-    }
-  });
-  
-  // Refresh UI visibility for auto-options if the function exists in the file
-  if (typeof toggleAutoOptions === "function") toggleAutoOptions();
-  if (typeof toggleAuto === "function") toggleAuto();
-}
 
-// Load automatically when the page opens
-window.addEventListener('DOMContentLoaded', loadSettings);
+      function loadSettings() {
+        ALL_SETTING_IDS.forEach((id) => {
+          const el = document.getElementById(id);
+          const savedValue = localStorage.getItem(`${PAGE_ID}_${id}`);
+
+          if (el && savedValue !== null) {
+            if (el.type === "checkbox") {
+              el.checked = savedValue === "true";
+            } else {
+              el.value = savedValue;
+            }
+          }
+        });
+
+        // Refresh UI visibility for auto-options if the function exists in the file
+        if (typeof toggleAutoOptions === "function") toggleAutoOptions();
+        if (typeof toggleAuto === "function") toggleAuto();
+      }
+
+      // Load automatically when the page opens
+      window.addEventListener("DOMContentLoaded", loadSettings);
 
       function toggleAuto() {
         const isFlash = document.getElementById("flashMode").checked;
@@ -465,7 +482,7 @@ window.addEventListener('DOMContentLoaded', loadSettings);
           input.style.display = "none";
           bubble.style.display = "inline-block";
           bubble.innerText = correctAnswer;
-          bubble.style.background = "#F58220";
+          bubble.style.background = "#20e7f5";
           feedback.innerText = "Answer:";
 
           checkBtn.innerText = "NEXT QUESTION >>";
@@ -539,4 +556,3 @@ window.addEventListener('DOMContentLoaded', loadSettings);
     </script>
   </body>
 </html>
-

@@ -20,7 +20,7 @@ if(!isset($_SESSION['user_id'])){
     <style>
       :root {
         /* Brand Colors */
-        --primary: #f58220;
+        --primary: #20e7f5;
         --primary-dark: #d35400;
         --secondary: #2d3436;
         --bg-color: #f4f7f6;
@@ -453,10 +453,10 @@ if(!isset($_SESSION['user_id'])){
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <circle cx="7" cy="17" r="3" fill="#F58220" />
+              <circle cx="7" cy="17" r="3" fill="#20e7f5" />
               <path
                 d="M12 7L20 17M20 7L12 17"
-                stroke="#F58220"
+                stroke="#20e7f5"
                 stroke-width="3"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -492,14 +492,14 @@ if(!isset($_SESSION['user_id'])){
             >
               <path
                 d="M3 8C3 6.5 4 5.5 5.5 5.5C7 5.5 8 6.5 8 8C8 9.5 6 11 3 13H8"
-                stroke="#F58220"
+                stroke="#20e7f5"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
               <path
                 d="M9 14L11.5 19L15.5 5H21"
-                stroke="#F58220"
+                stroke="#20e7f5"
                 stroke-width="2.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -520,14 +520,14 @@ if(!isset($_SESSION['user_id'])){
             >
               <path
                 d="M3 7H7L4.5 9.5C6 9.5 7.5 10.5 7.5 12C7.5 13.5 6 14.5 3 14.5"
-                stroke="#F58220"
+                stroke="#20e7f5"
                 stroke-width="1.8"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
               <path
                 d="M9 14L11.5 19L15.5 5H21"
-                stroke="#F58220"
+                stroke="#20e7f5"
                 stroke-width="2.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -548,14 +548,14 @@ if(!isset($_SESSION['user_id'])){
             >
               <path
                 d="M5 19L13 11M5 11L13 19"
-                stroke="#F58220"
+                stroke="#20e7f5"
                 stroke-width="2.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
               <path
                 d="M16 7C16 5.5 17 4.5 18.5 4.5C20 4.5 21 5.5 21 7C21 8.5 19 10 16 12H21"
-                stroke="#F58220"
+                stroke="#20e7f5"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -576,14 +576,14 @@ if(!isset($_SESSION['user_id'])){
             >
               <path
                 d="M5 19L13 11M5 11L13 19"
-                stroke="#F58220"
+                stroke="#20e7f5"
                 stroke-width="2.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
               <path
                 d="M16 5H20L17.5 7.5C19 7.5 20.5 8.5 20.5 10C20.5 11.5 19 12.5 16 12.5"
-                stroke="#F58220"
+                stroke="#20e7f5"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -634,16 +634,16 @@ if(!isset($_SESSION['user_id'])){
                 width="20"
                 height="20"
                 rx="2"
-                stroke="#F58220"
+                stroke="#20e7f5"
                 stroke-width="2"
               />
-              <path d="M2 8H22M2 16H22" stroke="#F58220" stroke-width="1.5" />
-              <circle cx="6" cy="5" r="2" fill="#F58220" />
-              <circle cx="12" cy="5" r="2" fill="#F58220" />
-              <circle cx="18" cy="5" r="2" fill="#F58220" />
-              <circle cx="6" cy="12" r="2" fill="#F58220" />
-              <circle cx="12" cy="12" r="2" fill="#F58220" />
-              <circle cx="18" cy="20" r="2" fill="#F58220" />
+              <path d="M2 8H22M2 16H22" stroke="#20e7f5" stroke-width="1.5" />
+              <circle cx="6" cy="5" r="2" fill="#20e7f5" />
+              <circle cx="12" cy="5" r="2" fill="#20e7f5" />
+              <circle cx="18" cy="5" r="2" fill="#20e7f5" />
+              <circle cx="6" cy="12" r="2" fill="#20e7f5" />
+              <circle cx="12" cy="12" r="2" fill="#20e7f5" />
+              <circle cx="18" cy="20" r="2" fill="#20e7f5" />
             </svg>
           </div>
           <span class="menu-label">Abacus</span>

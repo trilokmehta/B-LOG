@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,7 +6,7 @@
     <title>Decimal Division</title>
     <style>
       :root {
-        --primary: #f58220; /* The Orange */
+        --primary: #20e7f5; /* The Orange */
         --secondary: #2d3436;
         --bg-color: #f4f7f6;
         --card-bg: #ffffff;
@@ -65,7 +65,7 @@
         transition: color 0.2s;
       }
       .nav-links a:hover {
-        color: #f58220;
+        color: #20e7f5;
       }
 
       @media (max-width: 600px) {
@@ -315,11 +315,7 @@
   </head>
   <body>
     <header>
-      <img
-        src=""
-        alt="Logo"
-        class="logo"
-      />
+      <img src="" alt="Logo" class="logo" />
       <nav class="nav-links">
         <a href="index.html">Home</a>
         <a href="#">About</a>
@@ -472,34 +468,39 @@
     <script>
       // --- CACHE / PERSISTENCE LOGIC ---
       const cacheFields = [
-        "maxAns", "minAns", 
-        "maxDiv", "minDiv", 
-        "totalSums", "totalTime", 
-        "flashMode", "autoLoop", 
-        "autoDelay", "speed"
+        "maxAns",
+        "minAns",
+        "maxDiv",
+        "minDiv",
+        "totalSums",
+        "totalTime",
+        "flashMode",
+        "autoLoop",
+        "autoDelay",
+        "speed",
       ];
 
       function saveSettings() {
-        cacheFields.forEach(id => {
+        cacheFields.forEach((id) => {
           const el = document.getElementById(id);
           if (el) {
             if (el.type === "checkbox") {
-              localStorage.setItem('div_practice_' + id, el.checked);
+              localStorage.setItem("div_practice_" + id, el.checked);
             } else {
-              localStorage.setItem('div_practice_' + id, el.value);
+              localStorage.setItem("div_practice_" + id, el.value);
             }
           }
         });
       }
 
       function loadSettings() {
-        cacheFields.forEach(id => {
-          const savedValue = localStorage.getItem('div_practice_' + id);
+        cacheFields.forEach((id) => {
+          const savedValue = localStorage.getItem("div_practice_" + id);
           if (savedValue !== null) {
             const el = document.getElementById(id);
             if (el) {
               if (el.type === "checkbox") {
-                el.checked = (savedValue === "true");
+                el.checked = savedValue === "true";
               } else {
                 el.value = savedValue;
               }
@@ -507,7 +508,7 @@
           }
         });
         // Important: Update visibility of auto-options after loading
-        toggleAutoOptions(); 
+        toggleAutoOptions();
       }
 
       // Load settings automatically when the page is opened
@@ -599,9 +600,8 @@
         const dividend = parseFloat((ans * div).toFixed(4));
 
         correctAnswer = ans;
-        document.getElementById(
-          "question-text"
-        ).innerText = `${dividend} ÷ ${div}`;
+        document.getElementById("question-text").innerText =
+          `${dividend} ÷ ${div}`;
 
         // Reset UI
         document.getElementById("feedback").innerText = "";
@@ -759,9 +759,8 @@
       function updateUIStats() {
         document.getElementById("right-count").innerText = rightCount;
         document.getElementById("wrong-count").innerText = wrongCount;
-        document.getElementById(
-          "timer-display"
-        ).innerText = `${timeLeft.toFixed(1)}s`;
+        document.getElementById("timer-display").innerText =
+          `${timeLeft.toFixed(1)}s`;
       }
 
       function endSession(message) {
@@ -798,4 +797,3 @@
     </script>
   </body>
 </html>
-

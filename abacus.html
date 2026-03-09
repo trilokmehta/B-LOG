@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,11 +6,11 @@
     <title>Abacus</title>
     <style>
       :root {
-        --primary: #f58220;
+        --primary: #20c3f5;
         --bg-color: #f8f9fa;
         --frame-inner: #2d3436;
         --rod-color: #b2bec3;
-        --bead-heaven: #ff9f43;
+        --bead-heaven: #439bff;
         --bead-earth: #54a0ff;
       }
 
@@ -103,7 +103,7 @@
 
       .btn-explore {
         display: inline-block;
-        background-color: #f58220;
+        background-color: #20e7f5;
         color: white;
         text-decoration: none;
         padding: 15px 40px;
@@ -210,7 +210,8 @@
         z-index: 10;
         cursor: pointer;
         transition: transform 0.2s;
-        box-shadow: inset 0 4px 4px rgba(255, 255, 255, 0.2),
+        box-shadow:
+          inset 0 4px 4px rgba(255, 255, 255, 0.2),
           0 4px 8px rgba(0, 0, 0, 0.2);
       }
       .bead.heaven {
@@ -271,18 +272,11 @@
   <body>
     <button class="back-refresh-btn" onclick="location.reload()">← BACK</button>
     <header class="navbar">
-      <img
-        src=""
-        class="logo"
-        alt="Logo"
-      />
+      <img src="" class="logo" alt="Logo" />
 
       <a href="index.html" class="btn btn-clear">HOME</a>
 
-      <img
-        src=""
-        class="logo-right"
-      />
+      <img src="" class="logo-right" />
     </header>
 
     <div class="score-board">
@@ -522,4 +516,3 @@
     </script>
   </body>
 </html>
-

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,7 +6,7 @@
     <title>Table Practice</title>
     <style>
       :root {
-        --primary: #f58220;
+        --primary: #20e7f5;
         --secondary: #2d3436;
         --bg-color: #f4f7f6;
         --card-bg: #ffffff;
@@ -243,11 +243,7 @@
   </head>
   <body>
     <header>
-      <img
-        src=""
-        alt="Logo"
-        class="logo"
-      />
+      <img src="" alt="Logo" class="logo" />
       <nav class="nav-links">
         <a href="index.html">Home</a>
         <a href="#">About</a>
@@ -356,47 +352,65 @@
 
     <script>
       // --- UNIVERSAL CACHE LOGIC ---
-// Use the Page Title as a unique key prefix to prevent data mixing between different practice types
-const PAGE_ID = document.title.split('|')[0].trim().replace(/\s+/g, '_').toLowerCase();
+      // Use the Page Title as a unique key prefix to prevent data mixing between different practice types
+      const PAGE_ID = document.title
+        .split("|")[0]
+        .trim()
+        .replace(/\s+/g, "_")
+        .toLowerCase();
 
-// List of all possible setup IDs across all your files
-const ALL_SETTING_IDS = [
-  "lowNo", "highNo", "low1", "high1", "low2", "high2", "minAns", "maxAns", 
-  "minDiv", "maxDiv", "tableOf", "totalSums", "totalTime", 
-  "flashMode", "autoLoop", "autoDelay", "speed"
-];
+      // List of all possible setup IDs across all your files
+      const ALL_SETTING_IDS = [
+        "lowNo",
+        "highNo",
+        "low1",
+        "high1",
+        "low2",
+        "high2",
+        "minAns",
+        "maxAns",
+        "minDiv",
+        "maxDiv",
+        "tableOf",
+        "totalSums",
+        "totalTime",
+        "flashMode",
+        "autoLoop",
+        "autoDelay",
+        "speed",
+      ];
 
-function saveSettings() {
-  ALL_SETTING_IDS.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      const value = (el.type === "checkbox") ? el.checked : el.value;
-      localStorage.setItem(`${PAGE_ID}_${id}`, value);
-    }
-  });
-}
-
-function loadSettings() {
-  ALL_SETTING_IDS.forEach(id => {
-    const el = document.getElementById(id);
-    const savedValue = localStorage.getItem(`${PAGE_ID}_${id}`);
-    
-    if (el && savedValue !== null) {
-      if (el.type === "checkbox") {
-        el.checked = (savedValue === "true");
-      } else {
-        el.value = savedValue;
+      function saveSettings() {
+        ALL_SETTING_IDS.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) {
+            const value = el.type === "checkbox" ? el.checked : el.value;
+            localStorage.setItem(`${PAGE_ID}_${id}`, value);
+          }
+        });
       }
-    }
-  });
-  
-  // Refresh UI visibility for auto-options if the function exists in the file
-  if (typeof toggleAutoOptions === "function") toggleAutoOptions();
-  if (typeof toggleAuto === "function") toggleAuto();
-}
 
-// Load automatically when the page opens
-window.addEventListener('DOMContentLoaded', loadSettings);
+      function loadSettings() {
+        ALL_SETTING_IDS.forEach((id) => {
+          const el = document.getElementById(id);
+          const savedValue = localStorage.getItem(`${PAGE_ID}_${id}`);
+
+          if (el && savedValue !== null) {
+            if (el.type === "checkbox") {
+              el.checked = savedValue === "true";
+            } else {
+              el.value = savedValue;
+            }
+          }
+        });
+
+        // Refresh UI visibility for auto-options if the function exists in the file
+        if (typeof toggleAutoOptions === "function") toggleAutoOptions();
+        if (typeof toggleAuto === "function") toggleAuto();
+      }
+
+      // Load automatically when the page opens
+      window.addEventListener("DOMContentLoaded", loadSettings);
 
       function toggleAutoOptions() {
         const isFlash = document.getElementById("flashMode").checked;
@@ -576,9 +590,8 @@ window.addEventListener('DOMContentLoaded', loadSettings);
       function updateUIStats() {
         document.getElementById("right-count").innerText = rightCount;
         document.getElementById("wrong-count").innerText = wrongCount;
-        document.getElementById(
-          "timer-display"
-        ).innerText = `${timeLeft.toFixed(1)}s`;
+        document.getElementById("timer-display").innerText =
+          `${timeLeft.toFixed(1)}s`;
       }
 
       function endSession(msg) {
@@ -607,4 +620,3 @@ window.addEventListener('DOMContentLoaded', loadSettings);
     </script>
   </body>
 </html>
-

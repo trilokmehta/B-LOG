@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,7 +7,7 @@
     <style>
       :root {
         /* Brand Colors */
-        --primary: #f58220;
+        --primary: #20e7f5;
         --primary-dark: #d35400;
         --secondary: #2d3436;
         --bg-color: #f4f7f6;
@@ -17,7 +17,7 @@
         /* Calculator Specifics */
         --calc-bg: #2d3436;
         --btn-num: #ffffff;
-        --btn-op: #f58220;
+        --btn-op: #20e7f5;
         --btn-func: #636e72;
         --btn-text: #2d3436;
       }
@@ -163,7 +163,9 @@
         font-size: 1.2rem;
         font-weight: 700;
         cursor: pointer;
-        transition: transform 0.1s, opacity 0.2s;
+        transition:
+          transform 0.1s,
+          opacity 0.2s;
         box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
       }
 
@@ -227,11 +229,7 @@
     <header class="navbar">
       <div class="navbar-container">
         <div class="logo-wrapper">
-          <img
-            src=""
-            alt=""
-            class="logo"
-          />
+          <img src="" alt="" class="logo" />
         </div>
 
         <nav class="navbar-menu">
@@ -262,11 +260,20 @@
     <div class="container">
       <div class="calculator-card">
         <div class="back-arrow-btn" onclick="location.reload()">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#f58220" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <svg
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#20e7f5"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
-        </div>        
+        </div>
         <div class="calc-header">
           <span>JUNIOR SCIENTIFIC</span>
           <span style="opacity: 0.7">BrainiacGym</span>
@@ -393,4 +400,3 @@
     </script>
   </body>
 </html>
-
