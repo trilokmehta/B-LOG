@@ -1,0 +1,548 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Academy of Abacus </title>
+    	<link name="favicon" type="image/x-icon" href="/logo.png" rel="shortcut icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        /* Brand Colors */
+        --primary: #06446d;
+        --primary-dark: #d35400;
+        --secondary: #2d3436;
+        --bg-color: #f4f7f6;
+        --card-bg: #ffffff;
+        --header-height: 80px;
+      }
+
+      * {
+        box-sizing: border-box;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--secondary);
+        padding-top: calc(var(--header-height) + 40px);
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* --- NAVIGATION --- */
+      .navbar {
+        height: var(--header-height);
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      .navbar-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        padding: 0 20px;
+      }
+
+      .logo-wrapper {
+        display: flex;
+        align-items: center;
+        height: 100%;
+      }
+      .logo {
+        height: 50px;
+        width: auto;
+        object-fit: contain;
+      }
+      .logo-right {
+        height: 55px;
+        width: auto;
+        margin-left: 20px;
+      }
+
+      .navbar-menu {
+        display: flex;
+        gap: 25px;
+      }
+
+      .nav-link {
+        text-decoration: none;
+        color: var(--secondary);
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        transition: color 0.3s;
+      }
+
+      .nav-link:hover {
+        color: var(--primary);
+      }
+
+      .hamburger {
+        display: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--secondary);
+      }
+
+      /* Mobile Menu */
+      .mobile-menu {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 999;
+        flex-direction: column;
+        gap: 15px;
+        display: flex;
+        text-align: center;
+      }
+      .mobile-menu.open {
+        transform: translateY(0);
+      }
+
+      /* --- HERO --- */
+      .page-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 0 20px;
+      }
+
+      .page-header h1 {
+        color: var(--primary);
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        font-weight: 800;
+      }
+
+      .page-header p {
+        font-size: 1.2rem;
+        color: #636e72;
+        margin: 0;
+      }
+
+      /* --- MENU GRID --- */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px 60px 20px;
+      }
+
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+        gap: 20px;
+      }
+
+      .menu-card {
+        background-color: var(--card-bg);
+        border-radius: 15px;
+        padding: 30px 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border: 1px solid #eee;
+        cursor: pointer;
+        height: 100%;
+        text-decoration: none;
+      }
+
+      .menu-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(245, 130, 32, 0.15);
+        border-color: var(--primary);
+      }
+
+      /* --- ICON STYLING --- */
+      .icon-box {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 15px;
+        border-radius: 50%;
+        background-color: #fff8f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+
+      .icon-box i {
+        font-size: 32px;
+        color: var(--primary);
+        transition: color 0.3s ease;
+      }
+
+      .icon-box svg path,
+      .icon-box svg circle {
+        transition: all 0.3s ease;
+      }
+
+      /* Hover States */
+      .menu-card:hover .icon-box {
+        background-color: var(--primary);
+      }
+
+      .menu-card:hover .icon-box i {
+        color: white;
+      }
+
+      /* THE FIX: Targets SVG paths/circles to turn white on hover */
+      .menu-card:hover .icon-box svg path {
+        stroke: white !important;
+      }
+      .menu-card:hover .icon-box svg circle {
+        fill: white !important;
+        stroke: white !important;
+      }
+
+      .menu-label {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--secondary);
+      }
+
+      /* --- MOBILE ADJUSTMENTS --- */
+      @media (max-width: 768px) {
+        :root {
+          --header-height: 70px;
+        }
+        .navbar-menu,
+        .logo-right {
+          display: none;
+        }
+        .hamburger {
+          display: block;
+        }
+        .logo {
+          height: 40px;
+        }
+        .page-header h1 {
+          font-size: 1.8rem;
+        }
+        .menu-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 15px;
+        }
+        .icon-box {
+          width: 55px;
+          height: 55px;
+        }
+        .icon-box i {
+          font-size: 24px;
+        }
+        .menu-label {
+          font-size: 0.9rem;
+        }
+      }
+
+      /* --- FOOTER --- */
+      .social-footer {
+        background-color: white;
+        padding: 30px 0;
+        margin-top: 40px;
+        border-top: 1px solid #eee;
+        text-align: center;
+      }
+
+      .social-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .social-btn {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background-color: #f4f7f6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--secondary);
+        font-size: 1.2rem;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .social-btn:hover {
+        transform: translateY(-3px);
+        color: white;
+      }
+
+      .share-btn:hover {
+        background-color: var(--primary);
+      }
+      .fb:hover {
+        background-color: #1877f2;
+      }
+      .x:hover {
+        background-color: #000000;
+      }
+      .insta:hover {
+        background: radial-gradient(
+          circle at 30% 107%,
+          #fdf497 0%,
+          #fd5949 45%,
+          #d6249f 60%,
+          #285aeb 90%
+        );
+      }
+      .linkedin:hover {
+        background-color: #0077b5;
+      }
+      .yt:hover {
+        background-color: #ff0000;
+      }
+
+      .divider-vertical {
+        width: 1px;
+        height: 30px;
+        background-color: #ddd;
+        margin: 0 10px;
+      }
+      
+      
+      
+      /* --- LOGOUT CARD STYLE --- */
+.menu-card.logout-card {
+  border-top: 4px solid #d63031; /* Red border */
+}
+
+/* Make the icon red */
+.menu-card.logout-card .icon-box i {
+  color: #d63031; 
+}
+
+/* Hover effect for logout (White text, Red background) */
+.menu-card.logout-card:hover {
+  background-color: #d63031;
+  border-color: #d63031;
+}
+.menu-card.logout-card:hover .menu-label {
+  color: white;
+}
+.menu-card.logout-card:hover .icon-box {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.menu-card.logout-card:hover .icon-box i {
+  color: white;
+}
+
+
+
+
+    </style>
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="navbar-container">
+        <div class="logo-wrapper">
+          <img
+            src="/logo.png"
+            alt="LOGO"
+            class="logo"
+          />
+        </div>
+        <nav class="navbar-menu">
+          <a href="#" class="nav-link">Home</a>
+          <a href="#" class="nav-link">About</a>
+          <a href="#" class="nav-link">Courses</a>
+          <a href="#" class="nav-link">Contact</a>
+        </nav>
+        <div class="logo-wrapper">
+          <img
+            src="/logo.png"
+            alt="NSDC"
+            class="logo-right"
+          />
+          <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+     <nav class="nav-links">
+        <a href="/application/">Home</a>
+        <a href="">About</a>
+        <a href="">Courses</a>
+        <a href="">Contact</a>
+      </nav>
+    </div>
+
+    <div class="page-header">
+      <h1>Academy of Abacus</h1>
+      <p>Official Training Application</p>
+    </div>
+
+    <div class="container">
+      <div class="menu-grid">
+        <a href="/application/index.html" class="menu-card">
+          <div class="icon-box"><i class="fa-solid fa-plus"></i></div>
+          <span class="menu-label">Addition</span>
+        </a>
+
+
+        <a href="/abacus/index.html" class="menu-card"> 
+          <div class="icon-box">
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="2"
+                y="2"
+                width="20"
+                height="20"
+                rx="2"
+                stroke="#06446d"
+                stroke-width="2"
+              />
+              <path d="M2 8H22M2 16H22" stroke="#06446d" stroke-width="1.5" />
+              <circle cx="6" cy="5" r="2" fill="#06446d" />
+              <circle cx="12" cy="5" r="2" fill="#06446d" />
+              <circle cx="18" cy="5" r="2" fill="#06446d" />
+              <circle cx="6" cy="12" r="2" fill="#06446d" />
+              <circle cx="12" cy="12" r="2" fill="#06446d" />
+              <circle cx="18" cy="20" r="2" fill="#06446d" />
+            </svg>
+          </div>
+          <span class="menu-label">Abacus</span>
+        </a>
+        <a href="" class="menu-card">
+  <div class="icon-box"><i class="fa-solid fa-circle-question"></i></div>
+  <span class="menu-label">Help & Support</span>
+</a>
+
+
+        <a href="" class="menu-card logout-card">
+          <div class="icon-box">
+            <i class="fa-solid fa-power-off"></i>
+          </div>
+          <span class="menu-label">Logout</span>
+        </a>
+        
+      </div>
+    </div>
+
+    <footer class="social-footer">
+      <div class="social-container">
+        <button class="social-btn share-btn" title="Share App">
+          <i class="fa-solid fa-share-nodes"></i>
+        </button>
+        <div class="divider-vertical"></div>
+        <a
+          href="https://m.facebook.com"
+          target="_blank"
+          class="social-btn fb"
+          ><i class="fa-brands fa-facebook-f"></i
+        ></a>
+        <a
+          href="https://twitter.com"
+          target="_blank"
+          class="social-btn x"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            style="
+              width: 18px;
+              height: 18px;
+              fill: currentColor;
+              margin-top: 4px;
+            "
+          >
+            <path
+              d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
+            />
+          </svg>
+        </a>
+        <a
+          href="https://www.instagram.com/"
+          target="_blank"
+          class="social-btn insta"
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
+        <a
+          href="https://www.linkedin.com"
+          target="_blank"
+          class="social-btn linkedin"
+          ><i class="fa-brands fa-linkedin-in"></i
+        ></a>
+        <a
+          href="https://youtube.com"
+          target="_blank"
+          class="social-btn yt"
+          ><i class="fa-brands fa-youtube"></i
+        ></a>
+      </div>
+    </footer>
+
+    <script>
+      // Existing Menu Toggle
+      function toggleMenu() {
+        document.getElementById("mobileMenu").classList.toggle("open");
+      }
+
+      // --- NEW SHARE BUTTON LOGIC ---
+      document.querySelector('.share-btn').addEventListener('click', async () => {
+        const shareData = {
+          title: 'Academy',
+          text: 'Check out the official  Training Application!',
+          url: window.location.href // Shares the current page URL
+        };
+
+        // 1. Try Native Sharing (Mobile/Tablets)
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+          } catch (err) {
+            console.log('Share canceled or failed', err);
+          }
+        } 
+        // 2. Fallback: Copy to Clipboard (Desktop)
+        else {
+          try {
+            await navigator.clipboard.writeText(window.location.href);
+            alert('Link copied to clipboard!');
+          } catch (err) {
+            alert('Unable to share. Please copy the URL manually.');
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
+  </body>
+</html>
