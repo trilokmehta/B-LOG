@@ -1,0 +1,328 @@
+<!-- <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us Academy</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #06446d;
+        --secondary: #2d3436;
+        --bg-color: #f4f7f6;
+        --card-bg: #ffffff;
+        --header-height: 80px;
+        --whatsapp-color: #25d366;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--secondary);
+        padding-top: calc(var(--header-height) + 40px);
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* --- NAVBAR (Same as Dashboard) --- */
+      .navbar {
+        height: var(--header-height);
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 0 20px;
+      }
+
+      .navbar-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+      }
+
+      .logo {
+        height: 50px;
+      }
+
+      .back-link {
+        font-weight: 600;
+        color: var(--secondary);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: color 0.3s;
+      }
+      .back-link:hover {
+        color: var(--primary);
+      }
+
+      /* --- PAGE HEADER --- */
+      .page-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 0 20px;
+      }
+
+      .page-header h1 {
+        color: var(--primary);
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        font-weight: 800;
+      }
+
+      .page-header p {
+        font-size: 1.2rem;
+        color: #636e72;
+      }
+
+      /* --- CONTACT CONTAINER --- */
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 20px 60px 20px;
+        width: 100%;
+        flex: 1;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      /* --- CONTACT CARDS --- */
+      .contact-card {
+        background: white;
+        padding: 40px 30px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+        border: 1px solid #eee;
+      }
+
+      .contact-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary);
+      }
+
+      .icon-circle {
+        width: 70px;
+        height: 70px;
+        background: #fff8f0;
+        color: var(--primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        margin: 0 auto 20px auto;
+      }
+
+      .card-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: var(--secondary);
+      }
+
+      .card-text {
+        color: #636e72;
+        line-height: 1.6;
+        margin-bottom: 5px;
+        display: block;
+        font-size: 1.05rem;
+      }
+
+      .highlight-link {
+        color: var(--primary);
+        font-weight: 600;
+      }
+      .highlight-link:hover {
+        text-decoration: underline;
+      }
+
+      /* --- WHATSAPP SECTION --- */
+      .whatsapp-section {
+        grid-column: 1 / -1;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        margin-top: 10px;
+        border-top: 5px solid var(--whatsapp-color);
+      }
+
+      .wa-buttons-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 25px;
+      }
+
+      .btn-whatsapp {
+        background-color: var(--whatsapp-color);
+        color: white;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+      }
+
+      .btn-whatsapp:hover {
+        background-color: #1ebc57;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+      }
+
+      .btn-whatsapp i {
+        font-size: 1.4rem;
+      }
+
+      /* --- FOOTER --- */
+      .simple-footer {
+        text-align: center;
+        padding: 30px;
+        color: #b2bec3;
+        font-size: 0.9rem;
+        border-top: 1px solid #eee;
+        background: white;
+        margin-top: auto;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 600px) {
+        .page-header h1 {
+          font-size: 2rem;
+        }
+        .wa-buttons-container {
+          flex-direction: column;
+        }
+        .btn-whatsapp {
+          justify-content: center;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="navbar-container">
+        <a href="index.html" class="logo-link">
+          <img src="/logo.png" alt="LOGO" class="logo" />
+        </a>
+        <a href="javascript:history.back()" class="back-link">
+          <i class="fa-solid fa-arrow-left"></i> Back
+        </a>
+      </div>
+    </header>
+
+    <div class="page-header">
+      <h1>Get in Touch</h1>
+      <p>We are here to help you grow.</p>
+    </div>
+
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="icon-circle">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+          <h3 class="card-title">Visit Us</h3>
+          <p class="card-text">
+            <br />
+            Academy of Abacus<br />
+            India
+          </p>
+        </div>
+
+        <div class="contact-card">
+          <div class="icon-circle">
+            <i class="fa-solid fa-phone"></i>
+          </div>
+          <h3 class="card-title">Call Us</h3>
+          <a href="tel:+919953208414" class="card-text highlight-link"
+            >+91 99532 08414</a
+          >
+          <a href="tel:+919999624660" class="card-text highlight-link"
+            >+91 99996 24660</a
+          >
+        </div>
+
+        <div class="contact-card">
+          <div class="icon-circle">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <h3 class="card-title">Email Us</h3>
+          <p class="card-text">For general inquiries:</p>
+          <a
+            href="mailto:support@Yourbrand.com"
+            class="card-text highlight-link"
+            >support@yourbrand.com</a
+          >
+        </div>
+
+        <div class="whatsapp-section">
+          <div
+            class="icon-circle"
+            style="background: #e6ffed; color: var(--whatsapp-color)"
+          >
+            <i class="fa-brands fa-whatsapp"></i>
+          </div>
+          <h3 class="card-title">Chat on WhatsApp</h3>
+          <p class="card-text">Instant support and course details.</p>
+
+          <div class="wa-buttons-container">
+            <a
+              href="https://api.whatsapp.com/send?phone=971502420856&text=Hello%2C%20I%20have%20an%20enquiry%20regarding%20"
+              target="_blank"
+              class="btn-whatsapp"
+            >
+              <i class="fa-brands fa-whatsapp"></i>
+              Chat (UAE Support)
+            </a>
+
+            <a
+              href="https://api.whatsapp.com/send?phone=919953208414"
+              target="_blank"
+              class="btn-whatsapp"
+            >
+              <i class="fa-brands fa-whatsapp"></i>
+              Chat (India Support)
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="simple-footer">
+      -->
+    </footer>
+  </body>
+</html> -->
