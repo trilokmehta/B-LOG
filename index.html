@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="kha">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dreams Without Limits</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root { --paper: #f6ead3; --ink: #3a2a1e; --muted: #7a6450; --accent: #9b3b1c; --gold: #b8893a; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; color: var(--ink); overflow-x: hidden;
+    font-family: "Lora", Georgia, serif; line-height: 1.9;
+    background: var(--paper);
+  }
+  /* soft paper glow + vignette */
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(ellipse at center, transparent 55%, rgba(150,105,50,.22));
+  }
+  img.layer { mix-blend-mode: multiply; pointer-events: none; user-select: none; will-change: transform; }
+
+  /* fixed frame: woven borders top & bottom, ornament strips on the sides */
+  .band { position: fixed; left: 0; right: 0; height: 22px; z-index: 20;
+    background: url("layers/bottomborder.webp") repeat-x left center / auto 100%; }
+  .band.top { top: 0; } .band.bottom { bottom: 0; }
+  .side { position: fixed; top: 22px; bottom: 22px; width: 40px; z-index: 19;
+    background: url("layers/side.webp") repeat-y center top / 100% auto;
+    mix-blend-mode: multiply; opacity: .9; }
+  .side.left { left: 6px; } .side.right { right: 6px; transform: scaleX(-1); }
+
+  /* HERO */
+  .hero { position: relative; height: 100vh; min-height: 560px; z-index: 1; }
+  .flowers { position: absolute; top: 0; left: 0; width: min(34vw, 460px);
+    -webkit-mask-image: radial-gradient(ellipse at 0 0, #000 55%, transparent 75%);
+            mask-image: radial-gradient(ellipse at 0 0, #000 55%, transparent 75%); }
+  .mountains { position: absolute; top: 6vh; right: 0; width: min(46vw, 680px);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 25%);
+            mask-image: linear-gradient(to right, transparent, #000 25%); }
+  .hero-text { position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center; padding: 0 16px; }
+  .theme-label { letter-spacing: .4em; text-transform: uppercase; font-size: .8rem; color: var(--muted); }
+  h1 { font-family: "Cormorant Garamond", serif; font-weight: 700; line-height: 1;
+    font-size: clamp(3rem, 9vw, 7.5rem); margin: 14px 0 18px; color: var(--accent);
+    text-shadow: 0 2px 30px rgba(255,245,225,.9); }
+  .byline { font-style: italic; color: var(--muted); font-size: 1.15rem; }
+  .ornament { color: var(--gold); letter-spacing: .8em; margin: 28px 0 0; padding-left: .8em; }
+  .scroll-hint { position: absolute; bottom: 48px; left: 50%; transform: translateX(-50%);
+    color: var(--muted); font-size: .75rem; letter-spacing: .3em; text-transform: uppercase;
+    animation: bob 2.4s ease-in-out infinite; }
+  @keyframes bob { 50% { transform: translate(-50%, 8px); } }
+
+  /* POEM */
+  main { position: relative; z-index: 2; max-width: 640px; margin: 0 auto; padding: 40px 16px 80px; }
+  .stanza { text-align: center; padding: 34px 0;
+    opacity: 0; transform: translateY(24px); filter: blur(4px);
+    transition: opacity .9s ease, transform .9s ease, filter .9s ease; }
+  .stanza.show { opacity: 1; transform: none; filter: none; }
+  .stanza p { margin: 0; white-space: pre-line; font-size: 1.18rem; }
+  .stanza::after { content: "◆"; display: block; color: var(--gold); font-size: .6rem; margin-top: 34px; opacity: .7; }
+  .stanza:last-child::after { display: none; }
+
+  /* layers pinned in the side margins while the poem scrolls */
+  .drift { position: fixed; z-index: 1; opacity: 0; transition: opacity .8s ease; }
+  .drift.on { opacity: .9; }
+  .drift.a { top: 10vh; left: 50px; width: min(calc(50vw - 380px), 440px);
+    -webkit-mask-image: radial-gradient(ellipse, #000 50%, transparent 72%); mask-image: radial-gradient(ellipse, #000 50%, transparent 72%); }
+  .drift.b { top: 4vh; right: 30px; width: min(calc(50vw - 380px), 360px); scale: -1 1; }
+  .drift.c { bottom: 6vh; left: 30px; width: min(calc(50vw - 400px), 320px); scale: 1 -1; }
+  .drift.d { bottom: 12vh; right: 50px; width: min(calc(50vw - 380px), 440px); scale: -1 1;
+    -webkit-mask-image: radial-gradient(ellipse, #000 50%, transparent 72%); mask-image: radial-gradient(ellipse, #000 50%, transparent 72%); }
+  .drift.b, .drift.c { -webkit-mask-image: radial-gradient(ellipse at 0 0, #000 50%, transparent 75%); mask-image: radial-gradient(ellipse at 0 0, #000 50%, transparent 75%); }
+  @media (max-width: 1050px) { .drift { display: none; } }
+
+  /* floating petals in the empty margins */
+  .petals { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+  .petal { position: absolute; top: -40px; width: 14px; height: 10px; border-radius: 80% 0 80% 0;
+    background: linear-gradient(135deg, #f7c6c0, #e9897f); opacity: .75;
+    animation: fall linear infinite; }
+  @keyframes fall { to { transform: translate(var(--drift), 110vh) rotate(540deg); } }
+
+  /* CLOSING SCENE */
+  .finale { position: relative; z-index: 1; overflow: hidden; margin-top: 40px; }
+  .finale .scene { display: block; width: 100%; min-height: 70vh; object-fit: cover; object-position: center bottom;
+    -webkit-mask-image: linear-gradient(transparent, #000 30%);
+            mask-image: linear-gradient(transparent, #000 30%); }
+  .credit { position: absolute; top: 18%; left: 0; right: 0; text-align: center; padding: 0 16px; }
+  .credit .name { font-family: "Cormorant Garamond", serif; font-size: clamp(2rem, 4.5vw, 3.2rem); color: var(--accent); }
+  .credit .thanks { font-style: italic; color: var(--muted); font-size: 1.1rem; }
+
+  @media (max-width: 700px) {
+    .side { width: 22px; } .side.left { left: 2px; } .side.right { right: 2px; }
+    .band { height: 14px; }
+    .flowers { width: 62vw; }
+    .mountains { width: 75vw; top: auto; bottom: 22vh; }
+    .stanza p { font-size: 1.02rem; }
+    main { padding: 20px 34px 60px; }
+    .finale .scene { min-height: 55vh; object-position: 30% bottom; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .petal, .scroll-hint { animation: none; } .stanza { transition: none; } .drift { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="band top"></div><div class="band bottom"></div>
+<div class="side left"></div><div class="side right"></div>
+<div class="petals" id="petals"></div>
+
+<section class="hero">
+  <img class="layer flowers" data-speed="0.35" src="layers/flowers.webp" alt="">
+  <img class="layer mountains" data-speed="0.15" src="layers/mountains.webp" alt="">
+  <div class="hero-text" data-speed="0.45">
+    <div class="theme-label">Theme</div>
+    <h1>Dreams Without Limits</h1>
+    <div class="byline">by Balinda Jyrwa</div>
+    <div class="ornament">◆ ◆ ◆</div>
+  </div>
+  <div class="scroll-hint">Scroll ↓</div>
+</section>
+
+<main>
+  <img class="layer drift a" data-range="60" src="layers/mountains.webp" alt="">
+  <img class="layer drift b" data-range="-90" src="layers/flowers.webp" alt="">
+  <img class="layer drift c" data-range="80" src="layers/flowers.webp" alt="">
+  <img class="layer drift d" data-range="-60" src="layers/mountains.webp" alt="">
+  <div id="poem"></div>
+</main>
+
+<section class="finale">
+  <img class="layer scene" id="scene" src="layers/scene.webp" alt="A girl looking at mountains at sunrise">
+  <div class="credit">
+    <div class="theme-label">La thoh bad pynwandur da</div>
+    <div class="name">Balinda Jyrwa</div>
+    <div class="thanks">Khublei shibun</div>
+  </div>
+</section>
+
+<script>
+const stanzas = [
+`Banyngkong eh, nga da sngewnguh,
+Jinglong kyrpang, B'u Blei u buh.
+Ha jinglongbriew, ym lah sngewthuh,
+Jingjm kordor, kein ban shu duh.`,
+`Kat shaba phai, dap tang jingma,
+Wat la ha ing, ne ki para.
+Ka suk, ka sain, ym i don shuh,
+Palei mynsiem, te ka la duh`,
+`Ko khun tipnong, ko tipni,
+Wat shah jingsniew, kin teh ia phi.
+Ka jingitieng, Ah! Tang ban peit,
+Ka jingjylli, kat shaba leit.`,
+`Nga kren kyrpang, ia ki kynthei,
+Phi ruh te khun, phi don lawei.
+Wat tieng, wat riej, bym don lynti,
+Pynban to long, nuksa ia ki.`,
+`Kat shaba phai, tang jingkhanglad,
+Khamtam kynthei, ban plie, hap wad.
+Ha shnong, ha thaw, ki bein, ki khoh,
+Hi, kum katei, shaei kan ioh.`,
+`Wat duh mynsiem, wat kynrandien,
+To thom naphang, khlem jingsheptieng.
+To shim jingtim, kum jingkyrkhu,
+Namar phi tip, U don Ma U.`,
+`Katie ka thong, nga buh hakhmat,
+Ngam tieng wat ia, umbah ngan rat.
+Ka thong te dei, ka thong Jong nga,
+Ban poi shatei, hap jop ka thma.`,
+`Bun ki samla, kynthei shisha,
+La shah pynbor, ha ka shongkha.
+Bapli ki kwah, ban im laitluid,
+Khlem da pynbor, ki kwah im khun.`,
+`Kane ka dei, ka por mynta,
+Ban ieng rasong, khlem jingsalia.
+Tylli kawei, ngin ia ieng lang,
+Ko khun samla, kynthei, shynrang.`,
+`Ba ngin shu sngap, te ka ba ma,
+To pyni noh, da ka nuksa.
+La ha ka ktien, ne ha ka kam,
+To mait shaphrang, kum nongialam.`,
+`Wat ong ba nga, te ngan ym lah,
+Hynrei mynsiem, te ka da kwah.
+To mih pyrthei, to sei ka sap,
+Ngin rat diengkhoh, jingdum ngin kdat.`,
+`Nga ruh i wei, na ki kynthei,
+Ba ju angnud, ia ka lawei.
+Nga sngew ba ka, long kaba eh,
+Kat shaba phai, tang jingialeh.`,
+`Khamtam lei lei, longing baduk,
+Jynjar ban wad, ia ka jingsuk.
+U shiah u thar, ha kti, ha kjat,
+Teng teng, ngi jaw, ruh ki ummat.`,
+`Naduh dang khie, haduh da dum,
+Khrik, khrik, khrak, khrak, ka lang ka lum.
+Bad ka pule, ha lang ka trei,
+Namar kwah tip, ia ka lawei.`,
+`Ko ri khasi, Baieid bathiang,
+Ka por mynta, ia ngi la biang.
+Ngin ai mynsiem, ba markylliang,
+Namar jingstad, hi kan phalang.`,
+`Kane ka dei, ka jingkyrsiew,
+Kylleng pyrthei, ban ngam jylliew.
+Ka hok, ka dei lang ia baroh,
+Khlem thew shiliang, ne khlem pynnoh.`,
+`Ym don bakhraw, lane batri,
+Kynthei, shynrang, ruh kajuh hi.
+Wat ong kynthei, ym tip ei ei,
+Lah kut ha ing, ym don lawei.`,
+`La dum ka buit, la dum ka stad,
+Ha nga marwei, ba ngan pyrkhat,
+Ba ngin peit poh, hi ia kiwei,
+Khamtam lei lei, ia ki kynthei.`,
+`Khunlung, khynnah, samla, rangbah,
+Wat shah jingsniew, kin ker, kin kah.
+Nga kren kyrpang, ia ki kynthei,
+Namar nga ruh, nga dei i wei.`,
+`Ko rang samla, rangbah ka ri,
+Shongkha, shongman, kam shong ha phi.
+Kan iaid lyngba, ar jingsngewthuh
+Shijur kumba, U Blei U buh.`,
+`Ah! Wat ia jrong ka kti, ka kjat,
+Ngi don mynsiem, ym kum ki mrad.
+Akor burom, hi kaba tam,
+Sha kliar u lum, ryngkat ka nam.`,
+`Longkmie, Longkpa, ko khun kynthei,
+Ngi ruh ngi don te ka lawei.
+I shiah in thar, un dung ia phi,
+Ban poi sha kliar hap iaid lynti.`,
+`Baroh baroh, ki ai mynsiem,
+Samla kynthei, wat kynran dien.
+Wat tieng, wat smiej, wat iam, wat ud,
+Jingthrang Jong phi, te kam pat kut.`,
+`Ko rang kynsai, samla ka ri,
+Wat shah ba kin, jrong kti ia ki.
+Phi long ka stieh bah, ban iada,
+Khlem artatien, bad khlem salia.`,
+`Ngi ruh ko thei, samla bhabriew,
+Akor burom, hi kan kyntiew.
+Ka nang ka stad, bad ka jingtip,
+Kin neh shirta, bad kin ym lip.`,
+`Haba phi thrang, bad phi angnud,
+Ban long riewkhraw, bad bajymnud.
+To shim ia jing-kitkhlieh, ha kti,
+Ban poi sha thong, te dei ha phi.`,
+`Satlak pyrthei, ki tip mynta,
+Ba don ka bor, bad jingiada.
+Ka jingpyntip, to kloi na phi,
+Tang phi ba tip, ba iaid lynti.`,
+`Ka jingpeit bein, ka jingpeit khoh,
+Ka paw shai kdar, hangta baroh.
+Phi ieng rangbah, phi ieng rasong,
+Ka hok longbriew, kynmaw kundong.`,
+`Nga ai khublei, ba kyrpang eh,
+Wat la jingim, dei jingialeh.
+Hynrei ban ieng, namar Jong phi,
+Baroh ngin kit, bad ngin tylli.`,
+`Kyntang ia wai, to ieng ryntih,
+Namar Jong ki, ngi kloi ban mih.
+Namar ka dei, kamram Jong ngi,
+Ban jop donkam, jingiatylli.`
+];
+
+const main = document.getElementById('poem');
+const mainEl = main.parentElement;
+stanzas.forEach(text => {
+  const card = document.createElement('article');
+  card.className = 'stanza';
+  const p = document.createElement('p');
+  p.textContent = text;
+  card.appendChild(p);
+  main.appendChild(card);
+});
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.stanza').forEach(el => io.observe(el));
+
+// petals, kept mostly in the side margins
+const petals = document.getElementById('petals');
+for (let i = 0; i < 14; i++) {
+  const s = document.createElement('span');
+  s.className = 'petal';
+  const x = Math.random() < .5 ? Math.random() * 28 : 72 + Math.random() * 28;
+  s.style.left = x + 'vw';
+  s.style.setProperty('--drift', (Math.random() * 160 - 80) + 'px');
+  s.style.animationDuration = (12 + Math.random() * 14) + 's';
+  s.style.animationDelay = (-Math.random() * 26) + 's';
+  s.style.scale = .6 + Math.random() * .8;
+  petals.appendChild(s);
+}
+
+// parallax layers
+const movers = [...document.querySelectorAll('[data-speed]')];
+const drifts = [...document.querySelectorAll('.drift')];
+const scene = document.getElementById('scene');
+function tick() {
+  const y = scrollY;
+  movers.forEach(el => {
+    el.style.transform = `translateY(${y * el.dataset.speed}px)`;
+  });
+  // margin layers: visible only beside the poem, gliding as you read
+  const start = mainEl.offsetTop - innerHeight * .4;
+  const end = mainEl.offsetTop + mainEl.offsetHeight - innerHeight * .9;
+  const p = Math.min(1, Math.max(0, (y - start) / (end - start)));
+  drifts.forEach(el => {
+    el.classList.toggle('on', y > start && y < end);
+    el.style.transform = `translateY(${(p - .5) * 2 * el.dataset.range}px)`;
+  });
+  const t = Math.max(0, scene.parentElement.getBoundingClientRect().top);
+  scene.style.transform = `translateY(${t * -0.25}px) scale(${1 + Math.min(t, 600) / 3000})`;
+}
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  addEventListener('scroll', () => requestAnimationFrame(tick), { passive: true });
+  addEventListener('resize', tick);
+  tick();
+}
+</script>
+</body>
+</html>
