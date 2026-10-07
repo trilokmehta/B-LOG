@@ -147,9 +147,73 @@
     .title-wrap { top: 15%; }
     h1 { font-size: clamp(3.4rem, 17vw, 4.6rem); }
     .byline { font-size: 1.1rem; }
-    .scroll-hint { left: auto; right: 22px; transform: none; animation: none; }
+    .scroll-hint { left: auto; right: 78px; bottom: 30px; transform: none; animation: none; }
     .weave-divider { height: 26px; }
     .poem-section { padding: 70px 22px 40px; }
+  }
+
+  /* ---------- download button ---------- */
+  .pdf-btn { position: fixed; right: 22px; bottom: calc(var(--band) + 18px); z-index: 70;
+    display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px 12px 16px;
+    font: 600 .78rem/1 "Cinzel", serif; letter-spacing: .18em; color: #fff7e6; cursor: pointer;
+    border: 1px solid rgba(255,230,180,.55); border-radius: 999px;
+    background: linear-gradient(135deg, #a3401f, #7a2812);
+    box-shadow: 0 8px 22px rgba(90,35,10,.35), inset 0 1px 0 rgba(255,255,255,.2);
+    transition: transform .25s ease, box-shadow .25s ease; }
+  .pdf-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(90,35,10,.45), inset 0 1px 0 rgba(255,255,255,.2); }
+  .pdf-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .pdf-btn svg { width: 16px; height: 16px; }
+  @media (max-width: 700px) {
+    .pdf-btn { right: 14px; padding: 11px; } .pdf-btn span { display: none; }
+    .pdf-btn svg { width: 20px; height: 20px; }
+  }
+
+  /* ---------- printable book (only used for the PDF) ---------- */
+  #book { display: none; }
+  @page { size: A4; margin: 0; }
+  @media print {
+    html, body { background: #f3e3c3 !important; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    body > *:not(#book) { display: none !important; }
+    #book { display: block; }
+    .pg { position: relative; width: 210mm; height: 297mm; overflow: hidden; break-after: page;
+      background: #f3e3c3 url("img/paper.jpg") center / cover; color: var(--ink); }
+    .pg:last-child { break-after: auto; }
+    .pg .weave { position: absolute; left: 0; right: 0; height: 7mm;
+      background: url("img/weave.webp") repeat-x left center / auto 100%; }
+    .pg .weave.t { top: 0; } .pg .weave.b { bottom: 0; }
+
+    /* cover */
+    .cv-valley { position: absolute; left: 0; right: 0; bottom: 7mm; height: 58%; width: 100%; object-fit: cover; object-position: 65% 75%;
+      -webkit-mask-image: linear-gradient(transparent, #000 32%); mask-image: linear-gradient(transparent, #000 32%); }
+    .cv-perch { position: absolute; left: -10mm; bottom: 2mm; width: 138mm; aspect-ratio: 1165 / 683; }
+    .cv-perch .hill { position: absolute; left: 0; bottom: 0; width: 100%; }
+    .cv-perch .girl { position: absolute; left: 4%; bottom: 20%; width: 46%; }
+    .cv-blossom { position: absolute; top: 3mm; left: -8mm; width: 92mm; }
+    .cv-blossom.r { left: auto; right: -10mm; width: 62mm; transform: scaleX(-1); }
+    .cv-title { position: absolute; top: 62mm; left: 0; right: 0; text-align: center; }
+    .cv-title .eyebrow { font-size: 9pt; }
+    .cv-title h1 { font-size: 58pt; margin: 4mm 0 3mm; text-shadow: none; }
+    .cv-title .byline { font-size: 14pt; text-shadow: none; }
+
+    /* poem pages */
+    .pp-head { position: absolute; top: 16mm; left: 0; right: 0; text-align: center; }
+    .pp-head .eyebrow { font-size: 8pt; letter-spacing: .45em; }
+    .pp-corner { position: absolute; top: 6mm; right: -8mm; width: 58mm; transform: scaleX(-1); opacity: .9; }
+    .pp-orn { position: absolute; top: 50%; height: 150mm; transform: translateY(-50%); opacity: .55; }
+    .pp-orn.l { left: 14mm; } .pp-orn.r { right: 14mm; }
+    .pp-body { position: absolute; top: 34mm; bottom: 30mm; left: 40mm; right: 40mm;
+      display: flex; flex-direction: column; justify-content: center; }
+    .pp-body .st { text-align: center; white-space: pre-line; font-weight: 500; font-size: 13.5pt; line-height: 1.62; }
+    .pp-body .st + .st::before { content: "❦"; display: block; color: var(--gold); font-size: 10pt; margin: 4.5mm 0; }
+    .pp-foot { position: absolute; bottom: 14mm; left: 0; right: 0; text-align: center;
+      font: 500 9pt "Cinzel", serif; letter-spacing: .3em; color: var(--muted); }
+
+    /* closing page */
+    .end-credit { position: absolute; top: 70mm; left: 0; right: 0; text-align: center; }
+    .end-credit .name { font-size: 40pt; font-weight: 700; color: var(--accent); margin: 4mm 0 0; }
+    .end-credit .thanks { font-style: italic; font-size: 16pt; color: var(--muted); margin: 2mm 0 0; }
+    .end-ink { position: absolute; left: 12mm; right: 12mm; bottom: 14mm; width: calc(100% - 24mm); }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -212,6 +276,12 @@
   <div class="weave-divider" data-weave="-0.3"></div>
   <div class="end-space"></div>
 </footer>
+
+<button class="pdf-btn" id="pdfBtn" type="button" aria-label="Download as PDF">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+  <span>DOWNLOAD PDF</span>
+</button>
+<div id="book" aria-hidden="true"></div>
 
 <script>
 const stanzas = [
@@ -345,6 +415,70 @@ stanzas.forEach(text => {
   p.textContent = text;
   art.appendChild(p);
   holder.appendChild(art);
+});
+
+// ---------- PDF: build a printable book, then open the save-as-PDF dialog ----------
+const book = document.getElementById('book');
+function buildBook() {
+  if (book.childElementCount) return;
+  const esc = t => t.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const PER_PAGE = 5;
+  const pages = [];
+  for (let i = 0; i < stanzas.length; i += PER_PAGE) pages.push(stanzas.slice(i, i + PER_PAGE));
+  let html = `
+    <section class="pg">
+      <div class="weave t"></div>
+      <img class="cv-valley" src="img/valley.webp" alt="">
+      <div class="cv-perch"><img class="hill" src="img/hill.webp" alt=""><img class="girl" src="img/girl.webp" alt=""></div>
+      <img class="cv-blossom" src="img/blossom.webp" alt="">
+      <img class="cv-blossom r" src="img/blossom.webp" alt="">
+      <div class="cv-title">
+        <div class="eyebrow">THEME</div>
+        <h1>Dreams<em>without Limits</em></h1>
+        <div class="byline">a poem by Balinda Jyrwa</div>
+        <div class="rule"></div>
+      </div>
+      <div class="weave b"></div>
+    </section>`;
+  pages.forEach((group, n) => {
+    html += `
+    <section class="pg">
+      <div class="weave t"></div>
+      <img class="pp-corner" src="img/blossom.webp" alt="">
+      <img class="pp-orn l" src="img/ornament.webp" alt="">
+      <img class="pp-orn r" src="img/ornament.webp" alt="">
+      <div class="pp-head"><div class="eyebrow">DREAMS WITHOUT LIMITS</div><div class="rule"></div></div>
+      <div class="pp-body">${group.map(t => `<div class="st">${esc(t)}</div>`).join('')}</div>
+      <div class="pp-foot">${n + 1}</div>
+      <div class="weave b"></div>
+    </section>`;
+  });
+  html += `
+    <section class="pg">
+      <div class="weave t"></div>
+      <div class="end-credit">
+        <div class="eyebrow">LA THOH BAD PYNWANDUR DA</div>
+        <p class="name">Balinda Jyrwa</p>
+        <p class="thanks">Khublei shibun</p>
+        <div class="rule"></div>
+      </div>
+      <img class="end-ink" src="img/ink-mountains.webp" alt="">
+      <div class="weave b"></div>
+    </section>`;
+  book.innerHTML = html;
+}
+addEventListener('beforeprint', buildBook);
+
+document.getElementById('pdfBtn').addEventListener('click', async () => {
+  buildBook();
+  // wait for the book's images so none are missing from the PDF
+  await Promise.all([...book.querySelectorAll('img')].map(img =>
+    img.complete ? 0 : new Promise(r => { img.onload = img.onerror = r; })));
+  await document.fonts.ready;
+  const title = document.title;
+  document.title = 'Dreams Without Limits - Balinda Jyrwa';   // becomes the PDF file name
+  print();
+  document.title = title;
 });
 
 const io = new IntersectionObserver(entries => {
