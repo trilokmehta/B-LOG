@@ -4,139 +4,214 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dreams Without Limits</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+<meta name="description" content="Dreams Without Limits — a Khasi poem by Balinda Jyrwa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
 <style>
-  :root { --paper: #f6ead3; --ink: #3a2a1e; --muted: #7a6450; --accent: #9b3b1c; --gold: #b8893a; }
+  :root {
+    --paper: #f3e3c3; --ink: #3b2716; --muted: #7c5f43; --accent: #8f2f17;
+    --gold: #b68a3e; --gold-soft: rgba(182,138,62,.45);
+    --band: 12px;
+  }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
     margin: 0; color: var(--ink); overflow-x: hidden;
-    font-family: "Lora", Georgia, serif; line-height: 1.9;
-    background: var(--paper);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    background: var(--paper) url("img/paper.jpg") center / cover fixed;
   }
-  /* soft paper glow + vignette */
-  body::before {
-    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-    background:
-      radial-gradient(ellipse at center, transparent 55%, rgba(150,105,50,.22));
-  }
-  img.layer { mix-blend-mode: multiply; pointer-events: none; user-select: none; will-change: transform; }
+  img { display: block; user-select: none; -webkit-user-drag: none; }
+  .layer { position: absolute; pointer-events: none; will-change: transform; }
 
-  /* fixed frame: woven borders top & bottom, ornament strips on the sides */
-  .band { position: fixed; left: 0; right: 0; height: 22px; z-index: 20;
-    background: url("layers/bottomborder.webp") repeat-x left center / auto 100%; }
+  /* ---------- fixed frame ---------- */
+  .band { position: fixed; left: 0; right: 0; height: var(--band); z-index: 50;
+    background: url("img/weave.webp") repeat-x left center / auto 100%;
+    box-shadow: 0 0 12px rgba(60,30,10,.35); }
   .band.top { top: 0; } .band.bottom { bottom: 0; }
-  .side { position: fixed; top: 22px; bottom: 22px; width: 40px; z-index: 19;
-    background: url("layers/side.webp") repeat-y center top / 100% auto;
-    mix-blend-mode: multiply; opacity: .9; }
-  .side.left { left: 6px; } .side.right { right: 6px; transform: scaleX(-1); }
+  .progress { position: fixed; top: var(--band); left: 0; height: 2px; width: 100%; z-index: 51;
+    background: linear-gradient(90deg, transparent, var(--gold) 20%, #e7c27a 50%, var(--gold) 80%, transparent);
+    transform-origin: left; transform: scaleX(0); }
 
-  /* HERO */
-  .hero { position: relative; height: 100vh; min-height: 560px; z-index: 1; }
-  .flowers { position: absolute; top: 0; left: 0; width: min(34vw, 460px);
-    -webkit-mask-image: radial-gradient(ellipse at 0 0, #000 55%, transparent 75%);
-            mask-image: radial-gradient(ellipse at 0 0, #000 55%, transparent 75%); }
-  .mountains { position: absolute; top: 6vh; right: 0; width: min(46vw, 680px);
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 25%);
-            mask-image: linear-gradient(to right, transparent, #000 25%); }
-  .hero-text { position: absolute; inset: 0; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; text-align: center; padding: 0 16px; }
-  .theme-label { letter-spacing: .4em; text-transform: uppercase; font-size: .8rem; color: var(--muted); }
-  h1 { font-family: "Cormorant Garamond", serif; font-weight: 700; line-height: 1;
-    font-size: clamp(3rem, 9vw, 7.5rem); margin: 14px 0 18px; color: var(--accent);
-    text-shadow: 0 2px 30px rgba(255,245,225,.9); }
-  .byline { font-style: italic; color: var(--muted); font-size: 1.15rem; }
-  .ornament { color: var(--gold); letter-spacing: .8em; margin: 28px 0 0; padding-left: .8em; }
-  .scroll-hint { position: absolute; bottom: 48px; left: 50%; transform: translateX(-50%);
-    color: var(--muted); font-size: .75rem; letter-spacing: .3em; text-transform: uppercase;
-    animation: bob 2.4s ease-in-out infinite; }
-  @keyframes bob { 50% { transform: translate(-50%, 8px); } }
+  /* ---------- hero ---------- */
+  .hero { position: relative; z-index: 4; height: 100vh; min-height: 620px; overflow: hidden; }
+  .valley-wrap { position: absolute; left: -3%; right: -3%; bottom: -2%; height: 74vh; will-change: transform;
+    -webkit-mask-image: linear-gradient(transparent 0%, rgba(0,0,0,.55) 14%, #000 34%);
+            mask-image: linear-gradient(transparent 0%, rgba(0,0,0,.55) 14%, #000 34%); }
+  .valley { width: 100%; height: 100%; object-fit: cover; object-position: 60% 78%;
+    filter: blur(var(--vblur, 1.4px)) saturate(1.05); transform: scale(1.03); }
+  .perch { position: absolute; left: -3vw; bottom: -40px; width: min(35vw, 680px); z-index: 2; aspect-ratio: 1165 / 683; will-change: transform; }
+  .perch .hill { position: absolute; inset: auto 0 0 0; width: 100%; }
+  .perch::before { content: ""; position: absolute; left: 10%; bottom: 40%; width: 34%; height: 9%; z-index: 1;
+    background: radial-gradient(ellipse, rgba(30,15,5,.55), transparent 70%); filter: blur(4px); }
+  .perch .girl { position: absolute; left: 4%; bottom: 20%; width: 46%; z-index: 2;
+    filter: drop-shadow(0 6px 8px rgba(40,20,5,.35)); }
+  .blossom { top: -2.5vw; left: -3vw; width: 25vw; max-width: 480px; z-index: 3;
+    filter: drop-shadow(0 10px 16px rgba(60,30,10,.25)); }
+  .blossom.r { left: auto; right: -3vw; top: -3vw; width: 17vw; scale: -1 1; opacity: .95; }
+  .hero-shade { position: absolute; inset: auto 0 0 0; height: 22%; z-index: 1;
+    background: linear-gradient(transparent, rgba(40,25,10,.4)); pointer-events: none; }
+  .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    background: radial-gradient(ellipse at 50% 30%, transparent 55%, rgba(90,55,20,.18)); }
 
-  /* POEM */
-  main { position: relative; z-index: 2; max-width: 640px; margin: 0 auto; padding: 40px 16px 80px; }
-  .stanza { text-align: center; padding: 34px 0;
-    opacity: 0; transform: translateY(24px); filter: blur(4px);
-    transition: opacity .9s ease, transform .9s ease, filter .9s ease; }
+  .title-wrap { position: absolute; top: 11vh; left: 0; right: 0; text-align: center; padding: 0 16px; z-index: 3; }
+  .eyebrow { font-family: "Cinzel", serif; letter-spacing: .5em; font-size: clamp(.7rem, 1vw, .85rem);
+    color: var(--muted); padding-left: .5em; }
+  h1 { margin: 14px 0 10px; font-weight: 700; line-height: .95; color: var(--accent);
+    font-size: clamp(3rem, 6.4vw, 6.6rem); letter-spacing: -.01em;
+    text-shadow: 0 0 40px rgba(255,240,210,.95), 0 2px 2px rgba(255,240,210,.8); }
+  h1 em { display: block; font-weight: 500; font-size: .5em; color: var(--ink); letter-spacing: .02em; }
+  .byline { text-shadow: 0 0 18px rgba(255,240,210,1), 0 0 6px rgba(255,240,210,1); font-style: italic; font-size: clamp(1.1rem, 1.6vw, 1.4rem); color: var(--muted); }
+  .rule { width: 180px; height: 1px; margin: 22px auto 0;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent); position: relative; }
+  .rule::after { content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px;
+    background: var(--gold); transform: translate(-50%, -50%) rotate(45deg); }
+
+  .scroll-hint { position: absolute; bottom: 34px; left: 50%; z-index: 4; transform: translateX(-50%);
+    font-family: "Cinzel", serif; font-size: .7rem; letter-spacing: .35em; color: #fff4dc;
+    text-shadow: 0 1px 6px rgba(0,0,0,.5); text-align: center; text-decoration: none; }
+  .scroll-hint span { display: block; width: 1px; height: 38px; margin: 10px auto 0;
+    background: linear-gradient(#fff4dc, transparent); animation: drip 2.2s ease-in-out infinite; transform-origin: top; }
+  @keyframes drip { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+  .weave-divider { height: 44px; position: relative; z-index: 5;
+    background: url("img/weave.webp") repeat-x 0 center / auto 100%;
+    box-shadow: 0 6px 18px rgba(60,30,10,.3), 0 -6px 18px rgba(60,30,10,.3); }
+
+  /* ---------- poem ---------- */
+  .poem-section { position: relative; padding: 110px 16px 60px; }
+  .intro { text-align: center; max-width: 560px; margin: 0 auto 30px; }
+  .intro .eyebrow { display: block; margin-bottom: 10px; }
+  .intro h2 { margin: 0; font-weight: 600; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--accent); }
+
+  main { position: relative; z-index: 2; max-width: 620px; margin: 0 auto; }
+  .stanza { text-align: center; padding: 30px 0;
+    opacity: 0; transform: translateY(30px); filter: blur(5px);
+    transition: opacity 1s ease, transform 1s cubic-bezier(.2,.7,.2,1), filter 1s ease; }
   .stanza.show { opacity: 1; transform: none; filter: none; }
-  .stanza p { margin: 0; white-space: pre-line; font-size: 1.18rem; }
-  .stanza::after { content: "◆"; display: block; color: var(--gold); font-size: .6rem; margin-top: 34px; opacity: .7; }
-  .stanza:last-child::after { display: none; }
+  .stanza p { margin: 0; white-space: pre-line; font-weight: 500;
+    font-size: clamp(1.25rem, 1.7vw, 1.5rem); line-height: 1.75; }
+  .stanza::after { content: "❦"; display: block; margin-top: 30px; color: var(--gold); font-size: 1.1rem; opacity: .8; }
+  .stanza:last-child::after { content: none; }
 
-  /* layers pinned in the side margins while the poem scrolls */
-  .drift { position: fixed; z-index: 1; opacity: 0; transition: opacity .8s ease; }
-  .drift.on { opacity: .9; }
-  .drift.a { top: 10vh; left: 50px; width: min(calc(50vw - 380px), 440px);
-    -webkit-mask-image: radial-gradient(ellipse, #000 50%, transparent 72%); mask-image: radial-gradient(ellipse, #000 50%, transparent 72%); }
-  .drift.b { top: 4vh; right: 30px; width: min(calc(50vw - 380px), 360px); scale: -1 1; }
-  .drift.c { bottom: 6vh; left: 30px; width: min(calc(50vw - 400px), 320px); scale: 1 -1; }
-  .drift.d { bottom: 12vh; right: 50px; width: min(calc(50vw - 380px), 440px); scale: -1 1;
-    -webkit-mask-image: radial-gradient(ellipse, #000 50%, transparent 72%); mask-image: radial-gradient(ellipse, #000 50%, transparent 72%); }
-  .drift.b, .drift.c { -webkit-mask-image: radial-gradient(ellipse at 0 0, #000 50%, transparent 75%); mask-image: radial-gradient(ellipse at 0 0, #000 50%, transparent 75%); }
-  @media (max-width: 1050px) { .drift { display: none; } }
+  /* pinned ornaments + drifting art in the side margins */
+  .side-art { position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0; transition: opacity .9s ease; }
+  .side-art.on { opacity: 1; }
+  .side-art .orn { position: absolute; top: 50%; height: 70vh; width: auto; translate: 0 -50%; opacity: .9; }
+  .side-art .orn.l { left: calc(50% - 400px); }
+  .side-art .orn.r { right: calc(50% - 400px); }
+  .side-art .drift { position: absolute; will-change: transform; }
+  .side-art .d1 { top: 6vh; right: 0; width: min(calc(50vw - 440px), 520px); scale: -1 1;
+    filter: drop-shadow(0 10px 14px rgba(60,30,10,.2)); }
+  .side-art .d2 { filter: blur(1.6px); bottom: 4vh; left: 2vw; width: min(calc(50vw - 460px), 560px); opacity: .85;
+    -webkit-mask-image: linear-gradient(90deg, #000 70%, transparent); mask-image: linear-gradient(90deg, #000 70%, transparent); }
 
-  /* floating petals in the empty margins */
-  .petals { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
-  .petal { position: absolute; top: -40px; width: 14px; height: 10px; border-radius: 80% 0 80% 0;
-    background: linear-gradient(135deg, #f7c6c0, #e9897f); opacity: .75;
+  .petals { position: fixed; inset: 0; pointer-events: none; z-index: 3; overflow: hidden; }
+  .petal { position: absolute; top: -30px; width: 13px; height: 9px; border-radius: 80% 0 80% 0;
+    background: linear-gradient(135deg, #fbd3cd, #e88f86); opacity: .8;
     animation: fall linear infinite; }
-  @keyframes fall { to { transform: translate(var(--drift), 110vh) rotate(540deg); } }
+  .petal.leaf { background: linear-gradient(135deg, #b5cf6f, #557f2e); border-radius: 0 80% 0 80%; width: 15px; height: 8px; }
 
-  /* CLOSING SCENE */
-  .finale { position: relative; z-index: 1; overflow: hidden; margin-top: 40px; }
-  .finale .scene { display: block; width: 100%; min-height: 70vh; object-fit: cover; object-position: center bottom;
-    -webkit-mask-image: linear-gradient(transparent, #000 30%);
-            mask-image: linear-gradient(transparent, #000 30%); }
-  .credit { position: absolute; top: 18%; left: 0; right: 0; text-align: center; padding: 0 16px; }
-  .credit .name { font-family: "Cormorant Garamond", serif; font-size: clamp(2rem, 4.5vw, 3.2rem); color: var(--accent); }
-  .credit .thanks { font-style: italic; color: var(--muted); font-size: 1.1rem; }
+  /* petals and leaves thrown off by the mouse */
+  .burst { position: fixed; inset: 0; pointer-events: none; z-index: 60; overflow: hidden; }
+  .flake { position: absolute; border-radius: 80% 0 80% 0; will-change: transform, opacity;
+    background: linear-gradient(135deg, #fde0da, #ea8e86); box-shadow: 0 2px 4px rgba(80,30,20,.15); }
+  .flake.leaf { border-radius: 0 80% 0 80%; background: linear-gradient(135deg, #c3d97c, #4e7a2a); }
+  .flake.leaf::after { content: ""; position: absolute; left: 15%; right: 15%; top: 50%; height: 1px;
+    background: rgba(40,60,20,.45); transform: rotate(-28deg); }
 
+  @keyframes fall { to { transform: translate(var(--drift), 112vh) rotate(600deg); } }
+
+  /* ---------- finale ---------- */
+  .finale { position: relative; text-align: center; padding: 60px 16px 0; overflow: hidden; }
+  .finale .credit { position: relative; z-index: 2; }
+  .finale .credit .eyebrow { display: block; }
+  .finale .name { font-weight: 700; font-size: clamp(2.6rem, 5vw, 4rem); color: var(--accent); margin: 8px 0 0; }
+  .finale .thanks { font-style: italic; font-size: 1.4rem; color: var(--muted); margin: 4px 0 0; }
+  .finale .ink { position: relative; width: min(1100px, 100%); margin: 30px auto 0; will-change: transform; }
+  .finale .weave-divider { margin-top: -6px; }
+  .end-space { height: var(--band); }
+
+  /* ---------- small screens ---------- */
+  @media (max-width: 1100px) { .side-art .drift { display: none; } }
+  @media (max-width: 900px) { .side-art { display: none; } }
   @media (max-width: 700px) {
-    .side { width: 22px; } .side.left { left: 2px; } .side.right { right: 2px; }
-    .band { height: 14px; }
-    .flowers { width: 62vw; }
-    .mountains { width: 75vw; top: auto; bottom: 22vh; }
-    .stanza p { font-size: 1.02rem; }
-    main { padding: 20px 34px 60px; }
-    .finale .scene { min-height: 55vh; object-position: 30% bottom; }
+    :root { --band: 8px; }
+    .hero { min-height: 620px; }
+    .valley-wrap { height: 72%; left: -8%; right: -8%; }
+    .valley { object-position: 70% 70%; }
+    .perch { width: 118vw; left: -16vw; bottom: -6vw; }
+    .perch::before { bottom: 41%; }
+    .blossom { width: 60vw; top: -4vw; left: -8vw; }
+    .blossom.r { display: block; width: 38vw; right: -8vw; top: -6vw; }
+    .title-wrap { top: 15%; }
+    h1 { font-size: clamp(3.4rem, 17vw, 4.6rem); }
+    .byline { font-size: 1.1rem; }
+    .scroll-hint { left: auto; right: 22px; transform: none; animation: none; }
+    .weave-divider { height: 26px; }
+    .poem-section { padding: 70px 22px 40px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .petal, .scroll-hint { animation: none; } .stanza { transition: none; } .drift { display: none; }
+    html { scroll-behavior: auto; }
+    .petals, .scroll-hint span { display: none; }
+    .stanza { transition: none; opacity: 1; transform: none; filter: none; }
   }
 </style>
 </head>
 <body>
 <div class="band top"></div><div class="band bottom"></div>
-<div class="side left"></div><div class="side right"></div>
+<div class="progress" id="progress"></div>
 <div class="petals" id="petals"></div>
 
-<section class="hero">
-  <img class="layer flowers" data-speed="0.35" src="layers/flowers.webp" alt="">
-  <img class="layer mountains" data-speed="0.15" src="layers/mountains.webp" alt="">
-  <div class="hero-text" data-speed="0.45">
-    <div class="theme-label">Theme</div>
-    <h1>Dreams Without Limits</h1>
-    <div class="byline">by Balinda Jyrwa</div>
-    <div class="ornament">◆ ◆ ◆</div>
+<!-- Opening scene, built from separate layers -->
+<header class="hero" id="top">
+  <div class="valley-wrap" data-speed="0.38" data-depth="18"><img class="valley" src="img/valley.webp" alt=""></div>
+  <div class="title-wrap" data-speed="0.6" data-fade data-depth="-8">
+    <div class="eyebrow">THEME</div>
+    <h1>Dreams<em>without Limits</em></h1>
+    <div class="byline">a poem by Balinda Jyrwa</div>
+    <div class="rule"></div>
   </div>
-  <div class="scroll-hint">Scroll ↓</div>
+  <div class="perch" data-speed="0" data-depth="34">
+    <img class="hill" src="img/hill.webp" alt="">
+    <img class="girl" src="img/girl.webp" alt="A girl in traditional Khasi dress sitting on a hill, watching the sunrise">
+  </div>
+  <img class="layer blossom" data-speed="-0.45" data-depth="46" src="img/blossom.webp" alt="">
+  <img class="layer blossom r" data-speed="-0.6" data-depth="40" src="img/blossom.webp" alt="">
+  <div class="hero-shade"></div>
+  <a class="scroll-hint" href="#poem">READ<span></span></a>
+</header>
+
+<div class="weave-divider" data-weave="0.3"></div>
+
+<!-- Ornaments that stay beside the poem -->
+<div class="side-art" id="sideArt" aria-hidden="true">
+  <img class="drift d1" data-range="-260" src="img/blossom.webp" alt="">
+  <img class="drift d2" data-range="200" src="img/ink-mountains.webp" alt="">
+  <img class="orn l" src="img/ornament.webp" alt="">
+  <img class="orn r" src="img/ornament.webp" alt="">
+</div>
+
+<section class="poem-section" id="poem">
+  <div class="intro">
+    <span class="eyebrow">KA POEM</span>
+    <h2>Dreams Without Limits</h2>
+    <div class="rule"></div>
+  </div>
+  <main id="stanzas"></main>
 </section>
 
-<main>
-  <img class="layer drift a" data-range="60" src="layers/mountains.webp" alt="">
-  <img class="layer drift b" data-range="-90" src="layers/flowers.webp" alt="">
-  <img class="layer drift c" data-range="80" src="layers/flowers.webp" alt="">
-  <img class="layer drift d" data-range="-60" src="layers/mountains.webp" alt="">
-  <div id="poem"></div>
-</main>
-
-<section class="finale">
-  <img class="layer scene" id="scene" src="layers/scene.webp" alt="A girl looking at mountains at sunrise">
+<footer class="finale" id="finale">
   <div class="credit">
-    <div class="theme-label">La thoh bad pynwandur da</div>
-    <div class="name">Balinda Jyrwa</div>
-    <div class="thanks">Khublei shibun</div>
+    <span class="eyebrow">LA THOH BAD PYNWANDUR DA</span>
+    <p class="name">Balinda Jyrwa</p>
+    <p class="thanks">Khublei shibun</p>
+    <div class="rule"></div>
   </div>
-</section>
+  <img class="ink" id="ink" src="img/ink-mountains.webp" alt="Mountains, a river and a golden sun">
+  <div class="weave-divider" data-weave="-0.3"></div>
+  <div class="end-space"></div>
+</footer>
 
 <script>
 const stanzas = [
@@ -262,61 +337,124 @@ Namar ka dei, kamram Jong ngi,
 Ban jop donkam, jingiatylli.`
 ];
 
-const main = document.getElementById('poem');
-const mainEl = main.parentElement;
+const holder = document.getElementById('stanzas');
 stanzas.forEach(text => {
-  const card = document.createElement('article');
-  card.className = 'stanza';
+  const art = document.createElement('article');
+  art.className = 'stanza';
   const p = document.createElement('p');
   p.textContent = text;
-  card.appendChild(p);
-  main.appendChild(card);
+  art.appendChild(p);
+  holder.appendChild(art);
 });
 
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
-}, { threshold: 0.15 });
+}, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
 document.querySelectorAll('.stanza').forEach(el => io.observe(el));
 
-// petals, kept mostly in the side margins
-const petals = document.getElementById('petals');
-for (let i = 0; i < 14; i++) {
-  const s = document.createElement('span');
-  s.className = 'petal';
-  const x = Math.random() < .5 ? Math.random() * 28 : 72 + Math.random() * 28;
-  s.style.left = x + 'vw';
-  s.style.setProperty('--drift', (Math.random() * 160 - 80) + 'px');
-  s.style.animationDuration = (12 + Math.random() * 14) + 's';
-  s.style.animationDelay = (-Math.random() * 26) + 's';
-  s.style.scale = .6 + Math.random() * .8;
-  petals.appendChild(s);
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// falling petals, mostly in the margins
+if (!still) {
+  const petals = document.getElementById('petals');
+  for (let i = 0; i < 24; i++) {
+    const s = document.createElement('span');
+    s.className = i % 3 === 0 ? 'petal leaf' : 'petal';
+    s.style.left = (Math.random() < .5 ? Math.random() * 26 : 74 + Math.random() * 26) + 'vw';
+    s.style.setProperty('--drift', (Math.random() * 180 - 90) + 'px');
+    s.style.animationDuration = (13 + Math.random() * 14) + 's';
+    s.style.animationDelay = (-Math.random() * 27) + 's';
+    s.style.scale = .6 + Math.random() * .9;
+    petals.appendChild(s);
+  }
 }
 
-// parallax layers
+// parallax
 const movers = [...document.querySelectorAll('[data-speed]')];
-const drifts = [...document.querySelectorAll('.drift')];
-const scene = document.getElementById('scene');
+const valleyWrap = document.querySelector('.valley-wrap');
+const weaves = [...document.querySelectorAll('[data-weave]')];
+const sideArt = document.getElementById('sideArt');
+const drifts = [...sideArt.querySelectorAll('.drift')];
+const poem = document.getElementById('poem');
+const ink = document.getElementById('ink');
+const finale = document.getElementById('finale');
+const progress = document.getElementById('progress');
+
+// moving the mouse shakes loose petals and leaves; faster movement = more
+const burst = document.createElement('div');
+burst.className = 'burst';
+document.body.appendChild(burst);
+let lastX = null, lastY = 0, travelled = 0, alive = 0;
+const STEP = 26, MAX = 90;
+function spawnFlake(x, y, vx, vy) {
+  const s = document.createElement('span');
+  s.className = Math.random() < .45 ? 'flake leaf' : 'flake';
+  const w = 9 + Math.random() * 11;
+  s.style.cssText = `left:${x}px;top:${y}px;width:${w}px;height:${w * .62}px`;
+  burst.appendChild(s);
+  alive++;
+  const clamp = v => Math.max(-30, Math.min(30, v));
+  const dx = clamp(vx) * 5 + (Math.random() - .5) * 220;
+  const dy = 160 + Math.random() * 300 + clamp(vy) * 3;
+  const spin = (Math.random() - .5) * 900;
+  const anim = s.animate([
+    { transform: 'translate(-50%,-50%) rotate(0deg) scale(.3)', opacity: 0 },
+    { transform: `translate(calc(-50% + ${dx * .2}px), calc(-50% + ${dy * .06 - 20}px)) rotate(${spin * .15}deg) scale(1)`, opacity: .95, offset: .15 },
+    { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) rotate(${spin}deg) scale(.85)`, opacity: 0 }
+  ], { duration: 1900 + Math.random() * 1800, easing: 'cubic-bezier(.22,.6,.36,1)' });
+  anim.onfinish = () => { s.remove(); alive--; };
+}
+function shake(x, y) {
+  if (lastX === null) { lastX = x; lastY = y; return; }
+  const vx = x - lastX, vy = y - lastY;
+  lastX = x; lastY = y;
+  travelled += Math.hypot(vx, vy);
+  while (travelled > STEP) {
+    travelled -= STEP;
+    if (alive < MAX) spawnFlake(x + (Math.random() - .5) * 20, y + (Math.random() - .5) * 20, vx, vy);
+  }
+}
+if (!still) {
+  addEventListener('pointermove', e => { if (e.pointerType === 'mouse') shake(e.clientX, e.clientY); }, { passive: true });
+  // on phones: a finger dragging (even while scrolling) drops leaves too
+  addEventListener('touchstart', () => { lastX = null; }, { passive: true });
+  addEventListener('touchmove', e => shake(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+}
+
+// mouse depth: layers shift against the cursor, eased
+let mx = 0, my = 0, cx = 0, cy = 0;
+if (matchMedia('(hover: hover)').matches) addEventListener('pointermove', e => {
+  mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5;
+});
+
 function tick() {
-  const y = scrollY;
-  movers.forEach(el => {
-    el.style.transform = `translateY(${y * el.dataset.speed}px)`;
+  const y = scrollY, vh = innerHeight;
+  progress.style.transform = `scaleX(${y / (document.documentElement.scrollHeight - vh)})`;
+  if (still) return;
+  if (y < vh * 1.2) movers.forEach(el => {
+    const d = +(el.dataset.depth || 0);
+    el.style.transform = `translate(${-cx * d}px, ${y * el.dataset.speed - cy * d * .4}px)`;
+    if ('fade' in el.dataset) el.style.opacity = Math.max(0, 1 - y / (vh * .55));
   });
-  // margin layers: visible only beside the poem, gliding as you read
-  const start = mainEl.offsetTop - innerHeight * .4;
-  const end = mainEl.offsetTop + mainEl.offsetHeight - innerHeight * .9;
+  if (y < vh * 1.2) valleyWrap.style.setProperty('--vblur', (1.4 + Math.min(1, y / vh) * 6).toFixed(2) + 'px');
+  weaves.forEach(el => el.style.backgroundPositionX = `${y * el.dataset.weave}px`);
+
+  const start = poem.offsetTop - vh * .05;
+  const poemTop = poem.getBoundingClientRect().top;
+  const end = poem.offsetTop + poem.offsetHeight - vh * .75;
   const p = Math.min(1, Math.max(0, (y - start) / (end - start)));
-  drifts.forEach(el => {
-    el.classList.toggle('on', y > start && y < end);
-    el.style.transform = `translateY(${(p - .5) * 2 * el.dataset.range}px)`;
-  });
-  const t = Math.max(0, scene.parentElement.getBoundingClientRect().top);
-  scene.style.transform = `translateY(${t * -0.25}px) scale(${1 + Math.min(t, 600) / 3000})`;
+  sideArt.classList.toggle('on', poemTop < vh * .1 && y < end);
+  drifts.forEach(el => el.style.transform = `translateY(${(p - .5) * 2 * el.dataset.range}px)`);
+
+  const f = finale.getBoundingClientRect().bottom - vh;
+  ink.style.transform = `translateY(${Math.max(0, f) * .25}px)`;
 }
-if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  addEventListener('scroll', () => requestAnimationFrame(tick), { passive: true });
-  addEventListener('resize', tick);
+// one continuous loop keeps scroll and mouse motion smooth
+(function loop() {
+  cx += (mx - cx) * .06; cy += (my - cy) * .06;
   tick();
-}
+  requestAnimationFrame(loop);
+})();
 </script>
 </body>
 </html>
